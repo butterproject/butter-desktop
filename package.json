@@ -1,15 +1,21 @@
 {
-  "name": "butter-component",
-  "version": "0.0.1",
+  "name": "butter-component-list",
+  "version": "0.1.0",
   "description": "A base React Component for Butter Project",
   "main": "src/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib"
   },
+  "build": {
+    "command": "webpack --config webpack.config.js --progress --profile --colors",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/buttercomponents/butter-component.git"
+    "url": "git+https://github.com/buttercomponents/butter-component-list.git"
   },
   "keywords": [
     "react",
@@ -20,11 +26,21 @@
   "author": "Niv Sardi <x@btn.sh>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/buttercomponents/butter-component/issues"
+    "url": "https://github.com/buttercomponents/butter-component-list/issues"
   },
-  "homepage": "https://github.com/buttercomponents/butter-component#readme",
+  "homepage": "https://github.com/buttercomponents/butter-component-list#readme",
   "devDependencies": {
     "babel-cli": "^6.4.0",
-    "babel-preset-es2015": "^6.3.13"
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-runtime": "^6.4.3",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "webpack": "^1.12.11",
+    "webpack-hot-middleware": "^2.6.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.3.19"
   }
 }
