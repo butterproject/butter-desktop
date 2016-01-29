@@ -1,6 +1,6 @@
 {
   "name": "butter-component-list",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A base React Component for Butter Project",
   "main": "src/index.jsx",
   "scripts": {
