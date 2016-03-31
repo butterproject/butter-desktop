@@ -19,9 +19,7 @@
             downloadSpeed: '.download_speed_player',
             uploadSpeed: '.upload_speed_player',
             activePeers: '.active_peers_player',
-            downloaded: '.downloaded_player',
-            pause: '.fa-pause',
-            play: '.fa-play'*/
+            downloaded: '.downloaded_player'*/
         },
 
         events: {
@@ -30,9 +28,7 @@
             'click .playnownextNOT': 'playNextNot',
             'click .verifmetaTRUE': 'verifyMetadata',
             'click .verifmetaFALSE': 'wrongMetadata',
-            'click .vjs-subtitles-button': 'toggleSubtitles',
-            'click .vjs-text-track': 'moveSubtitles',
-            'click .vjs-play-control': 'togglePlay'*/
+            'click .vjs-text-track': 'moveSubtitles'*/
         },
 
         isMovie: function () {
@@ -54,7 +50,6 @@
             this.listenTo(this.model, 'change:active_peers', this.updateActivePeers);
             this.listenTo(this.model, 'change:downloaded', this.updateDownloaded);*/
 
-            //this.video = false;
             this.inFullscreen = win.isFullscreen;
         },
 
@@ -129,9 +124,6 @@
             win.info('Player closed');
             /*if (this._AutoPlayCheckTimer) {
                 clearInterval(this._AutoPlayCheckTimer);
-            }
-            if (this._ShowUIonHover) {
-                clearInterval(this._ShowUIonHover);
             }*/
 
             this.uploadSubtitles();
@@ -153,9 +145,6 @@
                 AdvSettings.set('lastWatchedTime', false);
             }
 
-            /*this.ui.pause.dequeue();
-            this.ui.play.dequeue();*/
-
             _this.player.stop();
             _this.player.clearPlaylist();
 
@@ -166,28 +155,11 @@
             App.vent.trigger('preload:stop');
             App.vent.trigger('stream:stop');
 
-            /*var vjsPlayer = document.getElementById('video_player');
-            if (vjsPlayer) {
-                videojs(vjsPlayer).dispose();
-            }*/
-
             this.destroy();
         },
 
         onShow: function () {
-            /*$('#header').removeClass('header-shadow').hide();
-            // Test to make sure we have title
-            win.info('Watching:', this.model.get('title'));
-            $('.filter-bar').show();
-            $('#player_drag').show();
-            _this = this;
-
-            // Double Click to toggle Fullscreen
-            $('#video_player').dblclick(function (event) {
-                _this.toggleFullscreen();
-                // Stop any mouseup events pausing video
-                event.preventDefault();
-            });
+            /*
 
             if (this.model.get('auto_play')) {
 
@@ -197,69 +169,6 @@
 
                 _this.processNext();
             }
-            if (this.model.get('type') === 'video/youtube') {
-
-                this.video = videojs('video_player', {
-                    techOrder: ['youtube'],
-                    forceSSL: true,
-                    ytcontrols: false,
-                    quality: '720p'
-                }).ready(function () {
-                    this.addClass('vjs-has-started');
-                });
-                this.ui.eyeInfo.hide();
-
-                // XXX Sammuel86 Trailer UI Show FIX/HACK
-                $('.trailer_mouse_catch')
-                    .show().appendTo('div#video_player')
-                    .mousemove(function (event) {
-                        if (!_this.player.userActive()) {
-                            _this.player.userActive(true);
-                        }
-                    })
-                    .click(function (event) {
-                        $('.vjs-play-control').click();
-                        event.preventDefault();
-                    })
-                    .dblclick(function (event) {
-                        _this.toggleFullscreen();
-                        event.preventDefault();
-                    });
-
-            } else {
-                this.video = videojs('video_player', {
-                    nativeControlsForTouch: false,
-                    trackTimeOffset: 0,
-                    plugins: {
-                        biggerSubtitle: {},
-                        smallerSubtitle: {},
-                        customSubtitles: {},
-                        progressTips: {}
-                    }
-                });
-            }
-            var player = this.video.player();
-            this.player = player;
-            App.PlayerView = this;*/
-
-            /* The following is a hack to make VideoJS listen to
-                        mouseup instead of mousedown for pause/play on the
-                        video element. Stops video pausing/playing when
-                        dragged. TODO: #fixit! /XC                        */
-            /*this.player.tech.off('mousedown');
-            this.player.tech.on('mouseup', function (event) {
-                if (event.target.origEvent) {
-                    if (!event.target.origEvent.originalEvent.defaultPrevented) {
-                        _this.player.tech.onClick(event);
-                    }
-                    // clean up after ourselves
-                    delete event.target.origEvent;
-                } else {
-                    _this.player.tech.onClick(event);
-                }
-            });
-            // Force custom controls
-            player.usingNativeControls(false);
 
             player.on('ended', function () {
                 // For now close player. In future we will check if auto-play etc and get next episode
@@ -340,17 +249,6 @@
             };
 
             player.one('play', function () {
-                if (_this.model.get('type') === 'video/youtube') {
-                    // XXX quality fix
-                    $('.vjs-quality-button .vjs-menu-content').remove();
-                    $('.vjs-quality-button').css('cursor', 'default');
-
-                    // XXX hide watermark
-                    try {
-                        document.getElementById('video_player_youtube_api').contentWindow.document.getElementsByClassName('html5-watermark')[0].style.opacity = 0;
-                    } catch (e) {}
-                }
-
                 if (_this.model.get('auto_play')) {
                     if (_this.isMovie() === 'episode' && next_episode_model) {
                         // autoplay player div
@@ -365,32 +263,8 @@
                 }
             });
 
-            player.on('loadeddata', function () {
-                // resume position
-                if (AdvSettings.get('lastWatchedTitle') === _this.model.get('title') && AdvSettings.get('lastWatchedTime') > 0) {
-                    var position = AdvSettings.get('lastWatchedTime');
-                    win.debug('Resuming position to', position.toFixed(), 'secs');
-                    player.currentTime(position);
-                } else if (AdvSettings.get('traktPlayback')) {
-                    var type = _this.isMovie();
-                    var id = type === 'movie' ? _this.model.get('imdb_id') : _this.model.get('episode_id');
-                    App.Trakt.sync.playback(type, id).then(function (position_percent) {
-                        var total = _this.video.duration();
-                        var position = (position_percent / 100) * total | 0;
-                        if (position > 0) {
-                            win.debug('Resuming position to', position.toFixed(), 'secs (reported by Trakt)');
-                            player.currentTime(position);
-                        }
-                    });
-                }
-
-                // alert Trakt
-                _this.sendToTrakt('start');
-            });
 
             player.on('play', function () {
-                // Trigger a resize so the subtitles are adjusted
-                $(window).trigger('resize');
 
                 if (_this.wasSeek) {
                     if (_this.model.get('auto_play')) {
@@ -399,19 +273,9 @@
                     _this.wasSeek = false;
                 } else {
                     if (firstPlay) {
-                        if (_this.model.get('type') === 'video/youtube') {
-                            try {
-                                document.getElementById('video_player_youtube_api').contentWindow.document.getElementsByClassName('video-ads')[0].style.display = 'none'; // XXX hide ads hack
-                            } catch (e) {} //no ads
-                        }
                         firstPlay = false;
                         return;
                     }
-                    _this.ui.pause.hide().dequeue();
-                    _this.ui.play.appendTo('div#video_player');
-                    _this.ui.play.show().delay(1500).queue(function () {
-                        _this.ui.play.hide().dequeue();
-                    });
                     App.vent.trigger('player:play');
                 }
 
@@ -423,56 +287,17 @@
                     _this.wasSeek = true;
                 } else {
                     _this.wasSeek = false;
-                    _this.ui.play.hide().dequeue();
-                    _this.ui.pause.appendTo('div#video_player');
-                    _this.ui.pause.show().delay(1500).queue(function () {
-                        _this.ui.pause.hide().dequeue();
-                    });
                     App.vent.trigger('player:pause');
                     _this.sendToTrakt('pause');
                 }
             });
-
-            _this.bindKeyboardShortcuts();
-
-            // There was an issue with the video
-            player.on('error', function (error) {
-                _this.sendToTrakt('stop');
-                // TODO: user errors
-                if (_this.model.get('type') === 'video/youtube') {
-                    setTimeout(function () {
-                        App.vent.trigger('player:close');
-                    }, 2000);
-                }
-                win.error('video.js error code: ' + $('#video_player').get(0).player.error().code, $('#video_player').get(0).player.error());
-            });
-
-            $('.player-header-background').appendTo('div#video_player');
 
             $('#video_player li:contains("subtitles off")').text(i18n.__('Disabled'));
             $('#video_player li:contains("local")').text(i18n.__('Local'));
 
             if (this.model.get('defaultSubtitle') === 'local') {
                 App.vent.trigger('customSubtitles:added', _this.model.get('subtitle').local);
-            }
-
-            if (AdvSettings.get('alwaysFullscreen') && !this.inFullscreen) {
-                this.toggleFullscreen();
-            }
-            if (this.inFullscreen) {
-                win.leaveFullscreen();
-                this.toggleFullscreen();
-            }
-
-            this.player.volume(AdvSettings.get('playerVolume'));
-
-            $('.vjs-menu-content, .eye-info-player, .playing_next, .verify_metadata').hover(function () {
-                _this._ShowUIonHover = setInterval(function () {
-                    App.PlayerView.player.userActive(true);
-                }, 100);
-            }, function () {
-                clearInterval(_this._ShowUIonHover);
-            });*/
+            }*/
 
             $('#header').removeClass('header-shadow').hide();
             win.info('Watching:', this.model.get('title')); // Test to make sure we have title
@@ -523,6 +348,9 @@
 
             // events
             this.handleWcjsEvents();
+
+            // dragzone
+            $('.wcp-titlebar').css('-webkit-app-region','drag');
         },
 
         setPlayerSettings: function () {
@@ -594,6 +422,7 @@
                 console.log('player.onError');
                 win.error('wcjs encountered an error, try replicating it with debugView on Windows or launch the app with a terminal on Linux and OSX')
                 _this.sendToTrakt('stop');
+                _this.closePlayer();
             });
         },
 
@@ -848,10 +677,6 @@
                 _this.adjustPlaybackRate(4.0, false);
             });
 
-            /*Mousetrap.bind('ctrl+d', function (e) {
-                _this.toggleMouseDebug();
-            });*/
-
             Mousetrap.bind('0', function (e) {
                 _this.scaleWindow(0.5);
             });
@@ -952,20 +777,9 @@
             document.removeEventListener('mousewheel', _this.mouseScroll);
         },
 
-        /*toggleMouseDebug: function () {
-            if (this.player.debugMouse_) {
-                this.player.debugMouse_ = false;
-                this.displayOverlayMsg('Mouse debug disabled');
-            } else {
-                this.player.debugMouse_ = true;
-                this.displayOverlayMsg('Mouse debug enabled. Dont touch the mouse until disabled.');
-            }
-        },*/
-
         seek: function (s) {
             var t = this.player.time();
             this.player.time(t + (s * 1000));
-            /*this.player.trigger('mousemove'); //hack, make controls show*/
             App.vent.trigger('seekchange');
         },
 
@@ -991,15 +805,9 @@
             this.player.mute(!this.player.mute());
         },
 
-        /*toggleFullscreen: function () {
-            $('.vjs-fullscreen-control').click();
-        },*/
-
-        toggleSubtitles: function () {},
-
-        moveSubtitles: function (e) {
+        /*moveSubtitles: function (e) {
             AdvSettings.set('playerSubPosition', $('.vjs-text-track').css('top'));
-        },
+        },*/
 
         displayStreamURL: function () {
             var clipboard = gui.Clipboard.get();
@@ -1029,55 +837,13 @@
             }
         },
 
-        /*displayOverlayMsg: function (message) {
-            if ($('.vjs-overlay').length > 0) {
-                $('.vjs-overlay').text(message);
-                clearTimeout($.data(this, 'overlayTimer'));
-                $.data(this, 'overlayTimer', setTimeout(function () {
-                    $('.vjs-overlay').fadeOut('normal', function () {
-                        $(this).remove();
-                    });
-                }, 3000));
-            } else {
-                $(this.player.el()).append('<div class =\'vjs-overlay vjs-overlay-top-left\'>' + message + '</div>');
-                $.data(this, 'overlayTimer', setTimeout(function () {
-                    $('.vjs-overlay').fadeOut('normal', function () {
-                        $(this).remove();
-                    });
-                }, 3000));
-            }
-        },*/
-
         killWcjs: function () {
             // remove dom element
             $('#webchimera').remove();
             $('#player').removeClass('webchimeras');
-
-            // clear wcjs-player from require cache when page changes
-            /* vankasteelj: this is apparently not needed? I'd rather avoid dirty things like this commented below, it's probably very fragile
-            var clearModules = [
-                "wcjs-player",
-                "jquery" // https://github.com/jaruba/wcjs-player/issues/38
-            ];
-            for (var i in clearModules) {
-                if (global.require.cache) {
-                    for (var module in global.require.cache) {
-                        if (global.require.cache.hasOwnProperty(module) && module.indexOf(clearModules[i]) > -1) delete global.require.cache[module];
-                    }
-                } else if (require.cache) {
-                    for (var module in require.cache) {
-                        if (require.cache.hasOwnProperty(module) && module.indexOf(clearModules[i]) > -1) delete require.cache[module];
-                    }
-                }
-            }*/
         },
 
         onDestroy: function () {
-            /*if (this.model.get('type') === 'video/youtube') { // XXX Sammuel86 Trailer UI Show FIX/HACK -START
-                $('.trailer_mouse_catch').remove();
-            }*/
-            //$('#player_drag').hide();
-
             $('#header').show();
             if (!this.dontTouchFS && !this.inFullscreen && win.isFullscreen) {
                 win.leaveFullscreen();
@@ -1093,10 +859,6 @@
             App.vent.trigger('player:close');
             console.log('destroy player');
 
-            /*var vjsPlayer = document.getElementById('video_player');
-            if (vjsPlayer) {
-                videojs(vjsPlayer).dispose();
-            }*/
         }
 
     });
