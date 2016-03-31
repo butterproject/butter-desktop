@@ -27,7 +27,7 @@
     var formatForButter = function (data) {
         data = normalizeLangCodes(data);
         for (var lang in data) {
-            data[lang] = data[lang].url;
+            data[lang] = data[lang].url.replace('/download/filead/', '/download/subencoding-utf8/filead/');
         }
         return Common.sanitize(data);
     };

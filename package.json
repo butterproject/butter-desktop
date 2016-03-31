@@ -76,7 +76,8 @@
     "trakt.tv-ondeck": "0.x",
     "underscore": "1.x.x",
     "upnp-mediarenderer-client": "1.x.x",
-    "urijs": "1.x.x"
+    "urijs": "1.x.x",
+    "wcjs-player": "0.5.x"
   },
   "devDependencies": {
     "bower": "1.7.x",

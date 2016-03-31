@@ -2,12 +2,12 @@
     'use strict';
 
     var _this;
-    var autoplayisshown = false;
-    var precachestarted = false;
-    var next_episode_model = false;
-    var remaining = false;
-    var createdRemaining = false;
-    var firstPlay = true;
+    //var autoplayisshown = false;
+    //var precachestarted = false;
+    //var next_episode_model = false;
+    //var remaining = false;
+    //var createdRemaining = false;
+    //var firstPlay = true;
 
     var Player = Backbone.Marionette.ItemView.extend({
         template: '#player-tpl',
@@ -15,27 +15,28 @@
         player: null,
 
         ui: {
-            eyeInfo: '.eye-info-player',
+            /*eyeInfo: '.eye-info-player',
             downloadSpeed: '.download_speed_player',
             uploadSpeed: '.upload_speed_player',
             activePeers: '.active_peers_player',
             downloaded: '.downloaded_player',
             pause: '.fa-pause',
-            play: '.fa-play'
+            play: '.fa-play'*/
         },
 
         events: {
-            'click .close-info-player': 'closePlayer',
+            /*'click .close-info-player': 'closePlayer',
             'click .playnownext': 'playNextNow',
             'click .playnownextNOT': 'playNextNot',
             'click .verifmetaTRUE': 'verifyMetadata',
             'click .verifmetaFALSE': 'wrongMetadata',
             'click .vjs-subtitles-button': 'toggleSubtitles',
             'click .vjs-text-track': 'moveSubtitles',
-            'click .vjs-play-control': 'togglePlay'
+            'click .vjs-play-control': 'togglePlay'*/
         },
 
         isMovie: function () {
+            // TODO: imdb_id/tvdb_id probably aren't the references anymore 
             if (this.model.get('tvdb_id') === undefined) {
                 if (this.model.get('type') === 'video/youtube' || this.model.get('imdb_id') === undefined) {
                     return undefined;
@@ -48,16 +49,16 @@
         },
 
         initialize: function () {
-            this.listenTo(this.model, 'change:downloadSpeed', this.updateDownloadSpeed);
+            /*this.listenTo(this.model, 'change:downloadSpeed', this.updateDownloadSpeed);
             this.listenTo(this.model, 'change:uploadSpeed', this.updateUploadSpeed);
             this.listenTo(this.model, 'change:active_peers', this.updateActivePeers);
-            this.listenTo(this.model, 'change:downloaded', this.updateDownloaded);
+            this.listenTo(this.model, 'change:downloaded', this.updateDownloaded);*/
 
-            this.video = false;
+            //this.video = false;
             this.inFullscreen = win.isFullscreen;
         },
 
-        updateDownloadSpeed: function () {
+        /*updateDownloadSpeed: function () {
             this.ui.downloadSpeed.text(this.model.get('downloadSpeed'));
         },
 
@@ -91,14 +92,15 @@
                 $('.remaining').remove();
                 createdRemaining = false;
             }
-        },
+        },*/
 
         uploadSubtitles: function () {
             // verify custom subtitles not modified
-            if (AdvSettings.get('opensubtitlesAutoUpload') && this.customSubtitles && !this.customSubtitles.modified) {
+            // TODO: no idea if this works, i'm kinda confused with wcjs player.time() and the millisecond/second conversion everywhere
+            if (Settings.opensubtitlesAutoUpload && this.customSubtitles && !this.customSubtitles.modified) {
                 var real_elapsedTime = (Date.now() - this.customSubtitles.added_at) / 1000;
-                var player_elapsedTime = this.player.time() - this.customSubtitles.timestamp;
-                var perc_elapsedTime = player_elapsedTime / this.player.length();
+                var player_elapsedTime = (this.player.time() / 1000) - this.customSubtitles.timestamp;
+                var perc_elapsedTime = player_elapsedTime / (this.player.length() / 1000);
 
                 // verify was played long enough
                 if (real_elapsedTime >= player_elapsedTime && perc_elapsedTime >= 0.7) {
@@ -125,12 +127,12 @@
 
         closePlayer: function () {
             win.info('Player closed');
-            if (this._AutoPlayCheckTimer) {
+            /*if (this._AutoPlayCheckTimer) {
                 clearInterval(this._AutoPlayCheckTimer);
             }
             if (this._ShowUIonHover) {
                 clearInterval(this._ShowUIonHover);
-            }
+            }*/
 
             this.uploadSubtitles();
             this.sendToTrakt('stop');
@@ -139,38 +141,41 @@
             if (type === 'episode') {
                 type = 'show';
             }
-            if (this.video.currentTime() / this.video.duration() >= 0.8 && type !== undefined) {
+            if (this.player.time() / this.player.length() >= 0.8 && type !== undefined) {
                 App.vent.trigger(type + ':watched', this.model.attributes, 'database');
             }
 
             // remember position
-            if (this.video.currentTime() / this.video.duration() < 0.8) {
+            if (this.player.time() / this.player.length() < 0.8) {
                 AdvSettings.set('lastWatchedTitle', this.model.get('title'));
-                AdvSettings.set('lastWatchedTime', this.video.currentTime() - 5);
+                AdvSettings.set('lastWatchedTime', this.player.time() - 5);
             } else {
                 AdvSettings.set('lastWatchedTime', false);
             }
 
-            this.ui.pause.dequeue();
-            this.ui.play.dequeue();
+            /*this.ui.pause.dequeue();
+            this.ui.play.dequeue();*/
 
-            remaining = false;
+            _this.player.stop();
+            _this.player.clearPlaylist();
+
+            /*remaining = false;
             createdRemaining = false;
-            firstPlay = true;
+            firstPlay = true;*/
 
             App.vent.trigger('preload:stop');
             App.vent.trigger('stream:stop');
 
-            var vjsPlayer = document.getElementById('video_player');
+            /*var vjsPlayer = document.getElementById('video_player');
             if (vjsPlayer) {
                 videojs(vjsPlayer).dispose();
-            }
+            }*/
 
             this.destroy();
         },
 
         onShow: function () {
-            $('#header').removeClass('header-shadow').hide();
+            /*$('#header').removeClass('header-shadow').hide();
             // Test to make sure we have title
             win.info('Watching:', this.model.get('title'));
             $('.filter-bar').show();
@@ -235,13 +240,13 @@
             }
             var player = this.video.player();
             this.player = player;
-            App.PlayerView = this;
+            App.PlayerView = this;*/
 
             /* The following is a hack to make VideoJS listen to
                         mouseup instead of mousedown for pause/play on the
                         video element. Stops video pausing/playing when
                         dragged. TODO: #fixit! /XC                        */
-            this.player.tech.off('mousedown');
+            /*this.player.tech.off('mousedown');
             this.player.tech.on('mouseup', function (event) {
                 if (event.target.origEvent) {
                     if (!event.target.origEvent.originalEvent.defaultPrevented) {
@@ -467,17 +472,140 @@
                 }, 100);
             }, function () {
                 clearInterval(_this._ShowUIonHover);
+            });*/
+
+            $('#header').removeClass('header-shadow').hide();
+            win.info('Watching:', this.model.get('title')); // Test to make sure we have title
+            $('.filter-bar').show();
+
+            _this = this;
+
+            console.log('PLAYER ONSHOW THIS.MODEL.ATTRIBUTES',this.model.attributes)
+            /* vankasteelj's notes:
+             *
+             * -wcjs should be z-index:10 
+             * -wcjs: onFirstPlay should be implemented soon, that's where we wanna add
+             * the volume setting
+             * -about volume again, the volumebar doesnt get the right value on start, but the volume actually is at good state. check once onFirstPlay is there
+            */
+
+            // load the player
+            var wjs = require('wcjs-player');
+            var player = new wjs('#player').addPlayer({
+                autoplay: true,
+                titleBar: 'both',
+                // below some advanced vlc tweaks for low-end hardware
+                vlcArgs: [
+                    '--file-caching=1000',
+                    '--live-caching=1000',
+                    '--disc-caching=1000',
+                    '--network-caching=1000',
+                    '--cr-average=400',
+                    '--clock-jitter=6000'
+                ]
+            });
+
+            // set backbone variables
+            this.player = player;
+            App.PlayerView = this; // use App.PlayerView.player across the app to access wcjs api
+
+            // load the video and subs if any
+            player.addPlaylist({
+                url: this.model.get('src'),
+                subtitles: this.model.get('subtitle')
+            });
+
+            // set settings
+            this.setPlayerSettings();
+
+            // set keyboard shortcuts
+            this.bindKeyboardShortcuts();
+
+            // events
+            this.handleWcjsEvents();
+        },
+
+        setPlayerSettings: function () {
+            // set volume
+            this.player.volume(Settings.playerVolume);
+
+            // set fullsreen state
+            if (Settings.alwaysFullscreen && !this.inFullscreen) {
+                this.player.toggleFullscreen();
+            }
+            if (this.inFullscreen) {
+                win.leaveFullscreen();
+                this.player.toggleFullscreen();
+            }
+        },
+
+        handleWcjsEvents: function () {
+            this.player.onPlaying(function () {
+                console.log('player.onPlaying')
+                App.vent.trigger('player:play');
+                _this.sendToTrakt('start');
+            });
+
+            this.player.onPaused(function () {
+                console.log('player.onPaused')
+                App.vent.trigger('player:pause');
+                _this.sendToTrakt('pause');
+            });
+            
+            this.player.onFrameSetup(function (vwidth,vheight) {
+                // resume position
+                console.log('player.onFrameSetup');
+                console.log('resolution %sx%s',vwidth,vheight);
+                console.log('total time %sms', _this.player.length());
+                if (Settings.lastWatchedTitle === _this.model.get('title') && Settings.lastWatchedTime > 0) {
+                    var position = Settings.lastWatchedTime;
+                    win.debug('Resuming position to', position.toFixed(), 'secs');
+                    _this.player.time(position);
+                    _this.sendToTrakt('start');
+                } else if (Settings.traktPlayback) {
+                    var type = _this.isMovie();
+                    var id = type === 'movie' ? _this.model.get('imdb_id') : _this.model.get('episode_id');
+                    App.Trakt.sync.playback(type, id).then(function (position_percent) {
+                        var total = _this.player.length();
+                        var position = (position_percent / 100) * total | 0;
+                        if (position > 0) {
+                            win.debug('Resuming position to', (position/1000).toFixed(), 'secs (reported by Trakt)');
+                            _this.player.time(position);
+                        }
+                        _this.sendToTrakt('start');
+                    }).catch(function (err) {
+                        _this.sendToTrakt('start');
+                    });
+                }
+            });
+
+            this.player.onVolume(function(vol) {
+                console.log('onVolume', vol)
+                AdvSettings.set('playerVolume', vol);
+                _this.player.notify(i18n.__('Volume') + ': ' + vol + '%');
+            });
+
+            this.player.onEnded(function () {
+                console.log('player.onEnded');
+                _this.closePlayer();
+            }); 
+
+            this.player.onError(function () {
+                console.log('player.onError');
+                win.error('wcjs encountered an error, try replicating it with debugView on Windows or launch the app with a terminal on Linux and OSX')
+                _this.sendToTrakt('stop');
             });
         },
 
         sendToTrakt: function (method) {
             var type = _this.isMovie();
             var id = type === 'movie' ? _this.model.get('imdb_id') : _this.model.get('episode_id');
-            var progress = _this.video.currentTime() / _this.video.duration() * 100 | 0;
+            var progress = _this.player.time() / _this.player.length() * 100 | 0;
+            console.log('scrobble trakt:', method, type, id, progress)
             App.Trakt.scrobble(method, type, id, progress);
         },
 
-        playNextNow: function () {
+        /*playNextNow: function () {
             this.dontTouchFS = true; //XXX(xaiki): hack, don't touch fs state
 
             this.closePlayer();
@@ -527,9 +655,9 @@
 
                 next_episode_model = new Backbone.Model(next_episode);
             }
-        },
+        },*/
 
-        remainingTime: function () {
+        /*remainingTime: function () {
             var timeLeft = this.model.get('time_left');
 
             if (timeLeft === undefined) {
@@ -541,9 +669,9 @@
             } else if (timeLeft <= 60) {
                 return i18n.__n('%s second remaining', '%s seconds remaining', timeLeft);
             }
-        },
+        },*/
 
-        verifyMetadata: function () {
+        /*verifyMetadata: function () {
             $('.verify-metadata').hide();
         },
 
@@ -581,9 +709,10 @@
                     item.remove();
                 }
             }
-        },
+        },*/
 
         scaleWindow: function (scale) {
+            // TODO: this probably is useless with wcjs as we have access to ratio/crop, I never fully understood why this was even there to begin with
             var v = $('video')[0];
             if (v.videoWidth && v.videoHeight) {
                 window.resizeTo(v.videoWidth * scale, v.videoHeight * scale);
@@ -595,10 +724,8 @@
 
             // add ESC toggle when full screen, go back when not
             Mousetrap.bind('esc', function (e) {
-                _this.nativeWindow = win;
-
-                if (_this.nativeWindow.isFullscreen) {
-                    _this.toggleFullscreen();
+                if (win.isFullscreen) {
+                    _this.player.toggleFullscreen();
                 } else {
                     _this.closePlayer();
                 }
@@ -609,35 +736,36 @@
             });
 
             Mousetrap.bind(['f', 'F'], function (e) {
-                _this.toggleFullscreen();
+                _this.player.toggleFullscreen();
             });
 
             Mousetrap.bind('h', function (e) {
-                _this.adjustSubtitleOffset(-0.1);
+                _this.adjustSubtitleOffset(-100);
             });
 
             Mousetrap.bind('g', function (e) {
-                _this.adjustSubtitleOffset(0.1);
+                _this.adjustSubtitleOffset(100);
             });
 
             Mousetrap.bind('shift+h', function (e) {
-                _this.adjustSubtitleOffset(-1);
+                _this.adjustSubtitleOffset(-1000);
             });
 
             Mousetrap.bind('shift+g', function (e) {
-                _this.adjustSubtitleOffset(1);
+                _this.adjustSubtitleOffset(1000);
             });
 
             Mousetrap.bind('ctrl+h', function (e) {
-                _this.adjustSubtitleOffset(-5);
+                _this.adjustSubtitleOffset(-5000);
             });
 
             Mousetrap.bind('ctrl+g', function (e) {
-                _this.adjustSubtitleOffset(5);
+                _this.adjustSubtitleOffset(5000);
             });
 
             Mousetrap.bind(['space', 'p'], function (e) {
-                $('.vjs-play-control').click();
+                _this.player.togglePause();
+                _this.player.animatePause();
             });
 
             Mousetrap.bind('right', function (e) {
@@ -665,27 +793,27 @@
             });
 
             Mousetrap.bind('up', function (e) {
-                _this.adjustVolume(0.1);
+                _this.adjustVolume(10);
             });
 
             Mousetrap.bind('shift+up', function (e) {
-                _this.adjustVolume(0.5);
+                _this.adjustVolume(50);
             });
 
             Mousetrap.bind('ctrl+up', function (e) {
-                _this.adjustVolume(1);
+                _this.adjustVolume(100);
             });
 
             Mousetrap.bind('down', function (e) {
-                _this.adjustVolume(-0.1);
+                _this.adjustVolume(-10);
             });
 
             Mousetrap.bind('shift+down', function (e) {
-                _this.adjustVolume(-0.5);
+                _this.adjustVolume(-50);
             });
 
             Mousetrap.bind('ctrl+down', function (e) {
-                _this.adjustVolume(-1);
+                _this.adjustVolume(-100);
             });
 
             Mousetrap.bind(['m', 'M'], function (e) {
@@ -720,9 +848,9 @@
                 _this.adjustPlaybackRate(4.0, false);
             });
 
-            Mousetrap.bind('ctrl+d', function (e) {
+            /*Mousetrap.bind('ctrl+d', function (e) {
                 _this.toggleMouseDebug();
-            });
+            });*/
 
             Mousetrap.bind('0', function (e) {
                 _this.scaleWindow(0.5);
@@ -740,7 +868,8 @@
             // Change when mousetrap can be extended
             $('body').bind('keydown', function (e) {
                 if (e.keyCode === 179) {
-                    $('.vjs-play-control').click();
+                    _this.player.togglePause();
+                    _this.player.animatePause()
                 } else if (e.keyCode === 177) {
                     _this.seek(-10);
                 } else if (e.keyCode === 176) {
@@ -754,8 +883,6 @@
         },
 
         unbindKeyboardShortcuts: function () {
-            var _this = this;
-
             Mousetrap.unbind('esc');
 
             Mousetrap.unbind('backspace');
@@ -825,7 +952,7 @@
             document.removeEventListener('mousewheel', _this.mouseScroll);
         },
 
-        toggleMouseDebug: function () {
+        /*toggleMouseDebug: function () {
             if (this.player.debugMouse_) {
                 this.player.debugMouse_ = false;
                 this.displayOverlayMsg('Mouse debug disabled');
@@ -833,24 +960,24 @@
                 this.player.debugMouse_ = true;
                 this.displayOverlayMsg('Mouse debug enabled. Dont touch the mouse until disabled.');
             }
-        },
+        },*/
 
         seek: function (s) {
-            var t = this.player.currentTime();
-            this.player.currentTime(t + s);
-            this.player.trigger('mousemove'); //hack, make controls show
+            var t = this.player.time();
+            this.player.time(t + (s * 1000));
+            /*this.player.trigger('mousemove'); //hack, make controls show*/
             App.vent.trigger('seekchange');
         },
 
         mouseScroll: function (e) {
-            if ($(e.target).parents('.vjs-subtitles-button').length) {
+            if ($(e.target).parents('.wcp-subtitles').length) {
                 return;
             }
             var mult = (Settings.os === 'mac') ? -1 : 1; // up/down invert
             if ((event.wheelDelta * mult) > 0) { // Scroll up
-                _this.adjustVolume(0.1);
+                _this.adjustVolume(10);
             } else { // Scroll down
-                _this.adjustVolume(-0.1);
+                _this.adjustVolume(-10);
             }
         },
 
@@ -861,12 +988,12 @@
         },
 
         toggleMute: function () {
-            this.player.muted(!this.player.muted());
+            this.player.mute(!this.player.mute());
         },
 
-        toggleFullscreen: function () {
+        /*toggleFullscreen: function () {
             $('.vjs-fullscreen-control').click();
-        },
+        },*/
 
         toggleSubtitles: function () {},
 
@@ -876,32 +1003,33 @@
 
         displayStreamURL: function () {
             var clipboard = gui.Clipboard.get();
-            clipboard.set($('#video_player video').attr('src'), 'text');
-            this.displayOverlayMsg(i18n.__('URL of this stream was copied to the clipboard'));
+            clipboard.set(_this.model.get('src'), 'text');
+            // TODO: notify more than 1sec? it seems hardcoded into wcjs-player
+            this.player.notify(i18n.__('URL of this stream was copied to the clipboard'));
         },
 
         adjustSubtitleOffset: function (s) {
-            var o = this.player.options()['trackTimeOffset'];
-            this.player.options()['trackTimeOffset'] = (o + s);
-            this.displayOverlayMsg(i18n.__('Subtitles Offset') + ': ' + (-this.player.options()['trackTimeOffset'].toFixed(1)) + ' ' + i18n.__('secs'));
+            var o = this.player.subDelay();
+            this.player.subDelay(o + s);
+            this.player.notify(i18n.__('Subtitles Offset') + ': ' + (-this.player.subDelay() / 1000) + ' ' + i18n.__('secs'));
             if (this.customSubtitles) {
                 this.customSubtitles.modified = true;
             }
         },
 
         adjustPlaybackRate: function (rate, delta) {
-            var nRate = delta ? this.player.playbackRate() + rate : rate;
+            var nRate = delta ? this.player.rate() + rate : rate;
             if (nRate > 0.49 && nRate < 4.01) {
-                this.player.playbackRate(nRate);
-                if (this.player.playbackRate() !== nRate) {
-                    this.displayOverlayMsg(i18n.__('Playback rate adjustment is not available for this video!'));
+                this.player.rate(nRate);
+                if (this.player.rate() !== nRate) {
+                    this.player.notify(i18n.__('Playback rate adjustment is not available for this video!'));
                 } else {
-                    this.displayOverlayMsg(i18n.__('Playback rate') + ': ' + parseFloat(nRate.toFixed(1)) + 'x');
+                    this.player.notify(i18n.__('Playback rate') + ': ' + parseFloat(nRate.toFixed(1)) + 'x');
                 }
             }
         },
 
-        displayOverlayMsg: function (message) {
+        /*displayOverlayMsg: function (message) {
             if ($('.vjs-overlay').length > 0) {
                 $('.vjs-overlay').text(message);
                 clearTimeout($.data(this, 'overlayTimer'));
@@ -918,13 +1046,38 @@
                     });
                 }, 3000));
             }
+        },*/
+
+        killWcjs: function () {
+            // remove dom element
+            $('#webchimera').remove();
+            $('#player').removeClass('webchimeras');
+
+            // clear wcjs-player from require cache when page changes
+            /* vankasteelj: this is apparently not needed? I'd rather avoid dirty things like this commented below, it's probably very fragile
+            var clearModules = [
+                "wcjs-player",
+                "jquery" // https://github.com/jaruba/wcjs-player/issues/38
+            ];
+            for (var i in clearModules) {
+                if (global.require.cache) {
+                    for (var module in global.require.cache) {
+                        if (global.require.cache.hasOwnProperty(module) && module.indexOf(clearModules[i]) > -1) delete global.require.cache[module];
+                    }
+                } else if (require.cache) {
+                    for (var module in require.cache) {
+                        if (require.cache.hasOwnProperty(module) && module.indexOf(clearModules[i]) > -1) delete require.cache[module];
+                    }
+                }
+            }*/
         },
 
         onDestroy: function () {
-            if (this.model.get('type') === 'video/youtube') { // XXX Sammuel86 Trailer UI Show FIX/HACK -START
+            /*if (this.model.get('type') === 'video/youtube') { // XXX Sammuel86 Trailer UI Show FIX/HACK -START
                 $('.trailer_mouse_catch').remove();
-            }
-            $('#player_drag').hide();
+            }*/
+            //$('#player_drag').hide();
+
             $('#header').show();
             if (!this.dontTouchFS && !this.inFullscreen && win.isFullscreen) {
                 win.leaveFullscreen();
@@ -933,11 +1086,17 @@
                 $('.btn-os.fullscreen').removeClass('active');
             }
             this.unbindKeyboardShortcuts();
+
+            /* vankasteelj: dirty hack to return to the actual app */
+            this.killWcjs();
+
             App.vent.trigger('player:close');
-            var vjsPlayer = document.getElementById('video_player');
+            console.log('destroy player');
+
+            /*var vjsPlayer = document.getElementById('video_player');
             if (vjsPlayer) {
                 videojs(vjsPlayer).dispose();
-            }
+            }*/
         }
 
     });

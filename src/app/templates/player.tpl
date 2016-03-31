@@ -1,4 +1,4 @@
-<div class="player-header-background vjs-control-bar">
+<!--div class="player-header-background vjs-control-bar">
     <i class="state-info-player fa fa-play"></i>
     <i class="state-info-player fa fa-pause"></i>
     <div class="player-title"><%= title %></div>
@@ -85,4 +85,6 @@
 <video id="video_player" width="100%" height="100%" class="video-js vjs-popcorn-skin" controls preload="auto" autoplay >
     <source src="<%= src %>" type="<%= type %>" />
     <%=subtracks%>
-</video>
+</video-->
+
+<div id="player"></div>

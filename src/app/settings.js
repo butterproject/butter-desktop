@@ -184,7 +184,7 @@ Settings.defaultHeight = Math.round(window.screen.availHeight * 0.8);
 
 // Miscellaneous
 Settings.playerSubPosition = '0px';
-Settings.playerVolume = '1';
+Settings.playerVolume = '100';
 Settings.tv_detail_jump_to = 'next';
 
 
