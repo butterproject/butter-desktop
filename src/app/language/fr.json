@@ -503,5 +503,8 @@
 	"Series": "Séries",
 	"Finished": "Finished",
 	"blah": "blah",
-	"thriller,conspiracy,indie": "thriller,conspiracy,indie"
+	"thriller,conspiracy,indie": "thriller,conspiracy,indie",
+	"Indie": "Indie",
+	"%s stores an encrypted hash of your password in your local database": "%s stores an encrypted hash of your password in your local database",
+	"Event": "Event"
 }

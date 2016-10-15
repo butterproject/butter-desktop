@@ -158,7 +158,7 @@
                             {name:"Lato", id:"lato"},
                             {name:"Montserrat", id:"montserrat"},
                             {name:"OpenDyslexic", id:"opendyslexic"},
-                            {name:"Open Sans", id:"opensans"},
+                            {name:"Noto Sans", id:"notosans"},
                             {name:"PT Sans",id:"pts"},
                             {name:"Tahoma", id:"tahoma"},
                             {name:"Trebuchet MS", id:"trebuc"},
