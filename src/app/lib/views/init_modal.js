@@ -51,7 +51,7 @@
 
             var cache = new App.Cache('subtitle');
             cache.flushTable()
-                .then(Database.deleteDatabases)
+                .then(App.DatabaseHelpers.deleteDatabases)
                 .then(function () {
                     App.vent.trigger('restartButter');
                 });

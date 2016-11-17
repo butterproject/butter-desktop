@@ -1,6 +1,10 @@
 (function (App) {
     'use strict';
 
+    var moviesDb = App.Databases.movies;
+    var showsDb = App.Databases.shows;
+    var bookmarksDb = App.Databases.bookmarks;
+
     var Favorites = function () {};
     Favorites.prototype.constructor = Favorites;
     Favorites.prototype.config = {
@@ -8,7 +12,7 @@
     };
 
     var queryTorrents = function (filters) {
-        return App.db.getBookmarks(filters)
+        return bookmarksDb.find(filters)
             .then(function (data) {
                     return data;
                 },
@@ -102,7 +106,7 @@
             // or tv show then we extract right data
             if (movie.type === 'movie') {
                 // its a movie
-                Database.getMovie(movie.imdb_id)
+                moviesDb.findById(movie.imdb_id)
                     .then(function (data) {
                             data.type = 'bookmarkedmovie';
                             if (/slurm.trakt.us/.test(data.image)) {
@@ -116,7 +120,7 @@
             } else {
                 // its a tv show
                 var _data = null;
-                Database.getTVShowByImdb(movie.imdb_id)
+                showsDb.findById(movie.imdb_id)
                     .then(function (data) {
                         data.type = 'bookmarkedshow';
                         data.imdb = data.imdb_id;
@@ -140,10 +144,10 @@
                     }).then(function (data) {
                         if (data) {
                             // Cache new show and return
-                            Database.deleteBookmark(_data.imdb_id);
-                            Database.deleteTVShow(_data.imdb_id);
-                            Database.addTVShow(data);
-                            Database.addBookmark(data.imdb_id, 'tvshow');
+                            bookmarksDb.remove(_data.imdb_id)
+                            showsDb.remove(_data.imdb_id)
+                            showsDb.add(data)
+                            bookmarksDb.add(data.imdb_id, 'tvshow')
                             data.type = 'bookmarkedshow';
                             deferred.resolve(data);
                         }
@@ -152,8 +156,8 @@
                         // Scrub bookmark and TV show
                         // But return previous data one last time
                         // So error to erase database doesn't show
-                        Database.deleteBookmark(_data.imdb_id);
-                        Database.deleteTVShow(_data.imdb_id);
+                        bookmarksDb.remove(_data.imdb_id)
+                        showsDb.remove(_data.imdb_id)
                         deferred.resolve(_data);
                     });
             }

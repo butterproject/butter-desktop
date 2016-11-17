@@ -4,6 +4,10 @@
     var prevX = 0;
     var prevY = 0;
 
+    var moviesDb = App.Databases.movies;
+    var showsDb = App.Databases.shows;
+    var bookmarksDb = App.Databases.bookmarks;
+
     var Item = Backbone.Marionette.ItemView.extend({
         template: '#item-tpl',
 
@@ -32,7 +36,7 @@
         initialize: function () {
 
             var imdb = this.model.get('imdb_id'),
-                bookmarked = App.userBookmarks.indexOf(imdb) !== -1,
+                bookmarked = App.userBookmarks[imdb],
                 itemtype = this.model.get('type'),
                 images = this.model.get('images'),
                 img = (images && typeof images.poster !== 'object') ? images.poster : this.model.get('image'),
@@ -40,16 +44,16 @@
 
             switch (itemtype) {
             case 'bookmarkedshow':
-                watched = App.watchedShows.indexOf(imdb) !== -1;
+                watched = App.watchedShows[imdb]
                 this.model.set('image', App.Trakt.resizeImage(img, 'thumb'));
                 break;
             case 'show':
-                watched = App.watchedShows.indexOf(imdb) !== -1;
+                watched = App.watchedShows[imdb]
                 images.poster = App.Trakt.resizeImage(img, 'thumb');
                 break;
             case 'bookmarkedmovie':
             case 'movie':
-                watched = App.watchedMovies.indexOf(imdb) !== -1;
+                watched = App.watchedMovies[imdb]
                 this.model.set('image', img);
                 break;
             }
@@ -262,7 +266,7 @@
                 if (Settings.watchedCovers === 'fade') {
                     this.$el.removeClass('watched');
                 }
-                Database.markMovieAsNotWatched({
+                moviesDb.markNotWatched({
                         imdb_id: this.model.get('imdb_id')
                     }, true)
                     .then(function () {
@@ -281,7 +285,7 @@
                     this.$el.remove();
                     break;
                 }
-                Database.markMovieAsWatched({
+                moviesDb.markWatched({
                         imdb_id: this.model.get('imdb_id'),
                         from_browser: true
                     }, true)
@@ -309,13 +313,13 @@
             switch (this.model.get('type')) {
             case 'bookmarkedshow':
             case 'bookmarkedmovie':
-                Database.deleteBookmark(this.model.get('imdb_id'))
+                bookmarksDb.remove(this.model.get('imdb_id'))
                     .then(function () {
                         win.info('Bookmark deleted (' + that.model.get('imdb_id') + ')');
-                        App.userBookmarks.splice(App.userBookmarks.indexOf(that.model.get('imdb_id')), 1);
+                        delete(App.userBookmarks[that.model.get('imdb_id')])
                     })
                     .then(function () {
-                        return Database.deleteMovie(that.model.get('imdb_id'));
+                        return moviesDb.remove(that.model.get('imdb_id'));
                     })
                     .then(function () {
                         // we'll delete this element from our list view
@@ -337,11 +341,11 @@
             case 'movie':
                 if (this.model.get('bookmarked')) {
                     this.ui.bookmarkIcon.removeClass('selected');
-                    Database.deleteBookmark(this.model.get('imdb_id'))
+                    bookmarksDb.remove(this.model.get('imdb_id'))
                         .then(function () {
                             win.info('Bookmark deleted (' + that.model.get('imdb_id') + ')');
                             // we'll make sure we dont have a cached movie
-                            return Database.deleteMovie(that.model.get('imdb_id'));
+                            return moviesDb.remove(that.model.get('imdb_id'));
                         })
                         .then(function () {
                             that.model.set('bookmarked', false);
@@ -376,14 +380,14 @@
                                 movie.torrents = data.torrents;
                                 movie.genre = data.genre;
 
-                                Database.addMovie(movie)
+                                moviesDb.add(movie)
                                     .then(function (idata) {
-                                        return Database.addBookmark(that.model.get('imdb_id'), 'movie');
+                                        return bookmarksDb.add(that.model.get('imdb_id'), 'movie');
                                     })
                                     .then(function () {
                                         win.info('Bookmark added (' + that.model.get('imdb_id') + ')');
                                         that.model.set('bookmarked', true);
-                                        App.userBookmarks.push(that.model.get('imdb_id'));
+                                        App.userBookmarks[that.model.get('imdb_id')] = 1;
                                     });
                             });
                     } else {
@@ -406,13 +410,13 @@
                             provider: this.model.get('provider'),
                         };
 
-                        Database.addMovie(movie)
+                        moviesDb.add(movie)
                             .then(function () {
-                                return Database.addBookmark(that.model.get('imdb_id'), 'movie');
+                                return bookmarksDb.add(that.model.get('imdb_id'), 'movie');
                             })
                             .then(function () {
                                 win.info('Bookmark added (' + that.model.get('imdb_id') + ')');
-                                App.userBookmarks.push(that.model.get('imdb_id'));
+                                App.userBookmarks[that.model.get('imdb_id')] = 1;
                                 that.model.set('bookmarked', true);
                             });
                     }
@@ -422,37 +426,37 @@
                 if (this.model.get('bookmarked') === true) {
                     this.ui.bookmarkIcon.removeClass('selected');
                     this.model.set('bookmarked', false);
-                    Database.deleteBookmark(this.model.get('imdb_id'))
+                    bookmarksDb.remove(this.model.get('imdb_id'))
                         .then(function () {
                             win.info('Bookmark deleted (' + that.model.get('imdb_id') + ')');
 
-                            App.userBookmarks.splice(App.userBookmarks.indexOf(that.model.get('imdb_id')), 1);
+                            delete (App.userBookmarks[that.model.get('imdb_id')])
 
                             // we'll make sure we dont have a cached show
-                            Database.deleteTVShow(that.model.get('imdb_id'));
+                            showsDb.remove(that.model.get('imdb_id'));
                         });
                 } else {
                     data = provider.detail(this.model.get('imdb_id'), this.model.attributes)
                         .then(function (data) {
                             data.provider = that.model.get('provider');
-                            promisifyDb(db.tvshows.find({
+                            showsDb.find({
                                     imdb_id: that.model.get('imdb_id').toString(),
-                                }))
+                                })
                                 .then(function (res) {
                                     if (res != null && res.length > 0) {
-                                        return Database.updateTVShow(data);
+                                        return showsDb.update(data);
                                     } else {
-                                        return Database.addTVShow(data);
+                                        return showsDb.add(data);
                                     }
                                 })
                                 .then(function (idata) {
-                                    return Database.addBookmark(that.model.get('imdb_id'), 'tvshow');
+                                    return bookmarksDb.add(that.model.get('imdb_id'), 'tvshow');
                                 })
                                 .then(function () {
                                     win.info('Bookmark added (' + that.model.get('imdb_id') + ')');
                                     that.ui.bookmarkIcon.addClass('selected');
                                     that.model.set('bookmarked', true);
-                                    App.userBookmarks.push(that.model.get('imdb_id'));
+                                    App.userBookmarks[that.model.get('imdb_id')] = 1;
                                 }).catch(function (err) {
                                     win.error('promisifyDb()', err);
                                 });

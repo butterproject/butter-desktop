@@ -162,7 +162,7 @@
                 model: status
             }));
 
-            App.db.initialize(status)
+            App.DatabaseHelpers.initialize(status)
                 .then(function () {
                     status.set({
                         status: i18n.__('Create Temp Folder'),
@@ -455,7 +455,7 @@
                         var lastActivities = activities.movies.watched_at > activities.episodes.watched_at ? activities.movies.watched_at : activities.episodes.watched_at;
                         if (lastActivities > Settings.traktLastActivities) {
                             AdvSettings.set('traktLastActivities', lastActivities);
-                            Database.deleteWatched();
+                            App.Databases.watched.reset();
                             App.Trakt.syncTrakt.all();
                         }
                     });
@@ -519,7 +519,7 @@
 
             var that = this;
 
-            App.db.getSetting({
+            App.Databases.settings.find({
                     key: 'postersWidth'
                 })
                 .then(function (doc) {

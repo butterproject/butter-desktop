@@ -1,6 +1,9 @@
 (function (App) {
     'use strict';
 
+    var moviesDb = App.Databases.movies;
+    var showsDb = App.Databases.shows;
+
     var API_ENDPOINT = URI('https://api-v2launch.trakt.tv'),
         CLIENT_ID = '647c69e4ed1ad13393bf6edd9d8f9fb6fe9faf405b44320a6b71ab960b4540a2',
         CLIENT_SECRET = 'f55b0a53c63af683588b47f6de94226b7572a6f83f40bd44c58a7c83fe1f2cb1',
@@ -596,7 +599,7 @@
                 })
                 .then(function (traktWatched) {
                     console.debug('Trakt: marked %s movie(s) as watched', traktWatched.length);
-                    return Database.markMoviesWatched(traktWatched);
+                    return moviesDb.markWatched(traktWatched);
                 });
         },
         shows: function () {
@@ -636,7 +639,7 @@
                 .then(function (traktWatched) {
                     // Insert them locally
                     console.debug('Trakt: marked %s episode(s) as watched', traktWatched.length);
-                    return Database.markEpisodesWatched(traktWatched);
+                    return showsDb.markWatched(traktWatched);
                 });
         }
     };

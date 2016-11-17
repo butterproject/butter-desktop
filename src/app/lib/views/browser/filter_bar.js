@@ -444,7 +444,7 @@
 
             App.Providers.get('Vodo').random()
                 .then(function (data) {
-                    if (App.watchedMovies.indexOf(data.imdb_code) !== -1) {
+                    if (App.watchedMovies[data.imdb_code]) {
                         that.randomMovie();
                         return;
                     }

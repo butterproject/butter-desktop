@@ -68,9 +68,6 @@ _.extend(App, {
     Localization: {}
 });
 
-// set database
-App.db = Database;
-
 // Set settings
 App.advsettings = AdvSettings;
 App.settings = Settings;

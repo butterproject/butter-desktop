@@ -129,7 +129,7 @@
         unbindKeyboardShortcuts: Mousetrap.reset,
 
         onShow: function () {
-            bookmarked = App.userBookmarks.indexOf(this.model.get('imdb_id')) !== -1;
+            bookmarked = App.userBookmarks[this.model.get('imdb_id')]
 
             if (bookmarked) {
                 this.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));

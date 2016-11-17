@@ -31,7 +31,7 @@ Settings.providers = {
     movie: {
         order: 1,
         name: 'Movies',
-        uri: ['vodo', 'archive',
+        uri: ['vodo?urlList=http://localhost:8080/popcorn-dump', //'archive',
           //'stremio?auth={"url":"http://api8.herokuapp.com","key":"423f59935153f2f5d2db0f6c9b812592b61b3737"}&url=http://localhost:9005'
         ]
     },
@@ -223,7 +223,7 @@ var AdvSettings = {
     },
 
     set: function (variable, newValue) {
-        Database.writeSetting({
+        App.Databases.settings.write({
                 key: variable,
                 value: newValue
             })

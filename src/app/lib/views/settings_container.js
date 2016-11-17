@@ -6,6 +6,10 @@
         oldTmpLocation,
         that;
 
+    var settingsDb = App.Databases.settings;
+    var watchedDb = App.Databases.watched;
+    var bookmarksDb = App.Databases.bookmarks;
+
     var SettingsContainer = Backbone.Marionette.ItemView.extend({
         template: '#settings-container-tpl',
         className: 'settings-container-contain',
@@ -532,7 +536,7 @@
 
             this.alertMessageWait(i18n.__('We are flushing your database'));
 
-            Database.deleteBookmarks()
+            bookmarksDb.reset()
                 .then(function () {
                     that.alertMessageSuccess(true);
                 });
@@ -547,7 +551,7 @@
 
             this.alertMessageWait(i18n.__('We are resetting the settings'));
 
-            Database.resetSettings()
+            settingsDb.reset()
                 .then(function () {
                     AdvSettings.set('disclaimerAccepted', 1);
                     that.alertMessageSuccess(true);
@@ -563,7 +567,7 @@
 
             this.alertMessageWait(i18n.__('We are flushing your databases'));
 
-            Database.deleteDatabases()
+            App.DatabaseHelpers.deleteDatabases()
                 .then(function () {
                     deleteCookies();
                     that.alertMessageSuccess(true);
@@ -706,7 +710,7 @@
                 .addClass('disabled')
                 .prop('disabled', true);
 
-            Database.deleteWatched(); // Reset before sync
+            watchedDb.reset(); // Reset before sync
 
             App.Trakt.syncTrakt.all()
                 .then(function () {
