@@ -443,15 +443,16 @@ gulp.task('uglify', () => {
                         let file = path.join(p,f);
                         switch (path.extname(f)) {
                             case '.js':
+                                var minified;
                                 try {
-                                    var minified = uglify.minify(file, {
+                                    minified = uglify.minify(file, {
                                         mangle: false
                                     });
                                 } catch (e) {
                                     looping = Date.now();
                                     return cb();
                                 }
-                                if (minified.code) {
+                                if (minified && minified.code) {
                                     fs.writeFile(file, minified.code, function (err) {
                                         if (!err) {
                                             console.log('Minified:', file);
@@ -471,20 +472,26 @@ gulp.task('uglify', () => {
                                         return cb();
                                     }
 
+                                    var minified;
                                     try {
-                                        var minified = sqwish.minify(content.toString());
+                                        minified = sqwish.minify(content.toString());
                                     } catch (e) {
                                         looping = Date.now();
                                         return cb();
                                     }
 
-                                    fs.writeFile(file, minified, function (err) {
-                                        if (!err) {
-                                            console.log('Minified:', file);
-                                        }
+                                    if (minified) {
+                                        fs.writeFile(file, minified, function (err) {
+                                            if (!err) {
+                                                console.log('Minified:', file);
+                                            }
+                                            looping = Date.now();
+                                            return cb();
+                                        });
+                                    } else {
                                         looping = Date.now();
                                         return cb();
-                                    });
+                                    }
                                 });
                                 break;
                             default:
