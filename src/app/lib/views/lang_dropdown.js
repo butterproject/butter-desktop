@@ -46,7 +46,7 @@
 
         setLang: function (value) {
             this.model.set('selected', value);
-            this.ui.selected.removeClass().addClass('flag toggle selected-lang').addClass(value);
+            this.ui.selected.removeClass().addClass('flag toggle selected-lang').addClass('flag-icon-' + App.Localization.langToFlag(value));
             App.vent.trigger(this.type + ':lang', value);
         },
 

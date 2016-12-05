@@ -61,14 +61,29 @@ App.Localization.filterSubtitle = function (langs) {
 
 App.Localization.allTranslations = ['en', 'ar', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'es', 'es-mx', 'et', 'eu', 'fa', 'fi', 'fr', 'gl', 'he', 'hr', 'hu', 'id', 'it', 'ko', 'lt', 'mk', 'ms', 'nb', 'nl', 'nn', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'zh-cn', 'zh-tw'];
 
+App.Localization.langToFlag = function (lang) {
+    if (!lang) {
+        return 'none';
+    }
+
+    var info  = App.Localization.langcodes[lang];
+    if (info && info.flag) {
+        return info.flag;
+    }
+
+    return lang;
+};
+
 App.Localization.langcodes = {
     'aa': {
         name: 'Afar',
-        nativeName: 'Afaraf'
+        nativeName: 'Afaraf',
+        flag: 'dj'
     },
     'ab': {
         name: 'Abkhaz',
-        nativeName: 'аҧсуа'
+        nativeName: 'аҧсуа',
+        flag: 'ge'
     },
     'ae': {
         name: 'Avestan',
@@ -94,7 +109,8 @@ App.Localization.langcodes = {
         name: 'Arabic',
         nativeName: 'العربية',
         subtitle: true,
-        encoding: ['windows-1256'] // Tested
+        encoding: ['windows-1256'], // Tested
+        flag: 'arabic'
     },
     'as': {
         name: 'Assamese',
@@ -140,11 +156,13 @@ App.Localization.langcodes = {
     },
     'bn': {
         name: 'Bengali',
-        nativeName: 'বাংলা'
+        nativeName: 'বাংলা',
+        flag: 'bd'
     },
     'bo': {
         name: 'Tibetan',
-        nativeName: 'བོད་ཡིག'
+        nativeName: 'བོད་ཡིག',
+        flag: 'tibetan'
     },
     'br': {
         name: 'Breton',
@@ -158,7 +176,8 @@ App.Localization.langcodes = {
     },
     'ca': {
         name: 'Catalan',
-        nativeName: 'Català'
+        nativeName: 'Català',
+        flag: 'catalan'
     },
     'ce': {
         name: 'Chechen',
@@ -180,7 +199,8 @@ App.Localization.langcodes = {
         name: 'Czech',
         nativeName: 'Český',
         subtitle: true,
-        encoding: ['iso-8859-2'] // Tested
+        encoding: ['iso-8859-2'], // Tested
+        flag: 'cz'
     },
     'cu': {
         name: 'Church Slavonic',
@@ -198,7 +218,8 @@ App.Localization.langcodes = {
         name: 'Danish',
         nativeName: 'Dansk',
         subtitle: true,
-        encoding: ['iso-8859-1'] // Tested
+        encoding: ['iso-8859-1'], // Tested
+        flag: 'dk'
     },
     'de': {
         name: 'German',
@@ -218,38 +239,45 @@ App.Localization.langcodes = {
         name: 'Modern Greek',
         nativeName: 'Ελληνικά',
         subtitle: true,
-        encoding: ['Windows-1253'] // Tested
+        encoding: ['Windows-1253'], // Tested
+        flag: 'gr'
     },
     'en': {
         name: 'English',
         nativeName: 'English',
         subtitle: true,
-        encoding: ['iso-8859-1'] // Tested
+        encoding: ['iso-8859-1'], // Tested
+        flag: 'gb'
     },
     'eo': {
         name: 'Esperanto',
-        nativeName: 'Esperanto'
+        nativeName: 'Esperanto',
+        flag: 'esperanto'
     },
     'es': {
         name: 'Spanish',
         nativeName: 'Español',
         subtitle: true,
         encoding: ['iso-8859-1'], // Tested
-        keywords: ['@TSF', 'aRGENTeaM']
+        keywords: ['@TSF', 'aRGENTeaM'],
+        flag: 'es'
     },
     'es-ar': {
         name: 'Spanish (Argentina)',
-        nativeName: 'Español (Argentina)'
+        nativeName: 'Español (Argentina)',
+        flag: 'ar'
     },
     'es-mx': {
         name: 'Spanish (Mexico)',
-        nativeName: 'Español (México)'
+        nativeName: 'Español (México)',
+        flag: 'mx'
     },
     'et': {
         name: 'Estonian',
         nativeName: 'Eesti',
         subtitle: true,
-        encoding: ['iso-8859-4'] /** NEED TEST **/
+        encoding: ['iso-8859-4'], /** NEED TEST **/
+        flag: 'ee'
     },
     'eu': {
         name: 'Basque',
@@ -261,7 +289,8 @@ App.Localization.langcodes = {
         name: 'Persian',
         nativeName: 'فارسی',
         subtitle: true,
-        encoding: ['Windows-1256'] // Tested
+        encoding: ['Windows-1256'], // Tested
+        flag: 'ir'
     },
     'ff': {
         name: 'Fula',
@@ -323,7 +352,8 @@ App.Localization.langcodes = {
         name: 'Hebrew (modern)',
         nativeName: 'עברית',
         subtitle: true,
-        encoding: ['iso-8859-8'] // Tested
+        encoding: ['iso-8859-8'], // Tested
+        flag: 'il'
     },
     'hi': {
         name: 'Hindi',
@@ -403,7 +433,8 @@ App.Localization.langcodes = {
     },
     'ja': {
         name: 'Japanese',
-        nativeName: '日本語'
+        nativeName: '日本語',
+        flag: 'jp'
     },
     'jv': {
         name: 'Javanese',
@@ -443,7 +474,8 @@ App.Localization.langcodes = {
     },
     'ko': {
         name: 'Korean',
-        nativeName: '한국어'
+        nativeName: '한국어',
+        flag: 'kr'
     },
     'kr': {
         name: 'Kanuri',
@@ -541,7 +573,8 @@ App.Localization.langcodes = {
     },
     'ms': {
         name: 'Malay',
-        nativeName: 'بهاس ملايو'
+        nativeName: 'بهاس ملايو',
+        flag: 'my'
     },
     'mt': {
         name: 'Maltese',
@@ -549,7 +582,8 @@ App.Localization.langcodes = {
     },
     'my': {
         name: 'Burmese',
-        nativeName: 'ဗမာစာ'
+        nativeName: 'ဗမာစာ',
+        flag: 'mm'
     },
     'na': {
         name: 'Nauru',
@@ -601,7 +635,8 @@ App.Localization.langcodes = {
     },
     'oc': {
         name: 'Occitan',
-        nativeName: 'Occitan'
+        nativeName: 'Occitan',
+        flag: 'occitan'
     },
     'oj': {
         name: 'Ojibwe',
@@ -641,13 +676,15 @@ App.Localization.langcodes = {
         name: 'Portuguese',
         nativeName: 'Português',
         subtitle: true,
-        encoding: ['iso-8859-1'] // Tested
+        encoding: ['iso-8859-1'], // Tested
+        flag: 'pt'
     },
     'pt-br': {
         name: 'Portuguese (Brazil)',
         nativeName: 'Português (Brasil)',
         subtitle: true,
-        encoding: ['iso-8859-1'] // Tested
+        encoding: ['iso-8859-1'], // Tested
+        flag: 'br'
     },
     'qu': {
         name: 'Quechua',
@@ -703,7 +740,8 @@ App.Localization.langcodes = {
     },
     'sk': {
         name: 'Slovak',
-        nativeName: 'slovenčina'
+        nativeName: 'slovenčina',
+        flag: 'sk'
     },
     'sl': {
         name: 'Slovene',
@@ -725,13 +763,15 @@ App.Localization.langcodes = {
     },
     'sq': {
         name: 'Albanian',
-        nativeName: 'Shqip'
+        nativeName: 'Shqip',
+        flag: 'al'
     },
     'sr': {
         name: 'Serbian',
         nativeName: 'српски језик',
         subtitle: true,
-        encoding: ['Windows-1250'] // Tested
+        encoding: ['Windows-1250'], // Tested
+        flag: 'rs'
     },
     'ss': {
         name: 'Swati',
@@ -749,7 +789,8 @@ App.Localization.langcodes = {
         name: 'Swedish',
         nativeName: 'svenska',
         subtitle: true,
-        encoding: ['iso-8859-1'] /** NEED TEST **/
+        encoding: ['iso-8859-1'], /** NEED TEST **/
+        flag: 'se'
     },
     'sw': {
         name: 'Swahili',
@@ -823,7 +864,8 @@ App.Localization.langcodes = {
         name: 'Ukrainian',
         nativeName: 'українська',
         subtitle: true,
-        encoding: ['iso-8859-5'] /** NEED TEST **/
+        encoding: ['iso-8859-5'], /** NEED TEST **/
+        flag: 'ua'
     },
     'ur': {
         name: 'Urdu',
@@ -841,7 +883,8 @@ App.Localization.langcodes = {
         name: 'Vietnamese',
         nativeName: 'Tiếng Việt',
         subtitle: true,
-        encoding: ['Windows-1258'] /** NEED TEST **/
+        encoding: ['Windows-1258'], /** NEED TEST **/
+        flag: 'vn'
     },
     'vo': {
         name: 'Volapük',
@@ -875,15 +918,23 @@ App.Localization.langcodes = {
         name: 'Chinese',
         nativeName: '中文',
         subtitle: true,
-        encoding: ['GB18030'] /** Seems to work best. Tested: UTF8/UTF16/CP936/GB2312/GB2313/GB18030/Windows936/Big5 **/
+        encoding: ['GB18030'], /** Seems to work best. Tested: UTF8/UTF16/CP936/GB2312/GB2313/GB18030/Windows936/Big5 **/
+        flag: 'cn'
     },
     'zh-cn': {
         name: 'Chinese (simplified)',
-        nativeName: '简体中文'
+        nativeName: '简体中文',
+        flag: 'cn'
     },
     'zh-tw': {
         name: 'Chinese (traditional)',
-        nativeName: '正體中文'
+        nativeName: '正體中文',
+        flag: 'tw'
+    },
+    'zt': {
+        name: 'Chinese (traditional)',
+        nativeName: '正體中文',
+        flag: 'tw'
     }
 };
 
