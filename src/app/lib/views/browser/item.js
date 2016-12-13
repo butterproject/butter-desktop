@@ -132,6 +132,8 @@
             posterCache.src = poster;
 
             posterCache.onload = function () {
+                posterCache.onload = () => {};
+
                 if (poster.indexOf('.gif') !== -1) { // freeze gifs
                     var c = document.createElement('canvas');
                     var w  = c.width = posterCache.width;
