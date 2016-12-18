@@ -4,7 +4,7 @@
     var CHANNELS = ['stable', 'beta', 'nightly'],
         FILENAME = 'package.nw.new',
         WebTorrent = require('webtorrent'),
-        client = new WebTorrent({dht: true,maxConns: '5'}),
+        client = new WebTorrent({dht: true}),
         VERIFY_PUBKEY = Settings.updateKey;
 
     function forcedBind(func, thisVar) {
@@ -79,9 +79,9 @@
                 self.updateData = updateData;
                 return true;
             }
-            if (App.settings.UpdateSeed) {
+            if (App.settings.seedUpdate) {
                 client.add(updateData.UpdateUrl, { path: os.tmpdir() }, function (torrent) {
-                    torrent.on('error', function (err) {
+                    torrent.on('error', err => {
                         console.info('ERROR' + err.message);
                     });
                     torrent.on('done', function () {
