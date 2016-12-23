@@ -26,7 +26,7 @@
             var value = $(e.currentTarget).attr('data-lang');
 
             if (value) {
-                this.setLang(value);
+                this.set(value);
             }
         },
     });
