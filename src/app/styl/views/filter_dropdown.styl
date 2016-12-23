@@ -1,0 +1,121 @@
+.filter-dropdown
+  position relative
+  display inline-block
+  vertical-align middle
+  color #FFF
+  text-align left
+  width auto
+  margin 0 0 0 10px
+  border-radius 5px 5px 0 0
+  transition background 0.3s ease
+  .category
+    font-weight bold
+    font-size 0.85em
+    opacity 0.25
+  .select-item
+    cursor pointer
+  .selected
+    font-size 1.15em
+    min-width 62px
+  .icon
+    opacity 0.5
+    font-size 1.25em
+    margin-left 10px
+    &:after
+      content "arrow_drop_down"
+  &.active
+    .icon
+      color #252525
+      &:after
+        content "arrow_drop_up"
+    &.
+      .drop-head
+        background #fff
+    .items
+      background #fff
+      max-height 283px
+      overflow auto
+      -webkit-transform perspective(400) rotate3d(1, 0, 0, 0)
+      li
+        opacity 0.75
+        &:hover
+          background #EEE
+          opacity 1
+          cursor pointer
+  .items
+    position absolute
+    display inline-block
+    vertical-align top
+    max-height 0
+    width 100%
+    border-radius 0 0 5px 5px
+    overflow hidden
+    -webkit-transform perspective(400) rotate3d(1, 0, 0, -90deg)
+    -webkit-transform-origin 50% 0
+    transition max-height 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s ease
+    li
+      list-style none
+      font-size 1em
+      font-weight bold
+      opacity 0
+      padding 7px 13px
+      display block
+      transition opacity 0.15s ease
+      &.active
+        display none
+      &:last-child
+        border-bottom-right-radius 5px
+        border-bottom-left-radius 5px
+      &.select
+        background #ddd
+        opacity 1
+  &.settings
+    &.active
+      border-radius 3px 3px 0 0
+      .drop-head
+        border-top 2px solid transparent
+        border-bottom 1px solid rgba(255, 23, 68, 0.25)
+        border-left 2px solid transparent
+        border-right 2px solid transparent
+        border-radius 3px 3px 0 0
+        i
+          opacity 1
+      .items
+        li
+          &:hover
+            background #EEE
+          &.select
+            background #FF1744
+            color #fff
+          &.active
+            background #FF1744
+            color #fff
+            display block
+            opacity 1
+    .drop-head
+      border 2px solid #FF1744
+      color #FF1744
+      border-radius 3px
+      i
+        color #FF1744
+      .selected
+        width 100px
+    .items
+      li
+        color #757575
+        &:last-child
+          border-radius 0 0 2px 2px
+
+.filter-dropdown.active,
+.search.active .search-input
+  background #FFF
+  color #252525
+
+.filter-dropdown .selected,
+.filter-dropdown .icon
+  display inline-block
+  vertical-align middle
+  font-weight bold
+
+.drop-head
+  padding 5px 15px
