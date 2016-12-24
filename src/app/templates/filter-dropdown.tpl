@@ -6,7 +6,7 @@
             <div class="caret"></div>
         </div>
     </div>
-    <ul class="dropdown-menu filter-items" role="menu">
+    <ul class="filter-items" role="menu">
         <% for (var v in values) { %>
         <li class="filter-item" data-value="<%= v %>"><%= i18n.__(v) %></li>
         <% } %>
