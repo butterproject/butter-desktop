@@ -18,8 +18,7 @@
             var value = model.get('selected');
             this.ui.selected
                 .removeClass()
-                .addClass('flag toggle selected-lang')
-                .addClass(value);
+                .addClass('selected');
             App.vent.trigger(this.type + ':lang', value);
         },
         closeDropdown: function (e) {

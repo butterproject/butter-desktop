@@ -36,7 +36,13 @@
             'click #filterbar-torrent-collection': 'showTorrentCollection',
             'click .triggerUpdate': 'updateDB',
         },
-
+        regions: {
+            genresDropdown: '#genres-dropdown',
+            sortbyDropdown: '#sortby-dropdown'
+        },
+        initialize: function () {
+            this.views = {};
+        },
         focus: function (e) {
             e.focus();
         },
@@ -132,7 +138,26 @@
 
             return menu;
         },
+        loadDropdown: function (type, attrs) {
+            this.views[type] && this.views[type].destroy();
+            this.views[type] = new App.View.FilterDropdown({
+                model: new App.Model.Lang(Object.assign({type:type}, attrs))
+            });
+            this[`${type}Dropdown`].show (this.views[type]);
+        },
+        loadComponents: function() {
+            this.loadDropdown('genres', {
+                title: i18n.__('Genres'),
+                values: this.model.get('genres')
+            });
+
+            this.loadDropdown('sortby', {
+                title: i18n.__('Sort By'),
+                values: this.model.get('types')
+            });
+        },
         onShow: function () {
+            this.loadComponents();
 
             var activetab;
 
@@ -144,7 +169,6 @@
 
 
             if (typeof App.currentview === 'undefined') {
-
                 switch (activetab) {
                 case 'TV Series':
                     App.currentview = 'shows';

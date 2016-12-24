@@ -3,6 +3,8 @@
     <li class="source <%= tab.type %>TabShow providerinfo" data-toggle="tooltip" data-placement="top" title="<%= App.Config.getFiltredProviderNames(tab.type) %>"><%= i18n.__(tab.name) %></li>
     <% }); %>
 </ul>
+<section id="genres-dropdown"></section>
+<section id="sortby-dropdown"></section>
 <ul id="nav-filters" class="nav nav-hor filters">
     <% if(typeof type !== 'undefined'){ %>
         <li class="dropdown filter types">
