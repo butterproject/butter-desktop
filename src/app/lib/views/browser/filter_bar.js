@@ -11,9 +11,6 @@
             searchInput: '.search input',
             search: '.search',
             searchClear: '.search .clear',
-            sorterValue: '.sorters .value',
-            typeValue: '.types .value',
-            genreValue: '.genres  .value'
         },
         events: {
             'hover  @ui.searchInput': 'focus',
@@ -21,9 +18,6 @@
             'contextmenu @ui.searchInput': 'rightclick_search',
             'click  @ui.searchClear': 'clearSearch',
             'click  @ui.search': 'focusSearch',
-            'click .sorters .dropdown-menu a': 'sortBy',
-            'click .genres .dropdown-menu a': 'changeGenre',
-            'click .types .dropdown-menu a': 'changeType',
             'click #filterbar-settings': 'settings',
             'click #filterbar-about': 'about',
             'click #filterbar-random': 'randomMovie',
@@ -37,6 +31,7 @@
             'click .triggerUpdate': 'updateDB',
         },
         regions: {
+            typesDropdown: '#types-dropdown',
             genresDropdown: '#genres-dropdown',
             sortbyDropdown: '#sortby-dropdown'
         },
@@ -101,19 +96,6 @@
                 break;
             }
 
-            if (Settings.rememberFilters) {
-                try {
-                    this.fixFilter();
-                } catch (e) {
-
-                }
-
-            } else {
-                $('.sorters .dropdown-menu a:nth(0)').addClass('active');
-                $('.genres .dropdown-menu a:nth(0)').addClass('active');
-                $('.types .dropdown-menu a:nth(0)').addClass('active');
-            }
-
         },
         rightclick_search: function (e) {
             e.preventDefault();
@@ -167,15 +149,22 @@
                 }, {})
             );
 
+            var types = this.model.get('types');
+            types && types.length && this.loadDropdown('types', {
+                title: i18n.__('Types'),
+                selected: types[0],
+                values: translateHash(types)
+            });
+
             var genres = this.model.get('genres');
-            this.loadDropdown('genres', {
+            genres && genres.length && this.loadDropdown('genres', {
                 title: i18n.__('Genres'),
                 selected: genres[0],
                 values: translateHash(genres)
             });
 
             var sorters = this.model.get('sorters');
-            this.loadDropdown('sortby', {
+            sorters && sorters.length && this.loadDropdown('sortby', {
                 title: i18n.__('Sort By'),
                 selected: sorters[0],
                 values: translateHash(sorters)
@@ -250,21 +239,6 @@
         focusSearch: function () {
             this.$('.search input').focus();
         },
-        fixFilter: function () {
-
-            $('.genres .active').removeClass('active');
-            $('.sorters .active').removeClass('active');
-            $('.types .active').removeClass('active');
-
-            var genre = $('.genres .value').data('value');
-            var sorter = $('.sorters .value').data('value');
-            var type = $('.types .value').data('value');
-
-            $('.genres li').find('[data-value="' + genre + '"]').addClass('active');
-            $('.sorters li').find('[data-value="' + sorter + '"]').addClass('active');
-            $('.types li').find('[data-value="' + type + '"]').addClass('active');
-
-        },
         search: function (e) {
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
@@ -275,11 +249,6 @@
                 keywords: this.ui.searchInput.val(),
                 genre: ''
             });
-
-            this.$('.genres .active').removeClass('active');
-
-            $($('.genres li a')[0]).addClass('active');
-            this.ui.genreValue.text(i18n.__('All'));
 
             this.ui.searchInput.blur();
 
@@ -303,69 +272,11 @@
                 genre: ''
             });
 
-            this.$('.genres .active').removeClass('active');
-            $($('.genres li a')[0]).addClass('active');
-            this.ui.genreValue.text(i18n.__('All'));
-
             this.ui.searchInput.val('');
             this.ui.searchForm.removeClass('edited');
         },
 
-        sortBy: function (e) {
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            this.$('.sorters .active').removeClass('active');
-            $(e.target).addClass('active');
 
-            var sorter = $(e.target).attr('data-value');
-
-            if (this.previousSort === sorter) {
-                this.model.set('order', this.model.get('order') * -1);
-            } else if (this.previousSort !== sorter && sorter === 'title') {
-                this.model.set('order', this.model.get('order') * -1);
-            } else {
-                this.model.set('order', -1);
-            }
-
-            this.ui.sorterValue.text(i18n.__(sorter.capitalizeEach()));
-
-            this.model.set({
-                keyword: '',
-                sorter: sorter
-            });
-            this.previousSort = sorter;
-        },
-
-        changeType: function (e) {
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            this.$('.types .active').removeClass('active');
-            $(e.target).addClass('active');
-
-            var type = $(e.target).attr('data-value');
-            this.ui.typeValue.text(i18n.__(type));
-
-            this.model.set({
-                keyword: '',
-                type: type
-            });
-        },
-
-        changeGenre: function (e) {
-            App.vent.trigger('about:close');
-            this.$('.genres .active').removeClass('active');
-            $(e.target).addClass('active');
-
-            var genre = $(e.target).attr('data-value');
-
-
-            this.ui.genreValue.text(i18n.__(genre.capitalizeEach()));
-
-            this.model.set({
-                keyword: '',
-                genre: genre
-            });
-        },
 
         settings: function (e) {
             App.vent.trigger('about:close');
