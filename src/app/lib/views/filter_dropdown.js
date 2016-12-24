@@ -4,7 +4,8 @@
     App.View.FilterDropdown = App.View.Dropdown.extend({
         template: '#filter-dropdown-tpl',
         ui: {
-            selected: '.selected'
+            selected: '.selected',
+            items: '.filter-item'
         },
         events: {
             'click .filter-item': 'closeDropdown'
@@ -21,6 +22,9 @@
             var value = this.model.get('selected');
             console.error ('set value', value);
             this.ui.selected.html(i18n.__(value));
+            this.ui.items.removeClass('hidden');
+            // HACK
+            this.ui.items.closest(`[data-value="${value}"]`).addClass('hidden');
 
             silent || App.vent.trigger('filter:' + this.type, value);
         },
