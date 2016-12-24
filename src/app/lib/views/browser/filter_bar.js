@@ -140,14 +140,14 @@
 
             return menu;
         },
-        loadDropdown: function (type, attrs) {
+        loadDropdown: function (type, dropdownClass, attrs) {
             this.views[type] && this.views[type].destroy();
-            this.views[type] = new App.View.FilterDropdown({
+            this.views[type] = new dropdownClass({
                 model: new App.Model.Lang(Object.assign({type:type}, attrs))
             });
             this[`${type}Dropdown`].show (this.views[type]);
         },
-        loadComponents: function() {
+        loadFilterDropdown: function (filter, attrs) {
             let translateHash = array => (
                 array.reduce((a, c, i) => {
                     a[c] = i?i18n.__(c):null;
@@ -155,25 +155,27 @@
                 }, {})
             );
 
-            var types = this.model.get('types');
-            types && types.length && this.loadDropdown('types', {
-                title: i18n.__('Types'),
-                selected: types[0],
-                values: translateHash(types)
+            var values = this.model.get(filter);
+            values && values.length && this.loadDropdown(
+                filter,
+                App.View.FilterDropdown,
+                Object.assign({
+                    selected: values[0],
+                    values: translateHash(values)
+                }, attrs));
+
+        },
+        loadComponents: function() {
+            this.loadFilterDropdown('types', {
+                title: i18n.__('Types')
             });
 
-            var genres = this.model.get('genres');
-            genres && genres.length && this.loadDropdown('genres', {
-                title: i18n.__('Genres'),
-                selected: genres[0],
-                values: translateHash(genres)
+            this.loadFilterDropdown('genres', {
+                title: i18n.__('Genres')
             });
 
-            var sorters = this.model.get('sorters');
-            sorters && sorters.length && this.loadDropdown('sortby', {
-                title: i18n.__('Sort By'),
-                selected: sorters[0],
-                values: translateHash(sorters)
+            this.loadFilterDropdown('sorters', {
+                title: i18n.__('Sorters')
             });
         },
         onShow: function () {
