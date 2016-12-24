@@ -3,7 +3,8 @@
     var clipboard = nw.Clipboard.get(),
         ButterProvider = require('butter-provider');
 
-    App.View.FilterBar = Backbone.Marionette.ItemView.extend({
+    App.View.FilterBar = Backbone.Marionette.LayoutView.extend({
+        template: '#filter-bar-tpl',
         className: 'filter-bar',
         ui: {
             searchForm: '.search form',
@@ -474,9 +475,4 @@
         }
 
     });
-
-    App.View.FilterBar = App.View.FilterBar.extend({
-        template: '#filter-bar-tpl'
-    });
-
 })(window.App);
