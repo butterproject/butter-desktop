@@ -15,14 +15,14 @@
             this.model.on('change:selected', this.setValue.bind(this));
         },
         onShow: function () {
-            this.model.get('selected') && this.setValue.apply(this);
+            this.model.get('selected') && this.setValue.apply(this, [true]);
         },
-        setValue: function () {
+        setValue: function (silent) {
             var value = this.model.get('selected');
             console.error ('set value', value);
             this.ui.selected.html(i18n.__(value));
-            App.vent.trigger('filter:' + this.type, value);
 
+            silent || App.vent.trigger('filter:' + this.type, value);
         },
         closeDropdown: function (e) {
             var value = $(e.currentTarget).attr('data-value');
