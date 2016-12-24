@@ -16,9 +16,9 @@
             this.model.on('change:selected', this.setValue.bind(this));
         },
         onShow: function () {
-            this.model.get('selected') && this.setValue.apply(this, [true]);
+            this.model.get('selected') && this.setValue.apply(this);
         },
-        setValue: function (silent) {
+        setValue: function (model) {
             var value = this.model.get('selected');
             console.error ('set value', value);
             this.ui.selected.html(i18n.__(value));
@@ -26,7 +26,7 @@
             // HACK
             this.ui.items.closest(`[data-value="${value}"]`).addClass('hidden');
 
-            silent || App.vent.trigger('filter:' + this.type, value);
+            model && App.vent.trigger('filter:' + this.type, value);
         },
         closeDropdown: function (e) {
             var value = $(e.currentTarget).attr('data-value');

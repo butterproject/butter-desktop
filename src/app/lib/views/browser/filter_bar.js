@@ -149,8 +149,8 @@
         },
         loadComponents: function() {
             let translateHash = array => (
-                array.reduce((a, c) => {
-                    a[c] = i18n.__(c);
+                array.reduce((a, c, i) => {
+                    a[c] = i?i18n.__(c):null;
                     return a;
                 }, {})
             );
