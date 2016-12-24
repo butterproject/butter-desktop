@@ -42,6 +42,20 @@
         },
         initialize: function () {
             this.views = {};
+
+            App.vent.on('filter:genres', genre => (this.model.set({
+                keyword: '',
+                genre: genre
+            })));
+
+            App.vent.on('filter:sortby', sorter => (this.model.set({
+                keyword: '',
+                sorter: sorter
+            })));
+        },
+        onDestroy: function () {
+            App.vent.off('filter:genres');
+            App.vent.off('filter:sortby');
         },
         focus: function (e) {
             e.focus();
@@ -146,22 +160,25 @@
             this[`${type}Dropdown`].show (this.views[type]);
         },
         loadComponents: function() {
-            var genres = this.model.get('genres');
-            var genresHash = genres
-                .reduce((a, c) => {
+            let translateHash = array => (
+                array.reduce((a, c) => {
                     a[c] = i18n.__(c);
                     return a;
-                }, {});
+                }, {})
+            );
 
+            var genres = this.model.get('genres');
             this.loadDropdown('genres', {
                 title: i18n.__('Genres'),
                 selected: genres[0],
-                values: genresHash
+                values: translateHash(genres)
             });
 
+            var sorters = this.model.get('sorters');
             this.loadDropdown('sortby', {
                 title: i18n.__('Sort By'),
-                values: this.model.get('types')
+                selected: sorters[0],
+                values: translateHash(sorters)
             });
         },
         onShow: function () {

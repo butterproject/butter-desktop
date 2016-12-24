@@ -21,7 +21,7 @@
             var value = this.model.get('selected');
             console.error ('set value', value);
             this.ui.selected.html(i18n.__(value));
-//            App.vent.trigger('filter:' + this.type, value);
+            App.vent.trigger('filter:' + this.type, value);
 
         },
         closeDropdown: function (e) {
