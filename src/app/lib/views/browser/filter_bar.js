@@ -33,7 +33,7 @@
         regions: {
             typesDropdown: '#types-dropdown',
             genresDropdown: '#genres-dropdown',
-            sortbyDropdown: '#sortby-dropdown',
+            sortersDropdown: '#sorters-dropdown',
             searchDropdown: '#search-dropdown'
         },
         initialize: function () {
@@ -49,7 +49,7 @@
                 genre: genre
             })));
 
-            App.vent.on('filter:sortby', sorter => (this.model.set({
+            App.vent.on('filter:sorters', sorter => (this.model.set({
                 keyword: '',
                 sorter: sorter
             })));
@@ -57,7 +57,7 @@
         onDestroy: function () {
             App.vent.off('filter:types');
             App.vent.off('filter:genres');
-            App.vent.off('filter:sortby');
+            App.vent.off('filter:sorters');
         },
         focus: function (e) {
             e.focus();

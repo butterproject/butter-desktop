@@ -6,7 +6,7 @@
 <ul id="nav-filters" class="nav nav-hor filters">
     <li id="types-dropdown"></li>
     <li id="genres-dropdown"></li>
-    <li id="sortby-dropdown"></li>
+    <li id="sorters-dropdown"></li>
 </ul>
 <ul class="nav nav-hor right">
     <li id="search-dropdown"></li>
