@@ -23,7 +23,7 @@
     margin-left 10px
     &:after
       content "arrow_drop_down"
-  &.active
+  &.open
     .icon
       color #252525
       &:after
@@ -61,7 +61,7 @@
       padding 7px 13px
       display block
       transition opacity 0.15s ease
-      &.active
+      &.open
         display none
       &:last-child
         border-bottom-right-radius 5px
@@ -70,7 +70,7 @@
         background #ddd
         opacity 1
   &.settings
-    &.active
+    &.open
       border-radius 3px 3px 0 0
       .drop-head
         border-top 2px solid transparent
@@ -87,7 +87,7 @@
           &.select
             background #FF1744
             color #fff
-          &.active
+          &.open
             background #FF1744
             color #fff
             display block
@@ -106,8 +106,8 @@
         &:last-child
           border-radius 0 0 2px 2px
 
-.filter-dropdown.active,
-.search.active .search-input
+.filter-dropdown.open,
+.search.open .search-input
   background #FFF
   color #252525
 
