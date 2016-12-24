@@ -4,10 +4,10 @@
     App.View.LangDropdown = App.View.Dropdown.extend({
         template: '#lang-dropdown-tpl',
         ui: {
-            selected: '.selected-lang',
+            selected: '.selected-lang'
         },
         events: {
-            'click .flag-icon': 'closeDropdown',
+            'click .flag-icon': 'closeDropdown'
         },
 
         initialize: function () {

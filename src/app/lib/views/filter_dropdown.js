@@ -4,10 +4,10 @@
     App.View.FilterDropdown = App.View.Dropdown.extend({
         template: '#filter-dropdown-tpl',
         ui: {
-            selected: '.selected',
+            selected: '.selected'
         },
         events: {
-            'click .item': 'closeDropdown',
+            'click .item': 'closeDropdown'
         },
 
         initialize: function () {
