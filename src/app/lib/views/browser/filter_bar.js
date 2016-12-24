@@ -38,6 +38,11 @@
         initialize: function () {
             this.views = {};
 
+            App.vent.on('filter:types', type => (this.model.set({
+                keyword: '',
+                type: type
+            })));
+
             App.vent.on('filter:genres', genre => (this.model.set({
                 keyword: '',
                 genre: genre
@@ -49,6 +54,7 @@
             })));
         },
         onDestroy: function () {
+            App.vent.off('filter:types');
             App.vent.off('filter:genres');
             App.vent.off('filter:sortby');
         },
