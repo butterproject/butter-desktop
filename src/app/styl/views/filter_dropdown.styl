@@ -2,7 +2,7 @@
   position relative
   display inline-block
   vertical-align middle
-  color #FFF
+  color $FilterDropdownText
   text-align left
   width auto
   margin 0 0 0 10px
@@ -10,14 +10,14 @@
   transition background 0.3s ease
   .category
     font-weight bold
-    font-size 0.85em
+    font-size 0.84em
     opacity 0.25
     text-transform uppercase
   .select-item
     cursor pointer
   .selected
-    font-size 1.15em
-    min-width 62px
+    font-size 1.13em
+    min-width 75px
   .icon
     opacity 0.5
     font-size 1.25em
@@ -26,14 +26,15 @@
       content "arrow_drop_down"
   &.open
     .icon
-      color #252525
+      color $MainColor
       &:after
         content "arrow_drop_up"
     &.
       .drop-head
-        background #fff
+        background $FilterDropdownBg
+        box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
     .filter-items
-      background #fff
+      background $FilterDropdownBg
       max-height 283px
       overflow-x hidden
       overflow-y auto
@@ -41,7 +42,7 @@
       li
         opacity 0.75
         &:hover
-          background #EEE
+          background $FilterDropdownHover
           opacity 1
           cursor pointer
   .filter-items
@@ -52,6 +53,7 @@
     width 100%
     border-radius 0 0 5px 5px
     overflow hidden
+    box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
     -webkit-transform perspective(400) rotate3d(1, 0, 0, -90deg)
     -webkit-transform-origin 50% 0
     transition max-height 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s ease
@@ -110,8 +112,8 @@
 
 .filter-dropdown.open,
 .search.open .search-input
-  background #FFF
-  color #252525
+  background $FilterDropdownBg
+  color $FilterDropdownText
 
 .filter-dropdown .selected,
 .filter-dropdown .icon
@@ -130,7 +132,7 @@
         width 5px
 
     &::-webkit-scrollbar-track
-        background-color $ScrollBarBg
+        background-color transparent
         border-radius 2px
 
     &::-webkit-scrollbar-thumb
