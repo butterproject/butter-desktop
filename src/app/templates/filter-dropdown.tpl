@@ -6,9 +6,9 @@
             <div class="caret"></div>
         </div>
     </div>
-    <ul class="dropdown-menu items" role="menu">
+    <ul class="dropdown-menu filter-items" role="menu">
         <% values.forEach(function (v) { %>
-        <li class="item" data-value="<%= v %>"><%= i18n.__(v) %></li>
+        <li class="filter-item" data-value="<%= v %>"><%= i18n.__(v) %></li>
         <% }) %>
     </ul>
 </div>

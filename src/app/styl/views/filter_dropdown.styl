@@ -8,6 +8,7 @@
   margin 0 0 0 10px
   border-radius 5px 5px 0 0
   transition background 0.3s ease
+  float: left
   .category
     font-weight bold
     font-size 0.85em
@@ -31,10 +32,11 @@
     &.
       .drop-head
         background #fff
-    .items
+    .filter-items
       background #fff
       max-height 283px
-      overflow auto
+      overflow-x hidden
+      overflow-y auto
       -webkit-transform perspective(400) rotate3d(1, 0, 0, 0)
       li
         opacity 0.75
@@ -42,7 +44,7 @@
           background #EEE
           opacity 1
           cursor pointer
-  .items
+  .filter-items
     position absolute
     display inline-block
     vertical-align top
@@ -80,7 +82,7 @@
         border-radius 3px 3px 0 0
         i
           opacity 1
-      .items
+      .filter-items
         li
           &:hover
             background #EEE
@@ -100,7 +102,7 @@
         color #FF1744
       .selected
         width 100px
-    .items
+    .filter-items
       li
         color #757575
         &:last-child
