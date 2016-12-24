@@ -9,14 +9,7 @@
     <li id="sortby-dropdown"></li>
 </ul>
 <ul class="nav nav-hor right">
-    <li>
-        <div class="right search">
-            <form>
-                <input id="searchbox" type="text" placeholder="<%= i18n.__("Search") %>" autocomplete="off">
-                <div class="clear fa fa-times"></div>
-            </form>
-        </div>
-    </li>
+    <li id="search-dropdown"></li>
 
     <!-- Randomize -->
     <% if (Settings.activateRandomize) { %>

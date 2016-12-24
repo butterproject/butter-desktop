@@ -33,7 +33,8 @@
         regions: {
             typesDropdown: '#types-dropdown',
             genresDropdown: '#genres-dropdown',
-            sortbyDropdown: '#sortby-dropdown'
+            sortbyDropdown: '#sortby-dropdown',
+            searchDropdown: '#search-dropdown'
         },
         initialize: function () {
             this.views = {};
@@ -176,6 +177,10 @@
 
             this.loadFilterDropdown('sorters', {
                 title: i18n.__('Sorters')
+            });
+
+            this.loadDropdown('search', App.View.SearchDropdown, {
+                title: i18n.__('Search')
             });
         },
         onShow: function () {
