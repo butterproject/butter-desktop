@@ -146,9 +146,17 @@
             this[`${type}Dropdown`].show (this.views[type]);
         },
         loadComponents: function() {
+            var genres = this.model.get('genres');
+            var genresHash = genres
+                .reduce((a, c) => {
+                    a[c] = i18n.__(c);
+                    return a;
+                }, {});
+
             this.loadDropdown('genres', {
                 title: i18n.__('Genres'),
-                values: this.model.get('genres')
+                selected: genres[0],
+                values: genresHash
             });
 
             this.loadDropdown('sortby', {
