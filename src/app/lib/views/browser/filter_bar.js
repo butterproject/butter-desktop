@@ -21,10 +21,7 @@
             'click #filterbar-settings': 'settings',
             'click #filterbar-about': 'about',
             'click #filterbar-random': 'randomMovie',
-            'click .movieTabShow': 'movieTabShow',
-            'click .tvshowTabShow': 'tvshowTabShow',
-            'click .animeTabShow': 'animeTabShow',
-            'click .indieTabShow': 'indieTabShow',
+            'click .contentTab': 'tabClicked',
             'click #filterbar-favorites': 'showFavorites',
             'click #filterbar-watchlist': 'showWatchlist',
             'click #filterbar-torrent-collection': 'showTorrentCollection',
@@ -62,47 +59,17 @@
         focus: function (e) {
             e.focus();
         },
-        setactive: function (set) {
+        setActive: function (set) {
 
             if (Settings.startScreen === 'Last Open') {
                 AdvSettings.set('lastTab', set);
             }
+
             $('.right .search').show();
             $('#filterbar-random').hide();
             $('.filter-bar').find('.active').removeClass('active');
-            switch (set) {
-            case 'TV Series':
-            case 'shows':
-                $('.source.tvshowTabShow').addClass('active');
-                break;
-            case 'Movies':
-            case 'movies':
-                $('#filterbar-random').show();
-                $('.source.movieTabShow').addClass('active');
-                break;
-            case 'Anime':
-            case 'anime':
-                $('.source.animeTabShow').addClass('active');
-                break;
-            case 'Indie':
-            case 'indie':
-                $('.source.indieTabShow').addClass('active');
-                break;
-            case 'Favorites':
-            case 'favorites':
-                $('#filterbar-favorites').addClass('active');
-                break;
-            case 'Watchlist':
-            case 'watchlist':
-                $('.right .search').hide();
-                $('#filterbar-watchlist').addClass('active');
-                break;
-            case 'Torrent-collection':
-                $('.right .search').hide();
-                $('#filterbar-torrent-collection').addClass('active');
-                break;
-            }
-
+            $(`[data-value="${set}"]`).addClass('active');
+            $(`#filterbar-${set}`).addClass('active');
         },
         rightclick_search: function (e) {
             e.preventDefault();
@@ -194,37 +161,10 @@
                 activetab = AdvSettings.get('startScreen');
             }
 
-
             if (typeof App.currentview === 'undefined') {
-                switch (activetab) {
-                case 'TV Series':
-                    App.currentview = 'shows';
-                    break;
-                case 'Movies':
-                    App.currentview = 'movies';
-                    break;
-                case 'Anime':
-                    App.currentview = 'anime';
-                    break;
-                case 'Indie':
-                    App.currentview = 'indie';
-                    break;
-                case 'Favorites':
-                    App.currentview = 'Favorites';
-                    App.previousview = 'movies';
-                    break;
-                case 'Watchlist':
-                    App.currentview = 'Watchlist';
-                    App.previousview = 'movies';
-                    break;
-                case 'Torrent-collection':
-                    App.currentview = 'Torrent-collection';
-                    App.previousview = 'movies';
-                    break;
-                default:
-                    App.currentview = 'movies';
-                }
-                this.setactive(App.currentview);
+                App.currentview = activetab;
+                App.previousview = 'movies';
+                this.setActive(App.currentview);
             }
 
             this.$('.tooltipped').tooltip({
@@ -308,49 +248,26 @@
                 App.currentview = 'Torrent-collection';
                 App.vent.trigger('about:close');
                 App.vent.trigger('torrentCollection:show');
-                this.setactive('Torrent-collection');
+                this.setActive('torrentCollection');
             } else {
                 App.currentview = App.previousview;
                 App.vent.trigger('torrentCollection:close');
-                this.setactive(App.currentview);
+                this.setActive(App.currentview);
             }
         },
 
-        tvshowTabShow: function (e) {
+        tabClicked: function (e) {
             e.preventDefault();
-            App.currentview = 'shows';
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('shows:list', []);
-            this.setactive('TV Series');
+            var value = $(e.currentTarget).attr('data-value');
+            return this.switchToTab.apply(this, [value]);
         },
 
-        animeTabShow: function (e) {
-            e.preventDefault();
-            App.currentview = 'anime';
+        switchToTab: function (value) {
+            App.currentview = value;
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('anime:list', []);
-            this.setactive('Anime');
-        },
-
-        indieTabShow: function (e) {
-            e.preventDefault();
-            App.currentview = 'indie';
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('indie:list', []);
-            this.setactive('Indie');
-        },
-
-        movieTabShow: function (e) {
-            e.preventDefault();
-
-            App.currentview = 'movies';
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('movies:list', []);
-            this.setactive('Movies');
+            App.vent.trigger('show:tab', value);
+            this.setActive(value);
         },
 
         showFavorites: function (e) {
@@ -362,19 +279,19 @@
                 App.vent.trigger('about:close');
                 App.vent.trigger('torrentCollection:close');
                 App.vent.trigger('favorites:list', []);
-                this.setactive('Favorites');
+                this.setActive('favorites');
             } else {
 
                 if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
                     App.currentview = App.previousview;
                     App.vent.trigger(App.previousview.toLowerCase() + ':list', []);
-                    this.setactive(App.currentview);
+                    this.setActive(App.currentview);
 
                 } else {
                     App.vent.trigger('about:close');
                     App.vent.trigger('torrentCollection:close');
                     App.vent.trigger('favorites:list', []);
-                    this.setactive('Favorites');
+                    this.setActive('favorites');
                 }
 
             }
@@ -390,18 +307,18 @@
                 App.vent.trigger('about:close');
                 App.vent.trigger('torrentCollection:close');
                 App.vent.trigger('watchlist:list', []);
-                this.setactive('Watchlist');
+                this.setActive('watchlist');
             } else {
                 if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
                     App.currentview = App.previousview;
                     App.vent.trigger(App.previousview.toLowerCase() + ':list', []);
-                    this.setactive(App.currentview);
+                    this.setActive(App.currentview);
 
                 } else {
                     App.vent.trigger('about:close');
                     App.vent.trigger('torrentCollection:close');
                     App.vent.trigger('watchlist:list', []);
-                    this.setactive('Watchlist');
+                    this.setActive('watchlist');
                 }
 
             }

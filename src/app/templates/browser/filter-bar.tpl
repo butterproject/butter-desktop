@@ -1,6 +1,12 @@
 <ul class="nav nav-hor left">
-    <% _.each (App.Config.getTabTypes(), function (tab) { %>
-    <li class="source <%= tab.type %>TabShow providerinfo" data-toggle="tooltip" data-placement="top" title="<%= App.Config.getFiltredProviderNames(tab.type) %>"><%= i18n.__(tab.name) %></li>
+    <% _.each (App.Config.getTabs(), function (tab) { %>
+    <li class="source providerinfo contentTab"
+        data-value="<%= tab.type %>"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="<%= App.Config.getFiltredProviderNames(tab.providers) %>">
+        <%= i18n.__(tab.name) %>
+    </li>
     <% }); %>
 </ul>
 <ul id="nav-filters" class="nav nav-hor filters">
