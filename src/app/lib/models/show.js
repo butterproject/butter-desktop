@@ -22,5 +22,5 @@
         }
     });
 
-    App.Model.register(Provider.ItemType.SHOW, Show);
+    App.Model.register(Provider.ItemType.TVSHOW, Show);
 })(window.App);
