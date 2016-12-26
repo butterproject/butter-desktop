@@ -243,13 +243,13 @@
         showTab: function (newTab) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
+            this.lastView && this.lastView.destroy();
 
             var model = App.Model.getCollectionModelForTab(newTab);
             var view = App.View.getViewForTab(newTab);
+            this.lastView = new view({collectionModel: model});
 
-            this.Content.show(new view({
-                collectionModel: model
-            }));
+            this.Content.show(this.lastView);
         },
 
         updateShows: function (e) {
