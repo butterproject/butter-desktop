@@ -487,7 +487,7 @@
         },
 
         closeDetails: function (e) {
-            App.vent.trigger('show:closeDetail');
+            App.vent.trigger('tvshow:closeDetail');
         },
 
         clickSeason: function (e) {

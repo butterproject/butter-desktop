@@ -109,8 +109,8 @@
             App.vent.on('torrentCollection:close', _.bind(this.TorrentCollection.destroy, this.TorrentCollection));
 
             // Tv Shows
-            App.vent.on('show:showDetail', _.bind(this.showShowDetail, this));
-            App.vent.on('show:closeDetail', _.bind(this.closeShowDetail, this.MovieDetail));
+            App.vent.on('tvshow:showDetail', _.bind(this.showShowDetail, this));
+            App.vent.on('tvshow:closeDetail', _.bind(this.closeShowDetail, this.MovieDetail));
 
             // Settings events
             App.vent.on('settings:show', _.bind(this.showSettings, this));
@@ -254,7 +254,7 @@
 
         updateShows: function (e) {
             var that = this;
-            App.vent.trigger('show:closeDetail');
+            App.vent.trigger('tvshow:closeDetail');
             this.Content.show(new App.View.InitModal());
             App.db.syncDB(function () {
                 that.InitModal.destroy();

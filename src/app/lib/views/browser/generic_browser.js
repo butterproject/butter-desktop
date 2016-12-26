@@ -67,7 +67,7 @@
             this.collection = new this.collectionModel([], {
                 filter: this.filter
             });
-            App.vent.trigger('show:closeDetail');
+            App.vent.trigger('tvshow:closeDetail');
             this.collection.fetch();
 
             this.ItemList.show(new App.View.List({
