@@ -10,8 +10,7 @@
         idAttribute: 'imdb_id',
 
         initialize: function (attrs) {
-            var providers = Object.assign(attrs.providers,
-                                                this.getProviders());
+            var providers = Object.assign(this.getProviders(), attrs.providers);
             this.set('providers', providers);
             this.set('idAttribute', this.idAttribute);
 
