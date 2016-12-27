@@ -44,7 +44,7 @@
             &.cover-info-overlay
               padding 88px 0
               background-image: $PosterHoverOverlay
-              border: 2px solid $PosterHoverOverlay
+              border: 2px solid #0C0D0E
               border-radius $PosterRadius
               transition border-color .25s ease
 
@@ -132,12 +132,13 @@
     &.selected
         .cover
             .cover-info-overlay
-                border 2px solid $PosterHoverBorder
+                border 1px solid #0C0D0E
                 transition border-color .50s
                 opacity: 1
+                box-shadow: 0 1px 4px rgba(0,0,0,0.5)
     .title
         height: auto;
-        margin: 6px 0 4px;
+        margin: 6px 0 0;
         color: $Text1
         max-width: 100%
         overflow: hidden
