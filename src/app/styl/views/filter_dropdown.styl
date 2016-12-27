@@ -9,14 +9,20 @@
   border-radius 5px 5px 0 0
   transition background 0.3s ease
   .category
-    font-weight bold
-    font-size 0.84em
+    font-family $MainFontBold
+    font-size 0.88em
+    line-height 0.88em
     opacity 0.25
+    margin 0
+    padding 0
     text-transform uppercase
   .select-item
     cursor pointer
   .selected
-    font-size 1.13em
+    margin 0
+    padding 0
+    line-height 1.25em
+    font-size 1.25em
     min-width 75px
   .icon
     opacity 0.5
@@ -26,7 +32,6 @@
       content "arrow_drop_down"
   &.open
     .icon
-      color $MainColor
       &:after
         content "arrow_drop_up"
     &.
@@ -59,8 +64,7 @@
     transition max-height 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s ease
     li
       list-style none
-      font-size 1em
-      font-weight bold
+      font-size 1.18em
       opacity 0
       padding 7px 13px
       display block
