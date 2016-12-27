@@ -109,8 +109,8 @@
             App.vent.on('torrentCollection:close', _.bind(this.TorrentCollection.destroy, this.TorrentCollection));
 
             // Tv Shows
-            App.vent.on('show:showDetail', _.bind(this.showShowDetail, this));
-            App.vent.on('show:closeDetail', _.bind(this.closeShowDetail, this.MovieDetail));
+            App.vent.on('tvshow:showDetail', _.bind(this.showShowDetail, this));
+            App.vent.on('tvshow:closeDetail', _.bind(this.closeShowDetail, this.MovieDetail));
 
             // Settings events
             App.vent.on('settings:show', _.bind(this.showSettings, this));
@@ -243,18 +243,24 @@
         showTab: function (newTab) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
+            this.lastView && this.lastView.destroy();
+
+            if (['favorites', 'torrentCollection', 'watchlist']
+                .indexOf(newTab) !== -1) {
+                // XXX hack until we get something better
+                return this['show' + newTab.capitalize()]();
+            }
 
             var model = App.Model.getCollectionModelForTab(newTab);
             var view = App.View.getViewForTab(newTab);
+            this.lastView = new view({collectionModel: model});
 
-            this.Content.show(new view({
-                collectionModel: model
-            }));
+            this.Content.show(this.lastView);
         },
 
         updateShows: function (e) {
             var that = this;
-            App.vent.trigger('show:closeDetail');
+            App.vent.trigger('tvshow:closeDetail');
             this.Content.show(new App.View.InitModal());
             App.db.syncDB(function () {
                 that.InitModal.destroy();
