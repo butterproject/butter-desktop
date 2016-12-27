@@ -3,7 +3,7 @@
   vertical-align middle
   position relative
   z-index 99
-  
+
   & i
     cursor pointer
     margin 0 15px
@@ -16,8 +16,8 @@
   .search-input
     border-radius 50px
     margin 0
-    height auto
-    padding 4px 15px
+    height 30px
+    padding 0 15px
     background rgba(0,0,0,0.25)
     transition background .2s ease
     input[type=text]
@@ -27,10 +27,6 @@
       border 0
       outline 0
       transition all 0.2s ease
-  &.open
-    .search-input
-      input[type=text]
-        width 100px
   &.active
     .search-input
       border-radius 5px 5px 0px 0px
@@ -48,7 +44,7 @@
       height 192px
       .item
         padding 10px !important
-        
+
   .search-items
     overflow hidden
     background #fff
