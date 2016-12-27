@@ -245,6 +245,12 @@
             this.MovieDetail.destroy();
             this.lastView && this.lastView.destroy();
 
+            if (['favorites', 'torrentCollection', 'watchlist']
+                .indexOf(newTab) !== -1) {
+                // XXX hack until we get something better
+                return this['show' + newTab.capitalize()]();
+            }
+
             var model = App.Model.getCollectionModelForTab(newTab);
             var view = App.View.getViewForTab(newTab);
             this.lastView = new view({collectionModel: model});
