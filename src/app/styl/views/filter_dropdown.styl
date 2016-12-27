@@ -42,13 +42,14 @@
         background $FilterDropdownBg
         box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
     .filter-items
-      background $FilterDropdownBg
+      background $FilterDropdownHoverBg
       max-height 283px
       overflow-x hidden
       overflow-y auto
       -webkit-transform perspective(400) rotate3d(1, 0, 0, 0)
       li
-        opacity 0.75
+        color: $FilterDropdownHoverText
+        opacity 1
         &:hover
           background $FilterDropdownHover
           opacity 1
@@ -119,8 +120,8 @@
 
 .filter-dropdown.open,
 .search.open .search-input
-  background $FilterDropdownBg
-  color $FilterDropdownText
+  background $FilterDropdownHoverBg
+  color $FilterDropdownHoverText
 
 .filter-dropdown .selected,
 .filter-dropdown .icon
