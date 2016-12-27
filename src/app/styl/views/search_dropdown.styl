@@ -1,54 +1,54 @@
 .search
-
-  display block
+  display inline-block
   vertical-align middle
   position relative
   z-index 99
-
-  &i
+  
+  & i
     cursor pointer
     margin 0 15px
     opacity 0.5
-    display inline-block
-    vertical-align middle
     transition all 0.2s ease
 
     &:hover
       opacity 1
 
   .search-input
-      display inline-block
-      border-radius 50px
-      margin 0
-      max-height  30px
-      line-height 15px
-      padding 0 15px
-      overflow hidden
-      background rgba(0,0,0,0.25)
-      transition background .2s ease
-
+    border-radius 50px
+    margin 0
+    height auto
+    padding 4px 15px
+    background rgba(0,0,0,0.25)
+    transition background .2s ease
     input[type=text]
       width 100px
       display inline-block
-      vertical-align middle
       background transparent
-      margin 0
-      outline 0
       border 0
+      outline 0
       transition all 0.2s ease
-&.active
+  &.open
+    .search-input
+      input[type=text]
+        width 100px
+  &.active
     .search-input
       border-radius 5px 5px 0px 0px
+      border-bottom 1px solid #ddd
       background #fff
+      padding 4px 15px
       input[type=text]
         color #181c25
+        width 100px
       i
         &.material-icons
           color #252525
-          margin 0
-          padding 0
-
-
+    .search-items
+      opacity 1
+      height 192px
+      .item
+        padding 10px !important
+        
   .search-items
     overflow hidden
     background #fff
@@ -60,6 +60,8 @@
     margin 0
     background #fff
     list-style none
+    opacity 0
+
     transition height 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.5), background 0.2s ease
     .item
       list-style none
