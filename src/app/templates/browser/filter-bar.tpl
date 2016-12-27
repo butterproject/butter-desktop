@@ -1,22 +1,21 @@
 <ul class="nav nav-hor left">
-    <% _.each (App.Config.getTabTypes(), function (tab) { %>
-    <li class="source <%= tab.type %>TabShow providerinfo" data-toggle="tooltip" data-placement="top" title="<%= App.Config.getFiltredProviderNames(tab.type) %>"><%= i18n.__(tab.name) %></li>
+    <% _.each (App.Config.getTabs(), function (tab) { %>
+    <li class="source providerinfo contentTab"
+        data-value="<%= tab.type %>"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="<%= App.Config.getFiltredProviderNames(tab.providers) %>">
+        <%= i18n.__(tab.name) %>
+    </li>
     <% }); %>
 </ul>
 <ul id="nav-filters" class="nav nav-hor filters">
     <li id="types-dropdown"></li>
     <li id="genres-dropdown"></li>
-    <li id="sortby-dropdown"></li>
+    <li id="sorters-dropdown"></li>
 </ul>
 <ul class="nav nav-hor right">
-    <li>
-        <div class="right search">
-            <form>
-                <input id="searchbox" type="text" placeholder="<%= i18n.__("Search") %>" autocomplete="off">
-                <div class="clear fa fa-times"></div>
-            </form>
-        </div>
-    </li>
+    <li id="search-dropdown"></li>
 
     <!-- Randomize -->
     <% if (Settings.activateRandomize) { %>

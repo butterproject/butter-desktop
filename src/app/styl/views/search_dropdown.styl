@@ -1,0 +1,88 @@
+.search
+
+  display block
+  vertical-align middle
+  position relative
+  z-index 99
+
+  &i
+    cursor pointer
+    margin 0 15px
+    opacity 0.5
+    display inline-block
+    vertical-align middle
+    transition all 0.2s ease
+
+    &:hover
+      opacity 1
+
+  .search-input
+      display inline-block
+      border-radius 50px
+      margin 0
+      max-height  30px
+      line-height 15px
+      padding 0 15px
+      overflow hidden
+      background rgba(0,0,0,0.25)
+      transition background .2s ease
+
+    input[type=text]
+      width 100px
+      display inline-block
+      vertical-align middle
+      background transparent
+      margin 0
+      outline 0
+      border 0
+      transition all 0.2s ease
+&.active
+    .search-input
+      border-radius 5px 5px 0px 0px
+      background #fff
+      input[type=text]
+        color #181c25
+      i
+        &.material-icons
+          color #252525
+          margin 0
+          padding 0
+
+
+  .search-items
+    overflow hidden
+    background #fff
+    border-radius 0 0 5px 5px
+    height 0
+    width 100%
+    position absolute
+    top 100%
+    margin 0
+    background #fff
+    list-style none
+    transition height 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.5), background 0.2s ease
+    .item
+      list-style none
+      padding 10px 5px
+      opacity 0.75
+      cursor pointer
+      transition all 0.2s ease
+      &:hover
+        opacity 1
+        background #EEEEEE
+      .info
+        margin 0 5px
+        .year
+          opacity 0.5
+          font-size 14px
+      .color
+        background #555
+        margin-left 5px
+        width 25px
+        height 40px
+        &.orange
+          background #ff9800
+        &.blue
+          background #42a5f5
+        &.green
+          background #4caf50

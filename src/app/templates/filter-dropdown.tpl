@@ -3,7 +3,7 @@
         <div class="category"><%= title %></div>
         <div class="select-item">
             <div class="selected"><%= i18n.__("Select One") %></div>
-            <div class="caret"></div>
+            <i class="icon material-icons"></i>
         </div>
     </div>
     <ul class="filter-items" role="menu">
