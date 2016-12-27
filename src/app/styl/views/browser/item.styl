@@ -3,7 +3,7 @@
     margin: 10px
     float: left
     width: 134px
-    font-size: 0.8em
+    font-size: 1em
 
     &:last-child
         flex-grow: 10
@@ -32,6 +32,7 @@
             position absolute
             transition opacity 500ms ease-in
             opacity 0
+            border-radius: 5px
 
             &img
                 position absolute
@@ -42,7 +43,7 @@
 
             &.cover-info-overlay
               padding 88px 0
-              background $PosterHoverOverlay
+              background-image: $PosterHoverOverlay
               border: 2px solid $PosterHoverOverlay
               border-radius $PosterRadius
               transition border-color .25s ease
@@ -143,6 +144,7 @@
         text-overflow: ellipsis
         white-space: nowrap
         padding-bottom: 2px
+        font-weight: bold
 
     .year
         font-size: 0.85em
