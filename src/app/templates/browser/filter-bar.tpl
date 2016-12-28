@@ -32,7 +32,7 @@
     <% } else { %>
     <li style="display:none">
     <% } %>
-        <i id="filterbar-watchlist" class="material-icons watchlist tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Watchlist") %>">archive</i>
+        <i id="filterbar-watchlist" class="material-icons watchlist tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Watchlist") %>">inbox</i>
     </li>
 
     <!-- Favorites -->
