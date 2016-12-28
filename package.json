@@ -16,7 +16,8 @@
     "scripts": {
         "postinstall": "node_modules/.bin/bower install --config.interactive=false",
         "postupdate": "node_modules/.bin/bower update --config.interactive=false",
-        "test": "gulp test"
+        "test": "gulp test",
+        "start": "gulp run"
     },
     "engines": {
         "npm": ">=3.0.0",
