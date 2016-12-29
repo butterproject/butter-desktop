@@ -48,15 +48,16 @@ scrollable()
     -webkit-overflow-scrolling touch
 
     &::-webkit-scrollbar
-        width 5px
+        width 8px
 
     &::-webkit-scrollbar-track
         background-color $ScrollBarBg
-        border-radius 2px
+        border-radius 6px
 
     &::-webkit-scrollbar-thumb
         background-color $ScrollBarThumb
-        border-radius 2px
+        border-radius 6px
+        box-shadow 0 1px 3px rgba(0,0,0,0.3)
 
         &:hover
             background-color: $ScrollBarThumbHover
