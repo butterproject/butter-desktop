@@ -207,7 +207,7 @@
         },
 
         getTabTypes: function () {
-            return Object.keys(this.getTabs()).map(t => (t.type));
+            return Object.values(this.getTabs()).map(t => (t.type));
         },
 
         getProviderForType: function (type) {

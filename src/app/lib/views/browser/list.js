@@ -148,7 +148,7 @@
                 var tabs = App.Config.getTabTypes();
                 var i = start?tabs.indexOf(start):0;
                 if (i === -1) {
-                    return 'movies';
+                    App.currentview =  tabs[0];
                 }
 
                 App.currentview =  tabs[(i + direction) % tabs.length];
