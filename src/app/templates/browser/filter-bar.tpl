@@ -8,18 +8,19 @@
         <%= i18n.__(tab.name) %>
     </li>
     <% }); %>
+
+    <ul id="nav-filters" class="nav nav-hor filters">
+        <li id="types-dropdown"></li>
+        <li id="genres-dropdown"></li>
+        <li id="sorters-dropdown"></li>
+    </ul>
 </ul>
-<ul id="nav-filters" class="nav nav-hor filters">
-    <li id="types-dropdown"></li>
-    <li id="genres-dropdown"></li>
-    <li id="sorters-dropdown"></li>
-</ul>
+
 <ul class="nav nav-hor right">
     <li id="search-dropdown"></li>
-
     <!-- Randomize -->
     <% if (Settings.activateRandomize) { %>
-    <li style="display:block">
+    <li style="display:inline-block">
     <% } else { %>
     <li style="display:none">
     <% } %>
@@ -28,7 +29,7 @@
 
     <!-- Watchlist -->
     <% if (Settings.activateWatchlist) { %>
-    <li style="display:block">
+    <li style="display:inline-block">
     <% } else { %>
     <li style="display:none">
     <% } %>
@@ -42,7 +43,7 @@
 
     <!-- Torrent Collection -->
     <% if (Settings.activateTorrentCollection) { %>
-    <li id="torrent_col" style="display:block">
+    <li id="torrent_col" style="display:inline-block">
     <% } else { %>
     <li id="torrent_col" style="display:none">
     <% } %>

@@ -9,38 +9,42 @@
   border-radius 5px 5px 0 0
   transition background 0.3s ease
   .category
-    font-family $MainFontBold
-    font-size 0.75em
-    line-height 0.88em
+    font-family $MainFont
+    font-size 0.65em
+    line-height 0.5em
     opacity 0.25
     margin 0
     padding 0
     text-transform uppercase
   .select-item
     cursor pointer
-  .select-item i {
+  .select-item i
     margin: 0
-  }
   .selected
     margin 0
     padding 0
-    line-height 1.25em
-    font-size 1.12em
+    font-family $MainFontBold
+    font-size 0.9em
+    line-height 0.75em
     min-width 75px
   .icon
     opacity 0.5
-    font-size 1.25em
+    font-size 1em
     margin-left 10px
     &:after
       content "arrow_drop_down"
   &.open
-    .icon
-      &:after
-        content "arrow_drop_up"
+    .select-item
+        .category
+            color: #252525 !important
+        .icon
+            &:after
+                content "arrow_drop_up"
+                color: rgba(0, 0, 0, 0.5)
     &.
       .drop-head
         background $FilterDropdownBg
-        box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+        
     .filter-items
       background $FilterDropdownHoverBg
       max-height 283px
@@ -68,7 +72,7 @@
     transition max-height 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s ease
     li
       list-style none
-      font-size 1.18em
+      font-size 0.9em
       opacity 0
       padding 7px 13px
       display block
@@ -142,6 +146,7 @@
     &::-webkit-scrollbar-track
         background-color transparent
         border-radius 2px
+        margin: 5px 0
 
     &::-webkit-scrollbar-thumb
         background-color $ScrollBarThumb
