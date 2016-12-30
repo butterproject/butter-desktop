@@ -265,10 +265,12 @@
         },
 
         checkFetchMore: function () {
-            // if load more is visible onLoaded, fetch more results
-            if (elementInViewport(this.$el, $('#load-more-item'))) {
-                this.collection.fetchMore();
-            }
+            var loadmore = $(document.getElementById('load-more-item'));
+
+            return ( // if load more is visible onLoaded, fetch more results
+                loadmore.is(':visible') &&
+                elementInViewport(this.$el, loadmore)
+            ) ? this.collection.fetchMore() : false;
         },
 
         completerow: function () {
