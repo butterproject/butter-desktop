@@ -3,7 +3,6 @@
 
     var SCROLL_MORE = 0.7; // 70% of window height
     var NUM_MOVIES_IN_ROW = 7;
-    var _this;
 
     function elementInViewport(container, element) {
         if (element.length === 0) {
@@ -65,55 +64,52 @@
             spinner: '.spinner'
         },
 
-
         isEmpty: function () {
             return !this.collection.length && this.collection.state !== 'loading';
         },
 
         getEmptyView: function () {
             switch (App.currentview) {
-            case 'Favorites':
-                if (this.collection.state === 'error') {
-                    return ErrorView.extend({
-                        retry: true,
-                        error: i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.')
-                    });
-                } else if (this.collection.state !== 'loading') {
-                    return ErrorView.extend({
-                        error: i18n.__('No ' + App.currentview + ' found...')
-                    });
-                }
-                break;
-            case 'Watchlist':
-                if (this.collection.state === 'error') {
-                    return ErrorView.extend({
-                        retry: true,
-                        error: i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.')
-                    });
-                } else if (this.collection.state !== 'loading') {
-                    return ErrorView.extend({
-                        error: i18n.__('No ' + App.currentview + ' found...')
-                    });
-                }
-                break;
-            default:
-                if (this.collection.state === 'error') {
-                    return ErrorView.extend({
-                        retry: true,
-                        error: i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>')
-                    });
-                } else if (this.collection.state !== 'loading') {
-                    return ErrorView.extend({
-                        error: i18n.__('No ' + App.currentview + ' found...')
-                    });
-                }
-                break;
-
+                case 'Favorites':
+                    if (this.collection.state === 'error') {
+                        return ErrorView.extend({
+                            retry: true,
+                            error: i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.')
+                        });
+                    } else if (this.collection.state !== 'loading') {
+                        return ErrorView.extend({
+                            error: i18n.__('No ' + App.currentview + ' found...')
+                        });
+                    }
+                    break;
+                case 'Watchlist':
+                    if (this.collection.state === 'error') {
+                        return ErrorView.extend({
+                            retry: true,
+                            error: i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.')
+                        });
+                    } else if (this.collection.state !== 'loading') {
+                        return ErrorView.extend({
+                            error: i18n.__('No ' + App.currentview + ' found...')
+                        });
+                    }
+                    break;
+                default:
+                    if (this.collection.state === 'error') {
+                        return ErrorView.extend({
+                            retry: true,
+                            error: i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>')
+                        });
+                    } else if (this.collection.state !== 'loading') {
+                        return ErrorView.extend({
+                            error: i18n.__('No ' + App.currentview + ' found...')
+                        });
+                    }
+                    break;
             }
         },
 
         initialize: function () {
-            _this = this;
             this.listenTo(this.collection, 'loading', this.onLoading);
             this.listenTo(this.collection, 'loaded', this.onLoaded);
 
@@ -124,93 +120,102 @@
         },
 
         initKeyboardShortcuts: function () {
-            Mousetrap.bind('up', _this.moveUp);
+            Mousetrap.bind('up', this.moveUp.bind(this));
+            Mousetrap.bind('down', this.moveDown.bind(this));
+            Mousetrap.bind('left', this.moveLeft.bind(this));
+            Mousetrap.bind('right', this.moveRight.bind(this));
+            Mousetrap.bind('f', this.toggleSelectedFavourite);
+            Mousetrap.bind('w', this.toggleSelectedWatched);
+            Mousetrap.bind(['enter', 'space'], this.selectItem);
+            Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch);
+            Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch);
+            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));
+            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3'], this.switchSpecificTab.bind(this));
+            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));
+            Mousetrap.bind('i', this.showAbout.bind(this));
+        },
 
-            Mousetrap.bind('down', _this.moveDown);
+        blurSearch: function (e, combo) {
+            $('.search-input>input').blur();
+        },
 
-            Mousetrap.bind('left', _this.moveLeft);
+        isPlayerDestroyed: function () {
+            return (App.PlayerView === undefined || App.PlayerView.isDestroyed) 
+                && $('#about-container').children().length <= 0 
+                && $('#player').children().length <= 0;
+        },
 
-            Mousetrap.bind('right', _this.moveRight);
-
-            Mousetrap.bind('f', _this.toggleSelectedFavourite);
-
-            Mousetrap.bind('w', _this.toggleSelectedWatched);
-
-            Mousetrap.bind(['enter', 'space'], _this.selectItem);
-
-            Mousetrap.bind(['ctrl+f', 'command+f'], _this.focusSearch);
-
-            Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], function (e, combo) {
-                $('.search input').blur();
-            });
-
-            function selectTab(direction, start) {
-                var tabs = App.Config.getTabTypes();
-                var i = start?tabs.indexOf(start):0;
-                var nextTab;
-                if (i === -1) {
-                    nextTab = tabs[0];
-                } else {
-                    nextTab = tabs[(i + direction) % tabs.length];
-                }
-
-                App.vent.trigger('about:close');
-                App.vent.trigger('torrentCollection:close');
-                App.vent.trigger('show:tab', nextTab);
+        selectTab: function (direction, start) {
+            var tabs = App.Config.getTabTypes();
+            var i = start?tabs.indexOf(start):0;
+            var nextTab;
+            if (i === -1) {
+                nextTab = tabs[0];
+            } else {
+                nextTab = tabs[(i + direction) % tabs.length];
             }
 
-            Mousetrap.bind(['tab', 'shift+tab'], function (e, combo) {
-                if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#about-container').children().length <= 0 && $('#player').children().length <= 0) {
+            App.vent.trigger('about:close');
+            App.vent.trigger('torrentCollection:close');
+            App.vent.trigger('show:tab', nextTab);
+        },
 
-                    if (combo === 'tab') {
-                        selectTab(+1, App.currentview);
-                    } else if (combo === 'shift+tab') {
-                        selectTab(-1, App.currentview);
-                    }
+        switchTab: function (e, combo) {
+            if (this.isPlayerDestroyed()) {
+                if (combo === 'tab') {
+                    selectTab(+1, App.currentview);
+                } else if (combo === 'shift+tab') {
+                    selectTab(-1, App.currentview);
                 }
-            });
+            }
+        },
 
-            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3', 'ctrl+4', 'ctrl+5', 'ctrl+6'], function (e, combo) {
-                if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#about-container').children().length <= 0 && $('#player').children().length <= 0) {
-                    selectTab(combo.substr(-1));
-                }
-            });
+        switchSpecificTab: function (e, combo) {
+            if (this.isPlayerDestroyed()) {
+                selectTab(combo.substr(-1));
+            }
+        },
 
-            Mousetrap.bind(['`', 'b'], function () {
-                if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#about-container').children().length <= 0 && $('#player').children().length <= 0) {
-                    $('.favorites').click();
-                }
-            });
+        refreshFilterbar: function () {
+            App.vent.trigger('torrentCollection:close');
+            App.vent.trigger(App.currentview + ':list', []);
+            $('.filter-bar').find('.active').removeClass('active');
+            $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
+        },
 
-            Mousetrap.bind('i', function () {
-                if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#player').children().length <= 0) {
-                    $('.about').click();
-                }
-            });
+        openFavorites: function () {
+            if (this.isPlayerDestroyed()) {
+                $('.favorites').click();
+            }
+        },
 
+        showAbout: function () {
+            if (this.isPlayerDestroyed()) {
+                $('.about').click();
+            }
         },
 
         initPosterResizeKeys: function () {
             $(window)
-                .on('mousewheel', function (event) { // Ctrl + wheel doesnt seems to be working on node-webkit (works just fine on chrome)
+                .on('mousewheel', (event) => { // Ctrl + wheel doesnt seems to be working on node-webkit (works just fine on chrome)
                     if (event.altKey === true) {
                         event.preventDefault();
                         if (event.originalEvent.wheelDelta > 0) {
-                            _this.increasePoster();
+                            this.increasePoster();
                         } else {
-                            _this.decreasePoster();
+                            this.decreasePoster();
                         }
                     }
                 })
-                .on('keydown', function (event) {
+                .on('keydown', (event) => {
                     if (event.ctrlKey === true || event.metaKey === true) {
 
                         if ($.inArray(event.keyCode, [107, 187]) !== -1) {
-                            _this.increasePoster();
+                            this.increasePoster();
                             return false;
 
                         } else if ($.inArray(event.keyCode, [109, 189]) !== -1) {
-                            _this.decreasePoster();
+                            this.decreasePoster();
                             return false;
                         }
                     }
@@ -312,6 +317,7 @@
                 });
             }
         },
+
         onScroll: function () {
             if (!this.collection.hasMore) {
                 return;
@@ -327,7 +333,7 @@
         },
 
         focusSearch: function (e) {
-            $('.search input').focus();
+            $('.search-input>input').focus();
         },
 
         increasePoster: function (e) {
@@ -402,7 +408,7 @@
             if (index < 0) {
                 return;
             }
-            _this.selectIndex(index);
+            this.selectIndex(index);
         },
 
         moveDown: function (e) {
@@ -416,7 +422,7 @@
             } else {
                 index = index + NUM_MOVIES_IN_ROW;
             }
-            _this.selectIndex(index);
+            this.selectIndex(index);
         },
 
         moveLeft: function (e) {
@@ -432,7 +438,7 @@
             } else {
                 index = index - 1;
             }
-            _this.selectIndex(index);
+            this.selectIndex(index);
         },
 
         moveRight: function (e) {
@@ -446,7 +452,7 @@
             } else {
                 index = index + 1;
             }
-            _this.selectIndex(index);
+            this.selectIndex(index);
         },
 
         toggleSelectedFavourite: function (e) {
