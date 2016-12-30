@@ -170,13 +170,6 @@
             }
         },
 
-        refreshFilterbar: function () {
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger(App.currentview + ':list', []);
-            $('.filter-bar').find('.active').removeClass('active');
-            $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
-        },
-
         openFavorites: function () {
             if (this.isPlayerDestroyed()) {
                 $('.favorites').click();
@@ -222,22 +215,24 @@
                 ), true);
         },
         onLoading: function () {
-            $('.status-loadmore').hide();
-            $('#loading-more-animi').show();
+            var loadmore = $(document.getElementById('load-more-item'));
+            loadmore.children('.status-loadmore').css('display', 'none');
+            loadmore.children('.loading-container').css('display', 'block');
         },
 
         onLoaded: function () {
             App.vent.trigger('list:loaded');
 
             this.completerow();
-            this.ui.spinner.hide();
+            this.ui.spinner.css('display', 'none');
 
             if (this.allLoaded()) {
-                $('#loading-more-animi').hide();
-                $('.status-loadmore').show();
+                var loadmore = $(document.getElementById('load-more-item'));
+                loadmore.children('.status-loadmore').css('display', 'block');
+                loadmore.children('.loading-container').css('display', 'none');
             }
 
-            $('.filter-bar').on('mousedown', () => {
+            $('.filter-bar').on('mousedown', (e) => {
                 if (e.target.localName !== 'div') {
                     return;
                 }
@@ -245,7 +240,9 @@
                     this.$('.items:first').focus();
                 });
             });
+
             $('.items').attr('tabindex', '1');
+
             _.defer(() => {
                 this.checkFetchMore();
                 this.$('.items:first').focus();
@@ -270,9 +267,13 @@
                     '<span class="status-loadmore">' + 
                         i18n.__('Load More') + 
                     '</span>' +
-                    '<div id="loading-more-animi" class="loading-container">' +
-                        '<div class="ball"></div>' +
-                        '<div class="ball1"></div>' +
+                    '<div class="loading-container">' +
+                        '<div class="sk-folding-cube">' +
+                              '<div class="sk-cube1 sk-cube"></div>' +
+                              '<div class="sk-cube2 sk-cube"></div>' +
+                              '<div class="sk-cube4 sk-cube"></div>' +
+                              '<div class="sk-cube3 sk-cube"></div>' +
+                        '</div>' +
                     '</div>' +
                 '</div>';
 
@@ -310,10 +311,10 @@
             var totalHeight = this.$el.prop('scrollHeight');
             var currentPosition = this.$el.scrollTop() + this.$el.height();
 
-            if (this.collection.state === 'loaded' &&
-                (currentPosition / totalHeight) > SCROLL_MORE) {
-                this.collection.fetchMore();
-            }
+            return (
+                this.collection.state === 'loaded' 
+                && (currentPosition / totalHeight) > SCROLL_MORE
+            ) ? this.collection.fetchMore() : true;
         },
 
         focusSearch: function (e) {
