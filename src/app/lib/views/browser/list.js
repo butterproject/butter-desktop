@@ -117,10 +117,10 @@
             this.listenTo(this.collection, 'loading', this.onLoading);
             this.listenTo(this.collection, 'loaded', this.onLoaded);
 
-            App.vent.on('shortcuts:list', _this.initKeyboardShortcuts);
-            _this.initKeyboardShortcuts();
+            App.vent.on('shortcuts:list', this.initKeyboardShortcuts.bind(this));
+            this.initKeyboardShortcuts();
 
-            _this.initPosterResizeKeys();
+            this.initPosterResizeKeys();
         },
 
         initKeyboardShortcuts: function () {
@@ -147,15 +147,16 @@
             function selectTab(direction, start) {
                 var tabs = App.Config.getTabTypes();
                 var i = start?tabs.indexOf(start):0;
+                var nextTab;
                 if (i === -1) {
-                    App.currentview =  tabs[0];
+                    nextTab = tabs[0];
+                } else {
+                    nextTab = tabs[(i + direction) % tabs.length];
                 }
 
-                App.currentview =  tabs[(i + direction) % tabs.length];
+                App.vent.trigger('about:close');
                 App.vent.trigger('torrentCollection:close');
-                App.vent.trigger(App.currentview + ':list', []);
-                $('.filter-bar').find('.active').removeClass('active');
-                $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
+                App.vent.trigger('show:tab', nextTab);
             }
 
             Mousetrap.bind(['tab', 'shift+tab'], function (e, combo) {

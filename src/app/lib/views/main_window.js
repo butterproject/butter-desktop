@@ -256,6 +256,8 @@
             this.lastView = new view({collectionModel: model});
 
             this.Content.show(this.lastView);
+            App.currentview = newTab;
+            App.vent.trigger('selected:tab', newTab);
         },
 
         updateShows: function (e) {
