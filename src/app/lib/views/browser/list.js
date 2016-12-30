@@ -151,7 +151,7 @@
                 if (i === -1) {
                     nextTab = tabs[0];
                 } else {
-                    nextTab = tabs[(i + direction) % tabs.length];
+                    nextTab = tabs[(tabs.length + i + direction) % tabs.length];
                 }
 
                 App.vent.trigger('about:close');
