@@ -70,7 +70,6 @@
             $('#filterbar-random').hide();
             $('.filter-bar').find('.active').removeClass('active');
             $(`[data-value="${set}"]`).addClass('active');
-            $(`#filterbar-${set}`).addClass('active');
         },
         rightclick_search: function (e) {
             e.preventDefault();
