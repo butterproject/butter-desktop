@@ -9,7 +9,7 @@
   border-radius 5px 5px 0 0
   transition background 0.3s ease
   .category
-    font-family $MainFontBold
+    font-family $MainFont
     font-size 0.65em
     line-height 0.5em
     opacity 0.25
@@ -23,6 +23,7 @@
   .selected
     margin 0
     padding 0
+    font-family $MainFontBold
     font-size 0.9em
     line-height 0.75em
     min-width 75px
@@ -33,13 +34,17 @@
     &:after
       content "arrow_drop_down"
   &.open
-    .icon
-      &:after
-        content "arrow_drop_up"
+    .select-item
+        .category
+            color: #252525 !important
+        .icon
+            &:after
+                content "arrow_drop_up"
+                color: rgba(0, 0, 0, 0.5)
     &.
       .drop-head
         background $FilterDropdownBg
-        box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+        
     .filter-items
       background $FilterDropdownHoverBg
       max-height 283px
@@ -141,6 +146,7 @@
     &::-webkit-scrollbar-track
         background-color transparent
         border-radius 2px
+        margin: 5px 0
 
     &::-webkit-scrollbar-thumb
         background-color $ScrollBarThumb
