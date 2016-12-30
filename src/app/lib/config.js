@@ -206,6 +206,10 @@
                 .map(t => (Object.assign({type: t}, tabs[t])));
         },
 
+        getTabTypes: function () {
+            return Object.keys(this.getTabs()).map(t => (t.type));
+        },
+
         getProviderForType: function (type) {
             var provider = Settings.providers[type];
 
