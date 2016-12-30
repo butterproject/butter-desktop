@@ -115,7 +115,6 @@
 
             App.vent.on('shortcuts:list', this.initKeyboardShortcuts.bind(this));
             this.initKeyboardShortcuts();
-
             this.initPosterResizeKeys();
         },
 
@@ -191,30 +190,24 @@
         },
 
         initPosterResizeKeys: function () {
-            $(window)
-                .on('mousewheel', (event) => { // Ctrl + wheel doesnt seems to be working on node-webkit (works just fine on chrome)
-                    if (event.altKey === true) {
-                        event.preventDefault();
-                        if (event.originalEvent.wheelDelta > 0) {
-                            this.increasePoster();
-                        } else {
-                            this.decreasePoster();
-                        }
-                    }
-                })
-                .on('keydown', (event) => {
-                    if (event.ctrlKey === true || event.metaKey === true) {
+            var $el = $(document);
 
-                        if ($.inArray(event.keyCode, [107, 187]) !== -1) {
-                            this.increasePoster();
-                            return false;
+            $el.on('mousewheel', (e) => {
+                if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    return e.originalEvent.wheelDelta > 0 ? this.increasePoster() : this.decreasePoster();
+                }
+            });
 
-                        } else if ($.inArray(event.keyCode, [109, 189]) !== -1) {
-                            this.decreasePoster();
-                            return false;
-                        }
+            $el.on('keydown', (e) => {
+                if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
+                    if (e.key === '+') {
+                        this.increasePoster();
+                    } else if (e.key === '-') {
+                        this.decreasePoster();
                     }
-                });
+                }
+            });
         },
 
         onShow: function () {
@@ -235,31 +228,27 @@
 
         onLoaded: function () {
             App.vent.trigger('list:loaded');
-            var self = this;
 
             this.completerow();
-
-            if (typeof (this.ui.spinner) === 'object') {
-                this.ui.spinner.hide();
-            }
+            this.ui.spinner.hide();
 
             if (this.allLoaded()) {
                 $('#loading-more-animi').hide();
                 $('.status-loadmore').show();
             }
 
-            $('.filter-bar').on('mousedown', function (e) {
+            $('.filter-bar').on('mousedown', () => {
                 if (e.target.localName !== 'div') {
                     return;
                 }
-                _.defer(function () {
-                    self.$('.items:first').focus();
+                _.defer(() => {
+                    this.$('.items:first').focus();
                 });
             });
             $('.items').attr('tabindex', '1');
-            _.defer(function () {
-                self.checkFetchMore();
-                self.$('.items:first').focus();
+            _.defer(() => {
+                this.checkFetchMore();
+                this.$('.items:first').focus();
             });
 
         },
@@ -342,8 +331,6 @@
                     .then(function () {
                         App.vent.trigger('updatePostersSizeStylesheet');
                     });
-            } else {
-                // do nothing for now
             }
         },
 
