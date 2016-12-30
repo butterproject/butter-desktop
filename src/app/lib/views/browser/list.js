@@ -272,21 +272,27 @@
         },
 
         completerow: function () {
-            var elms = this.addloadmore();
-            elms += this.addghosts();
+            var items = $(document.getElementsByClassName('items'));
 
-            $('.ghost, #load-more-item').remove();
-            $('.items').append(elms);
+            var loadmore = 
+                '<div id="load-more-item" class="load-more">' +
+                    '<span class="status-loadmore">' + 
+                        i18n.__('Load More') + 
+                    '</span>' +
+                    '<div id="loading-more-animi" class="loading-container">' +
+                        '<div class="ball"></div>' +
+                        '<div class="ball1"></div>' +
+                    '</div>' +
+                '</div>';
+
+            var ghosts = '<div class="ghost"></div>'.repeat(10);
+
+            items.children('#load-more-item').remove();
+            items.children('.ghost').remove();
+
+            items.append(loadmore + ghosts);
 
             this.showloadmore();
-        },
-
-        addghosts: function () {
-            return '<div class="ghost"></div>'.repeat(10);
-        },
-
-        addloadmore: function () {
-            return '<div id="load-more-item" class="load-more"><span class="status-loadmore">' + i18n.__('Load More') + '</span><div id="loading-more-animi" class="loading-container"><div class="ball"></div><div class="ball1"></div></div></div>';
         },
 
         showloadmore: function () {
