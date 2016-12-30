@@ -296,24 +296,18 @@
         },
 
         showloadmore: function () {
-            var self = this;
-
-            switch (App.currentview) {
-            case 'Favorites':
-                break;
-            case 'Watchlist':
-                break;
-
-            default:
-                if ($('.items').children().last().attr('id') !== 'load-more-item') {
-                    if (this.collection.hasMore && !this.collection.filter.keywords && this.collection.state !== 'error' && this.collection.length !== 0) {
-                        $('#load-more-item').css('display', 'inline-block').click(function () {
-                            $('#load-more-item').off('click');
-                            self.collection.fetchMore();
-                        });
-                    }
-                }
-                break;
+            if (
+                ['movie', 'tvshow', 'anime'].indexOf(App.currentview) !== -1
+                && this.collection.hasMore
+                && !this.collection.filter.keywords
+                && this.collection.state !== 'error'
+                && this.collection.length
+            ) {
+                var loadmore = $(document.getElementById('load-more-item'));
+                loadmore.css('display', 'inline-block').click(_ => {
+                    loadmore.off('click');
+                    this.collection.fetchMore();
+                });
             }
         },
         onScroll: function () {
