@@ -145,15 +145,10 @@
                 && $('#player').children().length <= 0;
         },
 
-        selectTab: function (direction, start) {
+        selectTab: function (direction, currentTab) {
             var tabs = App.Config.getTabTypes();
-            var i = start?tabs.indexOf(start):0;
-            var nextTab;
-            if (i === -1) {
-                nextTab = tabs[0];
-            } else {
-                nextTab = tabs[(tabs.length + i + direction) % tabs.length];
-            }
+            var i = currentTab ? tabs.indexOf(currentTab) : -1;
+            var nextTab = tabs[(tabs.length + i + direction) % tabs.length];
 
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
