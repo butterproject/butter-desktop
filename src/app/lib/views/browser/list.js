@@ -163,16 +163,16 @@
         switchTab: function (e, combo) {
             if (this.isPlayerDestroyed()) {
                 if (combo === 'tab') {
-                    selectTab(+1, App.currentview);
+                    this.selectTab(+1, App.currentview);
                 } else if (combo === 'shift+tab') {
-                    selectTab(-1, App.currentview);
+                    this.selectTab(-1, App.currentview);
                 }
             }
         },
 
         switchSpecificTab: function (e, combo) {
             if (this.isPlayerDestroyed()) {
-                selectTab(combo.substr(-1));
+                this.selectTab(combo.substr(-1));
             }
         },
 
