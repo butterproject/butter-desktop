@@ -244,12 +244,13 @@
             this.Settings.destroy();
             this.MovieDetail.destroy();
             this.lastView && this.lastView.destroy();
-            App.vent.trigger('selected:tab', newTab);
 
             if (['favorites', 'torrentCollection', 'watchlist']
                 .indexOf(newTab) !== -1) {
                 // XXX hack until we get something better
-                return this['show' + newTab.capitalize()]();
+                this['show' + newTab.capitalize()]();
+                App.vent.trigger('selected:tab', newTab);
+                return;
             }
 
             var model = App.Model.getCollectionModelForTab(newTab);
@@ -258,6 +259,7 @@
 
             this.Content.show(this.lastView);
             App.currentview = newTab;
+            App.vent.trigger('selected:tab', newTab);
         },
 
         updateShows: function (e) {
