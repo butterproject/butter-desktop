@@ -240,9 +240,9 @@
 
         getFiltredProviderNames: function (providers) {
             var ret = providers
+                .map(c => (c.split('?')[0]))
                 .reduce((a, c) => {
-                    let n = c.split(':')[0];
-                    a[n]++;
+                    a[c] = ~~(a[c]) + 1;
                     return a;
                 }, {});
 
