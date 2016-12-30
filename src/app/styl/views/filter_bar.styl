@@ -4,11 +4,15 @@
     opacity: 1
     height: 35px
     background-color: $FilterBarBg
-    -webkit-user-select: none
     position: absolute
     top: $TitleHeight
+    display: flex
+    align-items: center
+    justify-content: space-between
     height: $FilterBarHeight
     box-shadow: $TopBarShadow
+    -webkit-user-select: none
+	  //-webkit-box-align: center
 
     .source
         box-sizing: content-box
@@ -17,35 +21,41 @@
         cursor: pointer
         height: 20px
         vertical-align: middle
-        margin: 10px 20px 0 10px
-        padding: 5px 0 10px 0
-        font-family:  $MainFontBold
-        font-size: 1.8em
+        margin: 10px
+        padding: 5px 0
+        font-family: $MainFontBold
+        font-size: 1.22em
         text-transform: uppercase
+        border-bottom: 3px solid transparent
 
         &:hover
             color: $FilterBarTextHover
-
         &.active
             color: $FilterBarTextHover
-            border-bottom: 4px solid $FilterBarActive
+            border-bottom: 3px solid $FilterBarActive
+
+    ul.nav-hor
+        display inline-block
+        vertical-align middle
+        float: none
 
     .nav-hor.left
         margin-left: 20px
     .nav.filters
-        float: left
         margin-left: 10px
 
         & > li
           display inline-block
+          vertical-align middle
 
-    .nav.right
-        margin-right: 5px
-        margin-top: 12px
+    .nav-hor.right
+        margin-right: 20px
+        & > li
+            margin-left: 15px
 
     .filter
         padding: 10px 0 0
-        margin-left: 20px
+        margin-left: 15px
 
         & > a
             display: inline-block
@@ -60,7 +70,6 @@
             padding-left: 10px
 
         .dropdown-menu
-            font-size: 1.25em
             scrollable()
             vertical-align: middle
             max-height: 448px
@@ -68,12 +77,12 @@
             border-top-left-radius: 0
             border-top-right-radius: 0
 
-    i
+    i.material-icons
         transition: color 0.5s
-        margin: 2px 12px
+        margin: 0
         color: $FilterBarIcon
         vertical-align: middle
-        font-size: 2em
+        font-size: 1.18em
         &:hover
             color: $FilterBarIconHover
             cursor: pointer
