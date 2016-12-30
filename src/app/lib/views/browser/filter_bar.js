@@ -22,9 +22,6 @@
             'click #filterbar-about': 'about',
             'click #filterbar-random': 'randomMovie',
             'click .contentTab': 'tabClicked',
-            'click #filterbar-favorites': 'showFavorites',
-            'click #filterbar-watchlist': 'showWatchlist',
-            'click #filterbar-torrent-collection': 'showTorrentCollection',
             'click .triggerUpdate': 'updateDB',
         },
         regions: {
