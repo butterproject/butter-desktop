@@ -33,17 +33,14 @@
         onRender: function () {
             if (this.retry) {
                 switch (App.currentview) {
-                case 'movies':
-                case 'shows':
-                case 'anime':
-                    this.ui.onlineSearch.css('visibility', 'visible');
-                    this.ui.retryButton.css('visibility', 'visible');
-                    break;
                 case 'Watchlist':
                     this.ui.retryButton.css('visibility', 'visible');
                     this.ui.retryButton.css('margin-left', 'calc(50% - 100px)');
                     break;
                 default:
+                    this.ui.onlineSearch.css('visibility', 'visible');
+                    this.ui.retryButton.css('visibility', 'visible');
+                    break;
                 }
             }
         }
@@ -75,21 +72,6 @@
 
         getEmptyView: function () {
             switch (App.currentview) {
-            case 'movies':
-            case 'shows':
-            case 'anime':
-                if (this.collection.state === 'error') {
-                    return ErrorView.extend({
-                        retry: true,
-                        error: i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>')
-                    });
-                } else if (this.collection.state !== 'loading') {
-                    return ErrorView.extend({
-                        error: i18n.__('No ' + App.currentview + ' found...')
-                    });
-                }
-                break;
-
             case 'Favorites':
                 if (this.collection.state === 'error') {
                     return ErrorView.extend({
@@ -114,6 +96,19 @@
                     });
                 }
                 break;
+            default:
+                if (this.collection.state === 'error') {
+                    return ErrorView.extend({
+                        retry: true,
+                        error: i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>')
+                    });
+                } else if (this.collection.state !== 'loading') {
+                    return ErrorView.extend({
+                        error: i18n.__('No ' + App.currentview + ' found...')
+                    });
+                }
+                break;
+
             }
         },
 
@@ -149,57 +144,34 @@
                 $('.search input').blur();
             });
 
+            function selectTab(direction, start) {
+                var tabs = App.Config.getTabTypes();
+                var i = start?tabs.indexOf(start):0;
+                if (i === -1) {
+                    return 'movies';
+                }
+
+                App.currentview =  tabs[(i + direction) % tabs.length];
+                App.vent.trigger('torrentCollection:close');
+                App.vent.trigger(App.currentview + ':list', []);
+                $('.filter-bar').find('.active').removeClass('active');
+                $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
+            }
+
             Mousetrap.bind(['tab', 'shift+tab'], function (e, combo) {
                 if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#about-container').children().length <= 0 && $('#player').children().length <= 0) {
-                    if (combo === 'tab') {
-                        switch (App.currentview) {
-                        case 'movies':
-                            App.currentview = 'shows';
-                            break;
-                        case 'shows':
-                            App.currentview = 'anime';
-                            break;
-                        default:
-                            App.currentview = 'movies';
-                        }
-                    } else if (combo === 'shift+tab') {
-                        switch (App.currentview) {
-                        case 'movies':
-                            App.currentview = 'anime';
-                            break;
-                        case 'anime':
-                            App.currentview = 'shows';
-                            break;
-                        default:
-                            App.currentview = 'movies';
-                        }
-                    }
 
-                    App.vent.trigger('torrentCollection:close');
-                    App.vent.trigger(App.currentview + ':list', []);
-                    $('.filter-bar').find('.active').removeClass('active');
-                    $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
+                    if (combo === 'tab') {
+                        selectTab(+1, App.currentview);
+                    } else if (combo === 'shift+tab') {
+                        selectTab(-1, App.currentview);
+                    }
                 }
             });
 
-            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3'], function (e, combo) {
+            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3', 'ctrl+4', 'ctrl+5', 'ctrl+6'], function (e, combo) {
                 if ((App.PlayerView === undefined || App.PlayerView.isDestroyed) && $('#about-container').children().length <= 0 && $('#player').children().length <= 0) {
-                    switch (combo) {
-                    case 'ctrl+1':
-                        App.currentview = 'movies';
-                        break;
-                    case 'ctrl+2':
-                        App.currentview = 'shows';
-                        break;
-                    case 'ctrl+3':
-                        App.currentview = 'anime';
-                        break;
-                    }
-
-                    App.vent.trigger('torrentCollection:close');
-                    App.vent.trigger(App.currentview + ':list', []);
-                    $('.filter-bar').find('.active').removeClass('active');
-                    $('.source.show' + App.currentview.charAt(0).toUpperCase() + App.currentview.slice(1)).addClass('active');
+                    selectTab(combo.substr(-1));
                 }
             });
 
@@ -320,9 +292,12 @@
             var self = this;
 
             switch (App.currentview) {
-            case 'movies':
-            case 'shows':
-            case 'anime':
+            case 'Favorites':
+                break;
+            case 'Watchlist':
+                break;
+
+            default:
                 if ($('.items').children().last().attr('id') !== 'load-more-item') {
                     if (this.collection.hasMore && !this.collection.filter.keywords && this.collection.state !== 'error' && this.collection.length !== 0) {
                         $('#load-more-item').css('display', 'inline-block').click(function () {
@@ -331,14 +306,6 @@
                         });
                     }
                 }
-
-                break;
-
-            case 'Favorites':
-
-                break;
-            case 'Watchlist':
-
                 break;
             }
         },
