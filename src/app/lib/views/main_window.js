@@ -245,19 +245,17 @@
             this.MovieDetail.destroy();
             this.lastView && this.lastView.destroy();
 
-            if (['favorites', 'torrentCollection', 'watchlist']
-                .indexOf(newTab) !== -1) {
+            if (['favorites', 'torrentCollection', 'watchlist'].indexOf(newTab) !== -1) {
                 // XXX hack until we get something better
                 this['show' + newTab.capitalize()]();
-                App.vent.trigger('selected:tab', newTab);
-                return;
+            } else {
+                var model = App.Model.getCollectionModelForTab(newTab);
+                var view = App.View.getViewForTab(newTab);
+                this.lastView = new view({collectionModel: model});
+
+                this.Content.show(this.lastView);
             }
 
-            var model = App.Model.getCollectionModelForTab(newTab);
-            var view = App.View.getViewForTab(newTab);
-            this.lastView = new view({collectionModel: model});
-
-            this.Content.show(this.lastView);
             App.currentview = newTab;
             App.vent.trigger('selected:tab', newTab);
         },
@@ -304,7 +302,7 @@
 
         renderFavorites: function (e) {
             this.Content.show(new App.View.FavoriteBrowser());
-            App.currentview = 'Favorites';
+            App.currentview = 'favorites';
             $('.right .search').hide();
             $('.filter-bar').find('.active').removeClass('active');
             $('#filterbar-favorites').addClass('active');

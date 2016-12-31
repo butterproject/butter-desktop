@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var FavoriteBrowser = App.View.PCTBrowser.extend({
+    var FavoriteBrowser = App.View.ButterBrowser.extend({
         collectionModel: App.Model.FavoriteCollection,
         filters: {
             types: App.Config.types_fav,

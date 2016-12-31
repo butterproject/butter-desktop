@@ -512,7 +512,7 @@
                 e.stopPropagation();
             }
             this.selectEpisode($(e.currentTarget));
-            $('.startStreaming').trigger('click');
+            $('.startStreaming').click();
         },
         // Helper Function
         selectSeason: function ($elem) {
@@ -729,7 +729,7 @@
         },
 
         playEpisode: function (e) {
-            $('.startStreaming').trigger('click');
+            $('.startStreaming').click();
 
             if (e.type) {
                 e.preventDefault();

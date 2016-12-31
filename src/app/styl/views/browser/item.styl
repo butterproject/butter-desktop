@@ -169,32 +169,25 @@
     height 196px
     border-radius 4px
     box-shadow $PosterShadow
-    cursor pointer
     display none
     margin 10px
     float left
     background-color:$BgColor1
     -webkit-transition: background-color 200ms linear;
 
-    > .loading-container
+    .loading-container
         display none
         margin 0
-        position relative
-        width 100%
-        height 100%
-
-        .ball,
-        .ball1
-            position absolute
-            top 50%
-            left 50%
-            margin -25px
-            -webkit-transform translate(-50%, -50%)
-        .ball1
-            margin -15px
+        position absolute
+        left calc(50% - 25px)
+        top calc(50% - 25px)
+        
+        .sk-folding-cube
+            position: initial
 
     .status-loadmore
         position: absolute;
+        cursor pointer
         color: $ButtonText;
         padding: 10px 15px;
         background-color: $ButtonBg;
@@ -218,4 +211,4 @@
 .ghost
     width 134px
     height 0
-    margin 10px
+    margin 0 10px

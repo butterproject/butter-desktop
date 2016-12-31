@@ -183,26 +183,7 @@
     };
 
     Watchlist.prototype.detail = function (id, data) {
-        var formatted = {
-            genre: data.genres,
-            synopsis: data.overview,
-        };
-
-        if (data.type === 'movie') {
-            formatted.torrents = {};
-        } else {
-            formatted.episodes = [{
-                episode: data.episode,
-                season: data.season,
-                title: data.episode_title,
-                tvdb_id: data.episode_id,
-                first_aired: new Date(data.episode_aired) / 1000,
-                date_based: false,
-                torrents: {},
-            }];
-        }
-
-        return Promise.resolve(formatted);
+        return Promise.reject('No details for watchlist');
     };
 
     Watchlist.prototype._fetch = function (filters) {
@@ -246,7 +227,7 @@
                 App.Providers.get('Watchlist').fetch({
                     update: show.imdb_id
                 }).then(function() {
-                    if (App.currentview === 'Watchlist') {
+                    if (App.currentview === 'watchlist') {
                         App.vent.trigger('watchlist:list');
                     }
                 });
