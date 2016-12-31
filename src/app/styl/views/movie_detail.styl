@@ -3,13 +3,13 @@
     flex-direction: row
     justify-content: flex-start
     flex-flow: row wrap
-    height: 100vh             //needs to become calc(100vh - 65px)
-    padding-top: 65px        //when webkit calc() is fixed = m34
+    height: "calc(100vh - %s)" % $HeaderHeight
     width: 100vw
+    fixed: bottom left
     user-select: none
     backface-visibility: hidden
     background-color: $BgColor1
-    position: fixed
+
     .backdrop-overlay
         width: 100vw
         height: 100vh
@@ -34,7 +34,7 @@
 
     .poster-box
         height: 75vh
-        margin-top: 8vh
+        margin-top: 6vh
         width: 35vw
         padding-left: 4vw
 
@@ -55,7 +55,7 @@
 
     .content-box
         height: 75vh
-        margin-top: 8vh
+        margin-top: 6vh
         width: 65vw
         padding-right: 4vw
         display: flex
