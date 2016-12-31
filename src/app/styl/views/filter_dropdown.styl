@@ -1,128 +1,106 @@
 .filter-dropdown
-  position relative
-  display inline-block
-  vertical-align middle
-  color $FilterDropdownText
-  text-align left
-  width auto
-  margin 0 0 0 10px
-  border-radius 5px 5px 0 0
-  transition background 0.3s ease
-  .category
-    font-family $MainFont
-    font-size 0.65em
-    line-height 0.5em
-    opacity 0.25
-    margin 0
-    padding 0
-    text-transform uppercase
-  .select-item
-    cursor pointer
-  .select-item i
-    margin: 0
-  .selected
-    margin 0
-    padding 0
-    font-family $MainFontBold
-    font-size 0.9em
-    line-height 0.75em
-    min-width 75px
-  .icon
-    opacity 0.5
-    font-size 1em
-    margin-left 10px
-    &:after
-      content "arrow_drop_down"
-  &.open
-    .select-item
-        .category
-            color: #252525 !important
-        .icon
-            &:after
-                content "arrow_drop_up"
-                color: rgba(0, 0, 0, 0.5)
-    &.
-      .drop-head
-        background $FilterDropdownBg
-        
-    .filter-items
-      background $FilterDropdownHoverBg
-      max-height 283px
-      overflow-x hidden
-      overflow-y auto
-      -webkit-transform perspective(400) rotate3d(1, 0, 0, 0)
-      li
-        color: $FilterDropdownHoverText
-        opacity 1
-        &:hover
-          background $FilterDropdownHover
-          opacity 1
-          cursor pointer
-  .filter-items
-    position absolute
+    position relative
     display inline-block
-    vertical-align top
-    max-height 0
-    width 100%
-    border-radius 0 0 5px 5px
-    overflow hidden
-    box-shadow 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
-    -webkit-transform perspective(400) rotate3d(1, 0, 0, -90deg)
-    -webkit-transform-origin 50% 0
-    transition max-height 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s ease
-    li
-      list-style none
-      font-size 0.9em
-      opacity 0
-      padding 7px 13px
-      display block
-      transition opacity 0.15s ease
-      &.open
-        display none
-      &:last-child
-        border-bottom-right-radius 5px
-        border-bottom-left-radius 5px
-      &.select
-        background #ddd
-        opacity 1
-  &.settings
-    &.open
-      border-radius 3px 3px 0 0
-      .drop-head
-        border-top 2px solid transparent
-        border-bottom 1px solid rgba(255, 23, 68, 0.25)
-        border-left 2px solid transparent
-        border-right 2px solid transparent
-        border-radius 3px 3px 0 0
-        i
-          opacity 1
-      .filter-items
-        li
-          &:hover
-            background #EEE
-          &.select
-            background #FF1744
-            color #fff
-          &.open
-            background #FF1744
-            color #fff
-            display block
-            opacity 1
-    .drop-head
-      border 2px solid #FF1744
-      color #FF1744
-      border-radius 3px
-      i
-        color #FF1744
-      .selected
-        width 100px
-    .filter-items
-      li
-        color #757575
-        &:last-child
-          border-radius 0 0 2px 2px
+    vertical-align middle
+    color $FilterDropdownText
+    text-align left
+    width auto
 
-.filter-dropdown.open,
+    .drop-head
+        position relative
+        border-radius 5px 5px 0 0
+        z-index: 99
+        padding 12px 15px
+
+        .category
+            font-family $MainFont
+            font-weight bold
+            font-size 0.65em
+            line-height 0.5em
+            opacity 0.25
+            margin 0
+            padding 0
+            text-transform uppercase
+
+        .select-item
+            cursor pointer
+            .selected
+                margin 0
+                padding 0
+                font-family $MainFontBold
+                font-size 0.9em
+                line-height 0.75em
+                min-width 75px
+                text-transform capitalize
+            .icon.material-icons
+                opacity 0.65
+                font-size 1em
+                margin-left 10px
+                &:after
+                    content "arrow_drop_down"
+
+    .filter-items
+
+        z-index 1
+        transform translate(0, -43px)
+        position absolute
+        display inline-block
+        padding-top: 10px
+        vertical-align top
+        height 0
+        max-height 283px
+        width 100%
+        background $FilterDropdownHoverBg
+        border-radius 0 0 5px 5px
+        overflow hidden
+        opacity 0
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+        -webkit-transition: transform 0.4s cubic-bezier(0.42, 0, 0, 1.4)
+
+        li
+            list-style none
+            font-size 0.9em
+            opacity 0
+            padding 7px 13px
+            display block
+            transition opacity 0.25s ease
+            &.open
+                display none
+            &:last-child
+                border-bottom-right-radius 5px
+                border-bottom-left-radius 5px
+            &.select
+                background #ddd
+                opacity 1
+    &.open
+        .drop-head
+            color: #252525 !important
+            background $FilterDropdownHoverBg
+            .category
+                color: #252525 !important
+            .select-item
+                color: #252525 !important
+                .icon
+                    &:after
+                        content "arrow_drop_up"
+                        color: rgba(0, 0, 0, 0.65)
+        .filter-items
+            height auto
+            opacity 1
+            transform translate(0, -7px)
+            overflow-x hidden
+            overflow-y auto
+
+            li
+                color: $FilterDropdownHoverText
+                opacity 0.65
+                &:hover
+                    background $FilterDropdownHover
+                    opacity 1
+                    cursor pointer
+
+
+
 .search.open .search-input
   background $FilterDropdownHoverBg
   color $FilterDropdownHoverText
@@ -131,12 +109,10 @@
 .filter-dropdown .icon
   display inline-block
   vertical-align middle
-  font-weight bold
 
-.drop-head
-  padding 12px 15px
 
 .filter-items
+
     // Inertial scrolling for touch devices (mostly useless here)
     -webkit-overflow-scrolling touch
 
@@ -144,9 +120,9 @@
         width 5px
 
     &::-webkit-scrollbar-track
-        background-color transparent
+        background-color #DDD
         border-radius 2px
-        margin: 5px 0
+        margin-top: 10px
 
     &::-webkit-scrollbar-thumb
         background-color $ScrollBarThumb
