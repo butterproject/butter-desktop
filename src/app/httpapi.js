@@ -454,7 +454,7 @@
             ////////////////////
             server.expose('getgenres', function (args, opt, callback) {
                 switch (App.currentview) {
-                case 'shows':
+                case 'tvshow':
                     butterCallback(callback, false, {
                         'genres': App.Config.genres_tv
                     });
@@ -464,7 +464,7 @@
                         'genres': App.Config.genres_anime
                     });
                     break;
-                case 'movies':
+                case 'movie':
                     butterCallback(callback, false, {
                         'genres': App.Config.genres
                     });
@@ -479,13 +479,13 @@
 
             server.expose('getsorters', function (args, opt, callback) {
                 switch (App.currentview) {
-                case 'shows':
+                case 'tvshow':
                 case 'anime':
                     butterCallback(callback, false, {
                         'sorters': App.Config.sorters_tv
                     });
                     break;
-                case 'movies':
+                case 'movie':
                     butterCallback(callback, false, {
                         'sorters': App.Config.sorters
                     });
