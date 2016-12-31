@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var WatchlistBrowser = App.View.PCTBrowser.extend({
+    var WatchlistBrowser = App.View.ButterBrowser.extend({
         collectionModel: App.Model.WatchlistCollection
     });
 

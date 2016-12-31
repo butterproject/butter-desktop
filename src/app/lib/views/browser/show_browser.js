@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var ShowBrowser = App.View.PCTBrowser.extend({
+    var ShowBrowser = App.View.ButterBrowser.extend({
         collectionModel: App.Model.ShowCollection,
         filters: {
             genres: App.Config.genres_tv,

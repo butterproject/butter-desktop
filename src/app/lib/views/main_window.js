@@ -248,6 +248,7 @@
             if (['favorites', 'torrentCollection', 'watchlist']
                 .indexOf(newTab) !== -1) {
                 // XXX hack until we get something better
+                App.currentview = newTab;
                 return this['show' + newTab.capitalize()]();
             }
 
@@ -302,7 +303,7 @@
 
         renderFavorites: function (e) {
             this.Content.show(new App.View.FavoriteBrowser());
-            App.currentview = 'Favorites';
+            App.currentview = 'favorites';
             $('.right .search').hide();
             $('.filter-bar').find('.active').removeClass('active');
             $('#filterbar-favorites').addClass('active');

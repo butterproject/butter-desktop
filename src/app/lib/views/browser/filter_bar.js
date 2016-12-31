@@ -10,7 +10,7 @@
             searchForm: '.search form',
             searchInput: '.search input',
             search: '.search',
-            searchClear: '.search .clear',
+            searchClear: '.search .clear'
         },
         events: {
             'hover  @ui.searchInput': 'focus',
@@ -121,9 +121,9 @@
         },
         loadFilterDropdown: function (filter, attrs) {
             let translateHash = array => (
-                array.reduce((a, c, i) => {
-                    a[c] = i?i18n.__(c):null;
-                    return a;
+                array.reduce((list, value, index) => {
+                    list[value] = index ? i18n.__(value) : null;
+                    return list;
                 }, {})
             );
 
@@ -139,15 +139,15 @@
         },
         loadComponents: function() {
             this.loadFilterDropdown('types', {
-                title: i18n.__('Types')
+                title: i18n.__('Type')
             });
 
             this.loadFilterDropdown('genres', {
-                title: i18n.__('Genres')
+                title: i18n.__('Genre')
             });
 
             this.loadFilterDropdown('sorters', {
-                title: i18n.__('Sorters')
+                title: i18n.__('Sort by')
             });
 
             this.loadDropdown('search', App.View.SearchDropdown, {
@@ -167,7 +167,7 @@
 
             if (typeof App.currentview === 'undefined') {
                 App.currentview = activetab;
-                App.previousview = 'movies';
+                App.previousview = 'movie';
                 this.setActive(App.currentview);
             }
 

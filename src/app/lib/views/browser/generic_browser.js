@@ -11,7 +11,7 @@
      *  * Show movie detail
      *  * Start playing a movie
      */
-    var PCTBrowser = Backbone.Marionette.LayoutView.extend({
+    var ButterBrowser = Backbone.Marionette.LayoutView.extend({
         template: '#browser-tpl',
         className: 'main-browser',
         regions: {
@@ -107,8 +107,8 @@
             if (!view) {
                 var activetab;
                 var tabs = {
-                    'TV Series': 'shows',
-                    'Movies': 'movies',
+                    'TV Series': 'tvshow',
+                    'Movies': 'movie',
                     'Anime': 'anime'
                 };
 
@@ -118,7 +118,7 @@
                     activetab = AdvSettings.get('startScreen');
                 }
 
-                view = tabs[activetab] || 'movies';
+                view = tabs[activetab] || 'movie';
             }
 
             return view;
@@ -141,7 +141,7 @@
             return _cache[tab];
         }
 
-        _cache[tab] = App.View.PCTBrowser.extend({
+        _cache[tab] = App.View.ButterBrowser.extend({
             filters: {
                 genres: App.Config.genres,
                 sorters: App.Config.sorters
@@ -151,5 +151,5 @@
         return _cache[tab];
     };
 
-    App.View.PCTBrowser = PCTBrowser;
+    App.View.ButterBrowser = ButterBrowser;
 })(window.App);

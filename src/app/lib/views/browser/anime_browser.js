@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var AnimeBrowser = App.View.PCTBrowser.extend({
+    var AnimeBrowser = App.View.ButterBrowser.extend({
         collectionModel: App.Model.AnimeCollection,
         filters: {
             genres: App.Config.genres_anime,

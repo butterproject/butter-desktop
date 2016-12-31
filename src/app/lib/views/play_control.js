@@ -260,9 +260,9 @@
 
         toggleQuality: function (e) {
             if ($('#switch-hd-off').is(':checked')) {
-                $('#switch-hd-on').trigger('click');
+                $('#switch-hd-on').click();
             } else {
-                $('#switch-hd-off').trigger('click');
+                $('#switch-hd-off').click();
             }
 
             if (e.type) {

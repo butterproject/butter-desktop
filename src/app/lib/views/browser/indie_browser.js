@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var IndieBrowser = App.View.PCTBrowser.extend({
+    var IndieBrowser = App.View.ButterBrowser.extend({
         collectionModel: App.Model.IndieCollection,
         filters: {
             genres: App.Config.genres_indie,

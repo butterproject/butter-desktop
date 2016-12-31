@@ -1,24 +1,13 @@
 (function (App) {
     'use strict';
 
+    /** FIXME 
+     * - remove filterbar shortcuts from here! we handle list>items, nothing else.
+     * - onMoviesWatched should be in movie_detail.js 
+     **/
+
     var SCROLL_MORE = 0.7; // 70% of window height
-    var NUM_MOVIES_IN_ROW = 7;
-
-    function elementInViewport(container, element) {
-        if (element.length === 0) {
-            return;
-        }
-        var $container = $(container),
-            $el = $(element);
-
-        var docViewTop = $container.offset().top;
-        var docViewBottom = docViewTop + $container.height();
-
-        var elemTop = $el.offset().top;
-        var elemBottom = elemTop + $el.height();
-
-        return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom) && (elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-    }
+    var NUM_ITEMS_IN_ROW = 7;
 
     var ErrorView = Backbone.Marionette.ItemView.extend({
         template: '#movie-error-tpl',
@@ -31,16 +20,8 @@
         },
         onRender: function () {
             if (this.retry) {
-                switch (App.currentview) {
-                case 'Watchlist':
-                    this.ui.retryButton.css('visibility', 'visible');
-                    this.ui.retryButton.css('margin-left', 'calc(50% - 100px)');
-                    break;
-                default:
-                    this.ui.onlineSearch.css('visibility', 'visible');
-                    this.ui.retryButton.css('visibility', 'visible');
-                    break;
-                }
+                this.ui.onlineSearch.css('visibility', 'visible');
+                this.ui.retryButton.css('visibility', 'visible');
             }
         }
     });
@@ -68,45 +49,34 @@
             return !this.collection.length && this.collection.state !== 'loading';
         },
 
+        hasError: function () {
+            return this.collection.state === 'error';
+        },
+
         getEmptyView: function () {
-            switch (App.currentview) {
-                case 'Favorites':
-                    if (this.collection.state === 'error') {
-                        return ErrorView.extend({
-                            retry: true,
-                            error: i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.')
-                        });
-                    } else if (this.collection.state !== 'loading') {
-                        return ErrorView.extend({
-                            error: i18n.__('No ' + App.currentview + ' found...')
-                        });
-                    }
-                    break;
-                case 'Watchlist':
-                    if (this.collection.state === 'error') {
-                        return ErrorView.extend({
-                            retry: true,
-                            error: i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.')
-                        });
-                    } else if (this.collection.state !== 'loading') {
-                        return ErrorView.extend({
-                            error: i18n.__('No ' + App.currentview + ' found...')
-                        });
-                    }
-                    break;
-                default:
-                    if (this.collection.state === 'error') {
-                        return ErrorView.extend({
-                            retry: true,
-                            error: i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>')
-                        });
-                    } else if (this.collection.state !== 'loading') {
-                        return ErrorView.extend({
-                            error: i18n.__('No ' + App.currentview + ' found...')
-                        });
-                    }
-                    break;
+            var message;
+
+            if (this.hasError()) {
+                switch(App.currentview) {
+                    case 'favorites':
+                        message = i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.');
+                        break;
+                    case 'watchlist':
+                        message = i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.');
+                        break;
+                    default:
+                        message = i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>');
+                }
+            } else if (this.isEmpty) {
+                message = i18n.__('No ' + App.currentview + ' found...');
+            } else {
+                return;
             }
+
+            return ErrorView.extend({
+                error: message,
+                retry: this.hasError()
+            });
         },
 
         initialize: function () {
@@ -123,27 +93,30 @@
             Mousetrap.bind('down', this.moveDown.bind(this));
             Mousetrap.bind('left', this.moveLeft.bind(this));
             Mousetrap.bind('right', this.moveRight.bind(this));
-            Mousetrap.bind('f', this.toggleSelectedFavourite);
-            Mousetrap.bind('w', this.toggleSelectedWatched);
-            Mousetrap.bind(['enter', 'space'], this.selectItem);
-            Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch);
-            Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch);
-            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));
-            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3'], this.switchSpecificTab.bind(this));
-            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));
-            Mousetrap.bind('i', this.showAbout.bind(this));
+            Mousetrap.bind('f', this.toggleSelectedFavourite.bind(this));
+            Mousetrap.bind('w', this.toggleSelectedWatched.bind(this));
+            Mousetrap.bind(['enter', 'space'], this.selectItem.bind(this));
+            Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch.bind(this));//FIXME: needs to be moved elsewhere
+            Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch.bind(this));//FIXME: needs to be moved elsewhere
+            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));//FIXME: needs to be moved elsewhere
+            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3'], this.switchSpecificTab.bind(this));//FIXME: needs to be moved elsewhere
+            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));//FIXME: needs to be moved elsewhere
+            Mousetrap.bind('i', this.showAbout.bind(this));//FIXME: needs to be moved elsewhere
         },
 
+        //FIXME: needs to be moved elsewhere
         blurSearch: function (e, combo) {
-            $('.search-input>input').blur();
+            $('.search input').click().blur();
         },
 
+        //FIXME: needs to be moved elsewhere
         isPlayerDestroyed: function () {
             return (App.PlayerView === undefined || App.PlayerView.isDestroyed) 
                 && $('#about-container').children().length <= 0 
                 && $('#player').children().length <= 0;
         },
 
+        //FIXME: needs to be moved elsewhere
         selectTab: function (direction, currentTab) {
             var tabs = App.Config.getTabTypes();
             var i = currentTab ? tabs.indexOf(currentTab) : -1;
@@ -154,6 +127,7 @@
             App.vent.trigger('show:tab', nextTab);
         },
 
+        //FIXME: needs to be moved elsewhere
         switchTab: function (e, combo) {
             if (this.isPlayerDestroyed()) {
                 if (combo === 'tab') {
@@ -164,18 +138,21 @@
             }
         },
 
+        //FIXME: needs to be moved elsewhere
         switchSpecificTab: function (e, combo) {
             if (this.isPlayerDestroyed()) {
                 this.selectTab(combo.substr(-1));
             }
         },
 
+        //FIXME: needs to be moved elsewhere
         openFavorites: function () {
             if (this.isPlayerDestroyed()) {
                 $('.favorites').click();
             }
         },
 
+        //FIXME: needs to be moved elsewhere
         showAbout: function () {
             if (this.isPlayerDestroyed()) {
                 $('.about').click();
@@ -187,17 +164,17 @@
 
             $el.on('mousewheel', (e) => {
                 if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
-                    e.preventDefault();
-                    return e.originalEvent.wheelDelta > 0 ? this.increasePoster() : this.decreasePoster();
+                    e.stopPropagation();
+                    return this.posterResize(e.originalEvent.wheelDelta);
                 }
             });
 
             $el.on('keydown', (e) => {
                 if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
                     if (e.key === '+') {
-                        this.increasePoster();
+                        this.posterResize(1);
                     } else if (e.key === '-') {
-                        this.decreasePoster();
+                        this.posterResize(-1);
                     }
                 }
             });
@@ -223,8 +200,8 @@
         onLoaded: function () {
             App.vent.trigger('list:loaded');
 
-            this.completerow();
             this.ui.spinner.css('display', 'none');
+            this.completerow();
 
             if (this.allLoaded()) {
                 var loadmore = $(document.getElementById('load-more-item'));
@@ -232,35 +209,38 @@
                 loadmore.children('.loading-container').css('display', 'none');
             }
 
-            $('.filter-bar').on('mousedown', (e) => {
-                if (e.target.localName !== 'div') {
-                    return;
-                }
-                _.defer(() => {
-                    this.$('.items:first').focus();
-                });
-            });
-
-            $('.items').attr('tabindex', '1');
-
-            _.defer(() => {
-                this.checkFetchMore();
-                this.$('.items:first').focus();
-            });
-
         },
 
         checkFetchMore: function () {
             var loadmore = $(document.getElementById('load-more-item'));
 
             return ( // if load more is visible onLoaded, fetch more results
-                loadmore.is(':visible') &&
-                elementInViewport(this.$el, loadmore)
+                loadmore.is(':visible') 
+                && Common.isElementInViewport(loadmore)
             ) ? this.collection.fetchMore() : false;
         },
 
+        itemsPerRow: function () {
+            var total = 0;
+            var items = $(document.querySelector('.items')).children('.item');
+
+            for (var i = 0; i < items.length; i++) {
+                var el = $(items[i]);
+
+                if (el.prev().length > 0 && el.position().top !== el.prev().position().top) {
+                    break;
+                }
+                
+                total++; 
+            }
+
+            return total;
+        },
+
         completerow: function () {
-            var items = $(document.getElementsByClassName('items'));
+            NUM_ITEMS_IN_ROW = this.itemsPerRow();
+
+            var items = $(document.querySelector('.items'));
 
             var loadmore = 
                 '<div id="load-more-item" class="load-more">' +
@@ -297,6 +277,7 @@
             ) {
                 var loadmore = $(document.getElementById('load-more-item'));
                 loadmore.css('display', 'inline-block').click(_ => {
+                    // FIXME: this doesnt seem to ever be available, it's either loading automatically or loadmore is hidden. I'd recommend removing the button alltogether, leaving only the spinner (maybe clickable if needed)
                     loadmore.off('click');
                     this.collection.fetchMore();
                 });
@@ -317,76 +298,64 @@
             ) ? this.collection.fetchMore() : true;
         },
 
+        //FIXME: needs to be moved elsewhere
         focusSearch: function (e) {
-            $('.search-input>input').focus();
+            $('.search input').click();
         },
 
-        increasePoster: function (e) {
-            var postersWidthIndex = Settings.postersJump.indexOf(parseInt(Settings.postersWidth));
+        posterResize: function (delta) {
+            var jump = delta > 0 ? +1 : -1;
 
-            if (postersWidthIndex !== -1 && postersWidthIndex + 1 in Settings.postersJump) {
+            var currentSize = Settings.postersWidth;
+            var currentIndex = Settings.postersJump.indexOf(currentSize);
+
+            var nextIndex = (currentIndex + jump) > 0 ? currentIndex + jump : 0;
+            var nextSize = Settings.postersJump[nextIndex];
+
+            if (currentIndex !== nextIndex && nextSize) {
                 App.db.writeSetting({
-                        key: 'postersWidth',
-                        value: Settings.postersJump[postersWidthIndex + 1]
-                    })
-                    .then(function () {
-                        App.vent.trigger('updatePostersSizeStylesheet');
-                    });
-            }
-        },
-
-        decreasePoster: function (e) {
-            var postersWidth;
-            var postersWidthIndex = Settings.postersJump.indexOf(parseInt(Settings.postersWidth));
-
-            if (postersWidthIndex !== -1 && postersWidthIndex - 1 in Settings.postersJump) {
-                postersWidth = Settings.postersJump[postersWidthIndex - 1];
-            } else {
-                postersWidth = Settings.postersJump[0];
-            }
-
-            App.db.writeSetting({
                     key: 'postersWidth',
-                    value: postersWidth
-                })
-                .then(function () {
+                    value: nextSize
+                }).then(() => {
                     App.vent.trigger('updatePostersSizeStylesheet');
+                    NUM_ITEMS_IN_ROW = this.itemsPerRow();
                 });
+            }
         },
-
 
         selectItem: function (e) {
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            $('.item.selected .cover').trigger('click');
+            e.stopPropagation();
+
+            $('.item.selected .cover').click();
         },
 
         selectIndex: function (index) {
-            if ($('.items .item').eq(index).length === 0 || $('.items .item').eq(index).children().length === 0) {
+            var item = $('.items .item');
+
+            if (item.eq(index).length === 0 || item.eq(index).children().length === 0) {
                 return;
             }
-            $('.item.selected').removeClass('selected');
-            $('.items .item').eq(index).addClass('selected');
 
-            var $movieEl = $('.item.selected')[0];
-            if (!elementInViewport(this.$el, $movieEl)) {
-                $movieEl.scrollIntoView(false);
+            var previous = $('.items .item.selected');
+            previous.removeClass('selected');
+
+            var next = item.eq(index);
+            next.addClass('selected');
+            if (!Common.isElementInViewport(next)) {
+                next[0].scrollIntoView(false);
                 this.onScroll();
             }
         },
 
         moveUp: function (e) {
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            var index = $('.item.selected').index();
+            e.preventDefault();
+            e.stopPropagation();
+
+            var index = $('.items .item.selected').index();
             if (index === -1) {
                 index = 0;
             } else {
-                index = index - NUM_MOVIES_IN_ROW;
+                index = index - NUM_ITEMS_IN_ROW;
             }
             if (index < 0) {
                 return;
@@ -395,25 +364,23 @@
         },
 
         moveDown: function (e) {
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            var index = $('.item.selected').index();
+            e.preventDefault();
+            e.stopPropagation();
+
+            var index = $('.items .item.selected').index();
             if (index === -1) {
                 index = 0;
             } else {
-                index = index + NUM_MOVIES_IN_ROW;
+                index = index + NUM_ITEMS_IN_ROW;
             }
             this.selectIndex(index);
         },
 
         moveLeft: function (e) {
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            var index = $('.item.selected').index();
+            e.preventDefault();
+            e.stopPropagation();
+
+            var index = $('.items .item.selected').index();
             if (index === -1) {
                 index = 0;
             } else if (index === 0) {
@@ -425,11 +392,10 @@
         },
 
         moveRight: function (e) {
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            var index = $('.item.selected').index();
+            e.preventDefault();
+            e.stopPropagation();
+
+            var index = $('.items .item.selected').index();
             if (index === -1) {
                 index = 0;
             } else {
@@ -447,9 +413,11 @@
         },
     });
 
+    //FIXME: needs to be moved elsewhere
     function onMoviesWatched(movie, channel) {
         if  (channel === 'database') {
             try {
+                // activated when movie was marked as seen in the player & movie details are open. It's really bad...
                 switch (Settings.watchedCovers) {
                     case 'fade':
                         $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"] .actions-watched').addClass('selected');

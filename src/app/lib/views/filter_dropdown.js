@@ -20,7 +20,7 @@
         },
         setValue: function (model) {
             var value = this.model.get('selected');
-            console.error ('set value', value);
+            console.log('FilterDropdown.setValue(%s)', this.type, value);
             this.ui.selected.html(i18n.__(value));
             this.ui.items.removeClass('hidden');
             // HACK
