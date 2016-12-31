@@ -99,9 +99,17 @@
             Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));//FIXME: needs to be moved elsewhere
-            Mousetrap.bind(['ctrl+1', 'ctrl+2', 'ctrl+3'], this.switchSpecificTab.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap.bind('i', this.showAbout.bind(this));//FIXME: needs to be moved elsewhere
+
+            // register as many ctrl+number shortcuts as there are tabs
+            Mousetrap.bind((() => {
+                var shortcuts = [];
+                for (let i = 1; i <= App.Config.getTabTypes().length; i++) {
+                    shortcuts.push('ctrl+' + i);
+                }
+                return shortcuts;
+            })(), this.switchSpecificTab.bind(this));//FIXME: needs to be moved elsewhere
         },
 
         //FIXME: needs to be moved elsewhere
