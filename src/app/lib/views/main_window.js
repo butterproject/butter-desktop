@@ -245,14 +245,15 @@
             this.MovieDetail.destroy();
             this.lastView && this.lastView.destroy();
 
-            if (['favorites', 'torrentCollection', 'watchlist'].indexOf(newTab) !== -1) {
+            if (['favorites',
+                 'torrentCollection',
+                 'watchlist'].indexOf(newTab) !== -1) {
                 // XXX hack until we get something better
-                this['show' + newTab.capitalize()]();
+                this.lastView = this['show' + newTab.capitalize()]();
             } else {
                 var model = App.Model.getCollectionModelForTab(newTab);
                 var view = App.View.getViewForTab(newTab);
                 this.lastView = new view({collectionModel: model});
-
                 this.Content.show(this.lastView);
             }
 
@@ -294,10 +295,9 @@
         },
 
         showFavorites: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            this.Content.show(new App.View.FavoriteBrowser());
+            var view = new App.View.FavoriteBrowser();
+            this.Content.show(view);
+            return view;
         },
 
         renderFavorites: function (e) {
@@ -308,15 +308,19 @@
             $('#filterbar-favorites').addClass('active');
         },
 
-        showWatchlist: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
+        showTorrentCollection: function (e) {
+            this.TorrentCollection.show(new App.View.TorrentCollection());
+            return null;
+        },
 
+        showWatchlist: function (e) {
             var that = this;
             $('#nav-filters, .search, .items').hide();
             $('.spinner').show();
+            var view = new App.View.WatchlistBrowser();
 
-            this.Content.show(new App.View.WatchlistBrowser());
+            this.Content.show(view);
+            return view;
         },
 
         showDisclaimer: function (e) {
@@ -325,10 +329,6 @@
 
         showAbout: function (e) {
             this.About.show(new App.View.About());
-        },
-
-        showTorrentCollection: function (e) {
-            this.TorrentCollection.show(new App.View.TorrentCollection());
         },
 
         showKeyboard: function (e) {
