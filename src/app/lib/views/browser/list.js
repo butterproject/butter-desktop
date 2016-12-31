@@ -269,7 +269,7 @@
 
         showloadmore: function () {
             if (
-                ['movie', 'tvshow', 'anime'].indexOf(App.currentview) !== -1 //FIXME #576
+                App.Config.getTabTypes().indexOf(App.currentview) !== -1
                 && this.collection.hasMore
                 && !this.collection.filter.keywords
                 && this.collection.state !== 'error'
@@ -292,10 +292,9 @@
             var totalHeight = this.$el.prop('scrollHeight');
             var currentPosition = this.$el.scrollTop() + this.$el.height();
 
-            return (
-                this.collection.state === 'loaded' 
-                && (currentPosition / totalHeight) > SCROLL_MORE
-            ) ? this.collection.fetchMore() : true;
+            if (this.collection.state === 'loaded' && (currentPosition / totalHeight) > SCROLL_MORE) {
+                this.collection.fetchMore();
+            }
         },
 
         //FIXME: needs to be moved elsewhere
