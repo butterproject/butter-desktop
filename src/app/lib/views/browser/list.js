@@ -269,7 +269,7 @@
 
         showloadmore: function () {
             if (
-                ['movie', 'tvshow', 'anime'].indexOf(App.currentview) !== -1
+                ['movie', 'tvshow', 'anime'].indexOf(App.currentview) !== -1 //FIXME #576
                 && this.collection.hasMore
                 && !this.collection.filter.keywords
                 && this.collection.state !== 'error'

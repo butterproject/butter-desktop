@@ -76,7 +76,7 @@
             }));
         },
         onlineSearch: function () {
-            switch (App.currentview) {
+            switch (App.currentview) { //FIXME #576
             case 'movies':
                 Settings.OnlineSearchCategory = 'Movies';
                 break;
@@ -106,7 +106,7 @@
 
             if (!view) {
                 var activetab;
-                var tabs = {
+                var tabs = { //FIXME #576
                     'TV Series': 'tvshow',
                     'Movies': 'movie',
                     'Anime': 'anime'
@@ -118,7 +118,7 @@
                     activetab = AdvSettings.get('startScreen');
                 }
 
-                view = tabs[activetab] || 'movie';
+                view = tabs[activetab] || 'movie'; //FIXME #576
             }
 
             return view;
