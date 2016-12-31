@@ -31,7 +31,7 @@
             var torrents = this.get('torrents');
 
             if (!torrents) {
-                console.error('tried to update health, but still no torrents here', this);
+                //console.error('tried to update health, but still no torrents here', this);
                 return false;
             }
 
