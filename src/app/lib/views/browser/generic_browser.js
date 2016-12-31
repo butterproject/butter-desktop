@@ -26,8 +26,8 @@
         initialize: function (attrs) {
             this.filter = new App.Model.Filter(this.filters);
 
-            var collectionModel = attrs.collectionModel || this.collectionModel;
-            this.collection = new collectionModel([], {
+            this.collectionModel = attrs.collectionModel || this.collectionModel;
+            this.collection = new this.collectionModel([], {
                 filter: this.filter
             });
 
