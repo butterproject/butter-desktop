@@ -246,7 +246,7 @@
                 App.Providers.get('Watchlist').fetch({
                     update: show.imdb_id
                 }).then(function() {
-                    if (App.currentview === 'Watchlist') {
+                    if (App.currentview === 'watchlist') {
                         App.vent.trigger('watchlist:list');
                     }
                 });
