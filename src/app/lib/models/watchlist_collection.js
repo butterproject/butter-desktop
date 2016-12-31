@@ -1,9 +1,8 @@
 (function (App) {
     'use strict';
 
-    var WatchlistCollection = App.Model.Collection.extend({
-        model: App.Model.Movie,
-        initialize: function () {
+    var WatchlistCollection = Backbone.Collection.extend({
+        initialize: function (model, options) {
             this.hasMore = false;
             this.providers = {
                 torrents: [App.Providers.get('Watchlist')]
@@ -13,8 +12,7 @@
             return App.Providers.get('Watchlist').fetch().then((items) => {
                 for (var i in items.results) { //hack FIXME - #557
                     items.results[i].providers = {
-                        torrents: [],
-                        metadata: []
+                        torrent: App.Providers.get('Watchlist')
                     };
                 }
                 this.add(items.results);
