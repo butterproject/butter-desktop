@@ -248,8 +248,10 @@
             if (['favorites', 'torrentCollection', 'watchlist']
                 .indexOf(newTab) !== -1) {
                 // XXX hack until we get something better
+                this['show' + newTab.capitalize()]();
                 App.currentview = newTab;
-                return this['show' + newTab.capitalize()]();
+                App.vent.trigger('selected:tab', newTab);
+                return;
             }
 
             var model = App.Model.getCollectionModelForTab(newTab);
