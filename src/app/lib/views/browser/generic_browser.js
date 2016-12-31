@@ -102,26 +102,24 @@
         },
 
         currentView: function () {
-            var view = App.currentview;
-
-            if (!view) {
-                var activetab;
-                var tabs = { //FIXME #576
-                    'TV Series': 'tvshow',
-                    'Movies': 'movie',
-                    'Anime': 'anime'
-                };
-
-                if (AdvSettings.get('startScreen') === 'Last Open') {
-                    activetab = AdvSettings.get('lastTab');
-                } else {
-                    activetab = AdvSettings.get('startScreen');
-                }
-
-                view = tabs[activetab] || 'movie'; //FIXME #576
+            if (App.currentview) {
+                return App.currentview;
             }
 
-            return view;
+            var activetab;
+            var tabs = App.Config.getTabTypes();
+
+            if (AdvSettings.get('startScreen') === 'Last Open') {
+                activetab = AdvSettings.get('lastTab');
+            } else {
+                activetab = AdvSettings.get('startScreen');
+            }
+
+            if (activetab in tabs) {
+                return activetab;
+            }
+
+            return tabs[0];
         },
 
         saveFilter: function () {
