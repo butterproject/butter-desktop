@@ -163,7 +163,7 @@
 
             if (typeof App.currentview === 'undefined') {
                 App.currentview = activetab;
-                App.previousview = 'movie';
+                App.previousview = App.Config.getTabTypes()[0];
                 this.setActive(App.currentview);
             }
 
