@@ -183,7 +183,7 @@ Common.isElementInViewport = function (el) {
     }
 
     // use pure js
-    if (typeof jQuery === "function" && el instanceof jQuery) {
+    if (typeof jQuery === 'function' && el instanceof jQuery) {
         el = el[0];
     }
 
