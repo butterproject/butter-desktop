@@ -221,7 +221,7 @@
             return App.Providers.get(provider);
         },
 
-        getProviderForTabType: function (tabType) {
+        getProvidersForTabType: function (tabType) {
             var tab = Settings.tabs[tabType];
             var providers = tab.providers;
 
@@ -238,7 +238,7 @@
         },
 
         getProviderNameForTabType: function (tabType) {
-            return this.getProviderForTabType(tabType)
+            return this.getProvidersForTabType(tabType)
                 .map(p => (p.config.tabName));
         },
 

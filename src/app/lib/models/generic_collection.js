@@ -124,7 +124,7 @@
             },
             getProviders: function () {
                 return {
-                    torrents: App.Config.getProviderForTabType(tab),
+                    torrents: App.Config.getProvidersForTabType(tab),
                     metadata: App.Config.getProviderForType('metadata')
                 };
             }
