@@ -1,9 +1,9 @@
 <div class="search">
-    <div class="dropdown-toggle search-input" data-toggle="dropdown">
-        <input type="text" placeholder="Search">
-
+    <div class="dropdown-toggle" data-toggle="dropdown">
+        <input type="text" placeholder="<%= i18n.__('Search') %>">
         <i class="material-icons">search</i>
     </div>
+
     <div class="search-items" role="menu">
         <li class="item select">
             <div class="color orange"></div>
