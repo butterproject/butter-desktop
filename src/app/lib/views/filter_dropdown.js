@@ -19,14 +19,14 @@
             this.model.get('selected') && this.setValue.apply(this);
         },
         setValue: function (model) {
-            var value = this.model.get('selected');
-            console.log('FilterDropdown.setValue(%s)', this.type, value);
-            this.ui.selected.html(i18n.__(value));
+            var key = this.model.get('selected');
+            console.log('FilterDropdown.setValue(%s)', this.type, key);
+            this.ui.selected.html(i18n.__(this.values[key]));
             this.ui.items.removeClass('hidden');
             // HACK
-            this.ui.items.closest(`[data-value="${value}"]`).addClass('hidden');
+            this.ui.items.closest(`[data-value="${key}"]`).addClass('hidden');
 
-            model && App.vent.trigger('filter:' + this.type, value);
+            model && App.vent.trigger('filter:' + this.type, key);
         },
         closeDropdown: function (e) {
             var value = $(e.currentTarget).attr('data-value');

@@ -139,11 +139,22 @@
             return _cache[tab];
         }
 
+        var filters = App.Config.getProvidersForTabType(tab)
+            .map(p => p.filters)
+            .reduce((a, c) => ({
+                genres:  Object.assign({}, a.genres,  c.genres),
+                sorters: Object.assign({}, a.sorters, c.sorters),
+                types:   Object.assign({}, a.types,   c.types)
+            }), {});
+
+        if (! Object.keys(filters.types).length) {
+            delete filters.types;
+        }
+
+        console.error('filters', filters);
+
         _cache[tab] = App.View.ButterBrowser.extend({
-            filters: {
-                genres: App.Config.genres,
-                sorters: App.Config.sorters
-            }
+            filters: filters
         });
 
         return _cache[tab];

@@ -116,20 +116,13 @@
             this[`${type}Dropdown`].show (this.views[type]);
         },
         loadFilterDropdown: function (filter, attrs) {
-            let translateHash = array => (
-                array.reduce((list, value, index) => {
-                    list[value] = index ? i18n.__(value) : null;
-                    return list;
-                }, {})
-            );
-
             var values = this.model.get(filter);
-            values && values.length && this.loadDropdown(
+            values && Object.keys(values).length && this.loadDropdown(
                 filter,
                 App.View.FilterDropdown,
                 Object.assign({
-                    selected: values[0],
-                    values: translateHash(values)
+                    selected: Object.keys(values)[0],
+                    values: values
                 }, attrs));
 
         },
