@@ -71,7 +71,7 @@ Settings.tabs = {
             'youtube?channel=everyframeapainting',
             'youtube?channel=willunicycleforfood', // exurb1a
             //'youtube?channel=petercapusottotv&titleRegex=[0-9]+[aª] +Temporada',
-            'ccc'
+            'ccc?langs=[eng]'
         ],
     },
     test: {
