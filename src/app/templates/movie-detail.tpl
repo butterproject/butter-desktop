@@ -69,8 +69,10 @@ if (genre) {
 
         <div class="overview"><%= synopsis %></div>
         <div id="watch-trailer"  class="button play-selector"><%=i18n.__("Watch Trailer") %></div>
-        <div id="play-control"></div>
 
     </div>
 
 </section>
+
+
+<section id="play-control"></section>
