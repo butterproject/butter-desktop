@@ -392,6 +392,7 @@ var isVideo = function (file) {
     case '.mov':
     case '.mkv':
     case '.wmv':
+    case '.webm':
         return true;
     default:
         return false;

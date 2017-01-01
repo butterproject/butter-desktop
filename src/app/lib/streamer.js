@@ -128,7 +128,7 @@
 
         // present the user with file selector
         openFileSelector: function (torrent) {
-            var supported = ['.mp4', '.m4v', '.avi', '.mov', '.mkv', '.wmv'];
+            var supported = ['.mp4', '.m4v', '.avi', '.mov', '.mkv', '.wmv', '.webm'];
 
             // hide non-video files from selection and set index
             for (var f in torrent.files) {
