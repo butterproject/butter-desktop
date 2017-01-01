@@ -26,7 +26,7 @@
         <div id="quality-dropdown">
                 <div class="dropup">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-cog select-icon"></i>
+                        <i class="material-icons">high_quality</i>
                         <span class="">720p</span>
                         <div class="caret"></div>
                     </div>
@@ -35,7 +35,7 @@
         <div id="player-dropdown">
                 <div class="dropup">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-television select-icon"></i>
+                        <i class="material-icons">airplay</i>
                         <span class="">Popcorn Time!</span>
                         <div class="caret"></div>
                     </div>
