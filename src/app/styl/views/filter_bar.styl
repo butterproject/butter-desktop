@@ -2,25 +2,23 @@
     z-index: 10
     width: 100%
     opacity: 1
-    height: 35px
     background-color: $FilterBarBg
     position: absolute
-    top: $TitleHeight
     display: flex
     align-items: center
     justify-content: space-between
-    height: $FilterBarHeight
+    height: 70px
     box-shadow: $TopBarShadow
     -webkit-user-select: none
+    padding-top: 38px
 
     .source
         box-sizing: content-box
         color: $FilterBarText
         text-align: center
         cursor: pointer
-        height: 20px
         vertical-align: middle
-        margin: 10px
+        margin: 0 10px
         padding: 5px 0
         font-family: $MainFontBold
         font-size: 1.22em
@@ -37,11 +35,18 @@
         display inline-block
         vertical-align middle
         float: none
+        &:before
+            display: none
+            content: ""
+        &:after
+            display: none
+            content: ""
 
     .nav-hor.left
         margin-left: 20px
+
     .nav.filters
-        margin-left: 10px
+        margin-left: 15px
 
         & > li
           display inline-block
@@ -53,7 +58,6 @@
             margin-left: 15px
 
     .filter
-        padding: 10px 0 0
         margin-left: 15px
 
         & > a
@@ -66,7 +70,7 @@
                 color: $FilterBarTextHover
         .value
             color: $FilterBarActive
-            padding-left: 10px
+
 
         .dropdown-menu
             scrollable()
