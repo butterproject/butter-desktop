@@ -54,29 +54,26 @@
         },
 
         getEmptyView: function () {
-            var message;
+            var view = {};
 
             if (this.hasError()) {
                 switch(App.currentview) {
                     case 'favorites':
-                        message = i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.');
+                        view.error = i18n.__('Error, database is probably corrupted. Try flushing the bookmarks in settings.');
                         break;
                     case 'watchlist':
-                        message = i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.');
+                        view.error = i18n.__('This feature only works if you have your TraktTv account synced. Please go to Settings and enter your credentials.');
                         break;
                     default:
-                        message = i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>');
+                        view.error = i18n.__('The remote ' + App.currentview + ' API failed to respond, please check %s and try again later', '<a class="links" href="' + Settings.statusUrl + '">' + Settings.statusUrl + '</a>');
+                        view.retry = true;
                 }
-            } else if (this.isEmpty) {
-                message = i18n.__('No ' + App.currentview + ' found...');
-            } else {
-                return;
+            } else if (this.isEmpty()) {
+                view.error = i18n.__('No ' + App.currentview + ' found...');
+                view.retry = true;
             }
 
-            return ErrorView.extend({
-                error: message,
-                retry: this.hasError()
-            });
+            return view.error ? ErrorView.extend(view) : false;
         },
 
         initialize: function () {
