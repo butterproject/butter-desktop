@@ -41,6 +41,15 @@
                 .material-icons
                     color: #FFF
                     font-size 1.3em
+                .health-icon
+                    &.Bad
+                        color: #d53f3f
+                    &.Medium
+                        color: #ece523
+                    &.Good
+                        color: #a3e147
+                    &.Excellent
+                        color: #2ad942
             .toggles-container
                   display: flex
                   flex: 2
@@ -262,22 +271,7 @@
                             margin-right -2px
                             margin-left 2px
 
-                .health-icon
-                    position: relative
-                    font-size: 14px
-                    float: right
-                    margin-right: 2%
-                    margin-top: -1px
-                    color: #737577
-                    cursor: pointer
-                    &.Bad
-                        color: #d53f3f
-                    &.Medium
-                        color: #ece523
-                    &.Good
-                        color: #a3e147
-                    &.Excellent
-                        color: #2ad942
+                
 
                 .magnet-link
                     position: relative
