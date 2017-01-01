@@ -24,7 +24,7 @@
             var self = this;
 
             if (this.state === 'loading' && !this.hasMore) {
-                return;
+                return null;
             }
 
             this.state = 'loading';
