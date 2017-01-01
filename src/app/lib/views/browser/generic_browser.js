@@ -151,8 +151,6 @@
             delete filters.types;
         }
 
-        console.error('filters', filters);
-
         _cache[tab] = App.View.ButterBrowser.extend({
             filters: filters
         });
