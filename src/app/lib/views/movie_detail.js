@@ -13,7 +13,7 @@
         },
 
         events: {
-            'click .close-icon': 'closeDetails',
+            'click .go-back': 'closeDetails',
             'click .movie-imdb-link': 'openIMDb',
             'mousedown .magnet-link': 'openMagnet',
             'click .rating-container': 'switchRating'

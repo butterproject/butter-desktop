@@ -13,8 +13,24 @@ if (genre) {
 
 <div class="backdrop"></div>
 <div class="backdrop-overlay"></div>
+<div class="actions-bar">
+    <div class="fa fa-arrow-left go-back"><span>Back</span></div>
+    <ul class="toolbar-movies">
+        <li>
+            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="fa fa-circle health-icon <%= health %>"></div>
+        </li>
+        <li>
+            <div data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-magnet magnet-link"></div>
+        </li>
+        <li>
+            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-heart favourites-toggle"></div>
+        </li>
+        <li>
+            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-eye-slash watched-toggle"></div>
+        </li>
+    </ul>
+</div>
 
-<div class="fa fa-times close-icon"></div>
 
 <section class="poster-box">
     <img src="images/posterholder.png" class="mcover-image" />
@@ -48,13 +64,12 @@ if (genre) {
                 </div>
                 <div class="number-container hidden"><%= rating %> <em>/10</em></div>
             </div>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="fa fa-circle health-icon <%= health %>"></div>
-            <div data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-magnet magnet-link"></div>
 
         </div>
 
         <div class="overview"><%= synopsis %></div>
+        <div id="play-control"></div>
+
     </div>
 
-    <div id="play-control"></div>
 </section>
