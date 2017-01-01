@@ -10,9 +10,10 @@
         },
         fetch: function () {
             return App.Providers.get('Watchlist').fetch().then((items) => {
+                let watchlistProvider =  App.Providers.get('Watchlist');
                 for (var i in items.results) { //hack FIXME - #557
                     items.results[i].providers = {
-                        torrent: App.Providers.get('Watchlist')
+                        torrent: watchlistProvider
                     };
                 }
                 this.add(items.results);
