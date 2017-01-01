@@ -82,6 +82,7 @@
         initialize: function () {
             this.listenTo(this.collection, 'loading', this.onLoading);
             this.listenTo(this.collection, 'loaded', this.onLoaded);
+            this.listenTo(this.collection, 'error', this.onError);
 
             App.vent.on('shortcuts:list', this.initKeyboardShortcuts.bind(this));
             this.initKeyboardShortcuts();
@@ -217,6 +218,16 @@
                 loadmore.children('.loading-container').css('display', 'none');
             }
 
+        },
+
+        onError: function () {
+            // XXX trigger a render so getEmptyView() is called
+            this.render();
+
+            App.vent.trigger('list:loaded');
+
+            this.ui.spinner.css('display', 'none');
+            this.completerow();
         },
 
         checkFetchMore: function () {

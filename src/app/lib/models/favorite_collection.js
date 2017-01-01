@@ -54,7 +54,7 @@
                 })
                 .catch(function (err) {
                     self.state = 'error';
-                    self.trigger('loaded', self, self.state);
+                    self.trigger('error', self, self.state);
                     console.error('FavoriteCollection.fetch()', err);
                 });
         },

@@ -21,7 +21,7 @@
                 this.trigger('loaded', this, this.state);
             }).catch((error) => {
                 this.state = 'error';
-                this.trigger('loaded', this, this.state);
+                this.trigger('error', this, this.state);
                 console.error('WatchlistCollection.fetch()', error);
             });
         },
