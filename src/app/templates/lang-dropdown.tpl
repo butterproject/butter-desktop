@@ -1,5 +1,6 @@
-<div class="dropup">
+<div class="dropup" >
     <div class="dropdown-toggle lang-dropdown" data-toggle="dropdown" >
+        <i class="fa fa-volume-up select-icon"></i>
         <span class="lang-name"><%= title %></span>
         <div class="selected-lang flag-icon flag none" title="<%= App.Localization.nativeName(selected) %>"></div>
         <div class="caret"></div>

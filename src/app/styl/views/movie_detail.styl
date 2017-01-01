@@ -14,6 +14,7 @@
     .actions-bar
         width 100%
         margin-top: 32px
+        height: 60px
         .fa-arrow-left
             margin: 20px 40px
             color: #FFF;
@@ -25,6 +26,7 @@
             span
                 font-family: $MainFontBold
                 margin-left 15px
+                text-transform uppercase
 
         .toolbar-movies
             float: right
@@ -142,7 +144,7 @@
         height: 75vh
         margin-top: 2vh
         width: 65vw
-        padding-right: 4vw
+        padding: 2vw 4vw
         display: flex
         justify-content: space-between
         flex-direction: column
@@ -166,7 +168,7 @@
                 position: relative
 
                 .metaitem
-                    color: #f8f8f8
+                    color: #FFF
                     font-size: 16px
                     position: relative
                     font-family: $MainFontBold
@@ -174,13 +176,14 @@
                     float: left
                     font-smoothing: antialiased
                     max-width: 35%
-                    overflow: hidden
                     white-space: nowrap
+                    overflow: hidden
                     text-overflow: ellipsis
+                    opacity: 0.4
 
                     &::before
                         content: ""
-                        margin: 4px 15px 0px 15px
+                        margin: 7px 15px 0px 15px
                         position: relative
                         display: inline-block
                         width: 4px
@@ -203,6 +206,7 @@
 
 
                 .rating-container
+                    opacity: 1
                     .hidden
                         display: none
 
@@ -299,26 +303,46 @@
                 backface-visibility: hidden
                 scrollable();
 
-        .play-control
-            display: flex
-            flex-direction: row
-            justify-content: space-between
-            white-space: nowrap
+        .play-control   
 
             height: 70px
             line-height: 35px
-            margin: 10px
 
             .setup-container
-              display: flex
-              flex-direction: row
-              justify-content: space-between
 
-            
+            .dropdowns-container
+                width 220px
+                .dropup
+                    .dropdown-toggle
+                        align-items: center
+                        cursor: pointer
+                        height: 35px
+                        color: $ButtonText
+                        font-family: $MainFontBold
+                        font-smoothing: antialiased
+                        text-align: center
+                        font-size: 14px
+                        transition: background-color 0.5s
+                        display: flex
+                        padding: 3px 12px
+                        border-radius 3px
+                        &:hover
+                            background: rgba(0,0,0,0.2)
+                        i
+                            margin-right: 10px
+                            font-size 16px
+                        span
+                            margin-right: auto
+
+                .open
+                    .lang-dropdown, &:hover
+                        background: $ButtonBg
+                        border-radius: $ButtonRadius
+                        background-clip: padding-box
+
 
             .play-selector
                 position: relative
-                float: left
 
                 .startStreaming
                     margin-left: 12px
@@ -331,7 +355,8 @@
                         top: 0
                         left: 0
                         position: absolute
-
+            .play-btn 
+                float right
             .movie-quality-container
                 margin-top: 10px
                 float: left

@@ -1,16 +1,8 @@
 <div class="play-control">
-    <div class="flex-left">
-        <div class="row setup-container">
-            <div class="toggles-container">
-                <div class="favourites-toggle"><%=i18n.__("Add to bookmarks") %></div>
-                <div class="watched-toggle"><%=i18n.__("Not Seen") %></div>
-            </div>
-        </div>
-        <div class="row">
+    <div class="play-btn">
             <div id="player-chooser" class="play-selector"></div>
-            <div id="watch-trailer"  class="button play-selector"><%=i18n.__("Watch Trailer") %></div>
 
-            <div class="movie-quality-container">
+            <div class="movie-quality-container" style="display: none">
                 <% if (torrents["720p"] !== undefined && torrents["1080p"] !== undefined) { %>
                 <div class="q720">720p</div>
                 <div class="q1080">1080p</div>
@@ -27,10 +19,27 @@
                 <% } else { %>HDRip<% } %> 
                 <% } %>
             </div>
-        </div>
     </div>
-    <div class="flex-right dropdowns-container">
+    <div class="flex-left dropdowns-container">
         <div id="subs-dropdown"></div>
         <div id="audio-dropdown"></div>
+        <div id="quality-dropdown">
+                <div class="dropup">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-cog select-icon"></i>
+                        <span class="">720p</span>
+                        <div class="caret"></div>
+                    </div>
+                </div>  
+        </div>
+        <div id="player-dropdown">
+                <div class="dropup">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-television select-icon"></i>
+                        <span class="">Popcorn Time!</span>
+                        <div class="caret"></div>
+                    </div>
+                </div>  
+        </div>
     </div>
 </div>

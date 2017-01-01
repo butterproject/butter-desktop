@@ -13,7 +13,7 @@ if (genre) {
 
 <div class="backdrop"></div>
 <div class="backdrop-overlay"></div>
-<div class="actions-bar">
+<section class="actions-bar">
     <div class="fa fa-arrow-left go-back"><span>Back</span></div>
     <ul class="toolbar-movies">
         <li>
@@ -23,13 +23,13 @@ if (genre) {
             <div data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-magnet magnet-link"></div>
         </li>
         <li>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-heart favourites-toggle"></div>
+            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Add to bookmarks") %>" class="fa fa-heart favourites-toggle"></div>
         </li>
         <li>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-eye-slash watched-toggle"></div>
+            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Not Seen") %>" class="fa fa-eye-slash watched-toggle"></div>
         </li>
     </ul>
-</div>
+</section>
 
 
 <section class="poster-box">
@@ -68,6 +68,7 @@ if (genre) {
         </div>
 
         <div class="overview"><%= synopsis %></div>
+        <div id="watch-trailer"  class="button play-selector"><%=i18n.__("Watch Trailer") %></div>
         <div id="play-control"></div>
 
     </div>
