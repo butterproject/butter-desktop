@@ -70,7 +70,7 @@
 
         getBestQuality: function (torrents) {
             var providerQualities = Object.values(Provider.QualityType)
-                                          .map(q => (Number(q)))
+                                          .map(q => (Number(q)));
 
             // returns the best matching quality we can find
             return [Settings.movies_default_quality] // first the one we saved
@@ -130,8 +130,8 @@
                 title: i18n.__('Quality'),
                 selected: Object.keys(values)[0], // XXX be smarter
                 values: values,
-                icon: "high_quality"
-            })
+                icon: 'high_quality'
+            });
         },
 
         loadPlayerDropdown: function () {
@@ -143,11 +143,10 @@
 
             return this.loadDropdown('player', App.View.SelectorDropdown, {
                 title: i18n.__('Player'),
-                selected: Object.keys(values)[0],
-                values: values,
                 selected: App.Device.Collection.selected.get('id'),
-                icon: "airplay"
-            })
+                values: values,
+                icon: 'airplay'
+            });
         },
 
         loadComponents: function() {

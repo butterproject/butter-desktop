@@ -20,7 +20,7 @@
             this.model.get('selected') && this.setValue.apply(this);
         },
         prettyValue: function(key) {
-            return i18n.__(this.values[key])
+            return i18n.__(this.values[key]);
         },
         setValue: function (model) {
             var key = this.model.get('selected');
@@ -45,7 +45,7 @@
         template: '#selector-dropdown-tpl',
         kind: 'selector',
         prettyValue: function(key) {
-            return key
+            return key;
         }
-    })
+    });
 })(window.App);
