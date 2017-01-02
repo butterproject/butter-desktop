@@ -3,7 +3,7 @@
         <i class="material-icons">subtitles</i>
         <span class="lang-name"><%= title %></span>
         <div class="selected-lang flag-icon flag none" title="<%= App.Localization.nativeName(selected) %>"></div>
-        <div class="caret"></div>
+        <i class="icon material-icons"></i>
     </div>
     <div class="dropdown-menu" role="menu">
         <div class="flag-container">
