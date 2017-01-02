@@ -7,7 +7,6 @@
      **/
 
     var SCROLL_MORE = 0.7; // 70% of window height
-    var NUM_ITEMS_IN_ROW = 7;
 
     var ErrorView = Backbone.Marionette.ItemView.extend({
         template: '#movie-error-tpl',
@@ -42,7 +41,8 @@
         },
 
         ui: {
-            spinner: '.spinner'
+            spinner: '.spinner',
+            row: {}
         },
 
         isEmpty: function () {
@@ -220,11 +220,7 @@
         onError: function () {
             // XXX trigger a render so getEmptyView() is called
             this.render();
-
-            App.vent.trigger('list:loaded');
-
             this.ui.spinner.css('display', 'none');
-            this.completerow();
         },
 
         checkFetchMore: function () {
@@ -237,25 +233,31 @@
         },
 
         itemsPerRow: function () {
-            var total = 0;
-            var items = $(document.querySelector('.items')).children('.item');
+            var currentWidth = this.$el.width();
 
-            for (var i = 0; i < items.length; i++) {
-                var el = $(items[i]);
+            if (currentWidth !== this.ui.row.listWidth && Settings.postersWidth !== this.ui.row.posterWidth) {
+                // recalc items per row if win.width has changed
+                this.ui.row.listWidth = currentWidth;
+                this.ui.row.posterWidth = Settings.postersWidth;
+                this.ui.row.items = 0;
 
-                if (el.prev().length > 0 && el.position().top !== el.prev().position().top) {
-                    break;
+                var items = $(document.querySelector('.items')).children('.item');
+
+                for (var i = 0; i < items.length; i++) {
+                    var el = $(items[i]);
+
+                    if (el.prev().length > 0 && el.position().top !== el.prev().position().top) {
+                        break; // exit after a complete row
+                    }
+
+                    this.ui.row.items++; 
                 }
-                
-                total++; 
             }
 
-            return total;
+            return this.ui.row.items;
         },
 
         completerow: function () {
-            NUM_ITEMS_IN_ROW = this.itemsPerRow();
-
             var items = $(document.querySelector('.items'));
 
             var loadmore = 
@@ -273,7 +275,7 @@
                     '</div>' +
                 '</div>';
 
-            var ghosts = '<div class="ghost"></div>'.repeat(10);
+            var ghosts = '<div class="ghost"></div>'.repeat(this.itemsPerRow()*2);
 
             items.children('#load-more-item').remove();
             items.children('.ghost').remove();
@@ -333,7 +335,7 @@
                     value: nextSize
                 }).then(() => {
                     App.vent.trigger('updatePostersSizeStylesheet');
-                    NUM_ITEMS_IN_ROW = this.itemsPerRow();
+                    this.completerow();
                 });
             }
         },
@@ -345,31 +347,22 @@
         },
 
         selectIndex: function (index) {
-            var item = $('.items .item');
+            var items = $('.items .item');
 
-            if (item.eq(index).length === 0 || item.eq(index).children().length === 0) {
-                return;
+            if (index >= items.length) {
+                index = items.length - 1;
             }
 
+            var next = items.eq(index);
             var previous = $('.items .item.selected');
-            previous.removeClass('selected');
 
-            var next = item.eq(index);
+            previous.removeClass('selected');
             next.addClass('selected');
+
             if (!Common.isElementInViewport(next)) {
                 next[0].scrollIntoView(false);
                 this.onScroll();
             }
-        },
-
-        recalcRow: function () {
-            // recalc items per row if win.width has changed
-            if (win.width.toString() !== sessionStorage.listLastWidth) {
-                sessionStorage.listLastWidth = win.width;
-                NUM_ITEMS_IN_ROW = this.itemsPerRow();
-            }
-
-            return NUM_ITEMS_IN_ROW;
         },
 
         moveUp: function (e) {
@@ -380,7 +373,7 @@
             if (index === -1) {
                 index = 0;
             } else {
-                index = index - this.recalcRow();
+                index = index - this.itemsPerRow();
             }
             if (index < 0) {
                 return;
@@ -396,7 +389,7 @@
             if (index === -1) {
                 index = 0;
             } else {
-                index = index + this.recalcRow();
+                index = index + this.itemsPerRow();
             }
             this.selectIndex(index);
         },
