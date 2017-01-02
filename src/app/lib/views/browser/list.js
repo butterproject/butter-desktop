@@ -362,6 +362,16 @@
             }
         },
 
+        recalcRow: function () {
+            // recalc items per row if win.width has changed
+            if (win.width.toString() !== sessionStorage.listLastWidth) {
+                sessionStorage.listLastWidth = win.width;
+                NUM_ITEMS_IN_ROW = this.itemsPerRow();
+            }
+
+            return NUM_ITEMS_IN_ROW;
+        },
+
         moveUp: function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -370,7 +380,7 @@
             if (index === -1) {
                 index = 0;
             } else {
-                index = index - NUM_ITEMS_IN_ROW;
+                index = index - this.recalcRow();
             }
             if (index < 0) {
                 return;
@@ -386,7 +396,7 @@
             if (index === -1) {
                 index = 0;
             } else {
-                index = index + NUM_ITEMS_IN_ROW;
+                index = index + this.recalcRow();
             }
             this.selectIndex(index);
         },
