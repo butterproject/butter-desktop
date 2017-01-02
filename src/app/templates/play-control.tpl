@@ -23,23 +23,7 @@
     <div class="flex-left dropdowns-container">
         <div id="subs-dropdown"></div>
         <div id="audio-dropdown"></div>
-        <div id="quality-dropdown">
-                <div class="dropup">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="material-icons">high_quality</i>
-                        <span class="">720p</span>
-                        <div class="caret"></div>
-                    </div>
-                </div>  
-        </div>
-        <div id="player-dropdown">
-                <div class="dropup">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="material-icons">airplay</i>
-                        <span class="">Popcorn Time!</span>
-                        <div class="caret"></div>
-                    </div>
-                </div>  
-        </div>
+        <div id="quality-dropdown"></div>
+        <div id="player-dropdown"></div>
     </div>
 </div>
