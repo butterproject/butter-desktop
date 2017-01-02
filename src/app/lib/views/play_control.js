@@ -180,7 +180,7 @@
             }
 
             // switch to default subtitle
-            this.switchSubtitle(Settings.subtitle_language);
+            this.setSubtitle(Settings.subtitle_language);
 
             this.setTooltips();
         },
