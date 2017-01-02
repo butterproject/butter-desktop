@@ -245,7 +245,8 @@
         addBookmarked: function () {
             var imdb = this.model.get('imdb_id');
             var itemtype = this.model.get('type');
-            var provider = App.Providers.get(this.model.get('provider'));
+            var providers = this.model.get('providers');
+            var provider = providers.torrent;
 
             return provider.detail(imdb, this.model.attributes).then(function (data) {
                 data.provider = provider.name;

@@ -1,10 +1,18 @@
 (function (App) {
     'use strict';
 
-    var Favorites = function () {};
-    Favorites.prototype.constructor = Favorites;
+    var Provider = require('butter-provider');
+    var inherits = require('util').inherits;
+
+    var Favorites = function (args) {
+        Favorites.super_.call(this, args);
+    };
+
+    inherits(Favorites, Provider);
+
     Favorites.prototype.config = {
-        name: 'Favorites'
+        name: 'favorites',
+        tabName: 'Favorites'
     };
 
     var queryTorrents = function (filters) {
@@ -170,11 +178,9 @@
 
         return queryTorrents(params)
             .then(formatForButter)
-            .then(function (items) {
-                return sort(items, filters);
-            });
+            .then(items => (sort(items, filters)))
+            .then(results => ({results: results, hasMore: true}));
     };
 
     App.Providers.install(Favorites);
-
 })(window.App);

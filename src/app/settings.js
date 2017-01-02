@@ -87,7 +87,7 @@ Settings.providers = {
     subtitle: 'OpenSubtitles',
     metadata: 'Trakttv',
     tvst: 'TVShowTime',
-    torrentCache: 'TorrentCache',
+    torrentCache: 'TorrentCache'
 };
 
 Settings.trackers = {

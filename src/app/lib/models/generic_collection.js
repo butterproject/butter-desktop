@@ -110,7 +110,12 @@
         }
     });
 
-    App.Model.getCollectionModelForTab = function (tab) {
+    function hackModelId(attrs) {
+        var id = attrs.idAttribute || 'id';
+        return attrs[id];
+    }
+
+    var getCollectionModelForProviderTab = function (tab) {
         if (_cache[tab]) {
             return _cache[tab];
         }
@@ -123,10 +128,7 @@
         _cache[tab] = ButterCollection.extend({
             popid: 'imdb_id',
             type: tab,
-            modelId: function (attrs) {
-                var id = attrs.idAttribute || 'id';
-                return attrs[id];
-            },
+            modelId: hackModelId,
             getProviders: function () {
                 return {
                     torrents: App.Config.getProvidersForTabType(tab),
@@ -136,6 +138,35 @@
         });
 
         return _cache[tab];
+    };
+
+    var getCollectionModelForBuiltIn = function (tab) {
+        if (_cache[tab]) {
+            return _cache[tab];
+        }
+
+        var provider = App.Providers.get(tab);
+        if (!provider) {
+            console.error('Could not find a provider for: ', tab);
+            return null;
+        }
+
+        _cache[tab] = ButterCollection.extend({
+            popid: 'imdb_id',
+            type: tab,
+            modelId: hackModelId,
+            getProviders: function () {
+                return {
+                    torrents: [provider]
+                };
+            }
+        });
+
+        return _cache[tab];
+    };
+
+    App.Model.getCollectionModelForTab = function (tab) {
+        return getCollectionModelForProviderTab(tab) || getCollectionModelForBuiltIn(tab);
     };
 
     var NullCollection = Backbone.Collection.extend({

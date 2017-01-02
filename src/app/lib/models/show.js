@@ -23,4 +23,5 @@
     });
 
     App.Model.register(Provider.ItemType.TVSHOW, Show);
+    App.Model.register('bookmarked' + Provider.ItemType.TVSHOW, Show);
 })(window.App);

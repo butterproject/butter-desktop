@@ -2,7 +2,7 @@
     'use strict';
 
     var WatchlistBrowser = App.View.ButterBrowser.extend({
-        collectionModel: App.Model.WatchlistCollection
+        filters: null
     });
 
     App.View.registerBuiltInTab('watchlist', WatchlistBrowser);

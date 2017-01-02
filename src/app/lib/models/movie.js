@@ -12,4 +12,5 @@
     });
 
     App.Model.register(Provider.ItemType.MOVIE, Movie);
+    App.Model.register('bookmarked' + Provider.ItemType.MOVIE, Movie);
 })(window.App);

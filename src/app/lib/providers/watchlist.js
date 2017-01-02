@@ -1,17 +1,19 @@
 /* globals moment*/
 (function (App) {
     'use strict';
-    var memoize = require('memoizee');
-    var Watchlist = function () {
-        this.fetch = memoize(this._fetch.bind(this), {
-            maxAge: 30 * 1000, // 30sec
-            preFetch: 0.5, // recache every 15sec
-            primitive: true
-        });
+    var Provider = require('butter-provider');
+    var inherits = require('util').inherits;
+
+    var Watchlist = function (args) {
+        Watchlist.super_.call(this, args);
     };
-    Watchlist.prototype.constructor = Watchlist;
+
+    inherits(Watchlist, Provider);
+
     Watchlist.prototype.config = {
-        name: 'Watchlist'
+        uniqueId: 'imdb_id',
+        name: 'watchlist',
+        tabName: 'Watchlist'
     };
 
     var rearrange = function (items) {
@@ -186,7 +188,7 @@
         return Promise.reject('No details for watchlist');
     };
 
-    Watchlist.prototype._fetch = function (filters) {
+    Watchlist.prototype.fetch = function (filters) {
         return new Promise(function (resolve, reject) {
             if (filters && typeof filters !== 'function' && (filters.force || filters.update)) {
                 if (filters.update && localStorage.watchlist_update_shows) {

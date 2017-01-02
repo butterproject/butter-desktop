@@ -192,6 +192,11 @@
             }
         },
         allLoaded: function () {
+            if (!this.collection
+                || !this.collection.providers
+                || !this.collection.providers.torrents) {
+                return true;
+            }
             return this.collection.providers.torrents
                 .reduce((a, c) => (
                     a && c.loaded
