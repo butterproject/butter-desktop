@@ -31,7 +31,7 @@
             })
             .catch(function (err) {
                 collection.state = 'error';
-                collection.trigger('loaded', collection, collection.state);
+                collection.trigger('error', collection, collection.state);
                 console.error('ButterCollection.fetch() : torrentPromises mapping', err);
             });
 
@@ -99,9 +99,6 @@
                         self.state = 'loaded';
                         self.trigger('loaded', self, self.state);
                     })
-                    .catch(function (err) {
-                        console.error('provider error err', err);
-                    });
             });
         },
 
