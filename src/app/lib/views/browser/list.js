@@ -234,12 +234,17 @@
 
         itemsPerRow: function () {
             var currentWidth = this.$el.width();
+            var minPerRow = Math.floor(1 / (Settings.postersWidth / currentWidth) - 1);
 
-            if (currentWidth !== this.ui.row.listWidth && Settings.postersWidth !== this.ui.row.posterWidth) {
-                // recalc items per row if win.width has changed
+            // recalc only if needed
+            if (
+                currentWidth !== this.ui.row.listWidth // win was resized?
+                || Settings.postersWidth !== this.ui.row.posterWidth // poster were resized?
+                || this.ui.row.itemsPerRow < minPerRow // something impossible happened?
+            ) {
                 this.ui.row.listWidth = currentWidth;
                 this.ui.row.posterWidth = Settings.postersWidth;
-                this.ui.row.items = 0;
+                this.ui.row.itemsPerRow = 0;
 
                 var items = $(document.querySelector('.items')).children('.item');
 
@@ -250,11 +255,11 @@
                         break; // exit after a complete row
                     }
 
-                    this.ui.row.items++; 
+                    this.ui.row.itemsPerRow++; 
                 }
             }
 
-            return this.ui.row.items;
+            return this.ui.row.itemsPerRow;
         },
 
         completerow: function () {
