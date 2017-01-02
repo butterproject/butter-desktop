@@ -17,7 +17,7 @@ if (genre) {
     <div class="go-back"><i class="material-icons">arrow_back</i><span>Back</span></div>
     <ul class="toolbar-movies">
         <li>
-            <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="material-icons health-icon <%= health %>">wifi</i>
+            <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="material-icons health-icon <%= health %>">flash on</i>
         </li>
         <li>
             <i data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="material-icons magnet-link">link</i>
