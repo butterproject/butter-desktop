@@ -14,17 +14,22 @@
     .actions-bar
         width 100%
         margin-top: 32px
-        .fa-arrow-left
+        height: 60px
+        .go-back
             margin: 20px 40px
             color: #FFF;
             display: inline-block
-            font-size: 1.18em
+            font-size: 28px
             cursor: pointer
             float: left;
-            position: relative;
+            position: relative
+            i
+                vertical-align: bottom
             span
                 font-family: $MainFontBold
                 margin-left 15px
+                text-transform uppercase
+                font-size: 22px
 
         .toolbar-movies
             float: right
@@ -33,9 +38,18 @@
             li
                 display: inline-block
                 padding: 10px
-                .fa
+                .material-icons
                     color: #FFF
-                    font-size 20px
+                    font-size 1.3em
+                .health-icon
+                    &.Bad
+                        color: #d53f3f
+                    &.Medium
+                        color: #ece523
+                    &.Good
+                        color: #a3e147
+                    &.Excellent
+                        color: #2ad942
             .toggles-container
                   display: flex
                   flex: 2
@@ -122,6 +136,8 @@
         height: 75vh
         width: 35vw
         padding-left: 4vw
+        position: relative
+        z-index: 10
 
         .mcover-image
             float: right
@@ -142,7 +158,7 @@
         height: 75vh
         margin-top: 2vh
         width: 65vw
-        padding-right: 4vw
+        padding: 2vw 4vw
         display: flex
         justify-content: space-between
         flex-direction: column
@@ -166,7 +182,7 @@
                 position: relative
 
                 .metaitem
-                    color: #f8f8f8
+                    color: #FFF
                     font-size: 16px
                     position: relative
                     font-family: $MainFontBold
@@ -174,13 +190,14 @@
                     float: left
                     font-smoothing: antialiased
                     max-width: 35%
-                    overflow: hidden
                     white-space: nowrap
+                    overflow: hidden
                     text-overflow: ellipsis
+                    opacity: 0.4
 
                     &::before
                         content: ""
-                        margin: 4px 15px 0px 15px
+                        margin: 7px 15px 0px 15px
                         position: relative
                         display: inline-block
                         width: 4px
@@ -203,6 +220,7 @@
 
 
                 .rating-container
+                    opacity: 1
                     .hidden
                         display: none
 
@@ -253,22 +271,7 @@
                             margin-right -2px
                             margin-left 2px
 
-                .health-icon
-                    position: relative
-                    font-size: 14px
-                    float: right
-                    margin-right: 2%
-                    margin-top: -1px
-                    color: #737577
-                    cursor: pointer
-                    &.Bad
-                        color: #d53f3f
-                    &.Medium
-                        color: #ece523
-                    &.Good
-                        color: #a3e147
-                    &.Excellent
-                        color: #2ad942
+                
 
                 .magnet-link
                     position: relative
@@ -299,135 +302,166 @@
                 backface-visibility: hidden
                 scrollable();
 
-        .play-control
-            display: flex
-            flex-direction: row
-            justify-content: space-between
-            white-space: nowrap
 
-            height: 70px
-            line-height: 35px
-            margin: 10px
+#play-control {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    padding: 30px 0 50px 39vw;
+    height: 200px;
+}
 
-            .setup-container
-              display: flex
-              flex-direction: row
-              justify-content: space-between
+.play-control   
+    height: 70px
+    line-height: 35px
 
-            
+    .setup-container
 
-            .play-selector
-                position: relative
-                float: left
+    .dropdowns-container
+        width 220px
+        .dropup
+            .dropdown-toggle
+                align-items: center
+                cursor: pointer
+                height: 35px
+                color: $ButtonText
+                font-family: $MainFontBold
+                font-smoothing: antialiased
+                text-align: center
+                font-size: 14px
+                transition: background-color 0.5s
+                display: flex
+                padding: 3px 12px
+                border-radius 3px
+                &:hover
+                    background: rgba(0,0,0,0.2)
+                i
+                    margin-right: 10px
+                    font-size 16px
+                span
+                    margin-right: auto
 
-                .startStreaming
-                    margin-left: 12px
-                    margin-right: 12px
+        .open
+            .lang-dropdown, &:hover
+                background: $ButtonBg
+                border-radius: $ButtonRadius
+                background-clip: padding-box
 
-                    &:after
-                        content: ''
-                        width: 70%
-                        height: 100%
-                        top: 0
-                        left: 0
-                        position: absolute
 
-            .movie-quality-container
-                margin-top: 10px
-                float: left
-                position: relative
-                height: 15px
-                width: 95px
-                left: 3%
-                line-height: 1
+    .play-selector
+        position: relative
 
-                .tooltip
-                    width: 85px
+        .startStreaming
+            margin-left: 12px
+            margin-right: 12px
 
-                .q720
-                    font-family: $MainFontBold
-                    font-smoothing: antialiased
-                    font-size: 11px
-                    color: #fff
-                    font-weight: normal
+            &:after
+                content: ''
+                width: 70%
+                height: 100%
+                top: 0
+                left: 0
+                position: absolute
+    .play-btn 
+        float right
+    .movie-quality-container
+        margin-top: 10px
+        float: left
+        position: relative
+        height: 15px
+        width: 95px
+        left: 3%
+        line-height: 1
+
+        .tooltip
+            width: 85px
+
+        .q720
+            font-family: $MainFontBold
+            font-smoothing: antialiased
+            font-size: 11px
+            color: #fff
+            font-weight: normal
+            position: absolute
+
+        .q1080
+            font-family: $MainFontBold
+            font-smoothing: antialiased
+            font-size: 11px
+            color: #fff
+            font-weight: normal
+            left: 58px
+            position: absolute
+
+        .switch
+            background: transparent
+            border-radius: 32px
+            display: block
+            height: 12px
+            position: absolute
+            left: 28px
+            width: 25px
+            border: 2px solid #fff
+            cursor: pointer
+
+            label
+                transition: color 0.2s ease
+                width: 20px
+                cursor: pointer
+                &:nth-of-type(1)
+                    left: -38px
                     position: absolute
+                    text-align: right
 
-                .q1080
-                    font-family: $MainFontBold
-                    font-smoothing: antialiased
-                    font-size: 11px
-                    color: #fff
-                    font-weight: normal
-                    left: 58px
+                &:nth-of-type(2)
                     position: absolute
+                    right: -30px
+                    text-align: left
 
-                .switch
-                    background: transparent
-                    border-radius: 32px
-                    display: block
-                    height: 12px
-                    position: absolute
-                    left: 28px
-                    width: 25px
-                    border: 2px solid #fff
-                    cursor: pointer
+            .tooltip
+                width: 130px
 
-                    label
-                        transition: color 0.2s ease
-                        width: 20px
-                        cursor: pointer
+            input
+                height: 7px
+                left: -27px
+                opacity: 0
+                position: absolute
+                top: -4px
+                width: 79px
+                z-index: 2
+                cursor: pointer
+                &:checked
+                    z-index: 0
+                    & ~ label
                         &:nth-of-type(1)
-                            left: -38px
-                            position: absolute
-                            text-align: right
+                            color: $ButtonBgActive
 
                         &:nth-of-type(2)
-                            position: absolute
-                            right: -30px
-                            text-align: left
+                            color: #fff
 
-                    .tooltip
-                        width: 130px
-
-                    input
-                        height: 7px
-                        left: -27px
-                        opacity: 0
-                        position: absolute
-                        top: -4px
-                        width: 79px
-                        z-index: 2
-                        cursor: pointer
-                        &:checked
-                            z-index: 0
-                            & ~ label
-                                &:nth-of-type(1)
-                                    color: $ButtonBgActive
-
-                                &:nth-of-type(2)
-                                    color: #fff
-
-                            & ~ .toggle
-                                left: 0px
+                    & ~ .toggle
+                        left: 0px
 
 
-                        & ~ :checked
-                            & ~ label
-                                &:nth-of-type(1)
-                                    color: #fff
+                & ~ :checked
+                    & ~ label
+                        &:nth-of-type(1)
+                            color: #fff
 
-                                &:nth-of-type(2)
-                                    color: $ButtonBgActive
+                        &:nth-of-type(2)
+                            color: $ButtonBgActive
 
-                            & ~ .toggle
-                                left: 11px
+                    & ~ .toggle
+                        left: 11px
 
-                    .toggle
-                        transition: left 0.2s ease
-                        background: $ButtonBgActive
-                        border-radius: 50%
-                        height: 10px
-                        left: -0px
-                        position: absolute
-                        top: -1px
-                        width: 10px
+            .toggle
+                transition: left 0.2s ease
+                background: $ButtonBgActive
+                border-radius: 50%
+                height: 10px
+                left: -0px
+                position: absolute
+                top: -1px
+                width: 10px

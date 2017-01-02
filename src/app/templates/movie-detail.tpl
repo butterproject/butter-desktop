@@ -13,23 +13,23 @@ if (genre) {
 
 <div class="backdrop"></div>
 <div class="backdrop-overlay"></div>
-<div class="actions-bar">
-    <div class="fa fa-arrow-left go-back"><span>Back</span></div>
+<section class="actions-bar">
+    <div class="go-back"><i class="material-icons">arrow_back</i><span>Back</span></div>
     <ul class="toolbar-movies">
         <li>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="fa fa-circle health-icon <%= health %>"></div>
+            <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="material-icons health-icon <%= health %>">wifi</i>
         </li>
         <li>
-            <div data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-magnet magnet-link"></div>
+            <i data-toogle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="material-icons magnet-link">link</i>
         </li>
         <li>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-heart favourites-toggle"></div>
+            <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Add to bookmarks") %>" class="material-icons favourites-toggle">favorite_border</i>
         </li>
         <li>
-            <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-eye-slash watched-toggle"></div>
+            <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Not Seen") %>" class="material-icons watched-toggle">visibility_off</i>
         </li>
     </ul>
-</div>
+</section>
 
 
 <section class="poster-box">
@@ -68,8 +68,11 @@ if (genre) {
         </div>
 
         <div class="overview"><%= synopsis %></div>
-        <div id="play-control"></div>
+        <div id="watch-trailer"  class="button play-selector"><%=i18n.__("Watch Trailer") %></div>
 
     </div>
 
 </section>
+
+
+<section id="play-control"></section>
