@@ -9,5 +9,5 @@
         }
     });
 
-    App.View.FavoriteBrowser = FavoriteBrowser;
+    App.View.registerBuiltInTab('favorites', FavoriteBrowser);
 })(window.App);

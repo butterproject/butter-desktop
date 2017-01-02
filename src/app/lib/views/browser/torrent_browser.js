@@ -366,9 +366,9 @@
 
     });
 
-    var TorrentBrowser = App.View.ButterBrowser.extend({
+    var TorrentCollectionBrowser = App.View.ButterBrowser.extend({
         view: TorrentCollection
     });
 
-    App.View.TorrentCollection = TorrentBrowser;
+    App.View.registerBuiltInTab('torrentCollection', TorrentCollectionBrowser);
 })(window.App);

@@ -136,6 +136,10 @@
         }
     });
 
+    App.View.registerBuiltInTab = function(tab, view) {
+        _cache[tab] = view;
+    }
+
     App.View.getViewForTab = function (tab) {
         if (_cache[tab]) {
             return _cache[tab];

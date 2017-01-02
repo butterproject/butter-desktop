@@ -5,5 +5,5 @@
         collectionModel: App.Model.WatchlistCollection
     });
 
-    App.View.WatchlistBrowser = WatchlistBrowser;
+    App.View.registerBuiltInTab('watchlist', WatchlistBrowser);
 })(window.App);
