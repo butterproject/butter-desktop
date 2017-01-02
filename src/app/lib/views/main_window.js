@@ -72,9 +72,6 @@
             // Application events
             App.vent.on('show:tab', this.showTab.bind(this));
 
-            App.vent.on('favorites:list', _.bind(this.showFavorites, this));
-            App.vent.on('favorites:render', _.bind(this.renderFavorites, this));
-
             App.vent.on('shows:update', _.bind(this.updateShows, this));
             App.vent.on('shows:init', _.bind(this.initShows, this));
 
@@ -103,10 +100,6 @@
             // Movies
             App.vent.on('movie:showDetail', _.bind(this.showMovieDetail, this));
             App.vent.on('movie:closeDetail', _.bind(this.closeMovieDetail, this.MovieDetail));
-
-            // Torrent collection
-            App.vent.on('torrentCollection:show', _.bind(this.showTorrentCollection, this));
-            App.vent.on('torrentCollection:close', _.bind(this.TorrentCollection.destroy, this.TorrentCollection));
 
             // Tv Shows
             App.vent.on('tvshow:showDetail', _.bind(this.showShowDetail, this));
@@ -247,17 +240,10 @@
 
             App.currentview = newTab;
 
-            if (['favorites',
-                 'torrentCollection',
-                 'watchlist'].indexOf(newTab) !== -1) {
-                // XXX hack until we get something better
-                this.lastView = this['show' + newTab.capitalize()]();
-            } else {
-                var model = App.Model.getCollectionModelForTab(newTab);
-                var view = App.View.getViewForTab(newTab);
-                this.lastView = new view({collectionModel: model});
-                this.Content.show(this.lastView);
-            }
+            var model = App.Model.getCollectionModelForTab(newTab);
+            var view = App.View.getViewForTab(newTab);
+            this.lastView = new view({collectionModel: model});
+            this.Content.show(this.lastView);
 
             App.vent.trigger('selected:tab', newTab);
         },
@@ -293,35 +279,6 @@
                 win.focus();
 
             });
-        },
-
-        showFavorites: function (e) {
-            var view = new App.View.FavoriteBrowser();
-            this.Content.show(view);
-            return view;
-        },
-
-        renderFavorites: function (e) {
-            this.Content.show(new App.View.FavoriteBrowser());
-            App.currentview = 'favorites';
-            $('.right .search').hide();
-            $('.filter-bar').find('.active').removeClass('active');
-            $('#filterbar-favorites').addClass('active');
-        },
-
-        showTorrentCollection: function (e) {
-            this.TorrentCollection.show(new App.View.TorrentCollection());
-            return null;
-        },
-
-        showWatchlist: function (e) {
-            var that = this;
-            $('#nav-filters, .search, .items').hide();
-            $('.spinner').show();
-            var view = new App.View.WatchlistBrowser();
-
-            this.Content.show(view);
-            return view;
         },
 
         showDisclaimer: function (e) {

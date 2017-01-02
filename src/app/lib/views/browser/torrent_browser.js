@@ -327,7 +327,7 @@
         clearCollection: function () {
             deleteFolder(collection);
             console.log('Torrent Collection: delete all', collection);
-            App.vent.trigger('torrentCollection:show');
+            App.vent.trigger('show:tab', 'torrentCollection');
         },
 
         openCollection: function () {

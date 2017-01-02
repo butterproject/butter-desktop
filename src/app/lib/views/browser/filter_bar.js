@@ -233,16 +233,6 @@
             App.vent.trigger('about:show');
         },
 
-        showTorrentCollection: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'torrentCollection') {
-                this.switchToTab('torrentCollection');
-            } else {
-                this.switchToTab(App.previousview);
-            }
-        },
-
         tabClicked: function (e) {
             e.preventDefault();
             var value = $(e.currentTarget).attr('data-value');
@@ -253,34 +243,6 @@
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
             App.vent.trigger('show:tab', value);
-        },
-
-        showFavorites: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'favorites') {
-                this.switchToTab('favorites');
-            } else {
-                if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
-                    this.switchToTab(App.previousview);
-                } else {
-                    this.switchToTab('favorites');
-                }
-            }
-        },
-
-        showWatchlist: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'watchlist') {
-                this.switchToTab('watchlist');
-            } else {
-                if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
-                    this.switchToTab(App.previousview);
-                } else {
-                    this.switchToTab('watchlist');
-                }
-            }
         },
 
         updateDB: function (e) {
