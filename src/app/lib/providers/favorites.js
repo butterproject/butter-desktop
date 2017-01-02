@@ -12,7 +12,10 @@
 
     Favorites.prototype.config = {
         name: 'favorites',
-        tabName: 'Favorites'
+        tabName: 'Favorites',
+        args: {
+            db: Provider.ArgType.OBJECT
+        }
     };
 
     var queryTorrents = function (filters) {

@@ -40,36 +40,36 @@
         });
     }
 
-    function getProvider(name) {
-        if (!name) {
+    function getProvider(uri) {
+        if (!uri) {
             /* XXX(xaiki): this is for debug purposes, will it bite us later ? */
             /* XXX(vankasteelj): it did. */
             console.error('Asked for an empty provider, this should never happen, dumping provider cache and registry', cache, registry);
             return cache;
         }
 
-        var config = App.Providers.Generic.prototype.parseArgs(name);
+        var providerName = uri.split('?')[0];
 
-        if (cache[name]) {
-            return cache[name];
+        if (cache[uri]) {
+            return cache[uri];
         }
 
-        var provider = getProviderFromRegistry(config.name);
+        var provider = getProviderFromRegistry(providerName);
         if (!provider) {
-            if (installProvider(require('butter-provider-' + config.name))) {
-                console.warn('I loaded', config.name, 'from npm but you didn\'t add it to your package.json');
-                provider = getProviderFromRegistry(config.name);
+            if (installProvider(require('butter-provider-' + providerName))) {
+                console.warn('I loaded', providerName, 'from npm but you didn\'t add it to your package.json');
+                provider = getProviderFromRegistry(providerName);
             } else {
-                console.error('Couldn\'t find provider', config.name);
+                console.error('Couldn\'t find provider', providerName);
                 return null;
             }
         }
 
-        console.log('Spawning new provider', name, config);
-        var p = cache[name] = new provider(config.args);
+        console.log('Spawning new provider', uri);
+        var p = cache[uri] = new provider(uri);
 
         //HACK(xaiki): set the provider name in the returned object.
-        p.name = name;
+        p.uri = uri;
         return p;
     }
 
