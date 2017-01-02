@@ -187,10 +187,7 @@
             torrentProvider
                 .detail(id, this.model.attributes)
                 .then(this.model.set.bind(this.model))
-                .then(model => (
-                    App.vent.trigger(itemtype + ':showDetail', model)
-                ))
-                .catch (err => console.error('get torrent detail', err));
+                .then(model => (App.vent.trigger(itemtype + ':showDetail', model)));
 
             // XXX(xaiki): here we could optimise a detail call by marking
             // the models that already got fetched not too long ago, but we

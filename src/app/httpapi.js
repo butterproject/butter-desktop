@@ -453,8 +453,8 @@
             ///// FILTERBAR ////
             ////////////////////
             server.expose('getgenres', function (args, opt, callback) {
-                switch (App.currentview) {
-                case 'shows':
+                switch (App.currentview) { //FIXME #576
+                case 'tvshow':
                     butterCallback(callback, false, {
                         'genres': App.Config.genres_tv
                     });
@@ -464,7 +464,7 @@
                         'genres': App.Config.genres_anime
                     });
                     break;
-                case 'movies':
+                case 'movie':
                     butterCallback(callback, false, {
                         'genres': App.Config.genres
                     });
@@ -478,14 +478,14 @@
             });
 
             server.expose('getsorters', function (args, opt, callback) {
-                switch (App.currentview) {
-                case 'shows':
+                switch (App.currentview) { //FIXME #576
+                case 'tvshow':
                 case 'anime':
                     butterCallback(callback, false, {
                         'sorters': App.Config.sorters_tv
                     });
                     break;
-                case 'movies':
+                case 'movie':
                     butterCallback(callback, false, {
                         'sorters': App.Config.sorters
                     });
@@ -499,7 +499,7 @@
             });
 
             server.expose('gettypes', function (args, opt, callback) {
-                switch (App.currentview) {
+                switch (App.currentview) { //FIXME #576
                 case 'anime':
                     butterCallback(callback, false, {
                         'types': App.Config.types_anime

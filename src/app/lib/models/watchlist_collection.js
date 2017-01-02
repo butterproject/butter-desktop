@@ -1,20 +1,32 @@
 (function (App) {
     'use strict';
 
-    var WatchlistCollection = App.Model.Collection.extend({
-        model: App.Model.Movie,
-        initialize: function () {
+    var WatchlistCollection = App.Model.NullCollection.extend({
+        initialize: function (model, options) {
             this.hasMore = false;
-        },
-        getProviders: function () {
-            return {
+            this.providers = {
                 torrents: [App.Providers.get('Watchlist')]
             };
         },
-        fetchMore: function () {
-            return;
+        fetch: function () {
+            return App.Providers.get('Watchlist')
+                .fetch()
+                .then((items) => {
+                    let watchlistProvider =  App.Providers.get('Watchlist');
+                    for (var i in items.results) { //hack FIXME - #557
+                        items.results[i].providers = {
+                            torrent: watchlistProvider
+                        };
+                    }
+                    this.add(items.results);
+                    this.state = 'loaded';
+                    this.trigger('loaded', this, this.state);
+                }).catch((error) => {
+                    this.state = 'error';
+                    this.trigger('error', this, this.state);
+                    console.error('WatchlistCollection.fetch()', error);
+                });
         }
-
     });
 
     App.Model.WatchlistCollection = WatchlistCollection;

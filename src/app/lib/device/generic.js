@@ -142,6 +142,7 @@
             this.selected = this.findWhere({
                 id: deviceID
             });
+            App.vent.trigger('device:selected', deviceID, this.selected);
         }
     });
 

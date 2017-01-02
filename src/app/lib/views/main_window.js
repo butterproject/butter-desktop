@@ -72,9 +72,6 @@
             // Application events
             App.vent.on('show:tab', this.showTab.bind(this));
 
-            App.vent.on('favorites:list', _.bind(this.showFavorites, this));
-            App.vent.on('favorites:render', _.bind(this.renderFavorites, this));
-
             App.vent.on('shows:update', _.bind(this.updateShows, this));
             App.vent.on('shows:init', _.bind(this.initShows, this));
 
@@ -103,10 +100,6 @@
             // Movies
             App.vent.on('movie:showDetail', _.bind(this.showMovieDetail, this));
             App.vent.on('movie:closeDetail', _.bind(this.closeMovieDetail, this.MovieDetail));
-
-            // Torrent collection
-            App.vent.on('torrentCollection:show', _.bind(this.showTorrentCollection, this));
-            App.vent.on('torrentCollection:close', _.bind(this.TorrentCollection.destroy, this.TorrentCollection));
 
             // Tv Shows
             App.vent.on('tvshow:showDetail', _.bind(this.showShowDetail, this));
@@ -245,17 +238,14 @@
             this.MovieDetail.destroy();
             this.lastView && this.lastView.destroy();
 
-            if (['favorites', 'torrentCollection', 'watchlist']
-                .indexOf(newTab) !== -1) {
-                // XXX hack until we get something better
-                return this['show' + newTab.capitalize()]();
-            }
+            App.currentview = newTab;
 
             var model = App.Model.getCollectionModelForTab(newTab);
             var view = App.View.getViewForTab(newTab);
             this.lastView = new view({collectionModel: model});
-
             this.Content.show(this.lastView);
+
+            App.vent.trigger('selected:tab', newTab);
         },
 
         updateShows: function (e) {
@@ -291,42 +281,12 @@
             });
         },
 
-        showFavorites: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            this.Content.show(new App.View.FavoriteBrowser());
-        },
-
-        renderFavorites: function (e) {
-            this.Content.show(new App.View.FavoriteBrowser());
-            App.currentview = 'Favorites';
-            $('.right .search').hide();
-            $('.filter-bar').find('.active').removeClass('active');
-            $('#filterbar-favorites').addClass('active');
-        },
-
-        showWatchlist: function (e) {
-            this.Settings.destroy();
-            this.MovieDetail.destroy();
-
-            var that = this;
-            $('#nav-filters, .search, .items').hide();
-            $('.spinner').show();
-
-            this.Content.show(new App.View.WatchlistBrowser());
-        },
-
         showDisclaimer: function (e) {
             this.Disclaimer.show(new App.View.DisclaimerModal());
         },
 
         showAbout: function (e) {
             this.About.show(new App.View.About());
-        },
-
-        showTorrentCollection: function (e) {
-            this.TorrentCollection.show(new App.View.TorrentCollection());
         },
 
         showKeyboard: function (e) {
@@ -488,6 +448,10 @@
 
                         '.item {',
                         'font-size: ' + fontSize + 'em;',
+                        '}',
+
+                        '.ghost {',
+                        'width: ', postersWidth, 'px;',
                         '}'
                     ].join('');
 

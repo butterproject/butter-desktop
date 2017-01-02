@@ -6,7 +6,7 @@
     text-align left
     width auto
 
-    .drop-head
+    .dropdown-toggle
         position relative
         border-radius 5px 5px 0 0
         z-index: 99
@@ -23,7 +23,7 @@
             text-transform uppercase
 
         .select-item
-            cursor pointer
+
             .selected
                 margin 0
                 padding 0
@@ -33,11 +33,9 @@
                 min-width 75px
                 text-transform capitalize
             .icon.material-icons
-                opacity 0.65
-                font-size 1em
                 margin-left 10px
                 &:after
-                    content "arrow_drop_down"
+                  content "arrow_drop_down"
 
     .filter-items
 
@@ -73,7 +71,7 @@
                 background #ddd
                 opacity 1
     &.open
-        .drop-head
+        .dropdown-toggle
             color: #252525 !important
             background $FilterDropdownHoverBg
             .category
@@ -81,9 +79,9 @@
             .select-item
                 color: #252525 !important
                 .icon
-                    &:after
-                        content "arrow_drop_up"
-                        color: rgba(0, 0, 0, 0.65)
+                  &:after
+                    content "arrow_drop_up"
+
         .filter-items
             height auto
             opacity 1
@@ -101,7 +99,8 @@
 
 
 
-.search.open .search-input
+.filter-dropdown.open,
+.search.open .dropdown-toggle
   background $FilterDropdownHoverBg
   color $FilterDropdownHoverText
 

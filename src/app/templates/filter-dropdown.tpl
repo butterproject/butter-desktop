@@ -1,5 +1,5 @@
 <div class="filter-dropdown">
-    <div class="dropdown-toggle drop-head" data-toggle="dropdown">
+    <div class="dropdown-toggle" data-toggle="dropdown">
         <div class="category"><%= title %></div>
         <div class="select-item">
             <div class="selected"><%= i18n.__("Select One") %></div>
@@ -7,8 +7,8 @@
         </div>
     </div>
     <ul class="filter-items" role="menu">
-        <% for (var v in values) { %>
-        <li class="filter-item" data-value="<%= v %>"><%= i18n.__(v) %></li>
+        <% for (var key in values) { %>
+        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(values[key]) %></li>
         <% } %>
     </ul>
 </div>

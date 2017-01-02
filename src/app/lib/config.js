@@ -4,69 +4,11 @@
     var Config = {
         title: Settings.projectName,
         platform: process.platform,
-        genres: [
-            'All',
-            'Action',
-            'Adventure',
-            'Animation',
-            'Biography',
-            'Comedy',
-            'Crime',
-            'Documentary',
-            'Drama',
-            'Family',
-            'Fantasy',
-            'Film-Noir',
-            'History',
-            'Horror',
-            'Music',
-            'Musical',
-            'Mystery',
-            'Romance',
-            'Sci-Fi',
-            'Short',
-            'Sport',
-            'Thriller',
-            'War',
-            'Western'
-        ],
-
-        sorters: [
-            'popularity',
-            'trending',
-            'last added',
-            'year',
-            'title',
-            'rating'
-        ],
-
-        sorters_tv: [
-            'popularity',
-            'trending',
-            'updated',
-            'year',
-            'name',
-            'rating'
-        ],
-
         sorters_fav: [
             'watched items',
             'year',
             'title',
             'rating'
-        ],
-
-        sorters_anime: [
-            'popularity',
-            'name'
-        ],
-
-        types_anime: [
-            'All',
-            'Movies',
-            'TV',
-            'OVA',
-            'ONA'
         ],
 
         types_fav: [
@@ -75,116 +17,6 @@
             'TV',
             'Anime'
         ],
-
-        genres_anime: [
-            'All',
-            'Action',
-            'Adventure',
-            'Cars',
-            'Comedy',
-            'Dementia',
-            'Demons',
-            'Drama',
-            'Ecchi',
-            'Fantasy',
-            'Game',
-            'Harem',
-            'Historical',
-            'Horror',
-            'Josei',
-            'Kids',
-            'Magic',
-            'Martial Arts',
-            'Mecha',
-            'Military',
-            'Music',
-            'Mystery',
-            'Parody',
-            'Police',
-            'Psychological',
-            'Romance',
-            'Samurai',
-            'School',
-            'Sci-Fi',
-            'Seinen',
-            'Shoujo',
-            'Shoujo Ai',
-            'Shounen',
-            'Shounen Ai',
-            'Slice of Life',
-            'Space',
-            'Sports',
-            'Super Power',
-            'Supernatural',
-            'Thriller',
-            'Vampire'
-        ],
-
-        genres_tv: [
-            'All',
-            'Action',
-            'Adventure',
-            'Animation',
-            'Children',
-            'Comedy',
-            'Crime',
-            'Documentary',
-            'Drama',
-            'Family',
-            'Fantasy',
-            'Game Show',
-            'Home and Garden',
-            'Horror',
-            'Mini Series',
-            'Mystery',
-            'News',
-            'Reality',
-            'Romance',
-            'Science Fiction',
-            'Soap',
-            'Special Interest',
-            'Sport',
-            'Suspense',
-            'Talk Show',
-            'Thriller',
-            'Western'
-        ],
-
-        genres_indie: [
-            'All',
-            'Action',
-            'Adventure',
-            'Animation',
-            'Biography',
-            'Comedy',
-            'Crime',
-            'Documentary',
-            'Drama',
-            'Family',
-            'Fantasy',
-            'Film-Noir',
-            'History',
-            'Horror',
-            'Music',
-            'Musical',
-            'Mystery',
-            'Romance',
-            'Sci-Fi',
-            'Short',
-            'Sport',
-            'Thriller',
-            'War',
-            'Western'
-        ],
-        sorters_indie: [
-            'popularity',
-            'updated',
-            'year',
-            'alphabet',
-            'rating'
-        ],
-        types_indie: [],
-
         cache: {
             name: 'cachedb',
             version: '1.7',
@@ -206,6 +38,10 @@
                 .map(t => (Object.assign({type: t}, tabs[t])));
         },
 
+        getTabTypes: function () {
+            return Object.values(this.getTabs()).map(t => (t.type));
+        },
+
         getProviderForType: function (type) {
             var provider = Settings.providers[type];
 
@@ -217,8 +53,12 @@
             return App.Providers.get(provider);
         },
 
-        getProviderForTabType: function (tabType) {
+        getProvidersForTabType: function (tabType) {
             var tab = Settings.tabs[tabType];
+            if (! tab || !tab.providers) {
+                return null;
+            }
+
             var providers = tab.providers;
 
             if (providers instanceof Array) {
@@ -234,15 +74,15 @@
         },
 
         getProviderNameForTabType: function (tabType) {
-            return this.getProviderForTabType(tabType)
+            return this.getProvidersForTabType(tabType)
                 .map(p => (p.config.tabName));
         },
 
         getFiltredProviderNames: function (providers) {
             var ret = providers
+                .map(c => (c.split('?')[0]))
                 .reduce((a, c) => {
-                    let n = c.split(':')[0];
-                    a[n]++;
+                    a[c] = ~~(a[c]) + 1;
                     return a;
                 }, {});
 

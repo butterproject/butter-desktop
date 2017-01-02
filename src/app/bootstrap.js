@@ -83,7 +83,7 @@
         .then(values => (
             Object.keys(Settings.tabs)
                 .map(tabType => ({
-                    provider: App.Config.getProviderForTabType(tabType),
+                    provider: App.Config.getProvidersForTabType(tabType),
                     tabType: tabType
                 })).filter(p => (p.provider))
         )).then(providers =>  {

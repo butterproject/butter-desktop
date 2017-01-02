@@ -11,9 +11,10 @@
      *  * Show movie detail
      *  * Start playing a movie
      */
-    var PCTBrowser = Backbone.Marionette.LayoutView.extend({
+    var ButterBrowser = Backbone.Marionette.LayoutView.extend({
         template: '#browser-tpl',
         className: 'main-browser',
+        view: App.View.List,
         regions: {
             FilterBar: '.filter-bar-region',
             ItemList: '.list-region'
@@ -26,15 +27,16 @@
         initialize: function (attrs) {
             this.filter = new App.Model.Filter(this.filters);
 
-            var collectionModel = attrs.collectionModel || this.collectionModel;
-            this.collection = new collectionModel([], {
+            this.collectionModel = attrs.collectionModel // called with collectionModel as arg.
+                || this.collectionModel                  // superclassed with collectionModel.
+                || App.Model.NullCollection;             // probably Torrent Collection.
+            this.collection = new this.collectionModel([], {
                 filter: this.filter
             });
 
             this.collection.fetch();
 
             this.listenTo(this.filter, 'change', this.onFilterChange);
-
         },
 
         onShow: function () {
@@ -48,7 +50,7 @@
 
             this.FilterBar.show(this.bar);
 
-            this.ItemList.show(new App.View.List({
+            this.ItemList.show(new this.view({
                 collection: this.collection
             }));
 
@@ -71,12 +73,12 @@
             App.vent.trigger('tvshow:closeDetail');
             this.collection.fetch();
 
-            this.ItemList.show(new App.View.List({
+            this.ItemList.show(new this.view({
                 collection: this.collection
             }));
         },
         onlineSearch: function () {
-            switch (App.currentview) {
+            switch (App.currentview) { //FIXME #576
             case 'movies':
                 Settings.OnlineSearchCategory = 'Movies';
                 break;
@@ -102,26 +104,24 @@
         },
 
         currentView: function () {
-            var view = App.currentview;
-
-            if (!view) {
-                var activetab;
-                var tabs = {
-                    'TV Series': 'shows',
-                    'Movies': 'movies',
-                    'Anime': 'anime'
-                };
-
-                if (AdvSettings.get('startScreen') === 'Last Open') {
-                    activetab = AdvSettings.get('lastTab');
-                } else {
-                    activetab = AdvSettings.get('startScreen');
-                }
-
-                view = tabs[activetab] || 'movies';
+            if (App.currentview) {
+                return App.currentview;
             }
 
-            return view;
+            var activetab;
+            var tabs = App.Config.getTabTypes();
+
+            if (AdvSettings.get('startScreen') === 'Last Open') {
+                activetab = AdvSettings.get('lastTab');
+            } else {
+                activetab = AdvSettings.get('startScreen');
+            }
+
+            if (activetab in tabs) {
+                return activetab;
+            }
+
+            return tabs[0];
         },
 
         saveFilter: function () {
@@ -136,20 +136,33 @@
         }
     });
 
+    App.View.registerBuiltInTab = function(tab, view) {
+        _cache[tab] = view;
+    }
+
     App.View.getViewForTab = function (tab) {
         if (_cache[tab]) {
             return _cache[tab];
         }
 
-        _cache[tab] = App.View.PCTBrowser.extend({
-            filters: {
-                genres: App.Config.genres,
-                sorters: App.Config.sorters
-            }
+        var filters = App.Config.getProvidersForTabType(tab)
+            .map(p => p.filters)
+            .reduce((a, c) => ({
+                genres:  Object.assign({}, a.genres,  c.genres),
+                sorters: Object.assign({}, a.sorters, c.sorters),
+                types:   Object.assign({}, a.types,   c.types)
+            }), {});
+
+        if (! Object.keys(filters.types).length) {
+            delete filters.types;
+        }
+
+        _cache[tab] = App.View.ButterBrowser.extend({
+            filters: filters
         });
 
         return _cache[tab];
     };
 
-    App.View.PCTBrowser = PCTBrowser;
+    App.View.ButterBrowser = ButterBrowser;
 })(window.App);

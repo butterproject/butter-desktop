@@ -3,9 +3,9 @@
     flex-direction: row
     justify-content: flex-start
     flex-flow: row wrap
-    height: 100vh             //needs to become calc(100vh - 65px)
-    //padding-top: 65px        //when webkit calc() is fixed = m34
+    height: "calc(100vh - %s)" % $HeaderHeight
     width: 100vw
+    fixed: bottom left
     user-select: none
     backface-visibility: hidden
     background-color: $BgColor1

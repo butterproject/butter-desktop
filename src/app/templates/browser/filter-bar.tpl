@@ -28,26 +28,24 @@
     </li>
 
     <!-- Watchlist -->
-    <% if (Settings.activateWatchlist) { %>
-    <li style="display:inline-block">
-    <% } else { %>
-    <li style="display:none">
-    <% } %>
-        <i id="filterbar-watchlist" class="material-icons watchlist tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Watchlist") %>">inbox</i>
+    <li>
+        <i id="filterbar-watchlist" class="material-icons tooltipped contentTab"
+           data-toggle="tooltip" data-placement="bottom" data-value="watchlist"
+           title="<%= i18n.__("Watchlist") %>">inbox</i>
     </li>
 
     <!-- Favorites -->
     <li>
-        <i id="filterbar-favorites" class="material-icons favorites tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Favorites") %>">favorite</i>
+        <i id="filterbar-favorites" class="material-icons tooltipped contentTab"
+           data-toggle="tooltip" data-placement="bottom" data-value="favorites"
+           title="<%= i18n.__("Favorites") %>">favorite</i>
     </li>
 
     <!-- Torrent Collection -->
-    <% if (Settings.activateTorrentCollection) { %>
-    <li id="torrent_col" style="display:inline-block">
-    <% } else { %>
-    <li id="torrent_col" style="display:none">
-    <% } %>
-        <i id="filterbar-torrent-collection" class="material-icons torrent-collection tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Torrent Collection") %>">folder</i>
+    <li id="torrent_col">
+        <i id="filterbar-torrent-collection" class="material-icons tooltipped contentTab"
+           data-toggle="tooltip" data-placement="bottom" data-value="torrentCollection"
+           title="<%= i18n.__("Torrent Collection") %>">folder</i>
     </li>
 
     <!-- About -->

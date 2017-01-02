@@ -32,13 +32,13 @@
             .catch(function (err) {
                 collection.state = 'error';
                 collection.trigger('loaded', collection, collection.state);
-                console.error('PopCollection.fetch() : torrentPromises mapping', err);
+                console.error('ButterCollection.fetch() : torrentPromises mapping', err);
             });
 
         return deferred.promise;
     };
 
-    var PopCollection = Backbone.Collection.extend({
+    var ButterCollection = Backbone.Collection.extend({
         popid: 'imdb_id',
         initialize: function (models, options) {
             this.providers = this.getProviders();
@@ -115,7 +115,12 @@
             return _cache[tab];
         }
 
-        _cache[tab] = PopCollection.extend({
+        var providers = App.Config.getProvidersForTabType(tab);
+        if (!providers) { // it's probably not a provider tab
+            return null;
+        }
+
+        _cache[tab] = ButterCollection.extend({
             popid: 'imdb_id',
             type: tab,
             modelId: function (attrs) {
@@ -124,7 +129,7 @@
             },
             getProviders: function () {
                 return {
-                    torrents: App.Config.getProviderForTabType(tab),
+                    torrents: App.Config.getProvidersForTabType(tab),
                     metadata: App.Config.getProviderForType('metadata')
                 };
             }
@@ -133,6 +138,12 @@
         return _cache[tab];
     };
 
-    App.Model.Collection = PopCollection;
+    var NullCollection = Backbone.Collection.extend({
+        fetch:     function () {},
+        fetchMore: function () {}
+    })
+
+    App.Model.Collection = ButterCollection;
+    App.Model.NullCollection = NullCollection;
 
 })(window.App);

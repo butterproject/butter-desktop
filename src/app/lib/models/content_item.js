@@ -5,7 +5,7 @@
 
     var ContentItem = Backbone.Model.extend({
         events: {
-            'change:torrents': 'updateHealth'
+            'change:torrents': 'updateHealth' //FIXME: code duplication, see initialize #581
         },
         idAttribute: 'imdb_id',
 
@@ -20,7 +20,7 @@
                 .catch(e => console.error('error loading metadata', e));
 
             this.updateHealth();
-            this.on('change:torrents', this.updateHealth.bind(this));
+            this.on('change:torrents', this.updateHealth.bind(this)); //FIXME: code duplication, see model events #581
         },
 
         getProviders: function() {
@@ -31,7 +31,8 @@
             var torrents = this.get('torrents');
 
             if (!torrents) {
-                console.error('tried to update health, but still no torrents here', this);
+                // FIXME: if we see this we're trying to render too soon #581
+                console.error('updateHealth(): no torrent found, render() fired too soon');
                 return false;
             }
 

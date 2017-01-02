@@ -10,7 +10,7 @@
             searchForm: '.search form',
             searchInput: '.search input',
             search: '.search',
-            searchClear: '.search .clear',
+            searchClear: '.search .clear'
         },
         events: {
             'hover  @ui.searchInput': 'focus',
@@ -22,9 +22,6 @@
             'click #filterbar-about': 'about',
             'click #filterbar-random': 'randomMovie',
             'click .contentTab': 'tabClicked',
-            'click #filterbar-favorites': 'showFavorites',
-            'click #filterbar-watchlist': 'showWatchlist',
-            'click #filterbar-torrent-collection': 'showTorrentCollection',
             'click .triggerUpdate': 'updateDB',
         },
         regions: {
@@ -50,17 +47,21 @@
                 keyword: '',
                 sorter: sorter
             })));
+
+            App.vent.on('selected:tab', this.setActive.bind(this));
         },
         onDestroy: function () {
             App.vent.off('filter:types');
             App.vent.off('filter:genres');
             App.vent.off('filter:sorters');
+
+            // XXX(xaiki): not sure about this
+            App.vent.off('selected:tab');
         },
         focus: function (e) {
             e.focus();
         },
         setActive: function (set) {
-
             if (Settings.startScreen === 'Last Open') {
                 AdvSettings.set('lastTab', set);
             }
@@ -69,7 +70,6 @@
             $('#filterbar-random').hide();
             $('.filter-bar').find('.active').removeClass('active');
             $(`[data-value="${set}"]`).addClass('active');
-            $(`#filterbar-${set}`).addClass('active');
         },
         rightclick_search: function (e) {
             e.preventDefault();
@@ -116,34 +116,27 @@
             this[`${type}Dropdown`].show (this.views[type]);
         },
         loadFilterDropdown: function (filter, attrs) {
-            let translateHash = array => (
-                array.reduce((a, c, i) => {
-                    a[c] = i?i18n.__(c):null;
-                    return a;
-                }, {})
-            );
-
             var values = this.model.get(filter);
-            values && values.length && this.loadDropdown(
+            values && Object.keys(values).length && this.loadDropdown(
                 filter,
                 App.View.FilterDropdown,
                 Object.assign({
-                    selected: values[0],
-                    values: translateHash(values)
+                    selected: Object.keys(values)[0],
+                    values: values
                 }, attrs));
 
         },
         loadComponents: function() {
             this.loadFilterDropdown('types', {
-                title: i18n.__('Types')
+                title: i18n.__('Type')
             });
 
             this.loadFilterDropdown('genres', {
-                title: i18n.__('Genres')
+                title: i18n.__('Genre')
             });
 
             this.loadFilterDropdown('sorters', {
-                title: i18n.__('Sorters')
+                title: i18n.__('Sort by')
             });
 
             this.loadDropdown('search', App.View.SearchDropdown, {
@@ -163,7 +156,7 @@
 
             if (typeof App.currentview === 'undefined') {
                 App.currentview = activetab;
-                App.previousview = 'movies';
+                App.previousview = App.Config.getTabTypes()[0];
                 this.setActive(App.currentview);
             }
 
@@ -240,22 +233,6 @@
             App.vent.trigger('about:show');
         },
 
-        showTorrentCollection: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'Torrent-collection') {
-                App.previousview = App.currentview;
-                App.currentview = 'Torrent-collection';
-                App.vent.trigger('about:close');
-                App.vent.trigger('torrentCollection:show');
-                this.setActive('torrentCollection');
-            } else {
-                App.currentview = App.previousview;
-                App.vent.trigger('torrentCollection:close');
-                this.setActive(App.currentview);
-            }
-        },
-
         tabClicked: function (e) {
             e.preventDefault();
             var value = $(e.currentTarget).attr('data-value');
@@ -263,66 +240,9 @@
         },
 
         switchToTab: function (value) {
-            App.currentview = value;
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
             App.vent.trigger('show:tab', value);
-            this.setActive(value);
-        },
-
-        showFavorites: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'Favorites') {
-                App.previousview = App.currentview;
-                App.currentview = 'Favorites';
-                App.vent.trigger('about:close');
-                App.vent.trigger('torrentCollection:close');
-                App.vent.trigger('favorites:list', []);
-                this.setActive('favorites');
-            } else {
-
-                if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
-                    App.currentview = App.previousview;
-                    App.vent.trigger(App.previousview.toLowerCase() + ':list', []);
-                    this.setActive(App.currentview);
-
-                } else {
-                    App.vent.trigger('about:close');
-                    App.vent.trigger('torrentCollection:close');
-                    App.vent.trigger('favorites:list', []);
-                    this.setActive('favorites');
-                }
-
-            }
-
-        },
-
-        showWatchlist: function (e) {
-            e.preventDefault();
-
-            if (App.currentview !== 'Watchlist') {
-                App.previousview = App.currentview;
-                App.currentview = 'Watchlist';
-                App.vent.trigger('about:close');
-                App.vent.trigger('torrentCollection:close');
-                App.vent.trigger('watchlist:list', []);
-                this.setActive('watchlist');
-            } else {
-                if ($('#movie-detail').html().length === 0 && $('#about-container').html().length === 0) {
-                    App.currentview = App.previousview;
-                    App.vent.trigger(App.previousview.toLowerCase() + ':list', []);
-                    this.setActive(App.currentview);
-
-                } else {
-                    App.vent.trigger('about:close');
-                    App.vent.trigger('torrentCollection:close');
-                    App.vent.trigger('watchlist:list', []);
-                    this.setActive('watchlist');
-                }
-
-            }
-            return false;
         },
 
         updateDB: function (e) {
