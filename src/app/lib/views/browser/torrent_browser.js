@@ -371,4 +371,5 @@
     });
 
     App.View.registerBuiltInTab('torrentCollection', TorrentCollectionBrowser);
+    App.Model.registerBuiltInTab('torrentCollection', App.Model.NullCollection);
 })(window.App);

@@ -165,6 +165,10 @@
         return _cache[tab];
     };
 
+    App.Model.registerBuiltInTab = function(tab, model) {
+        _cache[tab] = model;
+    };
+
     App.Model.getCollectionModelForTab = function (tab) {
         return getCollectionModelForProviderTab(tab) || getCollectionModelForBuiltIn(tab);
     };
