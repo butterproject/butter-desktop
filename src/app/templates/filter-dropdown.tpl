@@ -1,5 +1,5 @@
 <div class="filter-dropdown">
-    <div class="dropdown-toggle drop-head" data-toggle="dropdown">
+    <div class="dropdown-toggle" data-toggle="dropdown">
         <div class="category"><%= title %></div>
         <div class="select-item">
             <div class="selected"><%= i18n.__("Select One") %></div>
