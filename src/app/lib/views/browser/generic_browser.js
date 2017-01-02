@@ -14,6 +14,7 @@
     var ButterBrowser = Backbone.Marionette.LayoutView.extend({
         template: '#browser-tpl',
         className: 'main-browser',
+        view: App.View.List,
         regions: {
             FilterBar: '.filter-bar-region',
             ItemList: '.list-region'
@@ -26,7 +27,9 @@
         initialize: function (attrs) {
             this.filter = new App.Model.Filter(this.filters);
 
-            this.collectionModel = attrs.collectionModel || this.collectionModel;
+            this.collectionModel = attrs.collectionModel // called with collectionModel as arg.
+                || this.collectionModel                  // superclassed with collectionModel.
+                || App.Model.NullCollection;             // probably Torrent Collection.
             this.collection = new this.collectionModel([], {
                 filter: this.filter
             });
@@ -34,7 +37,6 @@
             this.collection.fetch();
 
             this.listenTo(this.filter, 'change', this.onFilterChange);
-
         },
 
         onShow: function () {
@@ -48,7 +50,7 @@
 
             this.FilterBar.show(this.bar);
 
-            this.ItemList.show(new App.View.List({
+            this.ItemList.show(new this.view({
                 collection: this.collection
             }));
 
@@ -71,7 +73,7 @@
             App.vent.trigger('tvshow:closeDetail');
             this.collection.fetch();
 
-            this.ItemList.show(new App.View.List({
+            this.ItemList.show(new this.view({
                 collection: this.collection
             }));
         },

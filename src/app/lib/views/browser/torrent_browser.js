@@ -366,5 +366,9 @@
 
     });
 
-    App.View.TorrentCollection = TorrentCollection;
+    var TorrentBrowser = App.View.ButterBrowser.extend({
+        view: TorrentCollection
+    });
+
+    App.View.TorrentCollection = TorrentBrowser;
 })(window.App);

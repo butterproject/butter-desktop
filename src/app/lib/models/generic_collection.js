@@ -133,6 +133,12 @@
         return _cache[tab];
     };
 
+    var NullCollection = Backbone.Collection.extend({
+        fetch:     function () {},
+        fetchMore: function () {}
+    })
+
     App.Model.Collection = ButterCollection;
+    App.Model.NullCollection = NullCollection;
 
 })(window.App);

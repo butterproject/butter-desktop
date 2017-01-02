@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var WatchlistCollection = Backbone.Collection.extend({
+    var WatchlistCollection = App.Model.NullCollection.extend({
         initialize: function (model, options) {
             this.hasMore = false;
             this.providers = {
@@ -26,11 +26,7 @@
                     this.trigger('error', this, this.state);
                     console.error('WatchlistCollection.fetch()', error);
                 });
-        },
-        fetchMore: function () {
-            return;
         }
-
     });
 
     App.Model.WatchlistCollection = WatchlistCollection;
