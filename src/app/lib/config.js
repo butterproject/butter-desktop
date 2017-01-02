@@ -55,6 +55,10 @@
 
         getProvidersForTabType: function (tabType) {
             var tab = Settings.tabs[tabType];
+            if (! tab || !tab.providers) {
+                return null;
+            }
+
             var providers = tab.providers;
 
             if (providers instanceof Array) {

@@ -115,6 +115,11 @@
             return _cache[tab];
         }
 
+        var providers = App.Config.getProvidersForTabType(tab);
+        if (!providers) { // it's probably not a provider tab
+            return null;
+        }
+
         _cache[tab] = ButterCollection.extend({
             popid: 'imdb_id',
             type: tab,
