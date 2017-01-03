@@ -234,7 +234,7 @@
 
         itemsPerRow: function () {
             var currentWidth = this.$el.width();
-            var minPerRow = Math.floor(1 / (Settings.postersWidth / currentWidth) - 1);
+            var minPerRow = ~~(1 / (Settings.postersWidth / currentWidth) - 1);
 
             // recalc only if needed
             if (
