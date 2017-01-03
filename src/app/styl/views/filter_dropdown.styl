@@ -2,13 +2,14 @@
     position relative
     display inline-block
     vertical-align middle
+    border-radius 5px 5px 0 0
     color $FilterDropdownText
     text-align left
     width auto
 
+
     .dropdown-toggle
         position relative
-        border-radius 5px 5px 0 0
         z-index: 99
         padding 12px 15px
 
@@ -73,7 +74,6 @@
     &.open
         .dropdown-toggle
             color: #252525 !important
-            background $FilterDropdownHoverBg
             .category
                 color: #252525 !important
             .select-item
