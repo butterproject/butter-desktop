@@ -1,30 +1,58 @@
 (function (App){
     'use strict';
 
-    var clipboard = nw.Clipboard.get();
-
     App.View.SearchDropdown = App.View.Dropdown.extend({
         template: '#search-dropdown-tpl',
+
         ui: {
             selected: '.selected',
             items: '.search-item',
             searchForm: '.search form',
             searchInput: '.search input',
             search: '.search',
-            searchClear: '.search .clear'
+            searchClear: '.search .clear',
+            searchIcon: '.search form i'
         },
+
         events: {
             'hover  @ui.searchInput': 'focus',
             'submit @ui.searchForm': 'search',
+            'click @ui.searchIcon': 'search',
             'contextmenu @ui.searchInput': 'rightclick_search',
             'click  @ui.searchClear': 'clearSearch',
             'click  @ui.search': 'focusSearch'
         },
+
+        onShow: function () {
+            this.initKeyboardShortcuts();
+        },
+
+        initKeyboardShortcuts: function () {
+            Mousetrap.bind(['ctrl+f', 'command+f'], this.openSearch.bind(this));
+            Mousetrap(this.ui.searchInput[0]).bind(['ctrl+f', 'command+f', 'esc'], this.exitSearch.bind(this));
+        },
+
+        focusSearch: function (e) {
+            this.ui.searchInput.focus();
+        },
+        
+        openSearch: function (e) {
+            this.focusSearch();
+            this.ui.search.addClass('open');
+        },
+        
+        exitSearch: function (e) {
+            this.ui.search.removeClass('open');
+            this.ui.searchInput.blur();
+        },
+
         focus: function (e) {
             e.focus();
         },
+
         rightclick_search: function (e) {
             e.preventDefault();
+            this.openSearch();
             var search_menu = new this.context_Menu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'));
             search_menu.popup(e.originalEvent.x, e.originalEvent.y);
         },
@@ -49,8 +77,9 @@
                 paste = new nw.MenuItem({
                     label: pasteLabel || 'Paste',
                     click: function () {
+                        var clipboard = nw.Clipboard.get();
                         var text = clipboard.get('text');
-                        $('#searchbox').val(text);
+                        $('.search input').val(text);
                     }
                 });
 
@@ -60,9 +89,7 @@
 
             return menu;
         },
-        focusSearch: function () {
-            this.$('.search input').focus();
-        },
+
         search: function (e) {
             App.vent.trigger('about:close');
             App.vent.trigger('torrentCollection:close');
