@@ -330,7 +330,7 @@
                 font-family: $MainFontBold
                 font-smoothing: antialiased
                 text-align: center
-                font-size: 14px
+                font-size: 16px
                 transition: background-color 0.5s
                 display: flex
                 padding: 3px 12px
@@ -352,20 +352,28 @@
 
     .play-selector
         position: relative
+        &:after
+            content: ''
+            width: 70%
+            height: 100%
+            top: 0
+            left: 0
+            position: absolute
+    .play-button 
+        font-size: 26px
+        font-family: $MainFontBold
+        text-transform: uppercase;
+        padding: 12px 36px 12px 24px
+        margin: 0;
+        line-height: 1.3em;
+        height: auto;
+        border-radius: 5px;
+        i
+            font-size: 36px;
+            margin-right: 10px;
+            vertical-align: text-bottom;
+            line-height: 0.9em;
 
-        .startStreaming
-            margin-left: 12px
-            margin-right: 12px
-
-            &:after
-                content: ''
-                width: 70%
-                height: 100%
-                top: 0
-                left: 0
-                position: absolute
-    .play-btn 
-        float right
     .movie-quality-container
         margin-top: 10px
         float: left
