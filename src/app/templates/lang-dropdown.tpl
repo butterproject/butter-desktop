@@ -1,6 +1,6 @@
 <div class="dropup" >
     <div class="dropdown-toggle lang-dropdown" data-toggle="dropdown" >
-        <i class="material-icons">subtitles</i>
+        <i class="material-icons"><%= icon %></i>
         <span class="lang-name"><%= title %></span>
         <div class="selected-lang flag-icon flag none" title="<%= App.Localization.nativeName(selected) %>"></div>
         <i class="icon material-icons"></i>

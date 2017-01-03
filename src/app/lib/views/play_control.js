@@ -121,7 +121,8 @@
             return this.loadDropdown('audio', App.View.LangDropdown, {
                 title: i18n.__('Audio Language'),
                 selected: this.model.get('defaultAudio'),
-                values: this.model.get('langs')
+                values: this.model.get('langs'),
+                icon: 'volume_up'
             });
         },
 
@@ -130,7 +131,8 @@
                 title: i18n.__('Subtitle'),
                 selected: this.model.get('defaultSubtitle'),
                 hasNull: true,
-                values: this.model.get('subtitle')
+                values: this.model.get('subtitle'),
+                icon: 'subtitles'
             });
         },
 
