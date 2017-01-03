@@ -88,10 +88,7 @@
         },
 
         initKeyboardShortcuts: function () {
-            Mousetrap.bind('up', this.moveUp.bind(this));
-            Mousetrap.bind('down', this.moveDown.bind(this));
-            Mousetrap.bind('left', this.moveLeft.bind(this));
-            Mousetrap.bind('right', this.moveRight.bind(this));
+            Mousetrap.bind(['up', 'down', 'left', 'right'], this.move.bind(this));
             Mousetrap.bind('f', this.toggleSelectedFavourite.bind(this));
             Mousetrap.bind('w', this.toggleSelectedWatched.bind(this));
             Mousetrap.bind(['enter', 'space'], this.selectItem.bind(this));
@@ -349,61 +346,22 @@
             }
         },
 
-        moveUp: function (e) {
+        move: function (e) {
             e.preventDefault();
             e.stopPropagation();
 
+            var row = this.itemsPerRow();
             var index = $('.items .item.selected').index();
-            if (index === -1) {
-                index = 0;
-            } else {
-                index = index - this.itemsPerRow();
-            }
-            if (index < 0) {
-                return;
-            }
-            this.selectIndex(index);
-        },
+            index < 0 && (index = 0);
 
-        moveDown: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+            var map = {
+                ArrowDown: index + row,
+                ArrowUp: index - row,
+                ArrowRight: index + 1,
+                ArrowLeft: index - 1
+            };
 
-            var index = $('.items .item.selected').index();
-            if (index === -1) {
-                index = 0;
-            } else {
-                index = index + this.itemsPerRow();
-            }
-            this.selectIndex(index);
-        },
-
-        moveLeft: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var index = $('.items .item.selected').index();
-            if (index === -1) {
-                index = 0;
-            } else if (index === 0) {
-                index = 0;
-            } else {
-                index = index - 1;
-            }
-            this.selectIndex(index);
-        },
-
-        moveRight: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var index = $('.items .item.selected').index();
-            if (index === -1) {
-                index = 0;
-            } else {
-                index = index + 1;
-            }
-            this.selectIndex(index);
+            this.selectIndex(Math.max(0, map[e.key]));
         },
 
         toggleSelectedFavourite: function (e) {
