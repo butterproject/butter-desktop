@@ -1,28 +1,17 @@
 (function (App) {
     'use strict';
-    var clipboard = nw.Clipboard.get(),
-        ButterProvider = require('butter-provider');
+
+    var ButterProvider = require('butter-provider');
 
     App.View.FilterBar = Backbone.Marionette.LayoutView.extend({
         template: '#filter-bar-tpl',
         className: 'filter-bar',
-        ui: {
-            searchForm: '.search form',
-            searchInput: '.search input',
-            search: '.search',
-            searchClear: '.search .clear'
-        },
         events: {
-            'hover  @ui.searchInput': 'focus',
-            'submit @ui.searchForm': 'search',
-            'contextmenu @ui.searchInput': 'rightclick_search',
-            'click  @ui.searchClear': 'clearSearch',
-            'click  @ui.search': 'focusSearch',
             'click #filterbar-settings': 'settings',
             'click #filterbar-about': 'about',
             'click #filterbar-random': 'randomMovie',
             'click .contentTab': 'tabClicked',
-            'click .triggerUpdate': 'updateDB',
+            'click .triggerUpdate': 'updateDB'
         },
         regions: {
             typesDropdown: '#types-dropdown',
@@ -58,9 +47,6 @@
             // XXX(xaiki): not sure about this
             App.vent.off('selected:tab');
         },
-        focus: function (e) {
-            e.focus();
-        },
         setActive: function (set) {
             if (Settings.startScreen === 'Last Open') {
                 AdvSettings.set('lastTab', set);
@@ -71,50 +57,20 @@
             $('.filter-bar').find('.active').removeClass('active');
             $(`[data-value="${set}"]`).addClass('active');
         },
-        rightclick_search: function (e) {
-            e.preventDefault();
-            var search_menu = new this.context_Menu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'));
-            search_menu.popup(e.originalEvent.x, e.originalEvent.y);
-        },
 
-        context_Menu: function (cutLabel, copyLabel, pasteLabel) {
-            var menu = new nw.Menu(),
-
-                cut = new nw.MenuItem({
-                    label: cutLabel || 'Cut',
-                    click: function () {
-                        document.execCommand('cut');
-                    }
-                }),
-
-                copy = new nw.MenuItem({
-                    label: copyLabel || 'Copy',
-                    click: function () {
-                        document.execCommand('copy');
-                    }
-                }),
-
-                paste = new nw.MenuItem({
-                    label: pasteLabel || 'Paste',
-                    click: function () {
-                        var text = clipboard.get('text');
-                        $('#searchbox').val(text);
-                    }
-                });
-
-            menu.append(cut);
-            menu.append(copy);
-            menu.append(paste);
-
-            return menu;
-        },
-        loadDropdown: function (type, dropdownClass, attrs) {
+        _loadDropdown: function (type, view, model) {
             this.views[type] && this.views[type].destroy();
-            this.views[type] = new dropdownClass({
-                model: new App.Model.Lang(Object.assign({type:type}, attrs))
+            this.views[type] = new view({
+                model: model
             });
             this[`${type}Dropdown`].show (this.views[type]);
         },
+
+        loadDropdown: function (type, view, attrs) {
+            return this._loadDropdown(type, view,
+                                      new App.Model.Lang(Object.assign({type:type}, attrs)));
+        },
+
         loadFilterDropdown: function (filter, attrs) {
             var values = this.model.get(filter);
             values && Object.keys(values).length && this.loadDropdown(
@@ -139,9 +95,7 @@
                 title: i18n.__('Sort by')
             });
 
-            this.loadDropdown('search', App.View.SearchDropdown, {
-                title: i18n.__('Search')
-            });
+            this._loadDropdown('search', App.View.SearchDropdown, this.model);
         },
         onShow: function () {
             this.loadComponents();
@@ -181,49 +135,6 @@
 
 
         },
-
-        focusSearch: function () {
-            this.$('.search input').focus();
-        },
-        search: function (e) {
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('movie:closeDetail');
-            e.preventDefault();
-            var searchvalue = this.ui.searchInput.val();
-            this.model.set({
-                keywords: this.ui.searchInput.val(),
-                genre: ''
-            });
-
-            this.ui.searchInput.blur();
-
-            if (searchvalue === '') {
-                this.ui.searchForm.removeClass('edited');
-            } else {
-                this.ui.searchForm.addClass('edited');
-            }
-        },
-
-        clearSearch: function (e) {
-            this.ui.searchInput.focus();
-
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('movie:closeDetail');
-
-            e.preventDefault();
-            this.model.set({
-                keywords: '',
-                genre: ''
-            });
-
-            this.ui.searchInput.val('');
-            this.ui.searchForm.removeClass('edited');
-        },
-
-
-
         settings: function (e) {
             App.vent.trigger('about:close');
             App.vent.trigger('settings:show');

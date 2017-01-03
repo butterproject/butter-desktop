@@ -104,12 +104,17 @@
             }
         },
 
-        loadDropdown: function (type, view, attrs) {
+        _loadDropdown: function (type, view, model) {
             this.views[type] && this.views[type].destroy();
             this.views[type] = new view({
-                model: new App.Model.Lang(Object.assign({type:type}, attrs))
+                model: model
             });
             this[`${type}Dropdown`].show (this.views[type]);
+        },
+
+        loadDropdown: function (type, view, attrs) {
+            return this._loadDropdown(type, view,
+                                      new App.Model.Lang(Object.assign({type:type}, attrs)));
         },
 
         loadAudioDropdown: function () {
