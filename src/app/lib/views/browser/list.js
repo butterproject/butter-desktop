@@ -7,6 +7,7 @@
      **/
 
     var SCROLL_MORE = 0.7; // 70% of window height
+    var ITEM_MARGINS = 20; // css declaration
 
     var ErrorView = Backbone.Marionette.ItemView.extend({
         template: '#movie-error-tpl',
@@ -232,34 +233,12 @@
             ) ? this.collection.fetchMore() : false;
         },
 
-        itemsPerRow: function () {
+        itemsPerRow: function (max) {
             var currentWidth = this.$el.width();
-            var minPerRow = ~~(1 / (Settings.postersWidth / currentWidth) - 1);
+            var itemWidth = Settings.postersWidth + ITEM_MARGINS;
 
-            // recalc only if needed
-            if (
-                currentWidth !== this.ui.row.listWidth // win was resized?
-                || Settings.postersWidth !== this.ui.row.posterWidth // poster were resized?
-                || this.ui.row.itemsPerRow < minPerRow // something impossible happened?
-            ) {
-                this.ui.row.listWidth = currentWidth;
-                this.ui.row.posterWidth = Settings.postersWidth;
-                this.ui.row.itemsPerRow = 0;
-
-                var items = $(document.querySelector('.items')).children('.item');
-
-                for (var i = 0; i < items.length; i++) {
-                    var el = $(items[i]);
-
-                    if (el.prev().length > 0 && el.position().top !== el.prev().position().top) {
-                        break; // exit after a complete row
-                    }
-
-                    this.ui.row.itemsPerRow++; 
-                }
-            }
-
-            return this.ui.row.itemsPerRow;
+            // minItemsPerRow or maxItemsPerRow
+            return ~~(1 / (itemWidth / (max ? window.screen.width : currentWidth)));
         },
 
         completerow: function () {
@@ -280,7 +259,7 @@
                     '</div>' +
                 '</div>';
 
-            var ghosts = '<div class="ghost"></div>'.repeat(this.itemsPerRow()*2);
+            var ghosts = '<div class="ghost"></div>'.repeat(this.itemsPerRow(true));
 
             items.children('#load-more-item').remove();
             items.children('.ghost').remove();
