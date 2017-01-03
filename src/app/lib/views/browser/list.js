@@ -1,10 +1,6 @@
 (function (App) {
     'use strict';
 
-    /** FIXME 
-     * - remove filterbar shortcuts from here! we handle list>items, nothing else.
-     **/
-
     var SCROLL_MORE = 0.7; // 70% of window height
     var ITEM_MARGINS = 20; // css declaration
 
@@ -90,89 +86,20 @@
             Mousetrap.bind('f', this.toggleSelectedFavourite.bind(this));
             Mousetrap.bind('w', this.toggleSelectedWatched.bind(this));
             Mousetrap.bind(['enter', 'space'], this.clickItem.bind(this));
-            Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch.bind(this));//FIXME: needs to be moved elsewhere
-            Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch.bind(this));//FIXME: needs to be moved elsewhere
-            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));//FIXME: needs to be moved elsewhere
-            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));//FIXME: needs to be moved elsewhere
-            Mousetrap.bind('i', this.showAbout.bind(this));//FIXME: needs to be moved elsewhere
-
-            // register as many ctrl+number shortcuts as there are tabs
-            Mousetrap.bind((() => {
-                var shortcuts = [];
-                for (let i = 1; i <= App.Config.getTabTypes().length; i++) {
-                    shortcuts.push('ctrl+' + i);
-                }
-                return shortcuts;
-            })(), this.switchSpecificTab.bind(this));//FIXME: needs to be moved elsewhere
-        },
-
-        //FIXME: needs to be moved elsewhere
-        blurSearch: function (e, combo) {
-            $('.search input').click().blur();
-        },
-
-        //FIXME: needs to be moved elsewhere
-        isPlayerDestroyed: function () {
-            return (App.PlayerView === undefined || App.PlayerView.isDestroyed) 
-                && $('#about-container').children().length <= 0 
-                && $('#player').children().length <= 0;
-        },
-
-        //FIXME: needs to be moved elsewhere
-        selectTab: function (direction, currentTab) {
-            var tabs = App.Config.getTabTypes();
-            var i = currentTab ? tabs.indexOf(currentTab) : -1;
-            var nextTab = tabs[(tabs.length + i + direction) % tabs.length];
-
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('show:tab', nextTab);
-        },
-
-        //FIXME: needs to be moved elsewhere
-        switchTab: function (e, combo) {
-            if (this.isPlayerDestroyed()) {
-                if (combo === 'tab') {
-                    this.selectTab(+1, App.currentview);
-                } else if (combo === 'shift+tab') {
-                    this.selectTab(-1, App.currentview);
-                }
-            }
-        },
-
-        //FIXME: needs to be moved elsewhere
-        switchSpecificTab: function (e, combo) {
-            if (this.isPlayerDestroyed()) {
-                this.selectTab(combo.substr(-1));
-            }
-        },
-
-        //FIXME: needs to be moved elsewhere
-        openFavorites: function () {
-            if (this.isPlayerDestroyed()) {
-                $('.favorites').click();
-            }
-        },
-
-        //FIXME: needs to be moved elsewhere
-        showAbout: function () {
-            if (this.isPlayerDestroyed()) {
-                $('.about').click();
-            }
         },
 
         initPosterResizeKeys: function () {
             var $el = $(document);
 
             $el.on('mousewheel', (e) => {
-                if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
+                if (e.ctrlKey || e.metaKey) {
                     e.stopPropagation();
                     return this.posterResize(e.originalEvent.wheelDelta);
                 }
             });
 
             $el.on('keydown', (e) => {
-                if (this.isPlayerDestroyed() && (e.ctrlKey || e.metaKey)) {
+                if (e.ctrlKey || e.metaKey) {
                     if (e.key === '+') {
                         this.posterResize(1);
                     } else if (e.key === '-') {
@@ -187,6 +114,7 @@
                 this.onLoading();
             }
         },
+
         allLoaded: function () {
             if (!this.collection
                 || !this.collection.providers
@@ -198,6 +126,7 @@
                     a && c.loaded
                 ), true);
         },
+
         onLoading: function () {
             var loadmore = $(document.getElementById('load-more-item'));
             loadmore.children('.status-loadmore').css('display', 'none');
@@ -297,11 +226,6 @@
             if (this.collection.state === 'loaded' && (currentPosition / totalHeight) > SCROLL_MORE) {
                 this.collection.fetchMore();
             }
-        },
-
-        //FIXME: needs to be moved elsewhere
-        focusSearch: function (e) {
-            $('.search input').click();
         },
 
         posterResize: function (delta) {

@@ -6,6 +6,7 @@
     App.View.FilterBar = Backbone.Marionette.LayoutView.extend({
         template: '#filter-bar-tpl',
         className: 'filter-bar',
+
         events: {
             'click #filterbar-settings': 'settings',
             'click #filterbar-about': 'about',
@@ -13,12 +14,14 @@
             'click .contentTab': 'tabClicked',
             'click .triggerUpdate': 'updateDB'
         },
+
         regions: {
             typesDropdown: '#types-dropdown',
             genresDropdown: '#genres-dropdown',
             sortersDropdown: '#sorters-dropdown',
             searchDropdown: '#search-dropdown'
         },
+
         initialize: function () {
             this.views = {};
 
@@ -38,7 +41,9 @@
             })));
 
             App.vent.on('selected:tab', this.setActive.bind(this));
+            this.initKeyboardShortcuts();
         },
+
         onDestroy: function () {
             App.vent.off('filter:types');
             App.vent.off('filter:genres');
@@ -47,6 +52,7 @@
             // XXX(xaiki): not sure about this
             App.vent.off('selected:tab');
         },
+
         setActive: function (set) {
             if (Settings.startScreen === 'Last Open') {
                 AdvSettings.set('lastTab', set);
@@ -82,6 +88,7 @@
                 }, attrs));
 
         },
+
         loadComponents: function() {
             this.loadFilterDropdown('types', {
                 title: i18n.__('Type')
@@ -97,6 +104,7 @@
 
             this._loadDropdown('search', App.View.SearchDropdown, this.model);
         },
+
         onShow: function () {
             this.loadComponents();
 
@@ -135,6 +143,7 @@
 
 
         },
+
         settings: function (e) {
             App.vent.trigger('about:close');
             App.vent.trigger('settings:show');
@@ -142,18 +151,6 @@
 
         about: function (e) {
             App.vent.trigger('about:show');
-        },
-
-        tabClicked: function (e) {
-            e.preventDefault();
-            var value = $(e.currentTarget).attr('data-value');
-            return this.switchToTab.apply(this, [value]);
-        },
-
-        switchToTab: function (value) {
-            App.vent.trigger('about:close');
-            App.vent.trigger('torrentCollection:close');
-            App.vent.trigger('show:tab', value);
         },
 
         updateDB: function (e) {
@@ -193,6 +190,58 @@
                     $('.spinner').hide();
                     $('.notification_alert').text(i18n.__('Error loading data, try again later...')).fadeIn('fast').delay(2500).fadeOut('fast');
                 });
+        },
+
+        initKeyboardShortcuts: function () {
+            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));
+            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));
+            Mousetrap.bind('i', this.about.bind(this));
+
+            // register as many ctrl+number shortcuts as there are tabs
+            Mousetrap.bind((() => {
+                var shortcuts = [];
+                for (let i = 1; i <= App.Config.getTabTypes().length; i++) {
+                    shortcuts.push('ctrl+' + i);
+                }
+                return shortcuts;
+            })(), this.switchSpecificTab.bind(this));
+        },
+
+        selectTab: function (direction, currentTab) {
+            var tabs = App.Config.getTabTypes();
+            var i = currentTab ? tabs.indexOf(currentTab) : -1;
+            var nextTab = tabs[(tabs.length + i + direction) % tabs.length];
+
+            return this.switchToTab.apply(this, [nextTab]);
+        },
+
+        switchTab: function (e, combo) {
+            e.preventDefault();
+            if (combo === 'tab') {
+                this.selectTab(+1, App.currentview);
+            } else if (combo === 'shift+tab') {
+                this.selectTab(-1, App.currentview);
+            }
+        },
+
+        switchSpecificTab: function (e, combo) {
+            this.selectTab(combo.substr(-1));
+        },
+
+        tabClicked: function (e) {
+            e.preventDefault();
+            var value = $(e.currentTarget).attr('data-value');
+            return this.switchToTab.apply(this, [value]);
+        },
+
+        switchToTab: function (value) {
+            App.vent.trigger('about:close');
+            App.vent.trigger('torrentCollection:close');
+            App.vent.trigger('show:tab', value);
+        },
+
+        openFavorites: function () {
+            $('.favorites').click();
         }
 
     });
