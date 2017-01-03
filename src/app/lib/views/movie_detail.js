@@ -134,7 +134,6 @@
             Mousetrap.bind(['enter', 'space'], function (e) {
                 $('#watch-now').click();
             });
-            Mousetrap.bind('q', this.toggleQuality);
             Mousetrap.bind('f', function () {
                 $('.favourites-toggle').click();
             });

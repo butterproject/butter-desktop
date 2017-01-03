@@ -49,6 +49,7 @@
             this.setQuality();
             this.loadComponents();
             this.setUiStates();
+            this.initKeyboardShortcuts();
 
             this.model.on('change:langs',    this.loadAudioDropdown.bind(this));
             this.model.on('change:subtitle', this.loadSubDropdown.bind(this));
@@ -66,6 +67,10 @@
             App.vent.off('selector:player');
             this.model.off('change:quality');
             Object.values(this.views).forEach(v => v.destroy());
+        },
+
+        initKeyboardShortcuts: function () {
+            Mousetrap.bind('q', this.toggleQuality); //XXX
         },
 
         getBestQuality: function (torrents) {
