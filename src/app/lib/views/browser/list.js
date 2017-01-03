@@ -3,7 +3,6 @@
 
     /** FIXME 
      * - remove filterbar shortcuts from here! we handle list>items, nothing else.
-     * - onMoviesWatched should be in movie_detail.js 
      **/
 
     var SCROLL_MORE = 0.7; // 70% of window height
@@ -378,28 +377,6 @@
             $('.item.selected .actions-watched').click();
         },
     });
-
-    //FIXME: needs to be moved elsewhere
-    function onMoviesWatched(movie, channel) {
-        if  (channel === 'database') {
-            try {
-                // activated when movie was marked as seen in the player & movie details are open. It's really bad...
-                switch (Settings.watchedCovers) {
-                    case 'fade':
-                        $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"] .actions-watched').addClass('selected');
-                        $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"]').addClass('watched');
-                        break;
-                    case 'hide':
-                        $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"]').remove();
-                        break;
-                }
-                $('.watched-toggle').addClass('selected').text(i18n.__('Seen'));
-                App.MovieDetailView.model.set('watched', true);
-            } catch (e) {}
-        }
-    }
-
-    App.vent.on('movie:watched', onMoviesWatched);
 
     App.View.List = List;
 })(window.App);
