@@ -42,8 +42,7 @@
         },
 
         ui: {
-            spinner: '.spinner',
-            row: {}
+            spinner: '.spinner'
         },
 
         isEmpty: function () {
