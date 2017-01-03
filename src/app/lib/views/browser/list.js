@@ -90,7 +90,7 @@
             Mousetrap.bind(['up', 'down', 'left', 'right'], this.move.bind(this));
             Mousetrap.bind('f', this.toggleSelectedFavourite.bind(this));
             Mousetrap.bind('w', this.toggleSelectedWatched.bind(this));
-            Mousetrap.bind(['enter', 'space'], this.selectItem.bind(this));
+            Mousetrap.bind(['enter', 'space'], this.clickItem.bind(this));
             Mousetrap.bind(['ctrl+f', 'command+f'], this.focusSearch.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap(document.querySelector('input')).bind(['ctrl+f', 'command+f', 'esc'], this.blurSearch.bind(this));//FIXME: needs to be moved elsewhere
             Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));//FIXME: needs to be moved elsewhere
@@ -320,23 +320,14 @@
             }
         },
 
-        selectItem: function (e) {
+        clickItem: function (e) {
             e.stopPropagation();
 
             $('.item.selected .cover').click();
         },
 
-        selectIndex: function (index) {
-            var items = $('.items .item');
-
-            if (index >= items.length) {
-                index = items.length - 1;
-            }
-
-            var next = items.eq(index);
-            var previous = $('.items .item.selected');
-
-            previous.removeClass('selected');
+        selectItem: function (prev, next) {
+            prev.removeClass('selected');
             next.addClass('selected');
 
             if (!Common.isElementInViewport(next)) {
@@ -350,17 +341,28 @@
             e.stopPropagation();
 
             var row = this.itemsPerRow();
-            var index = this.$el.find('.item.selected').index();
-            index < 0 && (index = 0);
+            var items = this.$el.find('.item');
+
+            var currentItem = this.$el.find('.item.selected');
+            var currentIndex = currentItem.index();
+            if (currentIndex === -1) { // jump to first
+                return this.selectItem(currentItem, this.$el.find(items[0]));
+            }
 
             var map = {
-                ArrowDown: index + row,
-                ArrowUp: index - row,
-                ArrowRight: index + 1,
-                ArrowLeft: index - 1
+                ArrowDown: currentIndex + row,
+                ArrowUp: currentIndex - row,
+                ArrowRight: currentIndex + 1,
+                ArrowLeft: currentIndex - 1
             };
 
-            this.selectIndex(Math.max(0, map[e.key]));
+            var nextIndex = Math.max(0, map[e.key]);
+            if (nextIndex >= items.length) { // jump to last
+                nextIndex = items.length - 1;
+            }
+            var nextItem = items.eq(nextIndex);            
+
+            this.selectItem(currentItem, nextItem);
         },
 
         toggleSelectedFavourite: function (e) {
