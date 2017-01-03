@@ -98,7 +98,7 @@
                         self.trigger('sync', self);
                         self.state = 'loaded';
                         self.trigger('loaded', self, self.state);
-                    })
+                    });
             });
         },
 
