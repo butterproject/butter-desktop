@@ -350,7 +350,7 @@
             e.stopPropagation();
 
             var row = this.itemsPerRow();
-            var index = $('.items .item.selected').index();
+            var index = this.$el.find('.item.selected').index();
             index < 0 && (index = 0);
 
             var map = {
