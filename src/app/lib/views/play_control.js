@@ -285,19 +285,6 @@
             this.setTooltips();
         },
 
-        toggleQuality: function (e) {
-            if ($('#switch-hd-off').is(':checked')) {
-                $('#switch-hd-on').click();
-            } else {
-                $('#switch-hd-off').click();
-            }
-
-            if (e.type) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        },
-
         selectPlayer: function (e) {
             var player = $(e.currentTarget).parent('li').attr('id').replace('player-', '');
             this.model.set('device', player);
