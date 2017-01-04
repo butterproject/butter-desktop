@@ -191,3 +191,20 @@ Common.isElementInViewport = function (el) {
 
     return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
 };
+
+Common.getPalette = function (url) {
+    return new Promise(function (resolve, reject) {
+        vibrant.from(url).quality(1).getSwatches(function (err, swatches) {
+            if (err) {
+                return reject(err);
+            }
+
+            var swatch = swatches['Vibrant'] || swatches['DarkVibrant'] || swatches['Muted'] || swatches['DarkMuted'] || swatches['LightMuted'];
+
+            resolve({
+                text: swatch.getTitleTextColor(),
+                color: swatch.getHex()
+            });
+        });
+    });
+}

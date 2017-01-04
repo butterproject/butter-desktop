@@ -61,6 +61,7 @@
         "mv": "2.x.x",
         "nedb": "1.4.0",
         "node-captions": "0.4.6",
+        "node-vibrant": "2.x.x",
         "node-webkit-fdialogs": "latest",
         "nodecast-js": "^1.0.1",
         "opensubtitles-api": "^3.1.0",

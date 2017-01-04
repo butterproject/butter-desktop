@@ -16,6 +16,7 @@ var
     path = require('path'),
     mkdirp = require('mkdirp'),
     rimraf = require('rimraf'),
+    vibrant = require('node-vibrant'),
 
     // Compression
     tar = require('tar'),
