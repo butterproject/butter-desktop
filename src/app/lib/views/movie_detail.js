@@ -73,6 +73,11 @@
 
             var setImage = {
                 poster: function (img) {
+                    if (img) {
+                        Common.getPalette(img).then(function (swatch) {
+                            this.views.play.model.set('palette', swatch);
+                        }.bind(this));
+                    }
                     this.ui.poster.attr('src', (img || noimg)).addClass('fadein');
                 }.bind(this),
                 backdrop: function (img) {

@@ -42,6 +42,8 @@
             this.model.on('change:quality', function () {
                 App.vent.trigger('change:quality', this.model.get('quality'));
             }.bind(this));
+
+            this.model.on('change:palette', this.setColor.bind(this));
         },
 
         onShow: function () {
@@ -66,11 +68,20 @@
             App.vent.off('selector:quality');
             App.vent.off('selector:player');
             this.model.off('change:quality');
+            this.model.off('change:palette');
             Object.values(this.views).forEach(v => v.destroy());
         },
 
         initKeyboardShortcuts: function () {
             Mousetrap.bind('q', this.toggleQuality); //XXX
+        },
+
+        setColor: function () {
+            var palette = this.model.get('palette');
+            this.$('.play-button').css({
+                'background-color': palette.color,
+                'color': palette.text
+            });
         },
 
         getBestQuality: function (torrents) {
