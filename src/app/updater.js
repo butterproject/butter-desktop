@@ -16,8 +16,6 @@
             return new Updater(options);
         }
 
-        var self = this;
-
         this.options = _.defaults(options || {}, {
             endpoint: AdvSettings.get('updateEndpoint').url + 'update3.json' + '?version=' + App.settings.version + '&nwversion=' + process.versions['node-webkit'],
             channel: 'beta'
