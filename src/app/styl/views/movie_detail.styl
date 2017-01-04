@@ -19,17 +19,17 @@
             margin: 20px 40px
             color: #FFF;
             display: inline-block
-            font-size: 28px
             cursor: pointer
             float: left;
             position: relative
             i
                 vertical-align: bottom
+                font-size: 32px
             span
                 font-family: $MainFontBold
-                margin-left 15px
+                margin-left 30px
                 text-transform uppercase
-                font-size: 22px
+                font-size: 32px
 
         .toolbar-movies
             float: right
@@ -135,20 +135,19 @@
     .poster-box
         height: 75vh
         width: 35vw
-        padding-left: 4vw
+        margin-left: 4vw
         position: relative
         z-index: 10
 
         .mcover-image
-            float: right
             width: 100%
-            max-width: 50vh
-            max-height: 75vh
+            max-width: 100%
+            max-height: 100%
             position: relative
-            margin-right: 1vw
             border-radius: 4px
             opacity 0
             backface-visibility: hidden
+            object-fit: contain;
 
             &.fadein
                 transition: opacity .3s ease-in;
@@ -156,9 +155,8 @@
 
     .content-box
         height: 75vh
-        margin-top: 2vh
-        width: 65vw
-        padding: 2vw 4vw
+        width: 60vw
+        padding: 0 3vw
         display: flex
         justify-content: space-between
         flex-direction: column
@@ -193,7 +191,6 @@
                     white-space: nowrap
                     overflow: hidden
                     text-overflow: ellipsis
-                    opacity: 0.4
 
                     &::before
                         content: ""
@@ -244,30 +241,32 @@
                         cursor: pointer
 
                         .rating-star
-                            color #ffc900
-                            font-size 11px
+                            color #FFF
+                            font-size 16px
                             padding-right: 3px
 
                         .rating-star-half
-                            color #ffc900
-                            font-size 11px
+                            color #FFF
+                            font-size 16px
                             margin-left -4px
                             padding-right: 3px
 
                         .rating-star-half-empty
-                            color #a3a5a7
-                            font-size 11px
+                            color #FFF
+                            font-size 16px
                             margin-left: -3px
+                            opacity: 0.4
 
                         .rating-star-empty
-                            color #a3a5a7
-                            font-size 11px
+                            color #FFF
+                            font-size 16px
                             padding-right: 3px
+                            opacity: 0.4
 
                         .rating-star-half-container
                             width 1em
                             height 1em
-                            line-height 1em
+                            line-height 0.8em
                             margin-right -2px
                             margin-left 2px
 
@@ -309,7 +308,7 @@
     left: 0;
     width: 100%;
     background: rgba(0,0,0,0.3);
-    padding: 30px 0 50px 39vw;
+    padding: 30px 0 50px 41vw;
     height: 200px;
 }
 
@@ -320,7 +319,7 @@
     .setup-container
 
     .dropdowns-container
-        width 220px
+        width 240px
         .dropup
             .dropdown-toggle
                 align-items: center
@@ -339,7 +338,7 @@
                     background: rgba(0,0,0,0.2)
                 i
                     margin-right: 10px
-                    font-size 16px
+                    font-size 18px
                 span
                     margin-right: auto
 

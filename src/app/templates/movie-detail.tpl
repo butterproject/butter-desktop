@@ -14,7 +14,7 @@ if (genre) {
 <div class="backdrop"></div>
 <div class="backdrop-overlay"></div>
 <section class="actions-bar">
-    <div class="go-back"><i class="material-icons">arrow_back</i><span>Back</span></div>
+    <div class="go-back"><i class="material-icons">arrow_back</i><span><%= title %></span></div>
     <ul class="toolbar-movies">
         <li>
             <i data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health false") %>" class="material-icons health-icon <%= health %>">flash_on</i>
@@ -39,14 +39,8 @@ if (genre) {
 <section class="content-box">
 
     <div class="meta-container">
-        <div class="title"><%= title %></div>
-
         <div class="metadatas">
-            <div class="metaitem"><%= year %></div>
-            <div class="metaitem"><%= runtime %> min</div>
-            <div class="metaitem"><%= genre.join(" / ") %></div>
-            <div data-toggle="tooltip" data-placement="top" title="<%=i18n.__("Open IMDb page") %>" class="movie-imdb-link"></div>
-            <div class="metaitem rating-container">
+             <div class="metaitem rating-container">
                 <div class="star-container" data-toggle="tooltip" data-placement="right" title="<%= rating %>/10">
                 <% var p_rating = Math.round(rating) / 2; %>
                    <% for (var i = 1; i <= Math.floor(p_rating); i++) { %>
@@ -64,6 +58,11 @@ if (genre) {
                 </div>
                 <div class="number-container hidden"><%= rating %> <em>/10</em></div>
             </div>
+            <div class="metaitem"><%= year %></div>
+            <div class="metaitem"><%= runtime %> min</div>
+            <div class="metaitem"><%= genre.join(" / ") %></div>
+            <div data-toggle="tooltip" data-placement="top" title="<%=i18n.__("Open IMDb page") %>" class="movie-imdb-link"></div>
+           
 
         </div>
 
