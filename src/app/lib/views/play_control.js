@@ -104,19 +104,25 @@
             }
         },
 
-        loadDropdown: function (type, view, attrs) {
+        _loadDropdown: function (type, view, model) {
             this.views[type] && this.views[type].destroy();
             this.views[type] = new view({
-                model: new App.Model.Lang(Object.assign({type:type}, attrs))
+                model: model
             });
             this[`${type}Dropdown`].show (this.views[type]);
+        },
+
+        loadDropdown: function (type, view, attrs) {
+            return this._loadDropdown(type, view,
+                                      new App.Model.Lang(Object.assign({type:type}, attrs)));
         },
 
         loadAudioDropdown: function () {
             return this.loadDropdown('audio', App.View.LangDropdown, {
                 title: i18n.__('Audio Language'),
                 selected: this.model.get('defaultAudio'),
-                values: this.model.get('langs')
+                values: this.model.get('langs'),
+                icon: 'volume_up'
             });
         },
 
@@ -125,7 +131,8 @@
                 title: i18n.__('Subtitle'),
                 selected: this.model.get('defaultSubtitle'),
                 hasNull: true,
-                values: this.model.get('subtitle')
+                values: this.model.get('subtitle'),
+                icon: 'subtitles'
             });
         },
 

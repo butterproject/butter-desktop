@@ -42,6 +42,7 @@
 
             App.vent.on('shortcuts:movies', this.initKeyboardShortcuts);
             App.vent.on('change:quality', this.renderHealth, this);
+            App.vent.on('movie:watched', this.onMoviesWatched.bind(this));
         },
 
         onShow: function () {
@@ -195,6 +196,26 @@
             } else {
                 nw.Shell.openExternal(magnetLink);
             }
+        },
+
+        onMoviesWatched: function (movie, channel) {
+            if  (channel === 'database') {
+                try {
+                    // activated when movie was marked as seen in the player & movie details are open. It's really bad...
+                    switch (Settings.watchedCovers) {
+                        case 'fade':
+                            $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"] .actions-watched').addClass('selected');
+                            $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"]').addClass('watched');
+                            break;
+                        case 'hide':
+                            $('li[data-imdb-id="' + App.MovieDetailView.model.get('imdb_id') + '"]').remove();
+                            break;
+                    }
+                    $('.watched-toggle').addClass('selected').text(i18n.__('Seen'));
+                    App.MovieDetailView.model.set('watched', true);
+                } catch (e) {}
+            }
         }
     });
+
 })(window.App);
