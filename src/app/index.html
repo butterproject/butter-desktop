@@ -28,8 +28,10 @@
 	<script id="selector-dropdown-tpl" src="templates/selector-dropdown.tpl" type="text/x-template"></script>
 	<script id="search-dropdown-tpl" src="templates/search-dropdown.tpl" type="text/x-template"></script>
 	<script id="play-control-tpl" src="templates/play-control.tpl" type="text/x-template"></script>
+	<script id="generic-detail-tpl" src="templates/generic-detail.tpl" type="text/x-template"></script>
+	<script id="action-bar-tpl" src="templates/action-bar.tpl" type="text/x-template"></script>
 	<script id="movie-detail-tpl" src="templates/movie-detail.tpl" type="text/x-template"></script>
-	<script id="show-detail-tpl" src="templates/show-detail.tpl" type="text/x-template"></script>
+	<script id="show-header-tpl" src="templates/show-header.tpl" type="text/x-template"></script>
 	<script id="player-tpl" src="templates/player.tpl" type="text/x-template"></script>
 	<script id="player-chooser-tpl" src="templates/player-chooser.tpl" type="text/x-template"></script>
 	<script id="loading-tpl" src="templates/loading.tpl" type="text/x-template"></script>
@@ -46,11 +48,11 @@
 
 	<!-- 3rd party Dependencies -->
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
-	<script src="vendor/underscore/underscore-min.js"></script>
-	<script src="vendor/backbone/backbone-min.js"></script>
-	<script src="vendor/backbone.wreqr/lib/backbone.wreqr.min.js"></script>
-	<script src="vendor/backbone.babysitter/lib/backbone.babysitter.min.js"></script>
-	<script src="vendor/marionette/lib/backbone.marionette.min.js"></script>
+	<script src="vendor/underscore/underscore.js"></script>
+	<script src="vendor/backbone/backbone.js"></script>
+	<script src="vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
+	<script src="vendor/backbone.babysitter/lib/backbone.babysitter.js"></script>
+	<script src="vendor/marionette/lib/backbone.marionette.js"></script>
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="vendor/mousetrap/mousetrap.min.js"></script>
 	<script src="vendor/mousetrap/plugins/pause/mousetrap-pause.min.js"></script>
@@ -109,6 +111,7 @@
 	<script src="lib/providers/torrent_cache.js"></script>
    -->
 	<!-- Backbone Views and Controllers -->
+	<script src="lib/views/generic.js"></script>
 	<script src="lib/views/title_bar.js"></script>
 	<script src="lib/views/main_window.js"></script>
 
@@ -116,9 +119,11 @@
 	<script src="lib/views/lang_dropdown.js"></script>
 	<script src="lib/views/filter_dropdown.js"></script>
 	<script src="lib/views/search_dropdown.js"></script>
+
+	<script src="lib/views/play_control.js"></script>
+	<script src="lib/views/generic_detail.js"></script>
 	<script src="lib/views/movie_detail.js"></script>
 	<script src="lib/views/show_detail.js"></script>
-	<script src="lib/views/play_control.js"></script>
 
 	<script src="lib/views/settings_container.js"></script>
 	<script src="lib/views/init_modal.js"></script>

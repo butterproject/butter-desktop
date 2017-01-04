@@ -162,11 +162,7 @@ var initApp = function () {
 
     win.show(isStartMinimized);
 
-    try {
-        App.Window.show(mainWindow);
-    } catch (e) {
-        console.error('Couldn\'t start app: ', e, e.stack);
-    }
+    App.Window.show(mainWindow);
 };
 
 App.addInitializer(function (options) {

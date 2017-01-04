@@ -11,7 +11,7 @@
         regions: {
             Header: '#header',
             Content: '#content',
-            MovieDetail: '#movie-detail',
+            DetailsContainer: '#details-container',
             FileSelector: '#file-selector-container',
             Player: '#player',
             Settings: '#settings-container',
@@ -99,11 +99,11 @@
 
             // Movies
             App.vent.on('movie:showDetail', _.bind(this.showMovieDetail, this));
-            App.vent.on('movie:closeDetail', _.bind(this.closeMovieDetail, this.MovieDetail));
+            App.vent.on('movie:closeDetail', _.bind(this.closeMovieDetail, this.DetailsContainer));
 
             // Tv Shows
             App.vent.on('tvshow:showDetail', _.bind(this.showShowDetail, this));
-            App.vent.on('tvshow:closeDetail', _.bind(this.closeShowDetail, this.MovieDetail));
+            App.vent.on('tvshow:closeDetail', _.bind(this.closeShowDetail, this.DetailsContainer));
 
             // Settings events
             App.vent.on('settings:show', _.bind(this.showSettings, this));
@@ -235,7 +235,7 @@
 
         showTab: function (newTab) {
             this.Settings.destroy();
-            this.MovieDetail.destroy();
+            this.DetailsContainer.destroy();
             this.lastView && this.lastView.destroy();
 
             App.currentview = newTab;
@@ -322,13 +322,13 @@
         },
 
         showMovieDetail: function (movieModel) {
-            this.MovieDetail.show(new App.View.MovieDetail({
+            this.DetailsContainer.show(new App.View.MovieDetail({
                 model: movieModel
             }));
         },
 
         closeMovieDetail: function (movieModel) {
-            _this.MovieDetail.destroy();
+            _this.DetailsContainer.destroy();
             App.vent.trigger('shortcuts:list');
         },
 
@@ -343,13 +343,13 @@
         },
 
         showShowDetail: function (showModel) {
-            this.MovieDetail.show(new App.View.ShowDetail({
+            this.DetailsContainer.show(new App.View.ShowDetail({
                 model: showModel
             }));
         },
 
         closeShowDetail: function (showModel) {
-            _this.MovieDetail.destroy();
+            _this.DetailsContainer.destroy();
             App.vent.trigger('shortcuts:list');
         },
 
@@ -378,7 +378,7 @@
             // modal (tvshow/movie) detail open when
             // the streaming start.
             //
-            // this.MovieDetail.destroy();
+            // this.Detailscontainer.destroy();
             //
             // uncomment previous line to close it
 
@@ -396,17 +396,17 @@
                 model: streamModel
             }));
             this.Content.$el.hide();
-            if (this.MovieDetail.$el !== undefined) {
-                this.MovieDetail.$el.hide();
+            if (this.DetailsContainer.$el !== undefined) {
+                this.DetailsContainer.$el.hide();
             }
         },
 
         showViews: function (streamModel) {
             this.Content.$el.show();
             try {
-                this.MovieDetail.$el.show();
+                this.DetailsContainer.$el.show();
 
-                var detailWin = this.MovieDetail.el.firstElementChild.classList[0];
+                var detailWin = this.DetailsContainer.el.firstElementChild.classList[0];
 
                 if (detailWin === 'shows-container-contain') {
                     App.vent.trigger('shortcuts:shows');
