@@ -1,12 +1,12 @@
 <%
-if(typeof synopsis === "undefined"){ synopsis = "Synopsis not available."; }; 
+if(typeof synopsis === "undefined"){ synopsis = "Synopsis not available."; };
 if(typeof runtime === "undefined"){ runtime = "N/A"; };
-if (genre) {
-for(var i = 0; i < genre.length; i++) {
-genre[i] = i18n.__(genre[i]);
+if (genres) {
+for(var i = 0; i < genres.length; i++) {
+genres[i] = i18n.__(genres[i]);
 }
 } else {
-var genre = [undefined];
+var genres = [undefined];
 };
 %>
 
@@ -37,7 +37,7 @@ var genre = [undefined];
             </div>
             <div class="metaitem"><%= year %></div>
             <div class="metaitem"><%= runtime %> min</div>
-            <div class="metaitem"><%= genre.join(" / ") %></div>
+            <div class="metaitem"><%= genres.join(" / ") %></div>
             <div data-toggle="tooltip" data-placement="top" title="<%=i18n.__("Open IMDb page") %>" class="movie-imdb-link"></div>
         </div>
 
