@@ -1,4 +1,4 @@
-<ul class="nav nav-hor left">
+<ul id="show-detail-collapse" class="nav nav-hor left">
     <li class="source" data-value="info">
         <%= i18n.__('Show Info') %>
     </li>
