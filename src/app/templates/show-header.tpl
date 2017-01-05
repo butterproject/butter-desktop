@@ -12,11 +12,11 @@
     <% }) %>
     <ul>
         <%_.each(torrents, function(episodes, season) { %>
-        <ul id="show-detail-collapse-<%= season %>" class="collapse">
+        <ul id="show-detail-collapse-<%= season %>" class="collapse episode-list">
             <%_.each(episodes, function(value, episode) { %>
             <li>
                 <span><%= episode %></span>
-                <span><%= value.title %></span>
+                <h4><%= value.title %></h4>
             </li>
             <% }) %>
         </ul>
