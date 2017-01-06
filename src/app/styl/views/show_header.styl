@@ -1,0 +1,58 @@
+#show-header
+    .show-header
+        top 90px
+        background transparent
+        padding-top: 0
+        left: 20px
+        ul
+            width: 100%
+            left: 0
+            .episode-list
+                width: 100%;
+                background #15161B
+                display: flex;
+                flex-wrap: wrap;
+                position: absolute;
+                color: #FFF
+                left: -20px
+                padding: 15px 35px;
+                box-shadow: inset 0 4px 10px rgba(0,0,0,0.1)
+
+                li
+                    align-self: auto;
+                    list-style: none;
+                    width: 20%;
+                    text-align: center;
+                    width: 150px;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    cursor: pointer
+
+                    span
+                        border-radius: 5px;
+                        border: 1px solid #111;
+                        font-size: 32px;
+                        padding: 24px;
+                        flex: 1 0 25%;
+                        text-align: center;
+                        font-weight: bold;
+                        display: block;
+                        background-color: rgba(0,0,0,0.2);
+                        border: 1px solid rgba(0,0,0,0.7);
+                        height: 95px;
+                        box-sizing: border-box;
+                        line-height: 1.4em
+
+                    h4
+                        font-size: 16px;
+                        font-weight: normal;
+                        margin: 10px 0;
+                        opacity: 0.5
+
+                    &:hover
+                        span
+                            background: #FFF
+                            border-color #FFF
+                            color: #15161B
+                        h4
+                            opacity 1
