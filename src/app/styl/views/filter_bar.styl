@@ -24,13 +24,14 @@
         font-size: 1.4em
         text-transform: uppercase
         border-bottom: 3px solid transparent
+        opacity: 0.4
 
         &:hover
-            color: $FilterBarTextHover
+            opacity: 0.9
             border-bottom: 3px solid rgba(255,255,255,0.2)
         &.active
-            color: $FilterBarTextHover
             border-bottom: 3px solid $FilterBarActive
+            opacity: 1
 
     ul.nav-hor
         display inline-block
