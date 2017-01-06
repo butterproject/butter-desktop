@@ -6,6 +6,13 @@
         left: 20px
         .panel
             background transparent
+            margin: 0
+            a.source
+                font-size 1.3em
+                padding: 6px 0
+                margin: 0 15px
+                &:hover
+                    text-decoration none
             
         ul
             width: 100%
@@ -19,9 +26,10 @@
                 padding: 15px 35px;
                 box-shadow: inset 0 4px 10px rgba(0,0,0,0.1)
                 overflow: hidden
+                top: 47px
 
                 li
-                    display: inline-flex;
+                    display: inline-block;
                     align-self: auto;
                     list-style: none;
                     width: 20%;
@@ -30,6 +38,8 @@
                     box-sizing: border-box;
                     padding: 10px;
                     cursor: pointer
+                    vertical-align top
+                    
 
                     span
                         border-radius: 5px;
