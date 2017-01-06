@@ -1,11 +1,10 @@
 #show-header
     .show-header
-        top 90px
+        top 100px
         background transparent
         padding-top: 0
         left: 20px
         right: 20px
-        padding-bottom 30px
 
         .panel
             background transparent
@@ -24,7 +23,17 @@
             padding: 20px
             overflow-x: auto
             overflow-y: hidden
-
+            &.nav-show
+                width: 75px;
+                padding: 0;
+                right: 30px !important;
+                left: initial;
+                position: absolute;
+                background: rgba(0,0,0,0.7);
+                border-radius: 5px;
+                li
+                    display: inline-block
+                    padding: 5px
             &::-webkit-scrollbar
                 height: 3px
 
