@@ -3,7 +3,7 @@ if(typeof synopsis === "undefined"){ synopsis = "Synopsis not available."; };
 if(typeof runtime === "undefined"){ runtime = "N/A"; };
 if (genres) {
 for(var i = 0; i < genres.length; i++) {
-genres[i] = i18n.__(genres[i]);
+genres[i] = i18n.__(genres[i]); 
 }
 } else {
 var genres = [undefined];
