@@ -1,18 +1,19 @@
-<ul class="nav nav-hor left">
-    <li class="source" data-value="info">
-        <%= i18n.__('Show Info') %>
+<ul class="panel-group nav-hor left" id="accordion" role="tablist" aria-multiselectable="true">
+    <li class="panel">
+        <a class="source" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <%= i18n.__('Show Info') %>
+        </a>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        </div>
     </li>
-    <%_.each(torrents, function(value, season) { %>
-    <li class="source" data-value="<%= 'season-' + season %>"
-        role="button" data-toggle="collapse"
-        data-target="#show-detail-collapse-<%= season %>"
-        aria-expanded="false" aria-controls="show-detail-collapse">
-        <%= i18n.__('Season ' + season) %>
-    </li>
-    <% }) %>
-    <ul>
-        <%_.each(torrents, function(episodes, season) { %>
-        <ul id="show-detail-collapse-<%= season %>" class="collapse episode-list">
+    <%_.each(torrents, function(episodes, season) { %>
+    <li class="panel">
+        <a class="source" role="button" data-toggle="collapse" data-parent="#accordion"
+           href="#show-detail-collapse-<%= season %>"
+           aria-expanded="false" aria-controls="show-detail-collapse-<%= season %>">
+            <%= i18n.__('Season ' + season) %>
+        </a>
+        <ul id="show-detail-collapse-<%= season %>" class="episode-list panel-collapse collapse" role="tabpanel">
             <%_.each(episodes, function(value, episode) { %>
             <li>
                 <span><%= episode %></span>
@@ -20,7 +21,11 @@
             </li>
             <% }) %>
         </ul>
-        <% }) %>
+    </li>
+    <% }) %>
+    <ul class="nav-show">
+        <li><i class="material-icons">keyboard_arrow_left</i></li>
+        <li><i class="material-icons">keyboard_arrow_right</i></li>
     </ul>
 </ul>
 
