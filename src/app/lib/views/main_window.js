@@ -157,7 +157,7 @@
                             if (!err || err.errno === '-4075') {
                                 //success
                             } else {
-                                Settings.tmpLocation = path.join(os.tmpDir(), Settings.projectName);
+                                Settings.tmpLocation = path.join(os.tmpdir(), Settings.projectName);
                                 fs.mkdir(Settings.tmpLocation);
                             }
                         });

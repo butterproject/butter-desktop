@@ -49,8 +49,6 @@
 
     var SubtitlesServer = {
         start: function (data, cb) {
-            iconv.extendNodeEncodings();
-
             encoding = data.encoding || 'utf8';
             console.log('SubtitleServer: loading', data.srt || data.vtt);
             if (data.vtt) {

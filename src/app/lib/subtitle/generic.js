@@ -79,7 +79,7 @@
                             } else {
                                 var charset = charsetDetect.detect(buffer);
                                 var denc = charset.encoding;
-                                var subtitle_content = buffer.toString(denc);
+                                var subtitle_content = iconv.decode(buffer, denc);
                                 fs.writeFileSync(fpath+'.srt', subtitle_content, {encoding: denc});
                                 resolve(fpath+'.srt');
                             }
