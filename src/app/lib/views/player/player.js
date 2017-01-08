@@ -353,12 +353,35 @@
                 }
             }
         },
+        
+        allowResize: function () {
+            win.setMinimumSize(500, 300);
+
+            this.appPreviousState = {
+                width: win.width,
+                height: win.height,
+                posX: localStorage.posX,
+                posY: localStorage.posY
+            };
+        },
+        
+        disallowResize: function () {
+            win.setMinimumSize(nw.App.manifest.window.min_width, nw.App.manifest.window.min_height);
+
+            if ((win.width < nw.App.manifest.window.min_width || win.height < nw.App.manifest.window.min_height) && this.appPreviousState) {
+                win.width = this.appPreviousState.width;
+                win.height =this.appPreviousState.height;
+                win.moveTo(parseInt(this.appPreviousState.posX), parseInt(this.appPreviousState.posY));
+            }
+        },
 
         onShow: function () {
             $('#header').removeClass('header-shadow').hide();
             $('.filter-bar').show();
             $('#player_drag').show();
             var that = this;
+
+            this.allowResize();
 
             if (this.model.get('auto_play')) {
 
@@ -965,6 +988,7 @@
                 $('.btn-os.fullscreen').removeClass('active');
             }
             this.unbindKeyboardShortcuts();
+            this.disallowResize();
             App.vent.off('customSubtitles:added');
             App.vent.trigger('player:close');
             var vjsPlayer = document.getElementById('video_player');
