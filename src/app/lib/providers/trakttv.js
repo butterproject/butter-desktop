@@ -142,7 +142,7 @@
             return Promise.all([
                 this.syncMovies(),
                 this.syncEpisodes(),
-                App.Providers.get('Watchlist').fetch({force: watchlist})
+                App.Providers.get('watchlist').fetch({force: watchlist})
             ]).then(function() {
                 AdvSettings.set('traktLastSync', Date.now());
                 return true;
