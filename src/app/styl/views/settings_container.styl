@@ -18,8 +18,30 @@
         -webkit-user-select none
         padding-bottom 20px     
 
+
+        .nav-tabs
+            width auto
+            margin 0 auto
+            font-size: 0.8em
+            li
+                a
+                    margin 0
+                    line-height 1
+                    border-radius 0
+                    padding 0
+                    color #FFF
+                &:hover, &.active
+                    a
+                        background transparent
+                        border 0 none
+
+        .tab-pane
+            section
+                display: flex!important
+                
         section
-            display: flex
+
+            display: none
             flex-direction: row
             justify-content: flex-start
             flex-flow: row wrap
