@@ -3,4 +3,4 @@
 
 <div id="action-bar"></div>
 <div id="show-header"></div>
-<div id="detail-meat"></div>
+<div id="detail-card"></div>

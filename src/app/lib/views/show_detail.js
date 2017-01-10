@@ -10,7 +10,7 @@
         regions: {
             ActionBar:  '#action-bar',
             ShowHeader: '#show-header',
-            DetailMeat: '#detail-meat'
+            DetailCard: '#detail-card'
         },
         initialize: function () {
             App.View.GenericDetail.prototype.initialize.call(this, arguments);
@@ -33,7 +33,7 @@
                 model: this.model
             }));
 
-            this.showView(this.DetailMeat, new App.View.DetailMeat({
+            this.showView(this.DetailCard, new App.View.DetailCard({
                 model: this.model
             }));
         }
