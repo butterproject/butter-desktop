@@ -19,7 +19,7 @@
         events: {
             'click .keyboard': 'showKeyboard',
             'click .help': 'showHelp',
-            'click .close-icon': 'closeSettings',
+            'click .go-back': 'closeSettings',
             'change select,input': 'saveSetting',
             'contextmenu input': 'rightclick_field',
             'click .flush-bookmarks': 'flushBookmarks',
@@ -74,7 +74,7 @@
 
         onRender: function () {
             if (App.settings.showAdvancedSettings) {
-                $('.advanced').css('display', 'flex');
+                $('.advanced').css('display', 'block');
             }
             oldTmpLocation = $('#faketmpLocation').val();
         },
@@ -308,7 +308,7 @@
                 break;
             case 'showAdvancedSettings':
                 if (value) {
-                    $('.advanced').css('display', 'flex');
+                    $('.advanced').css('display', 'block');
                 } else {
                     $('.advanced').css('display', 'none');
                 }

@@ -1,18 +1,21 @@
 <div class="settings-container">
-    <div class="fa fa-times close-icon"></div>
     <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<span id="checkmark-notify"><div id="stem-notify"></div><div id="kick-notify"></div></span></div>
-
-    <section id="title">
-        <div class="title"><%= i18n.__("Settings") %></div>
-        <div class="content">
-            <span>
-                <i class="fa fa-keyboard-o keyboard tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Keyboard Shortcuts") %>"></i>
-                <i class="fa fa-question-circle help tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Help Section") %>"></i>
-                <input id="show-advanced-settings" class="settings-checkbox" name="showAdvancedSettings" type="checkbox" <%=(Settings.showAdvancedSettings? "checked":"")%>>
-                <label class="settings-label" for="show-advanced-settings"><%= i18n.__("Show advanced settings") %></label>
-            </span>
+    <div id="action-bar">
+        <div class="actions-bar">
+            <div class="go-back"><i class="material-icons">arrow_back</i><span><%= i18n.__("Settings") %></span></div>
+            <ul class="toolbar">
+                <li>
+                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Keyboard Shortcuts") %>" class="material-icons health-icon <%= health %>">keyboard</i>
+                </li>
+                <li>
+                    <i data-toogle="tooltip" data-placement="left" title="<%= i18n.__("Help Section") %>" class="material-icons magnet-link">help_outline</i>
+                </li>
+                <li>
+                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Show advanced settings") %>" class="material-icons favourites-toggle">filter_list</i><input id="show-advanced-settings" class="settings-checkbox" name="showAdvancedSettings" type="checkbox" <%=(Settings.showAdvancedSettings? "checked":"")%>>
+                </li>
+            </ul>
         </div>
-    </section>
+    </div>
     <script>
         $('#myTabs a').click(function (e) {
       e.preventDefault()
@@ -21,21 +24,28 @@
     </script>
 
      <!-- Nav tabs -->
-      <ul id="myTabs" class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active source"><a href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</a></li>
-        <li role="presentation" class="source"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Styles</a></li>
-        <li role="presentation" class="source"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Extensions</a></li>
-        <li role="presentation" class="source"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-      </ul>
+     <div class="navbar-s">
+          <ul id="myTabs" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active source"><a href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</a></li>
+            <li role="presentation" class="source"><a href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</a></li>
+            <li role="presentation" class="source"><a href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</a></li>
+            <li role="presentation" class="source"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+          </ul>
+      </div>
 
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="player">
             <section id="subtitles">
                 <div class="content">
-                    <span>
-                        <div class="dropdown subtitles-language-default">
-                            <p><%= i18n.__("Default Subtitle") %></p>
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Default Subtitle") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
                             <%
                                 var sub_langs = "<option "+(Settings.subtitle_language == "none"? "selected='selected'":"")+" value='none'>" +
                                                     i18n.__("Disabled") + "</option>";
@@ -50,11 +60,16 @@
                             <select name="subtitle_language"><%=sub_langs%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
+    
+                    <div class="settings-row dropdown advanced subtitles-font">
+                        <i class="material-icons">format_shapes</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Font") %></div>
+                            <div class="helper">Some text for help.</div>
 
-                    <span class="advanced">
-                        <div class="dropdown subtitles-font">
-                            <p><%= i18n.__("Font") %></p>
+                        </div>
+                        <div class="action-item">
                             <%
                                 var arr_fonts = [
                                     {name:"AljazeeraMedExtOf", id:"aljazeera"},
@@ -118,12 +133,18 @@
                             <select name="subtitle_font"><%=sub_fonts%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
+           
 
-                    <span class="advanced">
-                        <div class="dropdown subtitles-decoration">
-                            <p><%= i18n.__("Decoration") %></p>
-                            <%
+                    <div class="settings-row dropdown subtitles-decoration advanced">
+                        <i class="material-icons">format_color_text</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Decoration") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                             <%
                                 var arr_deco = ["None", "Outline", "Opaque Background", "See-through Background"];
 
                                 var sub_deco = "";
@@ -134,11 +155,17 @@
                             <select name="subtitle_decoration"><%=sub_deco%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
+                   
 
-                    <span>
-                        <div class="dropdown subtitles-size">
-                            <p><%= i18n.__("Size") %></p>
+                    <div class="settings-row dropdown dropdown subtitles-size">
+                        <i class="material-icons">color_lens</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Size") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
                             <%
                                 var arr_sizes = ["20px","22px","24px","26px","28px","30px","32px","34px","36px","38px","40px","42px","44px","46px","48px","50px","52px","54px","56px","58px","60px"];
 
@@ -150,142 +177,336 @@
                             <select name="subtitle_size"><%=sub_sizes%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
+                    </div>
+
+                    <div class="settings-row advanced subtitles-custom">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Color") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input class="colorsub" id="subtitles_color" type="color" size="7" name="subtitle_color" value="<%=Settings.subtitle_color%>" list="subs_colors">
+                            <datalist id="subs_colors">
+                                <option>#ffffff</option>
+                                <option>#ffff00</option>
+                                <option>#ff0000</option>
+                                <option>#ff00ff</option>
+                                <option>#00ffff</option>
+                                <option>#00ff00</option>
+                            </datalist>
+                        </div>
+                    </div>
+
+                  
+                    <div class="settings-row advanced subtitles-language-default">
+                        <i class="material-icons">format_bold</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Bold") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input class="settings-checkbox" name="subtitles_bold" id="subsbold" type="checkbox" <%=(Settings.subtitles_bold? "checked='checked'":"")%>>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="interface">
+            <section id="user-interface">
+                <div class="content">
+                    <span>
+                        <div class="dropdown subtitles-language">
+                            <p><%= i18n.__("Default Language") %></p>
+                            <%
+                                var langs = "";
+                                for(var key in App.Localization.allTranslations) {
+                                        key = App.Localization.allTranslations[key];
+                                        if (App.Localization.langcodes[key] !== undefined) {
+                                        langs += "<option "+(Settings.language == key? "selected='selected'":"")+" value='"+key+"'>"+
+                                                    App.Localization.langcodes[key].nativeName+"</option>";
+                                    }
+                                }
+                            %>
+                            <select name="language"><%=langs%></select>
+                            <div class="dropdown-arrow"></div>
+                        </div>
+                    </span>
+
+                    <span>
+                        <div class="dropdown pct-theme">
+                            <p><%= i18n.__("Theme") %></p>
+                            <%
+                                var themes = "";
+                                var theme_files = fs.readdirSync('./src/app/themes/');
+                                for (var i in theme_files) {
+                                    if (theme_files[i].indexOf('_theme') > -1) {
+                                        themes += "<option " + (Settings.theme == theme_files[i].slice(0, -4)? "selected='selected'" : "") + " value='" + theme_files[i].slice(0, -4) + "'>" +
+                                        theme_files[i].slice(0, -10).split('_').join(' '); + "</option>";
+                                    }
+                                    if (theme_files[i] === 'third_party') {
+                                        var third_party_files = fs.readdirSync('./src/app/themes/third_party');
+                                        for (var k in third_party_files) {
+                                            if (third_party_files[k].indexOf('_theme') > -1) {
+                                                themes += "<option " + (Settings.theme == 'third_party\/' + third_party_files[k].slice(0, -4)? "selected='selected'" : "") + " value='" + 'third_party\/' + third_party_files[k].slice(0, -4) + "'>" +
+                                                third_party_files[k].slice(0, -10).split('_').join(' '); + "</option>";
+                                            }
+                                        }
+                                    }
+                                }
+                            %>
+                            <select name="theme"><%=themes%></select>
+                            <div class="dropdown-arrow"></div>
+                        </div>
                     </span>
 
                     <span class="advanced">
-                        <div class="subtitles-custom">
-                            <p><%= i18n.__("Color") %></p>
-                            <input class="colorsub" id="subtitles_color" type="color" size="7" name="subtitle_color" value="<%=Settings.subtitle_color%>" list="subs_colors">
-                                <datalist id="subs_colors">
-                                    <option>#ffffff</option>
-                                    <option>#ffff00</option>
-                                    <option>#ff0000</option>
-                                    <option>#ff00ff</option>
-                                    <option>#00ffff</option>
-                                    <option>#00ff00</option>
-                                </datalist>
+                        <div class="dropdown start-screen">
+                            <p><%= i18n.__("Start Screen") %></p>
+                                <%
+                                    var arr_screens = ["Movies","TV Series","Anime","Indie","Favorites", "Watchlist", "Last Open"];
+
+                                    var selct_start_screen = "";
+                                    for(var key in arr_screens) {
+                                        selct_start_screen += "<option "+(Settings.start_screen == arr_screens[key]? "selected='selected'":"")+" value='"+arr_screens[key]+"'>"+i18n.__(arr_screens[key])+"</option>";
+                                    }
+                                %>
+                            <select name="start_screen"><%=selct_start_screen%></select>
+                            <div class="dropdown-arrow"></div>
                         </div>
                     </span>
+
                     <span class="advanced">
-                        <input class="settings-checkbox" name="subtitles_bold" id="subsbold" type="checkbox" <%=(Settings.subtitles_bold? "checked='checked'":"")%>>
-                        <label class="settings-label" for="subsbold"><%= i18n.__("Bold") %></label>
+                        <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
+                        <label class="settings-label" for="translateSynopsis"><%= i18n.__("Translate Synopsis") %></label>
+                    </span>
+                    <span class="advanced">
+                        <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
+                        <label class="settings-label" for="cb3"><%= i18n.__("Show rating over covers") %></label>
+                    </span>
+
+                    <span class="advanced">
+                        <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
+                        <label class="settings-label" for="cb4"><%= i18n.__("Always On Top") %></label>
+                    </span>
+
+                    <span class="advanced">
+                        <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
+                        <label class="settings-label" for="cb7"><%= i18n.__("Remember Filters") %></label>
+                    </span>
+
+                    <span class="advanced">
+                        <div class="dropdown watchedCovers">
+                            <p><%= i18n.__("Watched Items") %></p>
+                                <%
+                                    var watch_type = {
+                                        "none": "Show",
+                                        "fade": "Fade",
+                                        "hide": "Hide"
+                                    };
+
+                                    var select_watched_cover = "";
+                                    for(var key in watch_type) {
+                                        select_watched_cover += "<option "+(Settings.watchedCovers == key? "selected='selected'":"")+" value='"+key+"'>"+i18n.__(watch_type[key])+"</option>";
+                                    }
+                                %>
+                            <select name="watchedCovers"><%=select_watched_cover%></select>
+                            <div class="dropdown-arrow"></div>
+                        </div>
                     </span>
 
                 </div>
             </section>
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
-        <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
+        <div role="tabpanel" class="tab-pane" id="extensions">
+            <section id="remote-control" class="advanced">
+                <div class="title"><%= i18n.__("Remote Control") %></div>
+                <div class="content">
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Local IP Address") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                             <input type="text" id="settingsIpAddr" value="<%= Settings.ipAddress %>" readonly="readonly" size="20" />
+                        </div>
+                    </div>
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("HTTP API Port") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input id="httpApiPort" type="number" size="5" name="httpApiPort" value="<%=Settings.httpApiPort%>">
+                        </div>
+                    </div>
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("HTTP API Username") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input id="httpApiUsername" type="text" size="50" name="httpApiUsername" value="<%=Settings.httpApiUsername%>">
+                        </div>
+                    </div>
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("HTTP API Password") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input id="httpApiPassword" type="text" size="50" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
+                        </div>
+                    </div>
+                    <div class="settings-row dropdown subtitles-language-default">
+                        <i class="material-icons">subtitles</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Generate Pairing QR code") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                             <div class="btn-settings database qr-code">
+                                Action
+                             </div>
+                            <div id="qrcode-overlay"></div>
+                                <div id="qrcode-modal">
+                                    <span class="fa-stack fa-1x" id="qrcode-close">
+                                        <i class="fa fa-circle-thin fa-stack-2x" style="margin-top: -2px;"></i>
+                                        <i class="fa fa-times fa-stack-1x" style="margin-top: -2px;"></i>
+                                    </span>
+                                    <canvas id="qrcode" width="200" height="200"></canvas>
+                                </div><!-- /.modal -->
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </section>
+             <% if(App.Trakt) { %>
+            <section id="trakt-tv">
+                <div class="title">Trakt.tv</div>
+                <div class="content">
+                    <div class="trakt-options<%= App.Trakt.authenticated ? " authenticated" : "" %>">
+                        <% if(App.Trakt.authenticated) { %>
+                            <span>
+                                <%= i18n.__("You are currently connected to %s", "Trakt.tv") %>.
+                                <a id="unauthTrakt" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
+                            </span>
+                            <span>
+                                <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
+                                <label class="settings-label" for="traktSyncOnStart"><%= i18n.__("Automatically Sync on Start") %></label>
+                            </span>
+                            <span>
+                                <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
+                                <label class="settings-label" for="traktPlayback"><%= i18n.__("Resume Playback") %></label>
+                            </span>
+                            <span class="advanced">
+                                <div class="btn-settings syncTrakt" id="syncTrakt">
+                                    <i class="fa fa-refresh">&nbsp;&nbsp;</i>
+                                    <%= i18n.__("Sync With Trakt") %>
+                                </div>
+                            </span>
+                        <% } else { %>
+                            <span>
+                                <%= i18n.__("Connect to %s to automatically 'scrobble' episodes you watch in %s", "Trakt.tv", Settings.projectName) %>
+                            </span>
+                            <span>
+                                <div class="btn-settings syncTrakt" id="authTrakt">
+                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
+                                    <%= i18n.__("Connect To %s", "Trakt") %>
+                                </div>
+                                <div id="authTraktCode" style="display:none">
+                                    <%= i18n.__("Code:")%>    
+                                    <input type="text" size="20" readonly/>
+                                </div>
+                            </span>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+            <% } %>
+
+            <% if(App.TVShowTime) { %>
+            <section id="tvshowtime">
+                <div class="title">TVShow Time</div>
+                <div class="content">
+                    <div class="tvshowtime-options <%= App.TVShowTime.authenticated ? " authenticated" : "" %>">
+                        <% if(App.TVShowTime.authenticated) { %>
+                            <span>
+                                <%= i18n.__("You are currently connected to %s", "TVShow Time") %>.
+                                <a id="disconnect-tvst" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
+                            </span>
+                        <% } else { %>
+                            <span>
+                                <div class="btn-settings" id="connect-with-tvst">
+                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
+                                    <%= i18n.__("Connect To %s", "TVShow Time") %>
+                                </div>
+                                <div class="tvst-loading-spinner" style="display: none"></div>
+                            </span>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+            <% } %>
+
+            <section id="opensubtitles">
+                <div class="title">OpenSubtitles</div>
+                <div class="content">
+                    <div class="opensubtitles-options">
+                        <% if(Settings.opensubtitlesAuthenticated) { %>
+                            <span>
+                                <%= i18n.__("You are currently connected to %s", "OpenSubtitles") %>.
+                                <a id="unauthOpensubtitles" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
+                            </span>
+                        <% } else { %>
+                            <span>
+                                <p><%= i18n.__("Username") %></p>
+                                <input type="text" size="50" id="opensubtitlesUsername" name="opensubtitlesUsername">
+                                <div class="loading-spinner" style="display: none"></div>
+                                <div class="valid-tick" style="display: none"></div>
+                                <div class="invalid-cross" style="display: none"></div>
+                            </span>
+                            <span>
+                                <p><%= i18n.__("Password") %></p>
+                                <input type="password" size="50" id="opensubtitlesPassword" name="opensubtitlesPassword">
+                            </span>
+                            <span>
+                                <div class="btn-settings" id="authOpensubtitles">
+                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
+                                    <%= i18n.__("Connect To %s", "OpenSubtitles") %>
+                                </div>
+                            </span>
+                            <span>
+                                <em><%= i18n.__("%s stores an encrypted hash of your password in your local database", Settings.projectName) %></em>
+                            </span>
+                        <% } %>
+                        <span class="advanced">
+                            <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
+                            <label class="settings-label" for="opensubtitlesAutoUpload"><%= i18n.__("Automatic Subtitle Uploading") %></label>
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
         <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
       </div>
 
     </div>
 
-    <section id="user-interface">
-        <div class="title"><%= i18n.__("User Interface") %></div>
-        <div class="content">
-            <span>
-                <div class="dropdown subtitles-language">
-                    <p><%= i18n.__("Default Language") %></p>
-                    <%
-                        var langs = "";
-                        for(var key in App.Localization.allTranslations) {
-                                key = App.Localization.allTranslations[key];
-                                if (App.Localization.langcodes[key] !== undefined) {
-                                langs += "<option "+(Settings.language == key? "selected='selected'":"")+" value='"+key+"'>"+
-                                            App.Localization.langcodes[key].nativeName+"</option>";
-                            }
-                        }
-                    %>
-                    <select name="language"><%=langs%></select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-
-            <span>
-                <div class="dropdown pct-theme">
-                    <p><%= i18n.__("Theme") %></p>
-                    <%
-                        var themes = "";
-                        var theme_files = fs.readdirSync('./src/app/themes/');
-                        for (var i in theme_files) {
-                            if (theme_files[i].indexOf('_theme') > -1) {
-                                themes += "<option " + (Settings.theme == theme_files[i].slice(0, -4)? "selected='selected'" : "") + " value='" + theme_files[i].slice(0, -4) + "'>" +
-                                theme_files[i].slice(0, -10).split('_').join(' '); + "</option>";
-                            }
-                            if (theme_files[i] === 'third_party') {
-                                var third_party_files = fs.readdirSync('./src/app/themes/third_party');
-                                for (var k in third_party_files) {
-                                    if (third_party_files[k].indexOf('_theme') > -1) {
-                                        themes += "<option " + (Settings.theme == 'third_party\/' + third_party_files[k].slice(0, -4)? "selected='selected'" : "") + " value='" + 'third_party\/' + third_party_files[k].slice(0, -4) + "'>" +
-                                        third_party_files[k].slice(0, -10).split('_').join(' '); + "</option>";
-                                    }
-                                }
-                            }
-                        }
-                    %>
-                    <select name="theme"><%=themes%></select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-
-            <span class="advanced">
-                <div class="dropdown start-screen">
-                    <p><%= i18n.__("Start Screen") %></p>
-                        <%
-                            var arr_screens = ["Movies","TV Series","Anime","Indie","Favorites", "Watchlist", "Last Open"];
-
-                            var selct_start_screen = "";
-                            for(var key in arr_screens) {
-                                selct_start_screen += "<option "+(Settings.start_screen == arr_screens[key]? "selected='selected'":"")+" value='"+arr_screens[key]+"'>"+i18n.__(arr_screens[key])+"</option>";
-                            }
-                        %>
-                    <select name="start_screen"><%=selct_start_screen%></select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-
-            <span class="advanced">
-                <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
-                <label class="settings-label" for="translateSynopsis"><%= i18n.__("Translate Synopsis") %></label>
-            </span>
-            <span class="advanced">
-                <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb3"><%= i18n.__("Show rating over covers") %></label>
-            </span>
-
-            <span class="advanced">
-                <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb4"><%= i18n.__("Always On Top") %></label>
-            </span>
-
-            <span class="advanced">
-                <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb7"><%= i18n.__("Remember Filters") %></label>
-            </span>
-
-            <span class="advanced">
-                <div class="dropdown watchedCovers">
-                    <p><%= i18n.__("Watched Items") %></p>
-                        <%
-                            var watch_type = {
-                                "none": "Show",
-                                "fade": "Fade",
-                                "hide": "Hide"
-                            };
-
-                            var select_watched_cover = "";
-                            for(var key in watch_type) {
-                                select_watched_cover += "<option "+(Settings.watchedCovers == key? "selected='selected'":"")+" value='"+key+"'>"+i18n.__(watch_type[key])+"</option>";
-                            }
-                        %>
-                    <select name="watchedCovers"><%=select_watched_cover%></select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-
-        </div>
-    </section>
+    
 
     
 
@@ -323,112 +544,7 @@
         </div>
     </section>
 
-    <% if(App.Trakt) { %>
-    <section id="trakt-tv">
-        <div class="title">Trakt.tv</div>
-        <div class="content">
-            <div class="trakt-options<%= App.Trakt.authenticated ? " authenticated" : "" %>">
-                <% if(App.Trakt.authenticated) { %>
-                    <span>
-                        <%= i18n.__("You are currently connected to %s", "Trakt.tv") %>.
-                        <a id="unauthTrakt" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                    </span>
-                    <span>
-                        <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
-                        <label class="settings-label" for="traktSyncOnStart"><%= i18n.__("Automatically Sync on Start") %></label>
-                    </span>
-                    <span>
-                        <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
-                        <label class="settings-label" for="traktPlayback"><%= i18n.__("Resume Playback") %></label>
-                    </span>
-                    <span class="advanced">
-                        <div class="btn-settings syncTrakt" id="syncTrakt">
-                            <i class="fa fa-refresh">&nbsp;&nbsp;</i>
-                            <%= i18n.__("Sync With Trakt") %>
-                        </div>
-                    </span>
-                <% } else { %>
-                    <span>
-                        <%= i18n.__("Connect to %s to automatically 'scrobble' episodes you watch in %s", "Trakt.tv", Settings.projectName) %>
-                    </span>
-                    <span>
-                        <div class="btn-settings syncTrakt" id="authTrakt">
-                            <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                            <%= i18n.__("Connect To %s", "Trakt") %>
-                        </div>
-                        <div id="authTraktCode" style="display:none">
-                            <%= i18n.__("Code:")%>    
-                            <input type="text" size="20" readonly/>
-                        </div>
-                    </span>
-                <% } %>
-            </div>
-        </div>
-    </section>
-    <% } %>
-
-    <% if(App.TVShowTime) { %>
-	<section id="tvshowtime">
-		<div class="title">TVShow Time</div>
-		<div class="content">
-			<div class="tvshowtime-options <%= App.TVShowTime.authenticated ? " authenticated" : "" %>">
-				<% if(App.TVShowTime.authenticated) { %>
-                    <span>
-                        <%= i18n.__("You are currently connected to %s", "TVShow Time") %>.
-                        <a id="disconnect-tvst" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                    </span>
-				<% } else { %>
-                    <span>
-                        <div class="btn-settings" id="connect-with-tvst">
-                            <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                            <%= i18n.__("Connect To %s", "TVShow Time") %>
-                        </div>
-                        <div class="tvst-loading-spinner" style="display: none"></div>
-                    </span>
-				<% } %>
-			</div>
-		</div>
-	</section>
-    <% } %>
-
-    <section id="opensubtitles">
-        <div class="title">OpenSubtitles</div>
-        <div class="content">
-            <div class="opensubtitles-options">
-                <% if(Settings.opensubtitlesAuthenticated) { %>
-                    <span>
-                        <%= i18n.__("You are currently connected to %s", "OpenSubtitles") %>.
-                        <a id="unauthOpensubtitles" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                    </span>
-                <% } else { %>
-					<span>
-						<p><%= i18n.__("Username") %></p>
-						<input type="text" size="50" id="opensubtitlesUsername" name="opensubtitlesUsername">
-                        <div class="loading-spinner" style="display: none"></div>
-                        <div class="valid-tick" style="display: none"></div>
-                        <div class="invalid-cross" style="display: none"></div>
-					</span>
-					<span>
-						<p><%= i18n.__("Password") %></p>
-						<input type="password" size="50" id="opensubtitlesPassword" name="opensubtitlesPassword">
-					</span>
-                    <span>
-                        <div class="btn-settings" id="authOpensubtitles">
-                            <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                            <%= i18n.__("Connect To %s", "OpenSubtitles") %>
-                        </div>
-                    </span>
-					<span>
-						<em><%= i18n.__("%s stores an encrypted hash of your password in your local database", Settings.projectName) %></em>
-					</span>
-                <% } %>
-                <span class="advanced">
-                    <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
-                    <label class="settings-label" for="opensubtitlesAutoUpload"><%= i18n.__("Automatic Subtitle Uploading") %></label>
-                </span>
-            </div>
-        </div>
-    </section>
+   
 
     <section id="features">
         <div class="title"><%= i18n.__("Features") %></div>
@@ -448,41 +564,7 @@
         </div>
     </section>
 
-    <section id="remote-control" class="advanced">
-        <div class="title"><%= i18n.__("Remote Control") %></div>
-        <div class="content">
-            <span>
-                <p><%= i18n.__("Local IP Address") %></p>
-                <input type="text" id="settingsIpAddr" value="<%= Settings.ipAddress %>" readonly="readonly" size="20" />
-            </span>
-            <span>
-                <p><%= i18n.__("HTTP API Port") %></p>
-                <input id="httpApiPort" type="number" size="5" name="httpApiPort" value="<%=Settings.httpApiPort%>">
-            </span>
-            <span>
-                <p><%= i18n.__("HTTP API Username") %></p>
-                <input id="httpApiUsername" type="text" size="50" name="httpApiUsername" value="<%=Settings.httpApiUsername%>">
-            </span>
-            <span>
-                <p><%= i18n.__("HTTP API Password") %></p>
-                <input id="httpApiPassword" type="text" size="50" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
-            </span>
-            <div class="btns advanced database">
-                <div class="btn-settings database qr-code">
-                    <i class="fa fa-qrcode">&nbsp;&nbsp;</i>
-                    <%= i18n.__("Generate Pairing QR code") %>
-                </div>
-            </div>
-            <div id="qrcode-overlay"></div>
-            <div id="qrcode-modal">
-                <span class="fa-stack fa-1x" id="qrcode-close">
-                    <i class="fa fa-circle-thin fa-stack-2x" style="margin-top: -2px;"></i>
-                    <i class="fa fa-times fa-stack-1x" style="margin-top: -2px;"></i>
-                </span>
-                <canvas id="qrcode" width="200" height="200"></canvas>
-            </div><!-- /.modal -->
-        </div>
-    </section>
+    
 
     <section id="connection" class="advanced">
         <div class="title"><%= i18n.__("Connection") %></div>
