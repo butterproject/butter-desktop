@@ -91,7 +91,7 @@
     });
 
 
-    App.View.DetailMeat = App.View.Generic(Backbone.Marionette.LayoutView, {
+    App.View.DetailCard = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#movie-detail-tpl',
         className: 'movie-detail',
 

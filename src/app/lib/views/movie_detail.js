@@ -4,14 +4,14 @@
     App.View.MovieDetail = App.View.GenericDetail.extend({
         regions: {
             ActionBar:  '#action-bar',
-            DetailMeat: '#detail-meat'
+            DetailCard: '#detail-card'
         },
         loadComponents: function() {
             this.showView(this.ActionBar, new App.View.ActionBar({
                 model: this.model
             }));
 
-            this.showView(this.DetailMeat, new App.View.DetailMeat({
+            this.showView(this.DetailCard, new App.View.DetailCard({
                 model: this.model
             }));
         }
