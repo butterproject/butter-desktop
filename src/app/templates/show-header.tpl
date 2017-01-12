@@ -11,7 +11,7 @@
         <a class="source" role="button" data-toggle="collapse" data-parent="#accordion"
            href="#show-detail-collapse-<%= season %>"
            aria-expanded="false" aria-controls="show-detail-collapse-<%= season %>">
-            <%= i18n.__('Season ' + season) %>
+            <%= i18n.__('Season %s', season) %>
         </a>
         <ul id="show-detail-collapse-<%= season %>" class="episode-list panel-collapse collapse" role="tabpanel">
             <%_.each(episodes, function(value, episode) { %>
