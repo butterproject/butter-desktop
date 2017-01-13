@@ -23,9 +23,4 @@
         </ul>
     </li>
     <% }) %>
-    <ul class="nav-show">
-        <li><i class="material-icons">keyboard_arrow_left</i></li>
-        <li><i class="material-icons">keyboard_arrow_right</i></li>
-    </ul>
 </ul>
-
