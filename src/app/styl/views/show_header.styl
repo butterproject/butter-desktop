@@ -4,8 +4,8 @@
         top 100px
         background transparent
         padding-top: 0
-        left: 20px
-        right: 20px
+        left: 0px
+        right: 0px
 
         .panel
             background transparent
@@ -35,26 +35,33 @@
                 li
                     display: inline-block
                     padding: 5px
+
             &::-webkit-scrollbar
-                height: 3px
+                width: 0
+                height: 25px
 
-            &::-webkit-scrollbar-track
-                background-color: rgba(0,0,0,0.15)
-                border-radius: 2px
-                margin: 0
+            &::-webkit-scrollbar-button:horizontal
+                display: block
+                width: 25px
+                background-color: rgba(0,0,0,0.75)
 
-            &::-webkit-scrollbar-thumb
-                background-color: rgba(255,255,255,0.25)
-                border-radius: 2px
+            &::-webkit-scrollbar-button:decrement
+                background-image: url('../images/icons/scrollbar/scroll-left.png')
+                background-repeat: no-repeat
+                background-position: center
+                background-size: 75%
 
-                &:hover
-                    background-color: rgba(255,255,255,0.5)
+            &::-webkit-scrollbar-button:increment
+                background-image: url('../images/icons/scrollbar/scroll-right.png')
+                background-repeat: no-repeat
+                background-position: center
+                background-size: 75%
 
-            &::-webkit-resizer,
-            &::-webkit-scrollbar-corner,
-            &::-webkit-scrollbar-button,
-            &::-webkit-scrollbar-track-piece
-                display none
+            &::-webkit-scrollbar-button:start
+                display: none
+
+            &::-webkit-scrollbar-button:end
+                display: block
 
             .episode-list
                 width: 100%;
