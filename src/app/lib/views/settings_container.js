@@ -74,7 +74,7 @@
 
         onRender: function () {
             if (App.settings.showAdvancedSettings) {
-                $('.advanced').css('display', 'block');
+                $('.advanced').css('display', 'none');
             }
             oldTmpLocation = $('#faketmpLocation').val();
         },

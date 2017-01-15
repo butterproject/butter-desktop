@@ -218,9 +218,14 @@
         <div role="tabpanel" class="tab-pane" id="interface">
             <section id="user-interface">
                 <div class="content">
-                    <span>
-                        <div class="dropdown subtitles-language">
-                            <p><%= i18n.__("Default Language") %></p>
+                    <div class="settings-row subtitles-language">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Default Language") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
                             <%
                                 var langs = "";
                                 for(var key in App.Localization.allTranslations) {
@@ -234,11 +239,15 @@
                             <select name="language"><%=langs%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
 
-                    <span>
-                        <div class="dropdown pct-theme">
-                            <p><%= i18n.__("Theme") %></p>
+                    <div class="settings-row pct-theme">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Theme") %></div>
+                            <div class="helper">Some text for help.</div>
+                        </div>
+                        <div class="action-item">
                             <%
                                 var themes = "";
                                 var theme_files = fs.readdirSync('./src/app/themes/');
@@ -261,12 +270,17 @@
                             <select name="theme"><%=themes%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
 
-                    <span class="advanced">
-                        <div class="dropdown start-screen">
-                            <p><%= i18n.__("Start Screen") %></p>
-                                <%
+                    <div class="settings-row advanced start-screen">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Start Screen") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <%
                                     var arr_screens = ["Movies","TV Series","Anime","Indie","Favorites", "Watchlist", "Last Open"];
 
                                     var selct_start_screen = "";
@@ -277,31 +291,68 @@
                             <select name="start_screen"><%=selct_start_screen%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
 
-                    <span class="advanced">
-                        <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
-                        <label class="settings-label" for="translateSynopsis"><%= i18n.__("Translate Synopsis") %></label>
-                    </span>
-                    <span class="advanced">
-                        <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
-                        <label class="settings-label" for="cb3"><%= i18n.__("Show rating over covers") %></label>
-                    </span>
+                    <div class="settings-row advanced">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Translate Synopsis") %></div>
+                            <div class="helper">Some text for help.</div>
 
-                    <span class="advanced">
-                        <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
-                        <label class="settings-label" for="cb4"><%= i18n.__("Always On Top") %></label>
-                    </span>
+                        </div>
+                        <div class="action-item">
+                            <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
+                        </div>
+                    </div>
 
-                    <span class="advanced">
-                        <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
-                        <label class="settings-label" for="cb7"><%= i18n.__("Remember Filters") %></label>
-                    </span>
 
-                    <span class="advanced">
-                        <div class="dropdown watchedCovers">
-                            <p><%= i18n.__("Watched Items") %></p>
-                                <%
+                    <div class="settings-row advanced">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Show rating over covers") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
+                        </div>
+                    </div>
+
+
+                    <div class="settings-row advanced">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Always On Top") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
+                        </div>
+                    </div>
+
+
+                    <div class="settings-row advanced">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Remember Filters") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
+                        </div>
+                    </div>
+
+                    <div class="settings-row watchedCovers">
+                        <i class="material-icons">settings_applications</i>
+                        <div class="text">
+                            <div class="item-title"><%= i18n.__("Watched Items") %></div>
+                            <div class="helper">Some text for help.</div>
+
+                        </div>
+                        <div class="action-item">
+                            <%
                                     var watch_type = {
                                         "none": "Show",
                                         "fade": "Fade",
@@ -316,15 +367,17 @@
                             <select name="watchedCovers"><%=select_watched_cover%></select>
                             <div class="dropdown-arrow"></div>
                         </div>
-                    </span>
+                    </div>
+
 
                 </div>
             </section>
         </div>
         <div role="tabpanel" class="tab-pane" id="extensions">
             <section id="remote-control" class="advanced">
-                <div class="title"><%= i18n.__("Remote Control") %></div>
+                
                 <div class="content">
+                    <div class="title"><%= i18n.__("Remote Control") %></div>
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">subtitles</i>
                         <div class="text">
@@ -355,7 +408,7 @@
 
                         </div>
                         <div class="action-item">
-                            <input id="httpApiUsername" type="text" size="50" name="httpApiUsername" value="<%=Settings.httpApiUsername%>">
+                            <input id="httpApiUsername" type="text" name="httpApiUsername" value="<%=Settings.httpApiUsername%>">
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
@@ -366,7 +419,7 @@
 
                         </div>
                         <div class="action-item">
-                            <input id="httpApiPassword" type="text" size="50" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
+                            <input id="httpApiPassword" type="text" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
@@ -376,8 +429,8 @@
                             <div class="helper">Some text for help.</div>
 
                         </div>
-                        <div class="action-item">
-                             <div class="btn-settings database qr-code">
+                        <div class="action-item database">
+                             <div class="btn database qr-code">
                                 Action
                              </div>
                             <div id="qrcode-overlay"></div>
@@ -396,43 +449,80 @@
             </section>
              <% if(App.Trakt) { %>
             <section id="trakt-tv">
-                <div class="title">Trakt.tv</div>
+                
                 <div class="content">
+                    <div class="title">Trakt.tv</div>
                     <div class="trakt-options<%= App.Trakt.authenticated ? " authenticated" : "" %>">
                         <% if(App.Trakt.authenticated) { %>
-                            <span>
-                                <%= i18n.__("You are currently connected to %s", "Trakt.tv") %>.
-                                <a id="unauthTrakt" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                            </span>
-                            <span>
-                                <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
-                                <label class="settings-label" for="traktSyncOnStart"><%= i18n.__("Automatically Sync on Start") %></label>
-                            </span>
-                            <span>
-                                <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
-                                <label class="settings-label" for="traktPlayback"><%= i18n.__("Resume Playback") %></label>
-                            </span>
-                            <span class="advanced">
-                                <div class="btn-settings syncTrakt" id="syncTrakt">
-                                    <i class="fa fa-refresh">&nbsp;&nbsp;</i>
-                                    <%= i18n.__("Sync With Trakt") %>
+                            <div class="settings-row">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("You are currently connected to %s", "Trakt.tv") %>.</div>
+                                    <div class="helper">Some text for help.</div>
+
                                 </div>
-                            </span>
-                        <% } else { %>
-                            <span>
-                                <%= i18n.__("Connect to %s to automatically 'scrobble' episodes you watch in %s", "Trakt.tv", Settings.projectName) %>
-                            </span>
-                            <span>
-                                <div class="btn-settings syncTrakt" id="authTrakt">
-                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                                    <%= i18n.__("Connect To %s", "Trakt") %>
+                                <div class="action-item">
+                                    <a id="unauthTrakt" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
                                 </div>
-                                <div id="authTraktCode" style="display:none">
-                                    <%= i18n.__("Code:")%>    
-                                    <input type="text" size="20" readonly/>
+                            </div>
+
+                            <div class="settings-row">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Automatically Sync on Start") %></div>
+                                    <div class="helper">Some text for help.</div>
+
                                 </div>
-                            </span>
-                        <% } %>
+                                <div class="action-item">
+                                    <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Resume Playback") %></div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
+                                </div>
+                            </div>
+
+                            <div class="settings-row advanced">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Sync With Trakt") %></div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <div class="btn syncTrakt" id="syncTrakt">
+                                        <i class="fa fa-refresh">&nbsp;&nbsp;</i>
+                                        Sync
+                                    </div>
+                                </div>
+                            </div>
+                            <% } else { %>
+                            <div class="settings-row">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Connect to %s to automatically 'scrobble' episodes you watch in %s", "Trakt.tv", Settings.projectName) %></div>
+                                    <div class="helper">Some text for help.</div>
+                                </div>
+                                <div class="action-item">
+                                    <div class="btn syncTrakt" id="authTrakt">
+                                        <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
+                                        <%= i18n.__("Connect To %s", "Trakt") %>
+                                    </div>
+                                    <div id="authTraktCode" style="display:none">
+                                        <%= i18n.__("Code:")%>    
+                                        <input type="text" size="20" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                     </div>
                 </div>
             </section>
@@ -440,22 +530,38 @@
 
             <% if(App.TVShowTime) { %>
             <section id="tvshowtime">
-                <div class="title">TVShow Time</div>
+                
                 <div class="content">
+                    <div class="title">TVShow Time</div>
                     <div class="tvshowtime-options <%= App.TVShowTime.authenticated ? " authenticated" : "" %>">
                         <% if(App.TVShowTime.authenticated) { %>
-                            <span>
-                                <%= i18n.__("You are currently connected to %s", "TVShow Time") %>.
-                                <a id="disconnect-tvst" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                            </span>
+                            <div class="settings-row">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("You are currently connected to %s", "TVShow Time") %>.</div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <a id="disconnect-tvst" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
+                                </div>
+                            </div>
                         <% } else { %>
-                            <span>
-                                <div class="btn-settings" id="connect-with-tvst">
-                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                                    <%= i18n.__("Connect To %s", "TVShow Time") %>
+                            <div class="settings-row ">
+                                <i class="material-icons">tv</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Connect To %s", "TVShow Time") %></div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <div class="btn" id="connect-with-tvst">
+                                    <i class="material-icons">insert_link</i>
+                                    Connect
                                 </div>
                                 <div class="tvst-loading-spinner" style="display: none"></div>
-                            </span>
+                                </div>
+                            </div>
                         <% } %>
                     </div>
                 </div>
@@ -463,45 +569,389 @@
             <% } %>
 
             <section id="opensubtitles">
-                <div class="title">OpenSubtitles</div>
+                
                 <div class="content">
+                    <div class="title">OpenSubtitles</div>
                     <div class="opensubtitles-options">
                         <% if(Settings.opensubtitlesAuthenticated) { %>
-                            <span>
-                                <%= i18n.__("You are currently connected to %s", "OpenSubtitles") %>.
-                                <a id="unauthOpensubtitles" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
-                            </span>
-                        <% } else { %>
-                            <span>
-                                <p><%= i18n.__("Username") %></p>
-                                <input type="text" size="50" id="opensubtitlesUsername" name="opensubtitlesUsername">
-                                <div class="loading-spinner" style="display: none"></div>
-                                <div class="valid-tick" style="display: none"></div>
-                                <div class="invalid-cross" style="display: none"></div>
-                            </span>
-                            <span>
-                                <p><%= i18n.__("Password") %></p>
-                                <input type="password" size="50" id="opensubtitlesPassword" name="opensubtitlesPassword">
-                            </span>
-                            <span>
-                                <div class="btn-settings" id="authOpensubtitles">
-                                    <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
-                                    <%= i18n.__("Connect To %s", "OpenSubtitles") %>
+                            <div class="settings-row">
+                                <i class="material-icons">subtitles</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("You are currently connected to %s", "OpenSubtitles") %>.</div>
+                                    <div class="helper">Some text for help.</div>
+
                                 </div>
-                            </span>
-                            <span>
-                                <em><%= i18n.__("%s stores an encrypted hash of your password in your local database", Settings.projectName) %></em>
-                            </span>
+                                <div class="action-item">
+                                    <a id="unauthOpensubtitles" class="unauthtext" href="#"><%= i18n.__("Disconnect account") %></a>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="settings-row">
+                                <i class="material-icons">subtitles</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Username") %></div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <input type="text" id="opensubtitlesUsername" name="opensubtitlesUsername">
+                                    <div class="loading-spinner" style="display: none"></div>
+                                    <div class="valid-tick" style="display: none"></div>
+                                    <div class="invalid-cross" style="display: none"></div>
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <i class="material-icons">subtitles</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Password") %></div>
+                                    <div class="helper">Some text for help.</div>
+
+                                </div>
+                                <div class="action-item">
+                                    <input type="password"  id="opensubtitlesPassword" name="opensubtitlesPassword">
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <i class="material-icons">subtitles</i>
+                                <div class="text">
+                                    <div class="item-title"><%= i18n.__("Connect To %s", "OpenSubtitles") %></div>
+                                    <div class="helper"><%= i18n.__("%s stores an encrypted hash of your password in your local database", Settings.projectName) %></div>
+
+                                </div>
+                                <div class="action-item">
+                                    <div class="btn" id="authOpensubtitles">
+                                        <i class="material-icons">link</i>
+                                        Connect
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                        
                         <% } %>
-                        <span class="advanced">
-                            <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
-                            <label class="settings-label" for="opensubtitlesAutoUpload"><%= i18n.__("Automatic Subtitle Uploading") %></label>
-                        </span>
+                        <div class="settings-row advanced">
+                            <i class="material-icons">subtitles</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Automatic Subtitle Uploading") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+    
                     </div>
                 </div>
             </section>
         </div>
-        <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+        <div role="tabpanel" class="tab-pane" id="settings">
+            <section>
+                    <div class="content">
+                        <div class="settings-row advanced movies-quality">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Only list movies in") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <select name="movies_quality">
+                                    <option <%=(Settings.movies_quality == "all"? "selected='selected'":"") %> value="all"><%= i18n.__("All") %></option>
+                                    <option <%=(Settings.movies_quality == "1080p"? "selected='selected'":"") %> value="1080p">1080p</option>
+                                    <option <%=(Settings.movies_quality == "720p"? "selected='selected'":"") %> value="720p">720p</option>
+                                </select>
+                                <div class="dropdown-arrow"></div>
+                            </div>
+                        </div>
+
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Show movie quality on list") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="moviesShowQuality" id="cb1" type="checkbox" <%=(Settings.moviesShowQuality? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Always start playing in fullscreen") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="alwaysFullscreen" id="alwaysFullscreen" type="checkbox" <%=(Settings.alwaysFullscreen? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Play next episode automatically") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="playNextEpisodeAuto" id="playNextEpisodeAuto" type="checkbox" <%=(Settings.playNextEpisodeAuto? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+
+                         <div class="settings-row">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Torrent Collection") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="activateTorrentCollection" id="activateTorrentCollection" type="checkbox" <%=(Settings.activateTorrentCollection? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+
+                         <div class="settings-row">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Watchlist") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+
+                         <div class="settings-row">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Randomize Button for Movies") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="activateRandomize" id="activateRandomize" type="checkbox" <%=(Settings.activateRandomize? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+                        <% if(Settings.tvAPI) { %>
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("TV Show API Endpoint") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input id="tvAPI" type="text" size="50" name="tvAPI" value="<%=Settings.tvAPI[0].url%>">
+                                <% if (Settings.tvAPI.length <= 1) { %>
+                                &nbsp;&nbsp;<i class="reset-tvAPI fa fa-undo tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__('Reset to Default Settings') %>"></i>
+                                <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Connection Limit") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input id="connectionLimit" type="text" size="20" name="connectionLimit" value="<%=Settings.connectionLimit%>"/>
+                            </div>
+                        </div>
+
+                         <div class="settings-row advanced ">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Port to stream on") %></div>
+                                <div class="helper"><%= i18n.__("0 = Random") %></div>
+
+                            </div>
+                            <div class="action-item">
+                                <input id="streamPort" type="text" size="20" name="streamPort" value="<%=Settings.streamPort%>"/>
+                            </div>
+                        </div>
+
+                         <div class="settings-row advanced " id="overallRatio">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Overall Ratio") %></div>
+                                <div class="helper"><%= Common.fileSize(Settings.totalDownloaded) %><i class="material-icons">arrow_upward</i><%= Common.fileSize(Settings.totalUploaded) %><i class="material-icons">arrow_downward</i></div>
+
+                            </div>
+                            <div class="action-item">
+                                <% var overallRatio = function () {
+                                var ratio = (Settings.totalUploaded / Settings.totalDownloaded).toFixed(2);
+                                isNaN(ratio) ? ratio = i18n.__("None") : ratio;
+                                return ratio;
+                               }
+                            %>
+                            <input type="text" size="20" name="overallRatio" value="<%= overallRatio() %>">
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced" id="cache">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Cache Directory") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <span>
+                                    <input type="text" placeholder="<%= i18n.__("Cache Directory") %>" id="faketmpLocation" value="<%= Settings.tmpLocation %>" readonly="readonly" />
+                                    <i class="open-tmp-folder material-icons tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Cache Directory") %>">folder_open</i>
+                                    <input type="file" name="tmpLocation" id="tmpLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.tmpLocation %>" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Clear Tmp Folder after closing app?") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="deleteTmpOnClose" id="cb2" type="checkbox" <%=(Settings.deleteTmpOnClose? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced" id="database" >
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Database Directory") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <span>
+                                    <input type="text" placeholder="<%= i18n.__("Database Directory") %>" id="fakedatabaseLocation" value="<%= Settings.databaseLocation %>" readonly="readonly" />
+                                    <i class="open-database-folder material-icons tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Database Directory") %>">folder_open</i>
+                                    <input type="file" name="fakedatabaseLocation" id="fakedatabaseLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.databaseLocation %>" />
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Import Database") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <div class="btn database import-database">
+                                        <i class="material-icons">file_download</i>
+                                        <%= i18n.__("Import Database") %>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Export Database") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <div class="btn database export-database">
+                                        <i class="material-icons">file_upload</i>
+                                        <%= i18n.__("Export Database") %>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("When Opening TV Series Detail Jump To") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <%
+                                                var tv_detail_jump_to = {
+                                                    "firstUnwatched": "First Unwatched Episode",
+                                                    "next": "Next Episode In Series"
+                                                };
+
+                                                var selected_tv_detail_jump = "";
+                                                for(var key in tv_detail_jump_to) {
+                                                    selected_tv_detail_jump += "<option "+(Settings.tv_detail_jump_to == key? "selected='selected'":"")+" value='"+key+"'>"+i18n.__(tv_detail_jump_to[key])+"</option>";
+                                                }
+                                            %>
+                                        <select name="tv_detail_jump_to"><%=selected_tv_detail_jump%></select>
+                                        <div class="dropdown-arrow"></div>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Activate automatic updating") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="automaticUpdating" id="cb5" type="checkbox" <%=(Settings.automaticUpdating? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Celebrate various events") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Minimize to Tray") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+                        <div class="settings-row advanced">
+                            <i class="material-icons">settings_applications</i>
+                            <div class="text">
+                                <div class="item-title"><%= i18n.__("Big Picture Mode") %></div>
+                                <div class="helper">Some text for help.</div>
+
+                            </div>
+                            <div class="action-item">
+                                <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
+                            </div>
+                        </div>
+
+                       
+                </section>
+    
+        </div>
       </div>
 
     </div>
@@ -510,176 +960,12 @@
 
     
 
-    <section id="quality" class="advanced">
-        <div class="title"><%= i18n.__("Quality") %></div>
-        <div class="content">
-            <span>
-                <div class="dropdown movies-quality">
-                    <p><%= i18n.__("Only list movies in") %></p>
-                    <select name="movies_quality">
-                        <option <%=(Settings.movies_quality == "all"? "selected='selected'":"") %> value="all"><%= i18n.__("All") %></option>
-                        <option <%=(Settings.movies_quality == "1080p"? "selected='selected'":"") %> value="1080p">1080p</option>
-                        <option <%=(Settings.movies_quality == "720p"? "selected='selected'":"") %> value="720p">720p</option>
-                    </select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="moviesShowQuality" id="cb1" type="checkbox" <%=(Settings.moviesShowQuality? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb1"><%= i18n.__("Show movie quality on list") %></label>
-            </span>
-        </div>
-    </section>
-    <section id="playback">
-        <div class="title"><%= i18n.__("Playback") %></div>
-        <div class="content">
-            <span class="advanced">
-                <input class="settings-checkbox" name="alwaysFullscreen" id="alwaysFullscreen" type="checkbox" <%=(Settings.alwaysFullscreen? "checked='checked'":"")%>>
-                <label class="settings-label" for="alwaysFullscreen"><%= i18n.__("Always start playing in fullscreen") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="playNextEpisodeAuto" id="playNextEpisodeAuto" type="checkbox" <%=(Settings.playNextEpisodeAuto? "checked='checked'":"")%>>
-                <label class="settings-label" for="playNextEpisodeAuto"><%= i18n.__("Play next episode automatically") %></label>
-            </span>
-        </div>
-    </section>
-
-   
-
-    <section id="features">
-        <div class="title"><%= i18n.__("Features") %></div>
-        <div class="content">
-            <span>
-                <input class="settings-checkbox" name="activateTorrentCollection" id="activateTorrentCollection" type="checkbox" <%=(Settings.activateTorrentCollection? "checked='checked'":"")%>>
-                <label class="settings-label" for="activateTorrentCollection"><%= i18n.__("Torrent Collection") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
-                <label class="settings-label" for="activateWatchlist"><%= i18n.__("Watchlist") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="activateRandomize" id="activateRandomize" type="checkbox" <%=(Settings.activateRandomize? "checked='checked'":"")%>>
-                <label class="settings-label" for="activateRandomize"><%= i18n.__("Randomize Button for Movies") %></label>
-            </span>
-        </div>
-    </section>
-
     
-
-    <section id="connection" class="advanced">
-        <div class="title"><%= i18n.__("Connection") %></div>
-        <div class="content">
-            <% if(Settings.tvAPI) { %>
-            <span>
-                <p><%= i18n.__("TV Show API Endpoint") %></p>
-                    <input id="tvAPI" type="text" size="50" name="tvAPI" value="<%=Settings.tvAPI[0].url%>">
-                    <% if (Settings.tvAPI.length <= 1) { %>
-                    &nbsp;&nbsp;<i class="reset-tvAPI fa fa-undo tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__('Reset to Default Settings') %>"></i>
-                    <% } %>
-            </span>
-            <% } %>
-            <span>
-                <p><%= i18n.__("Connection Limit") %></p>
-                <input id="connectionLimit" type="text" size="20" name="connectionLimit" value="<%=Settings.connectionLimit%>"/>
-            </span>
-            <span>
-                <p><%= i18n.__("Port to stream on") %></p>
-                <input id="streamPort" type="text" size="20" name="streamPort" value="<%=Settings.streamPort%>"/>&nbsp;&nbsp;<em><%= i18n.__("0 = Random") %></em>
-            </span>
-            <span id="overallRatio">
-                <p><%= i18n.__("Overall Ratio") %></p>
-                <% var overallRatio = function () {
-                    var ratio = (Settings.totalUploaded / Settings.totalDownloaded).toFixed(2);
-                    isNaN(ratio) ? ratio = i18n.__("None") : ratio;
-                    return ratio;
-                   }
-                %>
-                <input type="text" size="20" name="overallRatio" value="<%= overallRatio() %>">&nbsp;&nbsp;<em><%= Common.fileSize(Settings.totalDownloaded) %><i class="fa fa-arrow-circle-down"></i><%= Common.fileSize(Settings.totalUploaded) %><i class="fa fa-arrow-circle-up"></i></em>
-            </span>
-        </div>
-    </section>
-
-    <section id="cache" class="advanced">
-        <div class="title"><%= i18n.__("Cache Directory") %></div>
-        <div class="content">
-            <span>
-                <p><%= i18n.__("Cache Directory") %></p>
-                <input type="text" placeholder="<%= i18n.__("Cache Directory") %>" id="faketmpLocation" value="<%= Settings.tmpLocation %>" readonly="readonly" size="65" />
-                <i class="open-tmp-folder fa fa-folder-open-o tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Cache Directory") %>"></i>
-                <input type="file" name="tmpLocation" id="tmpLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.tmpLocation %>" />
-            </span>
-            <span>
-                <input class="settings-checkbox" name="deleteTmpOnClose" id="cb2" type="checkbox" <%=(Settings.deleteTmpOnClose? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb2"><%= i18n.__("Clear Tmp Folder after closing app?") %></label>
-            </span>
-        </div>
-    </section>
-
-    <section id="database" class="advanced">
-        <div class="title"><%= i18n.__("Database") %></div>
-        <div class="content">
-            <span>
-                <p><%= i18n.__("Database Directory") %></p>
-                <input type="text" placeholder="<%= i18n.__("Database Directory") %>" id="fakedatabaseLocation" value="<%= Settings.databaseLocation %>" readonly="readonly" size="65" />
-                <i class="open-database-folder fa fa-folder-open-o tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Database Directory") %>"></i>
-                <input type="file" name="fakedatabaseLocation" id="fakedatabaseLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.databaseLocation %>" />
-            </span>
-            <div class="btns advanced database">
-                <div class="btn-settings database import-database">
-                    <i class="fa fa-level-down">&nbsp;&nbsp;</i>
-                    <%= i18n.__("Import Database") %>
-                </div>
-                <div class="btn-settings database export-database">
-                    <i class="fa fa-level-up">&nbsp;&nbsp;</i>
-                    <%= i18n.__("Export Database") %>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="miscellaneous" class="advanced">
-        <div class="title"><%= i18n.__("Miscellaneous") %></div>
-        <div class="content">
-            <span >
-                <div class="dropdown tv_detail_jump_to">
-                    <p><%= i18n.__("When Opening TV Series Detail Jump To") %></p>
-                        <%
-                            var tv_detail_jump_to = {
-                                "firstUnwatched": "First Unwatched Episode",
-                                "next": "Next Episode In Series"
-                            };
-
-                            var selected_tv_detail_jump = "";
-                            for(var key in tv_detail_jump_to) {
-                                selected_tv_detail_jump += "<option "+(Settings.tv_detail_jump_to == key? "selected='selected'":"")+" value='"+key+"'>"+i18n.__(tv_detail_jump_to[key])+"</option>";
-                            }
-                        %>
-                    <select name="tv_detail_jump_to"><%=selected_tv_detail_jump%></select>
-                    <div class="dropdown-arrow"></div>
-                </div>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="automaticUpdating" id="cb5" type="checkbox" <%=(Settings.automaticUpdating? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb5"><%= i18n.__("Activate automatic updating") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
-                <label class="settings-label" for="cb6"><%= i18n.__("Celebrate various events") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
-                <label class="settings-label" for="minimizeToTray"><%= i18n.__("Minimize to Tray") %></label>
-            </span>
-            <span>
-                <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
-                <label class="settings-label" for="bigPicture"><%= i18n.__("Big Picture Mode") %></label>
-            </span>
-        </div>
-    </section>
     <div class="btns">
-        <div class="btn-settings flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
-        <div class="btn-settings flush-subtitles advanced"><%= i18n.__("Flush subtitles cache") %></div>
-        <div class="btn-settings flush-databases"><%= i18n.__("Flush all databases") %></div>
-        <div class="btn-settings default-settings"><%= i18n.__("Reset to Default Settings") %></div>
+        <div class="btn flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
+        <div class="btn flush-subtitles advanced"><%= i18n.__("Flush subtitles cache") %></div>
+        <div class="btn flush-databases"><%= i18n.__("Flush all databases") %></div>
+        <div class="btn default-settings"><%= i18n.__("Reset to Default Settings") %></div>
     </div>
 
 </div>
