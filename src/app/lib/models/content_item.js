@@ -12,7 +12,6 @@
         initialize: function (attrs) {
             var providers = Object.assign(this.getProviders(), attrs.providers);
             this.set('providers', providers);
-            this.set('idAttribute', attrs.uniqueId || this.get('uniqueId') || this.idAttribute);
 
             providers.metadata &&
                 providers.metadata.getImages(attrs)
