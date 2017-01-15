@@ -103,6 +103,38 @@
             display: none
     .advanced
         display: none
+
+    .success_alert
+        position fixed
+        bottom 25px
+        right 50px
+        color $Text1
+        font-family $MainFont, $AlternateFont
+        font-size 16px
+
+        #checkmark-notify
+            display inline-block
+            width 20px
+            height 20px
+            transform rotate(45deg)
+
+        #stem-notify
+            position absolute
+            width 3px
+            height 12px
+            background-color $Text1
+            left 11px
+            top 6px
+
+        #kick-notify
+            position absolute
+            width 6px
+            height 3px
+            background-color $Text1
+            left 6px
+            top 15px
+
+
 .settings-container-contain
     section 
         display none
