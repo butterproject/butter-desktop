@@ -5,7 +5,7 @@
             <div class="go-back"><i class="material-icons">arrow_back</i><span><%= i18n.__("Settings") %></span></div>
             <ul class="toolbar">
                 <li>
-                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Keyboard Shortcuts") %>" class="material-icons health-icon <%= health %>">keyboard</i>
+                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Keyboard Shortcuts") %>" class="material-icons">keyboard</i>
                 </li>
                 <li>
                     <i data-toogle="tooltip" data-placement="left" title="<%= i18n.__("Help Section") %>" class="material-icons magnet-link">help_outline</i>
