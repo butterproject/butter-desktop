@@ -4,8 +4,6 @@
     var Provider = require('butter-provider');
 
     var Show = App.Model.ContentItem.extend({
-        idAttribute: 'tvdb_id',
-
         updateHealth: function () {
             var torrents = this.get('torrents');
 

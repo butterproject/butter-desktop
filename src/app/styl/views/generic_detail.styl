@@ -1,0 +1,36 @@
+@import 'action-bar'
+
+.generic-detail
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    flex-flow: row wrap
+    height: 100vh
+    width: 100vw
+    fixed: bottom left
+    user-select: none
+    backface-visibility: hidden
+    background-color: $BgColor1
+    position: fixed
+    z-index: 10
+    .backdrop-overlay
+        width: 100vw
+        height: 100vh
+        position: absolute
+        opacity: 0.85
+        background-color: $BackColor_dark
+
+    .backdrop
+        width: 100vw
+        height: 100vh
+        position: absolute
+        opacity: 0
+        background-position-x: 50%
+        background-position-y: -33px
+        -webkit-filter: blur(8px) brightness(0.7)
+        background-repeat: no-repeat
+        background-size: cover
+        transition: opacity .3s ease-in
+        
+        &.fadein
+            opacity: 1

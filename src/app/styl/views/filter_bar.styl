@@ -1,4 +1,4 @@
-.filter-bar
+.filter-bar, .show-header, .nav-tabs
     z-index: 10
     width: 100%
     opacity: 1
@@ -24,16 +24,18 @@
         font-size: 1.4em
         text-transform: uppercase
         border-bottom: 3px solid transparent
+        opacity: 0.4
 
         &:hover
-            color: $FilterBarTextHover
+            opacity: 0.9
             border-bottom: 3px solid rgba(255,255,255,0.2)
-        &.active
-            color: $FilterBarTextHover
+        &.active, &[aria-expanded*="true"]
             border-bottom: 3px solid $FilterBarActive
+            opacity: 1
 
     ul.nav-hor
-        display inline-block
+        display: flex
+        flex-wrap: nowrap
         vertical-align middle
         float: none
         &:before
