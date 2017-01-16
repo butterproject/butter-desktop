@@ -90,9 +90,10 @@
                             torrentProvider.hasMore = false;
                         }
 
-                        self.add(torrents.results.map(attrs => (
-                            App.Model.new(attrs)
-                        )));
+                        self.add(torrents.results
+                                         .map(attrs => (
+                                             App.Model.new(Object.assign(attrs, {idAttribute: torrentProvider.config.uniqueId}))
+                                         )));
 
                         // set state, can't fail
                         self.trigger('sync', self);
