@@ -26,10 +26,10 @@
      <!-- Nav tabs -->
      <div class="navbar-s">
           <ul id="myTabs" class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active source"><a href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</a></li>
-            <li role="presentation" class="source"><a href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</a></li>
-            <li role="presentation" class="source"><a href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</a></li>
-            <li role="presentation" class="source"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li  class="active source" href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</li>
+            <li  class="source" href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</li>
+            <li  class="source" href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</li>
+            <li  class="source" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</li>
           </ul>
       </div>
 
@@ -157,11 +157,13 @@
                         </div>
                     </div>
 
+
                     <div class="settings-row dropdown dropdown subtitles-size">
                         <i class="material-icons">color_lens</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Size") %></div>
                             <div class="helper">Some text for help.</div>
+
                         </div>
                         <div class="action-item">
                             <%
@@ -221,6 +223,7 @@
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Default Language") %></div>
                             <div class="helper">Some text for help.</div>
+
                         </div>
                         <div class="action-item">
                             <%
@@ -365,10 +368,11 @@
                             <div class="dropdown-arrow"></div>
                         </div>
                     </div>
+
+
                 </div>
             </section>
         </div>
-
         <div role="tabpanel" class="tab-pane" id="extensions">
             <section id="remote-control" class="advanced">
 
@@ -951,6 +955,11 @@
       </div>
 
     </div>
+
+
+
+
+
 
     <div class="btns">
         <div class="btn flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
