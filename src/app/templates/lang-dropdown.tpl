@@ -1,4 +1,4 @@
-<div class="dropup" >
+<div class="drop-selector dropup" >
     <div class="dropdown-toggle lang-dropdown" data-toggle="dropdown" >
         <i class="material-icons"><%= icon %></i>
         <span class="lang-name"><%= title %></span>
