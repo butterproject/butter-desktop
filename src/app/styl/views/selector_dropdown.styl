@@ -1,21 +1,23 @@
 .drop-selector
-    border 0
+    border-radius:  5px
+    border: 0
 
     .select-item
+        width: auto
+        display: inline-block
         .selected
-            margin 0
-            padding 0
-            font-family $MainFont
-            font-size 0.9em
-            line-height 0.75em
-            min-width 75px
-            text-transform capitalize
+            margin: 0
+            padding: 0
+            font-family: $MainFont
+            font-size: 0.9em
+            line-height: 0.75em
+            min-width: 150px
+            text-transform: capitalize
 
     .dropdown-toggle
-        display: flex
+        display: inline-block
         position relative
-        z-index: 99
-        padding: 5px 2px
+        padding: 0px 5px
         align-items: center
         cursor: pointer
         color: $ButtonText
@@ -24,23 +26,24 @@
         text-align: center
         font-size: 16px
         transition: background-color 0.5s
-        border-radius 3px
-        &:hover
-            background: rgba(0,0,0,0.2)
         i
             margin-right: 10px
             font-size 18px
 
+        i, div
+            display: inline-block
+            vertical-align middle
+
     .dropdown-menu
+        width: 100%
+        margin: 0
         padding: 0
         border: 0
+        border-radius: 5px 5px 0 0
         li
-            padding: 5px
+            padding-left: 10px
 
-
-    &.dropup
-        &.open
-            .lang-dropdown, &:hover
-                background: $ButtonBg
-                border-radius: $ButtonRadius
-                background-clip: padding-box
+    &.open
+        background: $ButtonBg
+        background-clip: padding-box
+        border-radius: 0 0 5px 5px
