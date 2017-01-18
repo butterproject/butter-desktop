@@ -159,7 +159,7 @@
 
 
                     <div class="settings-row dropdown dropdown subtitles-size">
-                        <i class="material-icons">color_lens</i>
+                        <i class="material-icons">format_size</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Size") %></div>
                             <div class="helper">Some text for help.</div>
@@ -180,7 +180,7 @@
                     </div>
 
                     <div class="settings-row advanced subtitles-custom">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">color_lens</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Color") %></div>
                             <div class="helper">Some text for help.</div>
@@ -242,7 +242,7 @@
                     </div>
 
                     <div class="settings-row pct-theme">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">format_paint</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Theme") %></div>
                             <div class="helper">Some text for help.</div>
@@ -294,7 +294,7 @@
                     </div>
 
                     <div class="settings-row advanced">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">translate</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Translate Synopsis") %></div>
                             <div class="helper">Some text for help.</div>
@@ -305,9 +305,8 @@
                         </div>
                     </div>
 
-
                     <div class="settings-row advanced">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">star_rate</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Show rating over covers") %></div>
                             <div class="helper">Some text for help.</div>
@@ -317,7 +316,6 @@
                             <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
                         </div>
                     </div>
-
 
                     <div class="settings-row advanced">
                         <i class="material-icons">settings_applications</i>
@@ -330,7 +328,6 @@
                             <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
                         </div>
                     </div>
-
 
                     <div class="settings-row advanced">
                         <i class="material-icons">settings_applications</i>
@@ -345,7 +342,7 @@
                     </div>
 
                     <div class="settings-row watchedCovers">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">visibility</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Watched Items") %></div>
                             <div class="helper">Some text for help.</div>
