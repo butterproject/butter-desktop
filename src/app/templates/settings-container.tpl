@@ -26,10 +26,10 @@
      <!-- Nav tabs -->
      <div class="navbar-s">
           <ul id="myTabs" class="nav nav-tabs" role="tablist">
-            <li  class="active source" href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</li>
-            <li  class="source" href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</li>
-            <li  class="source" href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</li>
             <li  class="source" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">General</li>
+            <li  class="source" href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</li>
+            <li  class="active source" href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</li>
+            <li  class="source" href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</li>
           </ul>
       </div>
 
