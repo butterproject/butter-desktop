@@ -38,6 +38,7 @@
         <div role="tabpanel" class="tab-pane active" id="player">
             <section id="subtitles">
                 <div class="content">
+                    <div class="title">Subtitles</div>
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">subtitles</i>
                         <div class="text">
