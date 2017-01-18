@@ -4,15 +4,12 @@
     height 100%
     width calc(100% - 5px)
     position fixed
-    scrollable()
     padding-top: $TitleHeight + 10px
-    &::-webkit-scrollbar-track
-        margin-top: $TitleHeight
 
     .settings-container
         z-index 1
         width 100%
-        height auto
+        height 100%
         position absolute
         background-color $BgColor1
         -webkit-user-select none
@@ -43,58 +40,67 @@
                     a
                         background transparent
                         border 0 none
-        .tab-pane
-            .title
-                color: #FFF;
-                font-weight: 900;
-                padding: 20px;
-                text-align: center;
-                opacity: .4;
-            margin-top 115px
-            section
-                display block
-                .content
-                    max-width: 500px;
-                    margin: 0 auto;
-                .settings-row
-                    color: #FFF;
-                    margin: 0;
-                    display: block;
-                    margin: 0 20px;
-                    border-bottom 1px solid rgba(255,255,255,0.15)
-                    padding 20px 0
-                    &:hover
-                        background rgba(255,255,255,0.03)
-                    .text, i, .action-item
-                        display: inline-block;
-                        vertical-align: middle;
-                    .text
-                        font-size: 18px;
-                        font-weight: bold;
-                        line-height: 1em
-                        max-width: 60%;
-                        .helper
-                            opacity: 0.4
-                            font-size 16px
-                    i
-                        font-size: 24px
-                        margin: 0 20px
-                        color: #FFF
-                        display: inline-block
-                    .action-item
-                        color: #000
-                        float right
-                        padding-top 5px
-                        select
+
+        .tab-content
+            scrollable()
+            display: block
+            width: 100%
+            position: absolute
+            top: 185px
+            bottom: 0px
+            .tab-pane
+                .title
+                    color: #FFF
+                    font-weight: 900;
+                    padding: 20px;
+                    text-align: center;
+                    opacity: .4;
+                    margin-top 115px
+                section
+                    display block
+                    .content
+                        max-width: 500px;
+                        margin: 0 auto;
+                    .settings-row
+                        color: #FFF;
+                        margin: 0;
+                        display: block;
+                        margin: 0 20px;
+                        border-bottom 1px solid rgba(255,255,255,0.15)
+                        padding 20px 0
+                        &:hover
+                            background rgba(255,255,255,0.03)
+                        .text, i, .action-item
+                            display: inline-block;
+                            vertical-align: middle;
+                        .text
+                            font-size: 18px;
+                            font-weight: bold;
+                            line-height: 1em
+                            max-width: 60%;
+                            .helper
+                                opacity: 0.4
+                                font-size 16px
+                        i
+                            font-size: 24px
+                            margin: 0 20px
+                            color: #FFF
+                            display: inline-block
+
+                        .action-item
+                            color: #000
+                            float right
+                            padding-top 5px
+                            select
                             width 130px
                             margin-right 15
-                        .btn
-                            background: $MainColor
-                            color: $Pure_White
-                            i
-                                margin: 0 5px 0 0;
-                                font-size: 18px;
-                                
+                            .btn
+                                background: $MainColor
+                                color: $Pure_White
+                                i
+                                    margin: 0 5px 0 0;
+                                    font-size: 18px;
+
 .settings-container
     section
         &.advanced
