@@ -31,20 +31,27 @@
         i
             margin-right: 10px
             font-size 18px
-
         i, div
             display: inline-block
             vertical-align middle
 
     .dropdown-menu
+        overflow-x: hidden
+        overflow-y: auto
         width: 100%
+        max-height: 245px
         margin: 0
         padding: 0
         border: 0
         border-radius: 5px 5px 0 0
-
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         li
             padding-left: 10px
+            cursor: pointer
+            &:hover
+                background: #EEE
+            &:first-child
+                border-radius: 5px 5px 0 0
 
     &.open
         background: #FFF

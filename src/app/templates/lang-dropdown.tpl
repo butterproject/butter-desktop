@@ -9,11 +9,11 @@
             <i class="icon material-icons"></i>
         </div>
     </div>
-    <div class="dropdown-menu" role="menu">
+    <ul class="dropdown-menu" role="menu">
         <div class="flag-container">
             <% for(var lang in values){ %>
             <div class="flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.nativeName(lang) %>"></div>
             <% } %>
-        </div>
+        </ul>
     </div>
 </div>
