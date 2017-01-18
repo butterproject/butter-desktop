@@ -1,6 +1,9 @@
 <div class="drop-selector dropup">
     <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <i class="material-icons"><%= icon %></i>
+        <div class="drop-label">
+            <i class="material-icons"><%= icon %></i>
+            <span class="lang-name"><%= title %></span>
+        </div>
         <div class="select-item">
             <span class="selected"><%= selected %></span>
             <i class="icon material-icons"></i>
