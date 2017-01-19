@@ -23,7 +23,7 @@
     })
     </script>
     <div id="qrcode-overlay"></div>
-    <div id="qrcode-modal">
+    <div id="qrcode-modal" style="display:none;">
         <i class="material-icons" id="qrcode-close">close</i>
         <canvas id="qrcode" width="200" height="200"></canvas>
     </div><!-- /.modal -->
@@ -435,7 +435,7 @@
                         <div class="action-item database">
                              <div class="btn database qr-code">
                                 Action
-                             </div>                            
+                             </div>
                         </div>
                     </div>
 
