@@ -582,7 +582,7 @@
                             </div>
                         <% } else { %>
                             <div class="settings-row">
-                                <i class="material-icons">subtitles</i>
+                                <i class="material-icons">account_box</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Username") %></div>
                                     <div class="helper">Some text for help.</div>
@@ -597,7 +597,7 @@
                             </div>
 
                             <div class="settings-row">
-                                <i class="material-icons">subtitles</i>
+                                <i class="material-icons">lock</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Password") %></div>
                                     <div class="helper">Some text for help.</div>
