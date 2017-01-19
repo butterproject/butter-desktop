@@ -35,7 +35,7 @@
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="player">
+        <div role="tabpanel" class="tab-pane" id="player">
             <section id="subtitles">
                 <div class="content">
                     <div class="title">Subtitles</div>
@@ -645,7 +645,7 @@
                 </div>
             </section>
         </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
+        <div role="tabpanel" class="tab-pane active" id="settings">
             <section>
                     <div class="content">
                         <div class="settings-row advanced movies-quality">
