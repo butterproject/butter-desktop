@@ -5,7 +5,32 @@
     width calc(100% - 5px)
     position fixed
     padding-top: $TitleHeight + 10px
-
+    #qrcode-modal
+            height: 100vh;
+            width: 100vw;
+            background: $BackColor_dark;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 200;
+            text-align: center
+            canvas
+                background: #FFF;
+                padding: 34px;
+                border-radius: 15px;
+                margin-top: 140px;
+            i
+                position absolute
+                top: 30px;
+                right: 30px;
+                color: #FFF;
+                font-size: 48px;
+    .success_alert
+        background: #33AA65;
+        padding: 10px 30px;
+        border-radius: 30px
+        i
+            font-size 14px
     .settings-container
         z-index 1
         width 100%
@@ -27,6 +52,7 @@
             display: block
             width 100%
             position absolute
+            padding-top 10px
             li
                 float: none;
                 display: inline-block;
@@ -46,7 +72,7 @@
             display: block
             width: 100%
             position: absolute
-            top: 185px
+            top: 160px
             bottom: 0px
             .tab-pane
                 .title
@@ -55,7 +81,6 @@
                     padding: 20px;
                     text-align: center;
                     opacity: .4;
-                    margin-top 50px
                 section
                     display block
                     .content
@@ -67,7 +92,9 @@
                         display: block;
                         margin: 0 20px;
                         border-bottom 1px solid rgba(255,255,255,0.15)
-                        padding 20px 0
+                        padding 20px 20px 20px 0
+                        &:last-child
+                            margin-bottom: 50px
                         &:hover
                             background rgba(255,255,255,0.03)
                         .text, i, .action-item

@@ -1,5 +1,5 @@
 <div class="settings-container">
-    <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<span id="checkmark-notify"><div id="stem-notify"></div><div id="kick-notify"></div></span></div>
+    <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<i class="material-icons">check</i></div>
     <div id="action-bar">
         <div class="actions-bar">
             <div class="go-back"><i class="material-icons">arrow_back</i><span><%= i18n.__("Settings") %></span></div>
@@ -22,6 +22,11 @@
       $(this).tab('show')
     })
     </script>
+    <div id="qrcode-overlay"></div>
+    <div id="qrcode-modal">
+        <i class="material-icons" id="qrcode-close">close</i>
+        <canvas id="qrcode" width="200" height="200"></canvas>
+    </div><!-- /.modal -->
 
      <!-- Nav tabs -->
      <div class="navbar-s">
@@ -430,15 +435,7 @@
                         <div class="action-item database">
                              <div class="btn database qr-code">
                                 Action
-                             </div>
-                            <div id="qrcode-overlay"></div>
-                                <div id="qrcode-modal">
-                                    <span class="fa-stack fa-1x" id="qrcode-close">
-                                        <i class="fa fa-circle-thin fa-stack-2x" style="margin-top: -2px;"></i>
-                                        <i class="fa fa-times fa-stack-1x" style="margin-top: -2px;"></i>
-                                    </span>
-                                    <canvas id="qrcode" width="200" height="200"></canvas>
-                                </div><!-- /.modal -->
+                             </div>                            
                         </div>
                     </div>
 
