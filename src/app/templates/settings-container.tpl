@@ -834,7 +834,7 @@
 
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">file_download</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Import Database") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -842,14 +842,14 @@
                             </div>
                             <div class="action-item">
                                 <div class="btn database import-database">
-                                        <i class="material-icons">file_download</i>
-                                        <%= i18n.__("Import Database") %>
+
+                                        <%= i18n.__("Import") %>
                                     </div>
                             </div>
                         </div>
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">file_upload</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Export Database") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -857,13 +857,12 @@
                             </div>
                             <div class="action-item">
                                 <div class="btn database export-database">
-                                        <i class="material-icons">file_upload</i>
-                                        <%= i18n.__("Export Database") %>
+                                        <%= i18n.__("Export") %>
                                     </div>
                             </div>
                         </div>
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">exit_to_app</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("When Opening TV Series Detail Jump To") %></div>
                                 <div class="helper">Some text for help.</div>
