@@ -887,7 +887,7 @@
                         </div>
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">update</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Activate automatic updating") %></div>
                                 <div class="helper">Some text for help.</div>
