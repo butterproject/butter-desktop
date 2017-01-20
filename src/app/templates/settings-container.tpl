@@ -381,7 +381,7 @@
                 <div class="content">
                     <div class="title"><%= i18n.__("Remote Control") %></div>
                     <div class="settings-row dropdown subtitles-language-default">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">location_on</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Local IP Address") %></div>
                             <div class="helper">Some text for help.</div>
@@ -392,7 +392,7 @@
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">http</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("HTTP API Port") %></div>
                             <div class="helper">Some text for help.</div>
@@ -425,15 +425,15 @@
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">settings_applications</i>
                         <div class="text">
-                            <div class="item-title"><%= i18n.__("Generate Pairing QR code") %></div>
-                            <div class="helper">Some text for help.</div>
+                            <div class="item-title"><%= i18n.__("QR code") %></div>
+                            <div class="helper"><%= i18n.__("Generate Pairing QR code") %></div>
 
                         </div>
                         <div class="action-item database">
                              <div class="btn database qr-code">
-                                Action
+                                <%= i18n.__("Get Code") %>
                              </div>
                         </div>
                     </div>
@@ -449,7 +449,7 @@
                     <div class="trakt-options<%= App.Trakt.authenticated ? " authenticated" : "" %>">
                         <% if(App.Trakt.authenticated) { %>
                             <div class="settings-row">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">verified_user</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("You are currently connected to %s", "Trakt.tv") %>.</div>
                                     <div class="helper">Some text for help.</div>
@@ -461,7 +461,7 @@
                             </div>
 
                             <div class="settings-row">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">settings_applications</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Automatically Sync on Start") %></div>
                                     <div class="helper">Some text for help.</div>
@@ -473,7 +473,7 @@
                             </div>
 
                             <div class="settings-row">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">settings_applications</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Resume Playback") %></div>
                                     <div class="helper">Some text for help.</div>
@@ -485,7 +485,7 @@
                             </div>
 
                             <div class="settings-row advanced">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">sync</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Sync With Trakt") %></div>
                                     <div class="helper">Some text for help.</div>
@@ -493,21 +493,19 @@
                                 </div>
                                 <div class="action-item">
                                     <div class="btn syncTrakt" id="syncTrakt">
-                                        <i class="material-icons">sync</i>
-                                        Sync
+                                        <%= i18n.__("Sync") %>
                                     </div>
                                 </div>
                             </div>
                             <% } else { %>
                             <div class="settings-row">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">person_add</i>
                                 <div class="text">
-                                    <div class="item-title"><%= i18n.__("Connect to %s to automatically 'scrobble' episodes you watch in %s", "Trakt.tv", Settings.projectName) %></div>
-                                    <div class="helper">Some text for help.</div>
+                                    <div class="item-title"><%= i18n.__("Connect to %s", "Trakt.tv") %></div>
+                                    <div class="helper"><%= i18n.__("Automatically 'scrobble' episodes you watch in %s", Settings.projectName) %></div>
                                 </div>
                                 <div class="action-item">
                                     <div class="btn syncTrakt" id="authTrakt">
-                                        <i class="material-icons">person_add</i>
                                         <%= i18n.__("Connect To %s", "Trakt") %>
                                     </div>
                                     <div id="authTraktCode" style="display:none">
@@ -530,7 +528,7 @@
                     <div class="tvshowtime-options <%= App.TVShowTime.authenticated ? " authenticated" : "" %>">
                         <% if(App.TVShowTime.authenticated) { %>
                             <div class="settings-row">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">verified_user</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("You are currently connected to %s", "TVShow Time") %>.</div>
                                     <div class="helper">Some text for help.</div>
@@ -542,7 +540,7 @@
                             </div>
                         <% } else { %>
                             <div class="settings-row ">
-                                <i class="material-icons">tv</i>
+                                <i class="material-icons">insert_link</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Connect To %s", "TVShow Time") %></div>
                                     <div class="helper">Some text for help.</div>
@@ -550,7 +548,6 @@
                                 </div>
                                 <div class="action-item">
                                     <div class="btn" id="connect-with-tvst">
-                                    <i class="material-icons">insert_link</i>
                                     Connect
                                 </div>
                                 <div class="tvst-loading-spinner" style="display: none"></div>
@@ -569,7 +566,7 @@
                     <div class="opensubtitles-options">
                         <% if(Settings.opensubtitlesAuthenticated) { %>
                             <div class="settings-row">
-                                <i class="material-icons">subtitles</i>
+                                <i class="material-icons">verified_user</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("You are currently connected to %s", "OpenSubtitles") %>.</div>
                                     <div class="helper">Some text for help.</div>
@@ -608,7 +605,7 @@
                             </div>
 
                             <div class="settings-row">
-                                <i class="material-icons">subtitles</i>
+                                <i class="material-icons">link</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Connect To %s", "OpenSubtitles") %></div>
                                     <div class="helper"><%= i18n.__("%s stores an encrypted hash of your password in your local database", Settings.projectName) %></div>
@@ -616,7 +613,6 @@
                                 </div>
                                 <div class="action-item">
                                     <div class="btn" id="authOpensubtitles">
-                                        <i class="material-icons">link</i>
                                         Connect
                                     </div>
                                 </div>
@@ -626,7 +622,7 @@
 
                         <% } %>
                         <div class="settings-row advanced">
-                            <i class="material-icons">subtitles</i>
+                            <i class="material-icons">settings_applications</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Automatic Subtitle Uploading") %></div>
                                 <div class="helper">Some text for help.</div>
