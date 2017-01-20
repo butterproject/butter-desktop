@@ -403,8 +403,8 @@
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">location_on</i>
                         <div class="text">
-                            <div class="item-title"><%= i18n.__("Local IP Address") %></div>
-                            <div class="helper">Some text for help.</div>
+                            <div class="item-title"><%= i18n.__("IP") %></div>
+                            <div class="helper"><%= i18n.__("Local IP Address") %></div>
 
                         </div>
                         <div class="action-item">
@@ -414,8 +414,8 @@
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">http</i>
                         <div class="text">
-                            <div class="item-title"><%= i18n.__("HTTP API Port") %></div>
-                            <div class="helper">Some text for help.</div>
+                            <div class="item-title"><%= i18n.__("Port") %></div>
+                            <div class="helper"><%= i18n.__("HTTP API Port") %></div>
 
                         </div>
                         <div class="action-item">
@@ -425,8 +425,8 @@
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">account_box</i>
                         <div class="text">
-                            <div class="item-title"><%= i18n.__("HTTP API Username") %></div>
-                            <div class="helper">Some text for help.</div>
+                            <div class="item-title"><%= i18n.__("Username") %></div>
+                            <div class="helper"><%= i18n.__("HTTP API Username") %></div>
 
                         </div>
                         <div class="action-item">
@@ -436,8 +436,8 @@
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">lock</i>
                         <div class="text">
-                            <div class="item-title"><%= i18n.__("HTTP API Password") %></div>
-                            <div class="helper">Some text for help.</div>
+                            <div class="item-title"><%= i18n.__("Password") %></div>
+                            <div class="helper"><%= i18n.__("HTTP API Password") %></div>
 
                         </div>
                         <div class="action-item">
@@ -527,14 +527,14 @@
                             </div>
                             <% } else { %>
                             <div class="settings-row">
-                                <i class="material-icons">person_add</i>
+                                <i class="material-icons">insert_link</i>
                                 <div class="text">
                                     <div class="item-title"><%= i18n.__("Connect to %s", "Trakt.tv") %></div>
                                     <div class="helper"><%= i18n.__("Automatically 'scrobble' episodes you watch in %s", Settings.projectName) %></div>
                                 </div>
                                 <div class="action-item">
                                     <div class="btn syncTrakt" id="authTrakt">
-                                        <%= i18n.__("Connect To %s", "Trakt") %>
+                                        <%= i18n.__("Connect") %>
                                     </div>
                                     <div id="authTraktCode" style="display:none">
                                         <%= i18n.__("Code:")%>
