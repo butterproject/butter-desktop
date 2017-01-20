@@ -213,7 +213,11 @@
 
                         </div>
                         <div class="action-item">
-                            <input class="settings-checkbox" name="subtitles_bold" id="subsbold" type="checkbox" <%=(Settings.subtitles_bold? "checked='checked'":"")%>>
+                            <label class="switch">
+                                <input class="settings-checkbox" name="subtitles_bold" id="subsbold" type="checkbox" <%=(Settings.subtitles_bold? "checked='checked'":"")%>>
+                                <div class="slider"></div>
+                            </label>
+
                         </div>
                     </div>
 
@@ -306,7 +310,11 @@
 
                         </div>
                         <div class="action-item">
-                            <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
+                            <label class="switch">
+                                <input class="settings-checkbox" name="translateSynopsis" id="translateSynopsis" type="checkbox" <%=(Settings.translateSynopsis? "checked='checked'":"")%>>
+                                <div class="slider"></div>
+                            </label>
+
                         </div>
                     </div>
 
@@ -318,7 +326,11 @@
 
                         </div>
                         <div class="action-item">
-                            <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
+                            <label class="switch">
+                                <input class="settings-checkbox" name="coversShowRating" id="cb3" type="checkbox" <%=(Settings.coversShowRating? "checked='checked'":"")%>>
+                                <div class="slider"></div>
+                            </label>
+
                         </div>
                     </div>
 
@@ -330,7 +342,12 @@
 
                         </div>
                         <div class="action-item">
-                            <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
+                            <label class="switch">
+                                <input class="settings-checkbox" name="alwaysOnTop" id="cb4" type="checkbox" <%=(Settings.alwaysOnTop? "checked='checked'":"")%>>
+                                <div class="slider"></div>
+                            </label>
+
+
                         </div>
                     </div>
 
@@ -342,7 +359,10 @@
 
                         </div>
                         <div class="action-item">
-                            <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
+                            <label class="switch">
+                                <input class="settings-checkbox" name="rememberFilters" id="cb7" type="checkbox" <%=(Settings.rememberFilters? "checked='checked'":"")%>>
+                                <div class="slider"></div>
+                            </label>
                         </div>
                     </div>
 
@@ -468,7 +488,11 @@
 
                                 </div>
                                 <div class="action-item">
-                                    <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
+                                    <label class="switch">
+                                        <input class="settings-checkbox" name="traktSyncOnStart" id="traktSyncOnStart" type="checkbox" <%=(Settings.traktSyncOnStart? "checked='checked'":"")%>>
+                                        <div class="slider"></div>
+                                    </label>
+
                                 </div>
                             </div>
 
@@ -480,7 +504,11 @@
 
                                 </div>
                                 <div class="action-item">
-                                    <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
+                                    <label class="switch">
+                                        <input class="settings-checkbox" name="traktPlayback" id="traktPlayback" type="checkbox" <%=(Settings.traktPlayback? "checked='checked'":"")%>>
+                                        <div class="slider"></div>
+                                    </label>
+
                                 </div>
                             </div>
 
@@ -629,7 +657,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="opensubtitlesAutoUpload" id="opensubtitlesAutoUpload" type="checkbox" <%=(Settings.opensubtitlesAutoUpload? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -665,7 +697,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="moviesShowQuality" id="cb1" type="checkbox" <%=(Settings.moviesShowQuality? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="moviesShowQuality" id="cb1" type="checkbox" <%=(Settings.moviesShowQuality? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -677,7 +713,12 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="alwaysFullscreen" id="alwaysFullscreen" type="checkbox" <%=(Settings.alwaysFullscreen? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="alwaysFullscreen" id="alwaysFullscreen" type="checkbox" <%=(Settings.alwaysFullscreen? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
+
                             </div>
                         </div>
 
@@ -690,7 +731,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="playNextEpisodeAuto" id="playNextEpisodeAuto" type="checkbox" <%=(Settings.playNextEpisodeAuto? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="playNextEpisodeAuto" id="playNextEpisodeAuto" type="checkbox" <%=(Settings.playNextEpisodeAuto? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -703,7 +748,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="activateTorrentCollection" id="activateTorrentCollection" type="checkbox" <%=(Settings.activateTorrentCollection? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="activateTorrentCollection" id="activateTorrentCollection" type="checkbox" <%=(Settings.activateTorrentCollection? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -716,7 +765,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -729,7 +782,10 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="activateRandomize" id="activateRandomize" type="checkbox" <%=(Settings.activateRandomize? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="activateRandomize" id="activateRandomize" type="checkbox" <%=(Settings.activateRandomize? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
                             </div>
                         </div>
                         <% if(Settings.tvAPI) { %>
@@ -813,7 +869,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="deleteTmpOnClose" id="cb2" type="checkbox" <%=(Settings.deleteTmpOnClose? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="deleteTmpOnClose" id="cb2" type="checkbox" <%=(Settings.deleteTmpOnClose? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -896,7 +956,7 @@
                             <div class="action-item">
                                 <label class="switch">
                                     <input class="settings-checkbox" name="automaticUpdating" id="cb5" type="checkbox" <%=(Settings.automaticUpdating? "checked='checked'":"")%>>
-                                    <div class="slider round"></div>
+                                    <div class="slider"></div>
                                 </label>
 
                             </div>
@@ -913,7 +973,7 @@
                             <div class="action-item">
                                 <label class="switch">
                                     <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
-                                    <div class="slider round"></div>
+                                    <div class="slider"></div>
                                 </label>
 
                             </div>
@@ -929,7 +989,7 @@
                             <div class="action-item">
                                 <label class="switch">
                                     <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
-                                    <div class="slider round"></div>
+                                    <div class="slider"></div>
                                 </label>
 
                             </div>
@@ -945,7 +1005,7 @@
                             <div class="action-item">
                                 <label class="switch">
                                     <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
-                                    <div class="slider round"></div>
+                                    <div class="slider"></div>
                                 </label>
 
                             </div>
