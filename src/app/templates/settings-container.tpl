@@ -799,7 +799,7 @@
                             </div>
                             <div class="action-item">
                                 <span>
-                                    <input type="text" placeholder="<%= i18n.__("Cache Directory") %>" id="faketmpLocation" value="<%= Settings.tmpLocation %>" readonly="readonly" />
+                                    <input type="text" placeholder="<%= i18n.__("Cache Directory") %>" class="dir-path" id="faketmpLocation" value="<%= Settings.tmpLocation %>" readonly="readonly" />
                                     <input type="file" name="tmpLocation" id="tmpLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.tmpLocation %>" />
                                 </span>
                             </div>
@@ -826,7 +826,7 @@
                             </div>
                             <div class="action-item">
                                 <span>
-                                    <input type="text" placeholder="<%= i18n.__("Database Directory") %>" id="fakedatabaseLocation" value="<%= Settings.databaseLocation %>" readonly="readonly" />
+                                    <input type="text" placeholder="<%= i18n.__("Database Directory") %>" class="dir-path" id="fakedatabaseLocation" value="<%= Settings.databaseLocation %>" readonly="readonly" />
                                     <input type="file" name="fakedatabaseLocation" id="fakedatabaseLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.databaseLocation %>" />
                                 </span>
                             </div>
