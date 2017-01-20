@@ -892,8 +892,13 @@
                                 <div class="helper">Some text for help.</div>
 
                             </div>
+
                             <div class="action-item">
-                                <input class="settings-checkbox" name="automaticUpdating" id="cb5" type="checkbox" <%=(Settings.automaticUpdating? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="automaticUpdating" id="cb5" type="checkbox" <%=(Settings.automaticUpdating? "checked='checked'":"")%>>
+                                    <div class="slider round"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -906,7 +911,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="events" id="cb6" type="checkbox" <%=(Settings.events? "checked='checked'":"")%>>
+                                    <div class="slider round"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -918,7 +927,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="minimizeToTray" id="minimizeToTray" type="checkbox" <%=(Settings.minimizeToTray? "checked='checked'":"")%>>
+                                    <div class="slider round"></div>
+                                </label>
+
                             </div>
                         </div>
 
@@ -930,7 +943,11 @@
 
                             </div>
                             <div class="action-item">
-                                <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
+                                <label class="switch">
+                                    <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
+                                    <div class="slider round"></div>
+                                </label>
+
                             </div>
                         </div>
 

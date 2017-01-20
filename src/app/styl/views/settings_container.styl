@@ -6,28 +6,28 @@
     position fixed
     padding-top: $TitleHeight + 10px
     #qrcode-modal
-            height: 100vh;
-            width: 100vw;
-            background: $BackColor_dark;
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 200;
+            height: 100vh
+            width: 100vw
+            background: $BackColor_dark
+            position: absolute
+            left: 0
+            top: 0
+            z-index: 200
             text-align: center
             canvas
-                background: #FFF;
-                padding: 34px;
-                border-radius: 15px;
-                margin-top: 140px;
+                background: #FFF
+                padding: 34px
+                border-radius: 15px
+                margin-top: 140px
             i
                 position absolute
-                top: 30px;
-                right: 30px;
-                color: #FFF;
-                font-size: 48px;
+                top: 30px
+                right: 30px
+                color: #FFF
+                font-size: 48px
     .success_alert
-        background: #33AA65;
-        padding: 10px 30px;
+        background: #33AA65
+        padding: 10px 30px
         border-radius: 30px
         i
             font-size 14px
@@ -41,9 +41,9 @@
         padding-bottom 20px
         top: 0
         .navbar-s
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
+            width: 100%
+            margin: 0 auto
+            text-align: center
         .nav-tabs
             width auto
             margin 0 auto
@@ -54,8 +54,8 @@
             position absolute
             padding-top 10px
             li
-                float: none;
-                display: inline-block;
+                float: none
+                display: inline-block
                 a
                     margin 0
                     line-height 1
@@ -77,20 +77,20 @@
             .tab-pane
                 .title
                     color: #FFF
-                    font-weight: 900;
-                    padding: 20px;
-                    text-align: center;
-                    opacity: .4;
+                    font-weight: 900
+                    padding: 20px
+                    text-align: center
+                    opacity: .4
                 section
                     display block
                     .content
-                        max-width: 650px;
-                        margin: 0 auto;
+                        max-width: 650px
+                        margin: 0 auto
                     .settings-row
-                        color: #FFF;
-                        margin: 0;
-                        display: block;
-                        margin: 0 20px;
+                        color: #FFF
+                        margin: 0
+                        display: block
+                        margin: 0 20px
                         border-bottom 1px solid rgba(255,255,255,0.15)
                         padding 20px 20px 20px 0
                         &:last-child
@@ -98,13 +98,13 @@
                         &:hover
                             background rgba(255,255,255,0.03)
                         .text, i, .action-item
-                            display: inline-block;
-                            vertical-align: middle;
+                            display: inline-block
+                            vertical-align: middle
                         .text
-                            font-size: 18px;
-                            font-weight: bold;
+                            font-size: 18px
+                            font-weight: bold
                             line-height: 1em
-                            max-width: 60%;
+                            max-width: 60%
                             .helper
                                 opacity: 0.4
                                 font-size 16px
@@ -137,16 +137,57 @@
                                 width 140px
                                 transition background .2s ease
 
+
                             input[type=text]
                                 &.dir-path
                                     width: 225px
+
+                           .switch
+                                position: relative
+                                display: inline-block
+                                width: 40px
+                                height: 22px
+
+                                input
+                                    display:none
+
+                                .slider
+                                    position: absolute
+                                    cursor: pointer
+                                    top: 0
+                                    left: 0
+                                    right: 0
+                                    bottom: 0
+                                    border-radius: 34px
+                                    background-color: rgba(250,250,250, 0.35)
+                                    -webkit-transition: .3s
+
+                                .slider:before
+                                    position: absolute
+                                    content: ""
+                                    height: 18px
+                                    width: 18px
+                                    left: 2px
+                                    bottom: 2px
+                                    background-color: white
+                                    border-radius: 50%
+                                    -webkit-transition: .3s
+
+                                input:checked + .slider
+                                    background-color: #FF1744
+
+                                input:focus + .slider
+                                    box-shadow: 0 0 1px #2196F3
+
+                                input:checked + .slider:before
+                                    -webkit-transform: translateX(18px)
 
                             .btn
                                 background: $MainColor
                                 color: $Pure_White
                                 i
-                                    margin: 0 5px 0 0;
-                                    font-size: 18px;
+                                    margin: 0 5px 0 0
+                                    font-size: 18px
 
 .settings-container
     section
