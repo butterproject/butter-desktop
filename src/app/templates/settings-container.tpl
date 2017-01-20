@@ -404,7 +404,7 @@
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">account_box</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("HTTP API Username") %></div>
                             <div class="helper">Some text for help.</div>
@@ -415,7 +415,7 @@
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
-                        <i class="material-icons">subtitles</i>
+                        <i class="material-icons">lock</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("HTTP API Password") %></div>
                             <div class="helper">Some text for help.</div>
@@ -494,7 +494,7 @@
                                 </div>
                                 <div class="action-item">
                                     <div class="btn syncTrakt" id="syncTrakt">
-                                        <i class="fa fa-refresh">&nbsp;&nbsp;</i>
+                                        <i class="material-icons">sync</i>
                                         Sync
                                     </div>
                                 </div>
@@ -508,7 +508,7 @@
                                 </div>
                                 <div class="action-item">
                                     <div class="btn syncTrakt" id="authTrakt">
-                                        <i class="fa fa-user-plus">&nbsp;&nbsp;</i>
+                                        <i class="material-icons">person_add</i>
                                         <%= i18n.__("Connect To %s", "Trakt") %>
                                     </div>
                                     <div id="authTraktCode" style="display:none">
@@ -675,7 +675,7 @@
                         </div>
 
                          <div class="settings-row advanced ">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">fullscreen</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Always start playing in fullscreen") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -701,7 +701,7 @@
 
 
                          <div class="settings-row">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">collections_bookmark</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Torrent Collection") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -714,7 +714,7 @@
 
 
                          <div class="settings-row">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">remove_red_eye</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Watchlist") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -727,7 +727,7 @@
 
 
                          <div class="settings-row">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">shuffle</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Randomize Button for Movies") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -797,7 +797,7 @@
                         </div>
 
                         <div class="settings-row advanced" id="cache">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">folder</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Cache Directory") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -813,7 +813,7 @@
                         </div>
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">delete</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Clear Tmp Folder after closing app?") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -825,7 +825,7 @@
                         </div>
 
                         <div class="settings-row advanced" id="database" >
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">folder</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Database Directory") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -908,7 +908,7 @@
 
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">cake</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Celebrate various events") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -950,11 +950,6 @@
       </div>
 
     </div>
-
-
-
-
-
 
     <div class="btns">
         <div class="btn flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
