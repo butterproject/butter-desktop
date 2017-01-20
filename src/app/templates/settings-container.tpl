@@ -421,7 +421,7 @@
 
                         </div>
                         <div class="action-item">
-                            <input id="httpApiPassword" type="text" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
+                            <input id="httpApiPassword" type="password" name="httpApiPassword" value="<%=Settings.httpApiPassword%>">
                         </div>
                     </div>
                     <div class="settings-row dropdown subtitles-language-default">
