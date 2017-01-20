@@ -33,17 +33,16 @@
           <ul id="myTabs" class="nav nav-tabs" role="tablist">
             <li  class="active source" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">General</li>
             <li  class="source" href="#interface" aria-controls="profile" role="tab" data-toggle="tab">Interface</li>
-            <li  class="source" href="#player" aria-controls="home" role="tab" data-toggle="tab">Player</li>
+            <li  class="source" href="#subtitles" aria-controls="home" role="tab" data-toggle="tab">Subtitles</li>
             <li  class="source" href="#extensions" aria-controls="extensions" role="tab" data-toggle="tab">Extensions</li>
           </ul>
       </div>
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane" id="player">
+        <div role="tabpanel" class="tab-pane" id="subtitles">
             <section id="subtitles">
                 <div class="content">
-                    <div class="title">Subtitles</div>
                     <div class="settings-row dropdown subtitles-language-default">
                         <i class="material-icons">subtitles</i>
                         <div class="text">
@@ -225,7 +224,7 @@
             <section id="user-interface">
                 <div class="content">
                     <div class="settings-row subtitles-language">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">language</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Default Language") %></div>
                             <div class="helper">Some text for help.</div>
@@ -279,7 +278,7 @@
                     </div>
 
                     <div class="settings-row advanced start-screen">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">home</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Start Screen") %></div>
                             <div class="helper">Some text for help.</div>
@@ -336,7 +335,7 @@
                     </div>
 
                     <div class="settings-row advanced">
-                        <i class="material-icons">settings_applications</i>
+                        <i class="material-icons">sort</i>
                         <div class="text">
                             <div class="item-title"><%= i18n.__("Remember Filters") %></div>
                             <div class="helper">Some text for help.</div>
@@ -646,7 +645,7 @@
             <section>
                     <div class="content">
                         <div class="settings-row advanced movies-quality">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">sort</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Only list movies in") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -663,7 +662,7 @@
                         </div>
 
                          <div class="settings-row advanced ">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">high_quality</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Show movie quality on list") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -688,7 +687,7 @@
 
 
                          <div class="settings-row advanced ">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">queue_play_next</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Play next episode automatically") %></div>
                                 <div class="helper">Some text for help.</div>
@@ -800,13 +799,11 @@
                             <i class="material-icons">folder</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Cache Directory") %></div>
-                                <div class="helper">Some text for help.</div>
-
+                                <div class="helper"><%= i18n.__("Open Cache Directory") %></div>
                             </div>
                             <div class="action-item">
                                 <span>
                                     <input type="text" placeholder="<%= i18n.__("Cache Directory") %>" id="faketmpLocation" value="<%= Settings.tmpLocation %>" readonly="readonly" />
-                                    <i class="open-tmp-folder material-icons tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Cache Directory") %>">folder_open</i>
                                     <input type="file" name="tmpLocation" id="tmpLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.tmpLocation %>" />
                                 </span>
                             </div>
@@ -828,13 +825,12 @@
                             <i class="material-icons">folder</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Database Directory") %></div>
-                                <div class="helper">Some text for help.</div>
+                                <div class="helper"><%= i18n.__("Open Database Directory") %></div>
 
                             </div>
                             <div class="action-item">
                                 <span>
                                     <input type="text" placeholder="<%= i18n.__("Database Directory") %>" id="fakedatabaseLocation" value="<%= Settings.databaseLocation %>" readonly="readonly" />
-                                    <i class="open-database-folder material-icons tooltipped" data-toggle="tooltip" data-placement="auto" title="<%= i18n.__("Open Database Directory") %>">folder_open</i>
                                     <input type="file" name="fakedatabaseLocation" id="fakedatabaseLocation" nwdirectory style="display: none;" nwworkingdir="<%= Settings.databaseLocation %>" />
                                 </span>
                             </div>
@@ -932,7 +928,7 @@
                         </div>
 
                         <div class="settings-row advanced">
-                            <i class="material-icons">settings_applications</i>
+                            <i class="material-icons">aspect_ratio</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Big Picture Mode") %></div>
                                 <div class="helper">Some text for help.</div>
