@@ -345,7 +345,7 @@
                 break;
             case 'activateRandomize':
             case 'activateWatchlist':
-                App.vent.trigger('movies:list')
+                App.vent.trigger('movies:list');
                 //App.vent.trigger('settings:show');
                 break;
             case 'movies_quality':
