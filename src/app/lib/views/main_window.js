@@ -365,8 +365,8 @@
         },
 
         showSettings: function (settingsModel) {
-            this.Settings.show(new App.View.Settings({
-                model: settingsModel
+            this.Settings.show(new App.View.Settings.Container({
+                collection: App.Model.Settings.Collection
             }));
         },
 
