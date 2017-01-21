@@ -328,6 +328,7 @@
         },
 
         closeMovieDetail: function (movieModel) {
+            $('.spinner').hide();
             _this.DetailsContainer.destroy();
             App.vent.trigger('shortcuts:list');
         },
@@ -349,6 +350,7 @@
         },
 
         closeShowDetail: function (showModel) {
+            $('.spinner').hide();
             _this.DetailsContainer.destroy();
             App.vent.trigger('shortcuts:list');
         },
