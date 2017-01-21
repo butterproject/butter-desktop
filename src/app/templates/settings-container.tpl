@@ -52,18 +52,30 @@
                         </div>
                         <div class="action-item">
                             <%
-                                var sub_langs = "<option "+(Settings.subtitle_language == "none"? "selected='selected'":"")+" value='none'>" +
-                                                    i18n.__("Disabled") + "</option>";
+                                var sub_langs = "<li class=filter-item "+(Settings.subtitle_language == "none"? "selected='selected'":"")+" data-value='none'>" +
+                                                    i18n.__("Disabled") + "</li>";
 
                                 for(var key in App.Localization.langcodes) {
                                     if (App.Localization.langcodes[key].subtitle !== undefined && App.Localization.langcodes[key].subtitle == true) {
-                                        sub_langs += "<option "+(Settings.subtitle_language == key? "selected='selected'":"")+" value='"+key+"'>"+
-                                                        App.Localization.langcodes[key].nativeName+"</option>";
+                                        sub_langs += "<li "+(Settings.subtitle_language == key? "class='active'":"")+" data-value='"+key+"'>"+
+                                                        App.Localization.langcodes[key].nativeName+"</li>";
                                     }
                                 }
                             %>
-                            <select name="subtitle_language"><%=sub_langs%></select>
-                            <div class="dropdown-arrow"></div>
+
+
+                            <div class="drop-selector drop-settings">
+                                <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="select-item">
+                                        <span class="selected"><%= Settings.subtitle_language %></span>
+                                        <i class="icon material-icons"></i>
+                                    </div>
+                                </div>
+                                <ul class="dropdown-menu" role="menu">
+                                    <%=sub_langs%>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
 
@@ -294,7 +306,7 @@
 
                                     var selct_start_screen = "";
                                     for(var key in arr_screens) {
-                                        selct_start_screen += "<option "+(Settings.start_screen == arr_screens[key]? "selected='selected'":"")+" value='"+arr_screens[key]+"'>"+i18n.__(arr_screens[key])+"</option>";
+                                        selct_start_screen += "<option "+(Settings.start_screen == arr_screens[key]? "class='selected'":"")+" value='"+arr_screens[key]+"'>"+i18n.__(arr_screens[key])+"</option>";
                                     }
                                 %>
                             <select name="start_screen"><%=selct_start_screen%></select>
@@ -745,7 +757,6 @@
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Torrent Collection") %></div>
                                 <div class="helper">Some text for help.</div>
-
                             </div>
                             <div class="action-item">
                                 <label class="switch">
@@ -756,30 +767,22 @@
                             </div>
                         </div>
 
-
                          <div class="settings-row">
                             <i class="material-icons">remove_red_eye</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Watchlist") %></div>
                                 <div class="helper">Some text for help.</div>
-
                             </div>
                             <div class="action-item">
-                                <label class="switch">
                                     <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
-                                    <div class="slider"></div>
-                                </label>
-
                             </div>
                         </div>
-
 
                          <div class="settings-row">
                             <i class="material-icons">shuffle</i>
                             <div class="text">
                                 <div class="item-title"><%= i18n.__("Randomize Button for Movies") %></div>
                                 <div class="helper">Some text for help.</div>
-
                             </div>
                             <div class="action-item">
                                 <label class="switch">
@@ -788,6 +791,7 @@
                                 </label>
                             </div>
                         </div>
+
                         <% if(Settings.tvAPI) { %>
                          <div class="settings-row advanced ">
                             <i class="material-icons">settings_applications</i>

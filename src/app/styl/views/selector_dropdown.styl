@@ -43,7 +43,7 @@
         margin: 0
         padding: 0
         border: 0
-        border-radius: 5px 5px 0 0
+        border-radius: 0 0 5px 5px
         box-shadow: none
         li
             padding-left: 10px
@@ -64,8 +64,33 @@
             &:hover
                 background-color: $ScrollBarThumbHover
 
-    &.open
+     &.open
         background: #FFF
         color: #252525
         background-clip: padding-box
-        border-radius: 0 0 5px 5px
+        border-radius: 5px 5px 0 0
+
+    &.drop-settings
+        display: inline-block
+        position: relative
+        &.open
+            .dropdown-menu
+                display: inline-block
+                padding: 0
+
+        .dropdown-toggle
+            display: inline-block
+            width: auto
+            padding: 5px
+            .selected
+                text-align: left
+                width: 150px
+                display: inline-block
+                padding: 5px
+            i
+                margin:0!important
+    &.drop-up
+        .dropdown-menu
+            border-radius: 5px 5px 0 0
+        &.open
+            border-radius: 0 0 5px 5px
