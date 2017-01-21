@@ -316,7 +316,7 @@
             case 'language':
             case 'watchedCovers':
                 App.vent.trigger('movies:list');
-                App.vent.trigger('settings:show');
+                //App.vent.trigger('settings:show');
                 break;
             case 'alwaysOnTop':
                 win.setAlwaysOnTop(value);
@@ -346,18 +346,19 @@
             case 'activateRandomize':
             case 'activateWatchlist':
                 App.vent.trigger('movies:list');
-                App.vent.trigger('settings:show');
+                console.log('fix settings checkbox!!');
+                //App.vent.trigger('settings:show');
                 break;
             case 'movies_quality':
             case 'translateSynopsis':
                 App.Providers.delete('Yts');
                 App.vent.trigger('movies:list');
-                App.vent.trigger('settings:show');
+                //App.vent.trigger('settings:show');
                 break;
             case 'tvAPI':
                 App.Providers.delete('TVApi');
                 App.vent.trigger('movies:list');
-                App.vent.trigger('settings:show');
+                //App.vent.trigger('settings:show');
                 break;
             case 'bigPicture':
                 if (!ScreenResolution.SD) {

@@ -774,7 +774,11 @@
                                 <div class="helper">Some text for help.</div>
                             </div>
                             <div class="action-item">
+                                <label class="switch">
                                     <input class="settings-checkbox" name="activateWatchlist" id="activateWatchlist" type="checkbox" <%=(Settings.activateWatchlist? "checked='checked'":"")%>>
+                                    <div class="slider"></div>
+                                </label>
+
                             </div>
                         </div>
 

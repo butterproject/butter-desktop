@@ -2,7 +2,8 @@
     border-radius:  5px
     border: 0
     color #FFF
-
+    .dropdown-backdrop
+        display: none
     .select-item
         width: auto
         display: inline-block
@@ -48,8 +49,10 @@
         li
             padding-left: 10px
             cursor: pointer
+            opacity: 0.75
             &:hover
                 background: #EEE
+                opacity: 1
 
         &::-webkit-scrollbar
             width 5px
@@ -64,7 +67,7 @@
             &:hover
                 background-color: $ScrollBarThumbHover
 
-     &.open
+    &.open
         background: #FFF
         color: #252525
         background-clip: padding-box
@@ -77,20 +80,22 @@
             .dropdown-menu
                 display: inline-block
                 padding: 0
-
+        .dropdown-menu
+            li
+                padding: 10px 8px
         .dropdown-toggle
             display: inline-block
             width: auto
             padding: 5px
             .selected
                 text-align: left
-                width: 150px
+                min-width: 125px
                 display: inline-block
                 padding: 5px
             i
                 margin:0!important
-    &.drop-up
+    &.dropup
         .dropdown-menu
             border-radius: 5px 5px 0 0
         &.open
-            border-radius: 0 0 5px 5px
+            border-radius: 0 0 5px 5px!important

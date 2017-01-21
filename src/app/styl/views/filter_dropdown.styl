@@ -6,8 +6,8 @@
     color $FilterDropdownText
     text-align left
     width auto
-
-
+    .dropdown-backdrop
+        display: none
     .dropdown-toggle
         position relative
         z-index: 99
@@ -69,7 +69,7 @@
                 border-bottom-right-radius 5px
                 border-bottom-left-radius 5px
             &.select
-                background #ddd
+                background #EEE
                 opacity 1
     &.open
         .dropdown-toggle
@@ -93,9 +93,9 @@
                 color: $FilterDropdownHoverText
                 opacity 0.65
                 &:hover
-                    background $FilterDropdownHover
-                    opacity 1
-                    cursor pointer
+                    background: #EEE
+                    opacity: 1
+                    cursor: pointer
 
 
 
