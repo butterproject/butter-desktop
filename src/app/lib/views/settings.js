@@ -50,8 +50,22 @@
         className: 'settings-container-contain',
         regions: {
             Collection: '.tab-content-wrapper'
-                                   },
+        },
         onShow: function () {
+            $('.filter-bar').hide();
+            $('#movie-detail').hide();
+            $('#header').addClass('header-shadow');
+            $('.tooltipped').tooltip({
+                delay: {
+                    'show': 800,
+                    'hide': 100
+                }
+            });
+
+            this.bindShortCut('backspace',() => {
+                App.vent.trigger('settings:close');
+            });
+
             var collection = this.collection;
             this.showView(this.Collection, new App.View.Settings.Collection({
                 collection: collection
