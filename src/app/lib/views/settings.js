@@ -53,7 +53,6 @@
         onShow: function () {
             var model = this.model;
             var type  = this.model.get('type');
-            console.log('type', type);
             this.showView(this.Action, new App.View.Settings.Action[type]({
                 model: model
             }));
