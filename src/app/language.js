@@ -59,6 +59,66 @@ App.Localization.filterSubtitle = function (langs) {
     return filteredLang;
 };
 
+function find_sub_fonts() {
+    var arr_fonts = [
+        {name:'AljazeeraMedExtOf', id:'aljazeera'},
+        {name:'Deja Vu Sans', id:'dejavusans'},
+        {name:'Droid Sans', id:'droidsans'},
+        {name:'Comic Sans MS', id:'comic'},
+        {name:'Georgia', id:'georgia'},
+        {name:'Geneva', id:'geneva'},
+        {name:'Helvetica', id:'helvetica'},
+        {name:'Khalid Art', id:'khalid'},
+        {name:'Lato', id:'lato'},
+        {name:'Montserrat', id:'montserrat'},
+        {name:'OpenDyslexic', id:'opendyslexic'},
+        {name:'Open Sans', id:'opensans'},
+        {name:'PT Sans',id:'pts'},
+        {name:'Tahoma', id:'tahoma'},
+        {name:'Trebuchet MS', id:'trebuc'},
+        {name:'Roboto',id:'roboto'},
+        {name:'Ubuntu', id:'ubuntu'},
+        {name:'Verdana', id:'verdana'},
+    ];
+
+    var font_folder = path.resolve({
+        win32:  '/Windows/fonts',
+        darwin: '/Library/Fonts',
+        linux:  '/usr/share/fonts'
+    }[process.platform]);
+
+    var files = [];
+    var recursive = function (dir) {
+        if (fs.statSync(dir).isDirectory()) {
+            fs.readdirSync(dir).forEach(function (name) {
+                var newdir = path.join(dir, name);
+                recursive(newdir);
+            });
+        } else {
+            files.push(dir);
+        }
+    };
+    try {
+        recursive(font_folder);
+    } catch (e) {}
+    var avail_fonts = ['Arial'];
+
+    for (var i in arr_fonts) {
+        for (var key in files) {
+            var found = files[key].toLowerCase();
+            var toFind = arr_fonts[i].id;
+            if (found.indexOf(toFind) !== -1) {
+                avail_fonts.push(arr_fonts[i].name);
+                break;
+            }
+        }
+    }
+
+    return avail_fonts;
+}
+
+App.Localization.subFonts = find_sub_fonts();
+
 App.Localization.allTranslations = ['en', 'ar', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'es', 'es-mx', 'et', 'eu', 'fa', 'fi', 'fr', 'gl', 'he', 'hr', 'hu', 'id', 'it', 'ko', 'lt', 'mk', 'ms', 'nb', 'nl', 'nn', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'zh-cn', 'zh-tw'];
 
 App.Localization.langcodes = {
