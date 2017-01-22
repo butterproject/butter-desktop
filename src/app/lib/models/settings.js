@@ -7,6 +7,8 @@
         COLOR:    'SETTINGS_ACTION_TYPES_COLOR',
         BUTTON:   'SETTINGS_ACTION_TYPES_BUTTON',
         TEXT:     'SETTINGS_ACTION_TYPES_TEXT',
+        NUMBER:   'SETTINGS_ACTION_TYPES_NUMBER',
+        LABEL:    'SETTINGS_ACTION_TYPES_LABEL',
         PASSWORD: 'SETTINGS_ACTION_TYPES_PASSWORD',
     };
 
@@ -29,6 +31,8 @@
                 case ACTION_TYPES.BUTTON:
                     break;
                 case ACTION_TYPES.TEXT:
+                case ACTION_TYPES.NUMBER:
+                case ACTION_TYPES.LABEL:
                     break;
                 case ACTION_TYPES.PASSWORD:
                     break;

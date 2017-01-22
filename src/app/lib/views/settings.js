@@ -14,12 +14,27 @@
             template: '#settings-action-dropdown-tpl',
         });
 
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.COLOR] =
+        App.View.SelectorDropdown.extend({
+            template: '#settings-action-dropdown-tpl',
+        });
+
     App.View.Settings.Action[App.Model.Settings.ActionTypes.BUTTON] =
         Backbone.Marionette.ItemView.extend({
             template: '#settings-action-button-tpl',
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-text-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.NUMBER] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-text-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.LABEL] =
         Backbone.Marionette.ItemView.extend({
             template: '#settings-action-text-tpl',
         });
