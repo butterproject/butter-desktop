@@ -18,15 +18,11 @@
         initialize: function(attrs) {
             switch (this.get('type')) {
                 case ACTION_TYPES.SWITCH:
-                    this.set('checked', false);
+                    this.set('checked', Settings[this.id]);
                     break;
                 case ACTION_TYPES.DROPDOWN:
-                    var selected = this.get('selected');
-                    if (! selected) {
-                        this.set('selected', this.get('options')[0]);
-                    }
-                    break;
                 case ACTION_TYPES.COLOR:
+                    this.set('selected', Settings[this.id] || this.get('options')[0]);
                     break;
                 case ACTION_TYPES.BUTTON:
                     break;
