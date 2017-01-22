@@ -7,7 +7,7 @@
     </div>
     <ul class="dropdown-menu" role="menu">
         <% for (var key in options) { %>
-        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(name || key) %></li>
+        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(options[key] || key) %></li>
         <% } %>
     </ul>
 </div>
