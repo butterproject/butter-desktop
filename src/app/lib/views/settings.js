@@ -85,6 +85,11 @@
     App.View.Settings.Container = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#settings-container-tpl',
         className: 'settings-container-contain',
+        events: {
+            'click .go-back': 'closeSettings',
+            'click .help': 'showHelp',
+            'click .keyboard': 'showKeyboard',
+        },
         regions: {
             Collection: '.tab-content-wrapper'
         },
@@ -108,6 +113,20 @@
                 collection: collection
             }));
         },
+        onDestroy: function () {
+            $('.filter-bar').show();
+            $('#header').removeClass('header-shadow');
+            $('#movie-detail').show();
+        },
+        closeSettings: function () {
+            App.vent.trigger('settings:close');
+        },
+        showHelp: function () {
+            App.vent.trigger('help:toggle');
+        },
+        showKeyboard: function () {
+            App.vent.trigger('keyboard:toggle');
+        }
     });
 
 })(window.App);
