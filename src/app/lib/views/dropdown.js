@@ -15,16 +15,16 @@
 
             this.type = this.model.get('type');
             this.selected = this.model.get('selected');
-            this.values = this.model.get('values');
+            this.options = this.model.get('options');
             this.hasNull = this.model.get('hasNull');
 
             if (this.hasNull) {
-                this.values = Object.assign({}, {none: undefined}, this.values);
-                this.model.set('values', this.values);
-            } else if (!this.selected && this.values) {
-                var values = Object.keys(this.values);
-                if (values.length) {
-                    this.selected = values.pop();
+                this.options = Object.assign({}, {none: undefined}, this.options);
+                this.model.set('options', this.options);
+            } else if (!this.selected && this.options) {
+                var options = Object.keys(this.options);
+                if (options.length) {
+                    this.selected = options.pop();
                 }
             }
         },
@@ -35,12 +35,12 @@
             }
         },
 
-        update: function (newValues) {
+        update: function (newOptions) {
             if (this.hasNull) {
-                newValues = Object.assign({}, {none: undefined}, newValues);
+                newOptions = Object.assign({}, {none: undefined}, newOptions);
             }
-            this.model.set('values', newValues);
-            this.values = newValues;
+            this.model.set('options', newOptions);
+            this.options = newOptions;
             this.render();
         },
 

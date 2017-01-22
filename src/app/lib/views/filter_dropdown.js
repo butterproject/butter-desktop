@@ -20,7 +20,7 @@
             this.model.get('selected') && this.setValue.apply(this);
         },
         prettyValue: function(key) {
-            return i18n.__(this.values[key]);
+            return i18n.__(this.options[key]);
         },
         setValue: function (model) {
             var key = this.model.get('selected');

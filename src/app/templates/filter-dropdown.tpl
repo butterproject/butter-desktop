@@ -7,8 +7,8 @@
         </div>
     </div>
     <ul class="filter-items" role="menu">
-        <% for (var key in values) { %>
-        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(values[key]) %></li>
+        <% for (var key in options) { %>
+        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(options[key]) %></li>
         <% } %>
     </ul>
 </div>

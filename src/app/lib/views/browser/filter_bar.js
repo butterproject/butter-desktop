@@ -78,13 +78,13 @@
         },
 
         loadFilterDropdown: function (filter, attrs) {
-            var values = this.model.get(filter);
-            values && Object.keys(values).length && this.loadDropdown(
+            var options = this.model.get(filter);
+            options && Object.keys(options).length && this.loadDropdown(
                 filter,
                 App.View.FilterDropdown,
                 Object.assign({
-                    selected: Object.keys(values)[0],
-                    values: values
+                    selected: Object.keys(options)[0],
+                    options: options
                 }, attrs));
 
         },

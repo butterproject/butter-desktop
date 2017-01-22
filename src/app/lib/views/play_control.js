@@ -121,7 +121,7 @@
             return this.loadDropdown('audio', App.View.LangDropdown, {
                 title: i18n.__('Audio Language'),
                 selected: this.model.get('defaultAudio'),
-                values: this.model.get('langs'),
+                options: this.model.get('langs'),
                 icon: 'volume_up'
             });
         },
@@ -131,23 +131,23 @@
                 title: i18n.__('Subtitle'),
                 selected: this.model.get('defaultSubtitle'),
                 hasNull: true,
-                values: this.model.get('subtitle'),
+                options: this.model.get('subtitle'),
                 icon: 'subtitles'
             });
         },
 
         loadQualityDropdown: function () {
-            var values = this.model.get('torrents');
+            var options = this.model.get('torrents');
             return this.loadDropdown('quality', App.View.SelectorDropdown, {
                 title: i18n.__('Quality'),
-                selected: Object.keys(values)[0], // XXX be smarter
-                values: values,
+                selected: Object.keys(options)[0], // XXX be smarter
+                options: options,
                 icon: 'high_quality'
             });
         },
 
         loadPlayerDropdown: function () {
-            var values = App.Device.Collection.models
+            var options = App.Device.Collection.models
                 .reduce((a, c) => {
                     a[c.id] = c;
                     return a;
@@ -156,7 +156,7 @@
             return this.loadDropdown('player', App.View.SelectorDropdown, {
                 title: i18n.__('Player'),
                 selected: App.Device.Collection.selected.get('id'),
-                values: values,
+                options: options,
                 icon: 'airplay'
             });
         },

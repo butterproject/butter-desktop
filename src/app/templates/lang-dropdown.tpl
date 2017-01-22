@@ -11,7 +11,7 @@
     </div>
     <ul class="dropdown-menu" role="menu">
         <div class="flag-container">
-            <% for(var lang in values){ %>
+            <% for(var lang in options){ %>
             <div class="flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.nativeName(lang) %>"></div>
             <% } %>
         </ul>
