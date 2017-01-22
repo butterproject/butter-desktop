@@ -213,7 +213,6 @@ Settings.playerSubPosition = '0px';
 Settings.playerVolume = '1';
 Settings.tv_detail_jump_to = 'next';
 
-
 var ScreenResolution = {
     get SD() {
         return window.screen.width < 1280 || window.screen.height < 720;

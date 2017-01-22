@@ -15,7 +15,7 @@
     App.Model.Settings = {};
     App.Model.Settings.ActionTypes = ACTION_TYPES;
     App.Model.Settings.Item = Backbone.Model.extend ({
-        initialize: function(attrs) {
+        initialize: function() {
             switch (this.get('type')) {
                 case ACTION_TYPES.SWITCH:
                     this.set('checked', Settings[this.id]);
@@ -50,6 +50,13 @@
         model: App.Model.Settings.TabItem
     });
 
+    function arrayToi18nHash(a) {
+        return a.reduce((a, c) => {
+            a[c] = i18n.__(c);
+            return a;
+        }, {});
+    }
+
     App.Model.Settings.Collection = new App.Model.Settings.TabCollection([{
         id: 'general',
         title: i18n.__('General'),
@@ -77,7 +84,7 @@
             helper: i18n.__('Only show content in this quality'),
             icon: 'sort',
             type: ACTION_TYPES.DROPDOWN,
-            options: ['All', '1080p', '720p'].map(i18n.__),
+            options: arrayToi18nHash(['All', '1080p', '720p']),
             advanced: true
         }, {
             id: 'moviesShowQuality',
@@ -221,10 +228,9 @@
             options: Object.keys(App.Localization.langcodes)
                            .filter(key => (App.Localization.langcodes[key]))
                            .reduce((a, key) => {
-                               var r = {};
-                               r[key] = App.Localization.langcodes[key].nativeName;
-                               return Object.assign({}, a, r);
-                           })
+                               a[key] = App.Localization.langcodes[key].nativeName;
+                               return a;
+                           }, {})
         }, {
             id: 'theme',
             title: i18n.__('Theme'),
@@ -249,7 +255,7 @@
             helper: i18n.__('Select the view the App should start on'),
             icon: 'home',
             type: ACTION_TYPES.DROPDOWN,
-            options: ['Movies','TV Series','Anime','Indie','Favorites', 'Watchlist', 'Last Open'].map(i18n.__),
+            options: arrayToi18nHash(['Movies','TV Series','Anime','Indie','Favorites', 'Watchlist', 'Last Open']),
             advanced: true
         }, {
             id: 'translateSynopsis',
@@ -295,10 +301,9 @@
                                App.Localization.langcodes[key].subtitle !== undefined &&
                                App.Localization.langcodes[key].subtitle === true))
                            .reduce((a, key) => {
-                               var r = {};
-                               r[key] = App.Localization.langcodes[key].nativeName;
-                               return Object.assign({}, a, r);
-                           })
+                               a[key] = App.Localization.langcodes[key].nativeName;
+                               return a;
+                           }, {})
         }, {
             id: 'subtitle_size',
             title: i18n.__('Size'),
@@ -320,7 +325,7 @@
             helper: i18n.__('%s text decorations', 'Subtitles'),
             icon: 'format_color_text',
             type: ACTION_TYPES.DROPDOWN,
-            options: ['None', 'Outline', 'Opaque Background', 'See-through Background'].map(i18n.__),
+            options: arrayToi18nHash(['None', 'Outline', 'Opaque Background', 'See-through Background']),
             advanced: true
         }, {
             id: 'subtitle_color',

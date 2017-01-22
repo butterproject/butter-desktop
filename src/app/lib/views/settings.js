@@ -3,44 +3,62 @@
 
     App.View.Settings = {};
 
+    var ActionView = function(Parent, View) {
+        View.setValue = function(value){
+            Settings[this.model.id] = value;
+        };
+
+        return Parent.extend(View);
+    };
+
     App.View.Settings.Action = {};
     App.View.Settings.Action[App.Model.Settings.ActionTypes.SWITCH] =
-        Backbone.Marionette.ItemView.extend({
+        ActionView(Backbone.Marionette.ItemView, {
             template: '#settings-action-switch-tpl',
+            events: {
+                'change input': '_setValue'
+            },
+            _setValue: function(e) {
+                var field = $(e.currentTarget);
+                this.setValue.bind(this)(field.is(':checked'));
+            },
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.DROPDOWN] =
-        App.View.SelectorDropdown.extend({
+        ActionView(App.View.FilterDropdown, {
             template: '#settings-action-dropdown-tpl',
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.COLOR] =
-        App.View.SelectorDropdown.extend({
+        ActionView(App.View.SelectorDropdown, {
             template: '#settings-action-dropdown-tpl',
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.BUTTON] =
-        Backbone.Marionette.ItemView.extend({
+        ActionView(Backbone.Marionette.ItemView, {
             template: '#settings-action-button-tpl',
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT] =
-        Backbone.Marionette.ItemView.extend({
+        ActionView(Backbone.Marionette.ItemView, {
             template: '#settings-action-text-tpl',
+            events: {
+                'change input': '_setValue'
+            },
+            _setValue: function(e) {
+                var field = $(e.currentTarget);
+                this.setValue.bind(this)(field.val());
+            },
         });
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.NUMBER] =
-        Backbone.Marionette.ItemView.extend({
-            template: '#settings-action-text-tpl',
-        });
+        App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT];
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.LABEL] =
-        Backbone.Marionette.ItemView.extend({
-            template: '#settings-action-text-tpl',
-        });
+        App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT];
 
     App.View.Settings.Action[App.Model.Settings.ActionTypes.PASSWORD] =
-        Backbone.Marionette.ItemView.extend({
+        App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT].extend({
             template: '#settings-action-password-tpl',
         });
 
