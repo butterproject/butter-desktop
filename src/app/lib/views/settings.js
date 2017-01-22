@@ -3,9 +3,46 @@
 
     App.View.Settings = {};
 
-    App.View.Settings.Item = Backbone.Marionette.ItemView.extend({
+    App.View.Settings.Action = {};
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.SWITCH] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-switch-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.DROPDOWN] =
+        App.View.SelectorDropdown.extend({
+            template: '#settings-action-dropdown-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.BUTTON] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-button-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.TEXT] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-text-tpl',
+        });
+
+    App.View.Settings.Action[App.Model.Settings.ActionTypes.PASSWORD] =
+        Backbone.Marionette.ItemView.extend({
+            template: '#settings-action-password-tpl',
+        });
+
+    App.View.Settings.Item = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#settings-item-tpl',
         className: 'settings-row',
+        regions: {
+            Action: '.action-item'
+        },
+        onShow: function () {
+            var model = this.model;
+            var type  = this.model.get('type');
+            console.log('type', type);
+            this.showView(this.Action, new App.View.Settings.Action[type]({
+                model: model
+            }));
+        }
     });
 
     App.View.Settings.TabContent = Backbone.Marionette.CollectionView.extend({

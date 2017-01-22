@@ -4,14 +4,38 @@
     var ACTION_TYPES = {
         SWITCH:   'SETTINGS_ACTION_TYPES_SWITCH',
         DROPDOWN: 'SETTINGS_ACTION_TYPES_DROPDOWN',
+        COLOR:    'SETTINGS_ACTION_TYPES_COLOR',
         BUTTON:   'SETTINGS_ACTION_TYPES_BUTTON',
         TEXT:     'SETTINGS_ACTION_TYPES_TEXT',
         PASSWORD: 'SETTINGS_ACTION_TYPES_PASSWORD',
     };
 
     App.Model.Settings = {};
+    App.Model.Settings.ActionTypes = ACTION_TYPES;
     App.Model.Settings.Item = Backbone.Model.extend ({
-
+        initialize: function(attrs) {
+            switch (this.get('type')) {
+                case ACTION_TYPES.SWITCH:
+                    this.set('checked', false);
+                    break;
+                case ACTION_TYPES.DROPDOWN:
+                    var selected = this.get('selected');
+                    if (! selected) {
+                        this.set('selected', this.get('options')[0]);
+                    }
+                    break;
+                case ACTION_TYPES.COLOR:
+                    break;
+                case ACTION_TYPES.BUTTON:
+                    break;
+                case ACTION_TYPES.TEXT:
+                    break;
+                case ACTION_TYPES.PASSWORD:
+                    break;
+                default:
+                    break;
+            }
+        }
     });
 
     App.Model.Settings.ItemCollection = Backbone.Collection.extend ({
