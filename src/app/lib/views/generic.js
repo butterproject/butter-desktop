@@ -40,8 +40,10 @@
 
             Object.values(this.views).map(v => v.destroy());
             Object.keys(this.appEvents).map(App.vent.off);
-            Object.keys(this.modelEvents).map(this.model.off);
             Object.keys(this.keyboardShortCuts).map(Mousetrap.unbind);
+            if (this.model) { // if no model, no modelEvents
+                Object.keys(this.modelEvents).map(this.model.off);
+            }
         };
 
         return Parent.extend(View);
