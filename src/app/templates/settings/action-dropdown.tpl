@@ -1,4 +1,4 @@
-<div class="drop-selector dropup">
+<div class="drop-selector drop-settings">
     <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         <div class="select-item">
             <span class="selected"><%= selected %></span>

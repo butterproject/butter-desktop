@@ -28,7 +28,6 @@
         font-smoothing: antialiased
         text-align: center
         font-size: 16px
-        transition: background-color 0.5s
         i
             margin-right: 10px
             font-size 18px
@@ -47,7 +46,7 @@
         border-radius: 0 0 5px 5px
         box-shadow: none
         li
-            padding-left: 10px
+            padding: 8px 0px 8px 10px
             cursor: pointer
             opacity: 0.75
             &:hover
@@ -74,19 +73,19 @@
         border-radius: 5px 5px 0 0
 
     &.drop-settings
-        display: inline-block
+        font-size  0.95em
         position: relative
-        &.open
-            .dropdown-menu
-                display: inline-block
-                padding: 0
-        .dropdown-menu
-            li
-                padding: 10px 8px
+
         .dropdown-toggle
+            padding: 5px 10px
+            border-radius 5px
+            background #0A0C13
+            color #FFF
+            font-weight normal
+            line-height 0.70em
             display: inline-block
             width: auto
-            padding: 5px
+
             .selected
                 text-align: left
                 min-width: 125px
@@ -94,6 +93,18 @@
                 padding: 5px
             i
                 margin:0!important
+                &:after
+                    content: "arrow_drop_down"
+        &.open
+            .dropdown-toggle
+                color: #252525
+                background: transparent
+                i
+                    &:after
+                        content: "arrow_drop_up"
+
+
+
     &.dropup
         .dropdown-menu
             border-radius: 5px 5px 0 0
