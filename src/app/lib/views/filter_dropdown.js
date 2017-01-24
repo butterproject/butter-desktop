@@ -1,7 +1,8 @@
+
 (function (App){
     'use strict';
 
-    App.View.FilterDropdown = App.View.Dropdown.extend({
+    App.View.FilterDropdown = App.View.Generic(App.View.Dropdown, {
         template: '#filter-dropdown-tpl',
         kind: 'filter',
         ui: {
@@ -14,10 +15,10 @@
 
         initialize: function () {
             App.View.Dropdown.prototype.initialize.apply(this, arguments);
-            this.model.on('change:selected', this._setValue.bind(this));
         },
         onShow: function () {
             this.model.get('selected') && this._setValue.apply(this);
+            this.bindModelEvent('change:selected', this._setValue);
         },
         prettyValue: function(key) {
             return i18n.__(this.options[key]);
