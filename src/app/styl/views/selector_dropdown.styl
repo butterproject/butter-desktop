@@ -1,5 +1,6 @@
 .drop-selector
     font-family: $MainFont
+    font-smoothing: antialiased
     color #FFF
     border-radius:  5px
     border: 0
@@ -48,7 +49,7 @@
         border-radius: 0 0 5px 5px
         box-shadow: none
         li
-            padding: 8px 0px 8px 10px
+            padding: 0 0 0 10px
             cursor: pointer
             opacity: 0.75
             &:hover
@@ -77,6 +78,10 @@
     &.drop-settings
         font-size  0.95em
         position: relative
+
+        .dropdown-menu
+            li
+                padding: 8px 0px 8px 10px
 
         .dropdown-toggle
             padding: 5px 10px
