@@ -1,7 +1,8 @@
+
 (function (App){
     'use strict';
 
-    App.View.FilterDropdown = App.View.Dropdown.extend({
+    App.View.FilterDropdown = App.View.Generic(App.View.Dropdown, {
         template: '#filter-dropdown-tpl',
         kind: 'filter',
         ui: {
@@ -14,10 +15,10 @@
 
         initialize: function () {
             App.View.Dropdown.prototype.initialize.apply(this, arguments);
-            this.model.on('change:selected', this._setValue.bind(this));
         },
         onShow: function () {
             this.model.get('selected') && this._setValue.apply(this);
+            this.bindModelEvent('change:selected', this._setValue);
         },
         prettyValue: function(key) {
             return i18n.__(this.options[key]);
@@ -25,10 +26,10 @@
         _setValue: function () {
             var key = this.model.get('selected');
             console.log(this.kind + 'Dropdown._setValue(%s)', this.type, key);
-            this.ui.selected.html(this.prettyValue(key));
-            this.ui.items.removeClass('hidden');
+            $('.selected', this.el).html(this.prettyValue(key));
+            $('.items', this.el).removeClass('hidden');
             // HACK
-            this.ui.items.closest(`[data-value="${key}"]`).addClass('hidden');
+            $('.items', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
 
             this.setValue.bind(this)(key);
         },
