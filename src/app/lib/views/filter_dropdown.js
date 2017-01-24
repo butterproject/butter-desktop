@@ -27,9 +27,9 @@
             var key = this.model.get('selected');
             console.log(this.kind + 'Dropdown._setValue(%s)', this.type, key);
             $('.selected', this.el).html(this.prettyValue(key));
-            $('.items', this.el).removeClass('hidden');
+            $('.filter-item', this.el).removeClass('hidden');
             // HACK
-            $('.items', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
+            $('.filter-item', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
 
             this.setValue.bind(this)(key);
         },
