@@ -11,7 +11,7 @@
     </div>
     <ul class="dropdown-menu" role="menu">
         <% for (var key in options) { %>
-        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(name || options[key] || key) %></li>
+        <li class="filter-item" data-value="<%= key %>"><%= i18n.__(name || key) %></li>
         <% } %>
     </ul>
 </div>
