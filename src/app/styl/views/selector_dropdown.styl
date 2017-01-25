@@ -1,4 +1,6 @@
 .drop-selector
+    position: relative
+    z-index: 1
     font-family: $MainFont
     font-smoothing: antialiased
     color #FFF
@@ -24,6 +26,7 @@
         justify-content: space-between
         align-items: center
         position relative
+        z-index: 99
         padding: 0px 5px
         align-items: center
         cursor: pointer
@@ -39,15 +42,23 @@
             vertical-align middle
 
     .dropdown-menu
+        z-index: 1
+        padding: 0
+        padding-top: 10px
+        opacity: 0
         overflow-x: hidden
         overflow-y: auto
         width: 100%
-        max-height: 245px
+        height:0
+        max-height: 215px
         margin: 0
-        padding: 0
         border: 0
         border-radius: 0 0 5px 5px
         box-shadow: none
+        display inline-block
+        vertical-align top
+        transform: translate(0, -30px)!important
+        -webkit-transition: transform 0.4s cubic-bezier(0.42, 0, 0, 1.4)
         li
             padding: 0 0 0 10px
             cursor: pointer
@@ -70,14 +81,20 @@
                 background-color: $ScrollBarThumbHover
 
     &.open
+        z-index: 99
         background: #FFF
         color: #252525
         background-clip: padding-box
         border-radius: 5px 5px 0 0
 
+        .dropdown-menu
+            height: auto
+            opacity: 1
+            transform: translate(0, -7px)!important
+
     &.drop-settings
+        display: inline-block
         font-size  0.95em
-        position: relative
 
         .dropdown-menu
             li
@@ -114,6 +131,9 @@
 
     &.dropup
         .dropdown-menu
+            transform: translate(0, 30px)!important
             border-radius: 5px 5px 0 0
         &.open
             border-radius: 0 0 5px 5px!important
+            .dropdown-menu
+                transform: translate(0, 7px)!important
