@@ -5,7 +5,14 @@
 
     var ActionView = function(Parent, View) {
         View.setValue = function(value){
-            Settings[this.model.id] = value;
+            var key = this.model.id;
+            Settings[key] = value;
+
+            //save to db
+            App.db.writeSetting({
+                key: key,
+                value: value
+            }).then(() => (App.vent.trigger('settings:save')));
         };
 
         return Parent.extend(View);
@@ -117,6 +124,9 @@
     App.View.Settings.Container = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#settings-container-tpl',
         className: 'settings-container-contain',
+        ui: {
+            success_alert: '.success_alert'
+        },
         events: {
             'click .go-back': 'closeSettings',
             'click .help': 'showHelp',
@@ -135,6 +145,10 @@
                     'hide': 100
                 }
             });
+
+            this.bindAppEvent('settings:save', () => (
+                this.ui.success_alert.show().delay(3000).fadeOut(400)
+            ));
 
             this.bindShortCut('backspace',() => {
                 App.vent.trigger('settings:close');
