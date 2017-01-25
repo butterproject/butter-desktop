@@ -17,21 +17,23 @@
             App.View.Dropdown.prototype.initialize.apply(this, arguments);
         },
         onShow: function () {
-            this.model.get('selected') && this._setValue.apply(this);
+            this.model.get('selected') && this._setValue.apply(this, [true]);
             this.bindModelEvent('change:selected', this._setValue);
         },
         prettyValue: function(key) {
             return i18n.__(this.options[key]);
         },
-        _setValue: function () {
+        _setValue: function (init) {
             var key = this.model.get('selected');
             console.log(this.kind + 'Dropdown._setValue(%s)', this.type, key);
             $('.selected', this.el).html(this.prettyValue(key));
-            $('.items', this.el).removeClass('hidden');
+            $('.filter-item', this.el).removeClass('hidden');
             // HACK
-            $('.items', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
+            $('.filter-item', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
 
-            this.setValue.bind(this)(key);
+            if (! init) {
+                this.setValue.bind(this)(key);
+            }
         },
         setValue: function (key) {
             App.vent.trigger(this.kind + ':' + this.type, key);
