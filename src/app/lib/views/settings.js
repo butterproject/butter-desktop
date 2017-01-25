@@ -4,6 +4,16 @@
     App.View.Settings = {};
 
     var ActionView = function(Parent, View) {
+        const _onShow = View.onShow;
+
+        View.onShow = function () {
+            this.model.sync();
+
+            if (_onShow) {
+                _onShow();
+            }
+        };
+
         View.setValue = function(value){
             var key = this.model.id;
             Settings[key] = value;
@@ -12,7 +22,8 @@
             App.db.writeSetting({
                 key: key,
                 value: value
-            }).then(() => (App.vent.trigger('settings:save')));
+            }).then(this.model.sync)
+               .then(() => (App.vent.trigger('settings:save')));
         };
 
         return Parent.extend(View);

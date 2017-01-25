@@ -15,7 +15,7 @@
     App.Model.Settings = {};
     App.Model.Settings.ActionTypes = ACTION_TYPES;
     App.Model.Settings.Item = Backbone.Model.extend ({
-        initialize: function() {
+        _sync: function() {
             switch (this.get('type')) {
                 case ACTION_TYPES.SWITCH:
                     this.set('checked', Settings[this.id]);
@@ -35,6 +35,10 @@
                 default:
                     break;
             }
+        },
+        initialize: function () {
+            this.sync = this._sync.bind(this);
+            this.sync();
         }
     });
 
