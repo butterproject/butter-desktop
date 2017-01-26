@@ -159,7 +159,6 @@
 
             .overview
                 position: relative
-                height: 55%
                 overflow: hidden
                 text-overflow: ellipsis
                 float: none
@@ -168,12 +167,13 @@
                 padding-right: 2%
                 font-family: $MainFont
                 font-smoothing: antialiased
-                font-size: 18px
+                font-size: 16px
                 line-height: 1.6em
                 text-align: left
                 text-stroke: 1px rgba(0,0,0,0.1)
                 backface-visibility: hidden
                 scrollable();
+                margin-bottom: 50px
 
 
 #play-control {
@@ -182,18 +182,10 @@
     left: 0;
     width: 100%;
     background: rgba(0,0,0,0.3);
-    padding: 30px 0 50px 41vw;
+    padding: 30px 0 50px 3vw;
     height: 200px;
 }
-
-.play-control
-    height: 70px
-    line-height: 35px
-
-    .dropdowns-container
-        width 240px
-
-    .play-selector
+.play-selector
         position: relative
         &:after
             content: ''
@@ -202,22 +194,37 @@
             top: 0
             left: 0
             position: absolute
-    .play-button
-        font-size: 22px
-        font-family: $TitleFont
-        text-transform: uppercase;
-        padding: 8px 24px 8px 18px
-        margin: 0;
-        line-height: 1.3em;
-        height: auto;
-        border-radius: 5px;
-        float: right
-        margin-right: 30px
+    .play-button        
+        color: #FFF
+        width: 140px;
+        text-align: center;
+        .startStreaming
+            font-size: 22px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.3em;
+            height: auto;
+            border-radius: 5px;
+            height: 65px;
+            text-align: center
+            background: $MainColor
+            margin-bottom: 10px
+            
         i
             margin-right: 10px;
             vertical-align: text-bottom;
             line-height: 1.2em;
+            font-size: 42px;
+            margin-top:10px
 
+.play-control
+    height: 70px
+    line-height: 35px
+
+    .dropdowns-container
+        width 240px
+
+    
     .movie-quality-container
         margin-top: 10px
         float: left

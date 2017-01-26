@@ -10,10 +10,6 @@ genres[i] = i18n.__(genres[i]);
 }
 %>
 
-<section class="poster-box">
-    <img src="images/posterholder.png" class="mcover-image" />
-</section>
-
 <section class="content-box">
     <div class="meta-container">
         <div class="metadatas">
@@ -42,9 +38,13 @@ genres[i] = i18n.__(genres[i]);
         </div>
 
         <div class="overview"><%= synopsis %></div>
+        <div id="player-chooser" class="play-selector"></div>
         <div id="watch-trailer"  class="button play-selector">
             <%=i18n.__("Watch Trailer") %>
         </div>
     </div>
+</section>
+<section class="poster-box">
+    <img src="images/posterholder.png" class="mcover-image" />
 </section>
 <section id="play-control"></section>

@@ -1,7 +1,5 @@
 <div class="play-control">
     <div class="play-btn">
-            <div id="player-chooser" class="play-selector"></div>
-
             <div class="movie-quality-container" style="display: none">
                 <% if (torrents["720p"] !== undefined && torrents["1080p"] !== undefined) { %>
                 <div class="q720">720p</div>
