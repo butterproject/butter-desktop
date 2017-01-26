@@ -2,7 +2,7 @@
     z-index 1
     background-color $BgColor1
     height 100%
-    width calc(100% - 5px)
+    width 100%
     position fixed
     padding-top: $TitleHeight + 10px
     #qrcode-modal
@@ -46,6 +46,7 @@
             text-align: center
         .nav-tabs
             width auto
+            background: transparent
             margin 0 auto
             font-size: 0.9em
             border-bottom: none 0
@@ -53,6 +54,7 @@
             width 100%
             position absolute
             padding-top 10px
+            box-shadow: none
             li
                 float: none
                 display: inline-block
@@ -85,19 +87,19 @@
                 section
                     display block
                     .content
-                        max-width: 650px
+                        max-width: 780px
                         margin: 0 auto
                     .settings-row
                         color: #FFF
                         margin: 0
                         display: block
                         margin: 0 20px
-                        border-bottom 1px solid rgba(255,255,255,0.15)
-                        padding 20px 20px 20px 0
+                        border-bottom 1px solid rgba(225,225,225,0.15)
+                        padding 35px 20px
                         &:last-child
                             margin-bottom: 50px
                         &:hover
-                            background rgba(255,255,255,0.03)
+                            background: $BackColor_light
                         .text, i, .action-item
                             display: inline-block
                             vertical-align: middle
@@ -108,9 +110,10 @@
                             line-height: 1em
                             max-width: 52%
                             .helper
+                                margin-top: 2px
                                 font-family: $MainFont
                                 opacity: 0.4
-                                font-size 14px
+                                font-size 13px
                         i
                             font-size: 24px
                             margin: 0 20px
@@ -130,7 +133,6 @@
                             input[type=password]
                                 padding: 5px 10px
                                 border-radius 5px
-                                background #0A0C13
                                 color #FFF
                                 outline 0
                                 border 0
@@ -138,6 +140,8 @@
                                 font-weight normal
                                 line-height 0.70em
                                 width 140px
+                                background rgba(0,0,0,0.32)
+                                -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0,0,0,0.85)
                                 transition background .2s ease
 
 

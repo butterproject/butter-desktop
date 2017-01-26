@@ -5,9 +5,10 @@
     .dropdown-toggle
         display inline-block
         vertical-align middle
-        padding 6px 12px 6px 12px
+        padding 0px 10px
         border-radius 5px
-        background #0A0C13
+        background rgba(0,0,0,0.32)
+        -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0,0,0,0.85)
         transition background .2s ease
         i.material-icons
             font-size 1.12em
@@ -26,12 +27,14 @@
             margin 0
             outline 0
             border 0
+            padding 5px
             transition all 0.2s ease
-            font-size  1em
+            font-size  14px
             line-height 0.75em
     &.open
         input[type=text]
             color #353535
+            -webkit-box-shadow: none
          i.material-icons
             color rgba(0, 0, 0, 0.5)
 

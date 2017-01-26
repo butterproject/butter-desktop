@@ -29,33 +29,33 @@
         <%} %>
     </div>
 </div>
-
-<p class="title" title="<%= title %>"><%= title %></p>
-<p class="year">
-    <% if (typeof year !== 'undefined') {%>
-        <%= year %>
-    <%} %>
-</p>
-
-<% if (typeof item_data !== 'undefined') {%>
-        <p class="seasons data">
-            <%= i18n.__(item_data) %>
-        </p>
-<% } else if(typeof num_seasons !== 'undefined'){%>
-    <p class="seasons">
-        <%= num_seasons %> <%= num_seasons == 1 ? i18n.__("Season") : i18n.__("Seasons") %>
+<div class="item-data">
+    <p class="title" title="<%= title %>"><%= title %></p>
+    <p class="year">
+        <% if (typeof year !== 'undefined') {%>
+            <%= year %>
+        <%} %>
     </p>
-<%}else if (typeof torrents !== 'undefined') { %>
-    <p id="movie_quality" class="seasons quality" <% if(Settings.moviesShowQuality){ %> style="display: block;" <% } %> >
-        <% q720 = torrents["720p"] !== undefined; q1080 = torrents["1080p"] !== undefined;
-        if (q720 && q1080) { %>
-            720p/1080p
-        <% } else if (q1080) { %>
-            1080p
-        <% } else if (q720) { %>
-            720p
-        <% } else { %>
-            HDRip
-        <% } %>
-    </p>
-<%} %>
+        <% if (typeof item_data !== 'undefined') {%>
+            <p class="seasons data">
+                <%= i18n.__(item_data) %>
+            </p>
+        <% } else if(typeof num_seasons !== 'undefined'){%>
+            <p class="seasons">
+                <%= num_seasons %> <%= num_seasons == 1 ? i18n.__("Season") : i18n.__("Seasons") %>
+            </p>
+        <%}else if (typeof torrents !== 'undefined') { %>
+            <p id="movie_quality" class="seasons quality" <% if(Settings.moviesShowQuality){ %> style="display: block;" <% } %> >
+                <% q720 = torrents["720p"] !== undefined; q1080 = torrents["1080p"] !== undefined;
+                if (q720 && q1080) { %>
+                    720p/1080p
+                    <% } else if (q1080) { %>
+                        1080p
+                    <% } else if (q720) { %>
+                        720p
+                    <% } else { %>
+                        HDRip
+                    <% } %>
+            </p>
+                <%} %>
+</div>

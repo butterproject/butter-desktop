@@ -4,6 +4,8 @@
     float: left
     width: 134px
     font-size: 1em
+    background: $BackColor_light
+    box-shadow:  0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35)
 
     &:last-child
         flex-grow: 10
@@ -21,10 +23,10 @@
         background-size: 134px 196px
         width: 134px
         height: 196px
-        border-radius: $PosterRadius
-        box-shadow: $PosterShadow
+        //border-radius: $PosterRadius
+        //box-shadow: $PosterShadow
         cursor: pointer
-        
+
         &.empty
             background-image none
 
@@ -36,7 +38,6 @@
             position absolute
             transition opacity 500ms ease-in
             opacity 0
-            border-radius: 5px
 
             &img
                 position absolute
@@ -47,7 +48,7 @@
 
             &.cover-info-overlay
               padding 88px 0
-              background-image: $PosterHoverOverlay
+              background: $PosterHoverOverlay
               border: 2px solid #0C0D0E
               border-radius $PosterRadius
               transition border-color .25s ease
@@ -106,12 +107,12 @@
                 font-size 85%
 
                 .rating-star
-                    color #ffc900
+                    color #FFF
                     padding-right: 2px
                     vertical-align middle
 
                 .rating-star-half
-                    color #ffc900
+                    color #FFF
                     width 50%
 
                 .rating-star-half-empty
@@ -140,30 +141,31 @@
                 transition border-color .50s
                 opacity: 1
                 box-shadow: 0 1px 4px rgba(0,0,0,0.5)
-    .title
-        height: auto;
-        margin: 6px 0 0;
-        color: $Text1
-        max-width: 100%
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        padding-bottom: 2px
-        font-weight: bold
+    .item-data
+        padding: 5px 0
+        .title
+            height: auto;
+            margin: 8px 0 0;
+            color: $Text1
+            max-width: 100%
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            padding-bottom: 2px
+            font-weight: bold
 
-    .year
-        font-size: 0.85em
-        color: $Text4
-        display: inline
+            .year
+            font-size: 0.85em
+            color: $Text4
+            display: inline
 
-    .seasons
-        font-size: 0.85em
-        color: $Text4
-        display: inline
-        float: right
-
-        &.quality
-            display: none
+            .seasons
+            font-size: 0.85em
+            color: $Text4
+            display: inline
+            float: right
+            &.quality
+                display: none
 
 .load-more
     position relative
@@ -185,7 +187,7 @@
         position absolute
         left calc(50% - 25px)
         top calc(50% - 25px)
-        
+
         .sk-folding-cube
             position: initial
 

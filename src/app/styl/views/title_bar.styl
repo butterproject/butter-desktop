@@ -89,16 +89,16 @@
             display:block;
 
         &.fullscreen::before
-            content: "\e000";
-            font-family: VideoJS;
-            font-size: 1.85em;
+            content: "fullscreen";
+            font-family: "Material Icons";
+            font-size: 2.25em;
             line-height: 0.2em;
             background: none;
             display:block;
             text-shadow: 0 1px 0 rgba(255,255,255,0.1)
 
         &.fullscreen.active::before
-            content: "\e00B";
+            content: "fullscreen_exit";
 
         &.fullscreen:hover
             color:$FullScreenButtonHover;
