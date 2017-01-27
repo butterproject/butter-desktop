@@ -29,6 +29,7 @@
                 case ACTION_TYPES.TEXT:
                 case ACTION_TYPES.NUMBER:
                 case ACTION_TYPES.LABEL:
+                    this.set('value', Settings[this.id] || this.get('value') || '');
                     break;
                 case ACTION_TYPES.PASSWORD:
                     break;
