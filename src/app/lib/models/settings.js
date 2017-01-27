@@ -54,6 +54,14 @@
         model: App.Model.Settings.TabItem
     });
 
+    App.Model.Settings.SectionItem = Backbone.Model.extend ({
+        idAttribute: 'id'
+    });
+
+    App.Model.Settings.SectionCollection = Backbone.Collection.extend ({
+        model: App.Model.Settings.SectionItem
+    });
+
     function arrayToi18nHash(a) {
         return a.reduce((a, c) => {
             a[c] = i18n.__(c);

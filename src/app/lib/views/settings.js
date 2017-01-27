@@ -100,16 +100,47 @@
         className: 'settings-item',
     });
 
+    App.View.Settings.SectionContent = App.View.Generic(Backbone.Marionette.LayoutView, {
+        template: '#settings-section-tpl',
+        className: 'settings-section-content',
+        regions: {
+            Content: '.content'
+        },
+        onShow: function () {
+            var collection = this.model.get('collection');
+            this.showView(this.Content, new App.View.Settings.TabContent({
+                collection: collection
+            }));
+
+            var showIf = this.model.get('showIf');
+            if (showIf && ! showIf()) {
+                this.el.hidden = true;
+            }
+        },
+    });
+
+    App.View.Settings.SectionCollection = Backbone.Marionette.CollectionView.extend({
+        childView: App.View.Settings.SectionContent,
+        className: 'settings-section',
+    });
+
     App.View.Settings.Tab = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#settings-tab-tpl',
         regions: {
             Content: '.content'
         },
         onShow: function () {
-            var collection = this.collection;
-            this.showView(this.Content, new App.View.Settings.TabContent({
-                collection: collection
-            }));
+            if (this.collection) {
+                var collection = this.collection;
+                this.showView(this.Content, new App.View.Settings.TabContent({
+                    collection: collection
+                }));
+            } else {
+                var sections = this.model.get('sections');
+                this.showView(this.Content, new App.View.Settings.SectionCollection({
+                    collection: sections
+                }));
+            }
         },
         onRender: function () {
             // Get rid of that pesky wrapping-div.
@@ -127,7 +158,8 @@
         className: 'tab-content',
         childViewOptions: function (model, index) {
             return {
-                collection: model.get('collection')
+                collection: model.get('collection'),
+                sections: model.get('sections')
             };
         },
     });
