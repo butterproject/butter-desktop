@@ -2,10 +2,8 @@
     display: inline-block;
     margin: 10px
     float: left
-    width: 134px
+    width: 144px //134px
     font-size: 1em
-    background: $BackColor_light
-    box-shadow:  0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35)
 
     &:last-child
         flex-grow: 10
@@ -20,9 +18,9 @@
     .cover
         position: relative
         background-image url(../images/posterholder.png)
-        background-size: 134px 196px
-        width: 134px
-        height: 196px
+        background-size: 144px 206px // 134px 196px
+        width: 144px // 144px
+        height: 206px // 196px
         //border-radius: $PosterRadius
         //box-shadow: $PosterShadow
         cursor: pointer
@@ -49,8 +47,8 @@
             &.cover-info-overlay
               padding 88px 0
               background: $PosterHoverOverlay
-              border: 2px solid #0C0D0E
-              border-radius $PosterRadius
+              //border: 2px solid #0C0D0E
+              //border-radius $PosterRadius
               transition border-color .25s ease
 
             .actions-favorites
@@ -146,25 +144,26 @@
         .title
             display: block
             height: auto;
-            margin: 10px 0 0;
-            color: $Text1
-            max-width: 95%
+            padding: 5px;
+            color: #EEE
+            max-width: 90%
             overflow: hidden
             text-overflow: ellipsis
             white-space: nowrap
-            padding-bottom: 2px
-            font-weight: bold
+            font-family: $MainFontBold
+            font-size:1em;
 
         .year
-            font-size: 0.95em
+            font-size: 0.85em
             color: $Text4
             display: inline-block
+            padding:2px 5px;
 
         .seasons
             font-size: 0.95em
             color: $Text4
-            display: inline
-            float: right
+            display: none //inline-block
+            //float: right
             &.quality
                 display: none
 
