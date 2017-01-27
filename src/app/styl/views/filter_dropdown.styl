@@ -10,6 +10,7 @@
         display: none
     .dropdown-toggle
         position relative
+        border-radius: 5px 5px 0 0
         z-index: 99
         padding 12px 15px
 
@@ -31,9 +32,11 @@
                 font-size 0.9em
                 line-height 0.75em
                 min-width 75px
+                max-width 90px
                 text-transform capitalize
             .icon.material-icons
                 margin-left 10px
+                width: 15px
                 &:after
                   content "arrow_drop_down"
 
@@ -51,7 +54,7 @@
         border-radius 0 0 5px 5px
         overflow hidden
         opacity 0
-        box-shadow: none
+        box-shadow: 0 3px 6px rgba(0,0,0,0.20), 0 3px 6px rgba(0,0,0,0.35);
         -webkit-transition: transform 0.4s cubic-bezier(0.42, 0, 0, 1.4)
 
         li
@@ -71,6 +74,7 @@
                 opacity 1
     &.open
         .dropdown-toggle
+            background: #FFF;
             color: #252525 !important
             .category
                 color: #252525 !important

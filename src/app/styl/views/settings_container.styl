@@ -1,6 +1,6 @@
 .settings-container-contain
     z-index 1
-    background-color $BgColor1
+    background-color $BackColor_dark
     height 100%
     width 100%
     position fixed
@@ -36,7 +36,7 @@
         width 100%
         height 100%
         position absolute
-        background-color $BgColor1
+        background-color $BackColor_dark
         -webkit-user-select none
         padding-bottom 20px
         top: 0
@@ -112,6 +112,7 @@
                             .helper
                                 margin-top: 2px
                                 font-family: $MainFont
+                                font-weight: normal
                                 opacity: 0.4
                                 font-size 13px
                         i
@@ -140,7 +141,7 @@
                                 font-weight normal
                                 line-height 0.70em
                                 width 140px
-                                background rgba(0,0,0,0.32)
+                                background $InputBg
                                 -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0,0,0,0.85)
                                 transition background .2s ease
 

@@ -19,11 +19,12 @@
         position: relative
         background-image url(../images/posterholder.png)
         background-size: 144px 206px // 134px 196px
-        width: 144px // 144px
+        width: 144px // 134px
         height: 206px // 196px
-        //border-radius: $PosterRadius
-        //box-shadow: $PosterShadow
+        border-radius: $PosterRadius
+        box-shadow: $PosterShadow
         cursor: pointer
+
 
         &.empty
             background-image none
@@ -33,6 +34,7 @@
             height 100%
             background-size cover
             background-position center
+            border-radius: $PosterRadius
             position absolute
             transition opacity 500ms ease-in
             opacity 0
@@ -47,8 +49,8 @@
             &.cover-info-overlay
               padding 88px 0
               background: $PosterHoverOverlay
-              //border: 2px solid #0C0D0E
-              //border-radius $PosterRadius
+              border: 2px solid transparent
+              border-radius $PosterRadius
               transition border-color .25s ease
 
             .actions-favorites
@@ -135,18 +137,18 @@
     &.selected
         .cover
             .cover-info-overlay
-                border 1px solid #0C0D0E
+                border 2px solid $MainColor
                 transition border-color .50s
                 opacity: 1
-                box-shadow: 0 1px 4px rgba(0,0,0,0.5)
+                //box-shadow: 0 1px 4px rgba(0,0,0,0.5)
     .item-data
         padding: 5px 0
         .title
             display: block
             height: auto;
-            padding: 5px;
+            padding: 5px 0;
             color: #EEE
-            max-width: 90%
+            max-width: 100%
             overflow: hidden
             text-overflow: ellipsis
             white-space: nowrap
@@ -157,13 +159,12 @@
             font-size: 0.85em
             color: $Text4
             display: inline-block
-            padding:2px 5px;
 
         .seasons
             font-size: 0.95em
             color: $Text4
-            display: none //inline-block
-            //float: right
+            display: inline
+            float: right
             &.quality
                 display: none
 
