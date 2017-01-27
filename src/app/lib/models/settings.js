@@ -70,7 +70,7 @@
         }, {});
     }
 
-    App.Model.Settings.Collection = new App.Model.Settings.TabCollection([{
+    var GeneralSettings = {
         id: 'general',
         title: i18n.__('General'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -229,7 +229,9 @@
             type: ACTION_TYPES.SWITCH,
             advanced: true
         }])
-    }, {
+    };
+
+    var InterfaceSettings = {
         id: 'interface',
         title: i18n.__('Interface'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -300,7 +302,9 @@
             advanced: true
         }
         ])
-    }, {
+    };
+
+    var SubtitlesSettings = {
         id: 'subtitles',
         title: i18n.__('Subtitles'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -364,10 +368,12 @@
             advanced: true
         }
         ])
-    }, {
+    };
+
+    var ExtensionsSettings = {
         id: 'extensions',
         title: i18n.__('Extensions'),
-        sections: [{
+        sections: new App.Model.Settings.SectionCollection([{
             id: 'remote-control',
             title: i18n.__('Remote Control'),
             advanced: true,
@@ -513,11 +519,13 @@
                 type: ACTION_TYPES.BUTTON,
                 action_title: 'Connect'
             }])
-        }]
-    }, {
-        id: 'providers',
-        title: 'Providers',
-    }
+        }])
+    };
 
+    App.Model.Settings.Collection = new App.Model.Settings.TabCollection([
+        GeneralSettings,
+        InterfaceSettings,
+        SubtitlesSettings,
+        ExtensionsSettings
     ]);
 })(window.App);
