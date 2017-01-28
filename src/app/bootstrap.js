@@ -101,5 +101,55 @@
                 }, {});
 
             return providers;
+        }).then(() => {
+            var providers = Object.values(Settings.tabs)
+                                  .map(t => (t.providers.map(p => App.Providers._cache[p])))
+                                  .reduce((a, c) => (a.concat(c)), []);
+
+            var getConfigForArg = function (type, value) {
+                switch (type) {
+                    case Provider.ArgType.NUMBER:
+                    case Provider.ArgType.STRING:
+                        return {
+                            type: App.Model.Settings.ActionTypes.TEXT,
+                            value: value
+                        };
+                    case Provider.ArgType.BOOLEAN:
+                        return {
+                            type: App.Model.Settings.ActionTypes.SWITCH,
+                            value: value
+                        };
+                    default:
+                    case Provider.ArgType.ARRAY:
+                    case Provider.ArgType.OBJECT:
+                        return {
+                            type: App.Model.Settings.ActionTypes.TEXT,
+                            value: JSON.stringify(value)
+                        };
+                }
+            };
+
+            var ProviderSettings = {
+                id: 'providers',
+                title: 'Providers',
+                sections: new App.Model.Settings.SectionCollection(
+                    providers.map(p => ({
+                        id: p.uri,
+                        title: p.config.tabName + '-' + p.uri,
+                        collection: new App.Model.Settings.ItemCollection(
+                            Object.keys(p.args).map(k => (
+                                Object.assign ({
+                                    id: p.uri + k,
+                                    title: p.config.tabName + ' ' + k,
+                                    helper: '',
+                                    icon: 'settings_applications',
+                                }, getConfigForArg(p.config.args[k], p.args[k]))
+                            ))
+                        )
+                    }))
+                )
+            };
+
+            App.Model.Settings.Collection.add(ProviderSettings);
         });
 })(window.App);
