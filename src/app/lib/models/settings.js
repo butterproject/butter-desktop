@@ -16,26 +16,31 @@
     App.Model.Settings.ActionTypes = ACTION_TYPES;
     App.Model.Settings.Item = Backbone.Model.extend ({
         _sync: function() {
+            let value = Settings[this.id];
             switch (this.get('type')) {
                 case ACTION_TYPES.SWITCH:
-                    this.set('checked', Settings[this.id]);
+                    this.set('checked', value);
                     break;
                 case ACTION_TYPES.DROPDOWN:
                 case ACTION_TYPES.COLOR:
-                    this.set('selected', Settings[this.id] || this.get('options')[0]);
+                    value = value || this.get('options')[0];
+                    this.set('selected', value);
                     break;
                 case ACTION_TYPES.BUTTON:
                     break;
                 case ACTION_TYPES.TEXT:
                 case ACTION_TYPES.NUMBER:
                 case ACTION_TYPES.LABEL:
-                    this.set('value', Settings[this.id] || this.get('value') || '');
+                    value = value || this.get('value') || '';
+                    this.set('value', value);
                     break;
                 case ACTION_TYPES.PASSWORD:
                     break;
                 default:
                     break;
             }
+            return value;
+
         },
         initialize: function () {
             this.sync = this._sync.bind(this);
