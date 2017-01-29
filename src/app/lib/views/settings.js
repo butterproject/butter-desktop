@@ -10,7 +10,11 @@
             this.model.sync();
 
             if (_onShow) {
-                _onShow();
+                _onShow.apply(this, arguments);
+            }
+
+            if (Parent.prototype.onShow) {
+                Parent.prototype.onShow.apply(this, arguments);
             }
         };
 
