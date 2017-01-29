@@ -31,7 +31,7 @@
             // HACK
             $('.filter-item', this.el).closest(`[data-value="${key}"]`).addClass('hidden');
 
-            if (! init) {
+            if (init !== true) {
                 this.setValue.bind(this)(key);
             }
         },
