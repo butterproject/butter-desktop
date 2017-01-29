@@ -23,7 +23,8 @@
                 key: key,
                 value: value
             }).then(this.model.sync)
-               .then(() => (App.vent.trigger('settings:save')));
+                .then(this.model.apply)
+                .then(() => (App.vent.trigger('settings:save')));
         };
 
         return Parent.extend(View);

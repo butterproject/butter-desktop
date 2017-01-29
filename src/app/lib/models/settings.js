@@ -43,6 +43,7 @@
 
         },
         initialize: function () {
+            this.apply = (this.get('apply') || function () {}).bind(this);
             this.sync = this._sync.bind(this);
             this.sync();
         }
@@ -257,7 +258,12 @@
             helper: i18n.__('Select a different Look&Feel for the App'),
             icon: 'format_paint',
             type: ACTION_TYPES.DROPDOWN,
-            options: App.Themes
+            options: App.Themes,
+            apply: (value) => {
+                console.error('APPLY', value);
+                $('link#theme').attr('href', 'themes/' + value);
+                App.vent.trigger('updatePostersSizeStylesheet');
+            }
         }, {
             id: 'watchedCovers',
             title: i18n.__('Watched Items'),
