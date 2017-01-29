@@ -22,7 +22,7 @@
 
         View.bindShortCut = function (shortcut, fn) {
             fn || console.error('no function defined');
-            Mousetrap.bind(shortcut, fn);
+            Mousetrap.bind(shortcut, fn.bind(this));
             this.keyboardShortCuts[shortcut] = fn;
         };
 
