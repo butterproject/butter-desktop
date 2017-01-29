@@ -169,13 +169,13 @@
                     });
 
                     try {
-                        fs.statSync('src/app/themes/' + Settings.theme + '.css');
+                        fs.statSync('src/app/themes/' + Settings.theme);
                     } catch (e) {
-                        Settings.theme = 'Official_-_Dark_theme';
-                        AdvSettings.set('theme', 'Official_-_Dark_theme');
+                        Settings.theme = 'Official_-_Dark_theme.css';
+                        AdvSettings.set('theme', 'Official_-_Dark_theme.css');
                     }
 
-                    $('link#theme').attr('href', 'themes/' + Settings.theme + '.css');
+                    $('link#theme').attr('href', 'themes/' + Settings.theme);
 
                     // focus win. also handles AlwaysOnTop
                     App.vent.trigger('window:focus');
