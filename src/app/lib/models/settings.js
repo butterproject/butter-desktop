@@ -538,4 +538,11 @@
         SubtitlesSettings,
         ExtensionsSettings
     ]);
+
+    App.Model.Settings.HeaderCollection = new App.Model.Settings.ItemCollection([{
+        id: 'showAdvancedsettings',
+        title: i18n.__('Show Advanced Settings'),
+        icon: 'filter_list',
+        type: ACTION_TYPES.SWITCH
+    }]);
 })(window.App);

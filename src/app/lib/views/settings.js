@@ -104,9 +104,18 @@
         }
     });
 
+    App.View.Settings.HeaderItem = App.View.Settings.Item.extend({
+        tagName: 'li',
+        template: '#settings-header-item-tpl'
+    });
+
     App.View.Settings.TabContent = Backbone.Marionette.CollectionView.extend({
         childView: App.View.Settings.Item,
         className: 'settings-item',
+    });
+
+    App.View.Settings.HeaderCollection = App.View.Settings.TabContent.extend({
+        childView: App.View.Settings.HeaderItem,
     });
 
     App.View.Settings.SectionContent = App.View.Generic(Backbone.Marionette.LayoutView, {
@@ -185,7 +194,8 @@
             'click .keyboard': 'showKeyboard',
         },
         regions: {
-            Collection: '.tab-content-wrapper'
+            Collection: '.tab-content-wrapper',
+            Toolbar: '.toolbar-settings'
         },
         onShow: function () {
             $('.filter-bar').hide();
@@ -209,6 +219,10 @@
             var collection = this.collection;
             this.showView(this.Collection, new App.View.Settings.Collection({
                 collection: collection
+            }));
+
+            this.showView(this.Toolbar, new App.View.Settings.HeaderCollection({
+                collection: App.Model.Settings.HeaderCollection
             }));
         },
         onDestroy: function () {
