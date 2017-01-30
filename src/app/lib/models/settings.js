@@ -54,11 +54,15 @@
     });
 
     App.Model.Settings.TabItem = Backbone.Model.extend ({
-        idAttribute: 'id'
+        idAttribute: 'id',
+        defaults: { active: false }
     });
 
     App.Model.Settings.TabCollection = Backbone.Collection.extend ({
-        model: App.Model.Settings.TabItem
+        model: App.Model.Settings.TabItem,
+        initialize: function () {
+            this.on('add', () => (this.models[0].set('active', true)));
+        }
     });
 
     App.Model.Settings.SectionItem = Backbone.Model.extend ({

@@ -30,7 +30,7 @@
      <div class="navbar-s">
          <ul id="myTabs" class="nav nav-tabs" role="tablist">
              <% App.Model.Settings.Collection.map(function (e, i) { %>
-             <li  class="source" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
+             <li  class="source <%= i===0?'active':'' %>" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
              <% }) %>
           </ul>
       </div>
