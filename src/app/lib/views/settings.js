@@ -10,7 +10,11 @@
             this.model.sync();
 
             if (_onShow) {
-                _onShow();
+                _onShow.apply(this, arguments);
+            }
+
+            if (Parent.prototype.onShow) {
+                Parent.prototype.onShow.apply(this, arguments);
             }
         };
 
@@ -23,7 +27,8 @@
                 key: key,
                 value: value
             }).then(this.model.sync)
-               .then(() => (App.vent.trigger('settings:save')));
+                .then(this.model.apply)
+                .then(() => (App.vent.trigger('settings:save')));
         };
 
         return Parent.extend(View);
@@ -89,15 +94,28 @@
         onShow: function () {
             var model = this.model;
             var type  = this.model.get('type');
+            if (this.model.get('advanced')) { // XXX: should be done in template ?
+                this.el.classList.add('advanced');
+            }
+
             this.showView(this.Action, new App.View.Settings.Action[type]({
                 model: model
             }));
         }
     });
 
+    App.View.Settings.HeaderItem = App.View.Settings.Item.extend({
+        tagName: 'li',
+        template: '#settings-header-item-tpl'
+    });
+
     App.View.Settings.TabContent = Backbone.Marionette.CollectionView.extend({
         childView: App.View.Settings.Item,
         className: 'settings-item',
+    });
+
+    App.View.Settings.HeaderCollection = App.View.Settings.TabContent.extend({
+        childView: App.View.Settings.HeaderItem,
     });
 
     App.View.Settings.SectionContent = App.View.Generic(Backbone.Marionette.LayoutView, {
@@ -176,7 +194,8 @@
             'click .keyboard': 'showKeyboard',
         },
         regions: {
-            Collection: '.tab-content-wrapper'
+            Collection: '.tab-content-wrapper',
+            Toolbar: '.toolbar-settings'
         },
         onShow: function () {
             $('.filter-bar').hide();
@@ -200,6 +219,10 @@
             var collection = this.collection;
             this.showView(this.Collection, new App.View.Settings.Collection({
                 collection: collection
+            }));
+
+            this.showView(this.Toolbar, new App.View.Settings.HeaderCollection({
+                collection: App.Model.Settings.HeaderCollection
             }));
         },
         onDestroy: function () {

@@ -10,9 +10,7 @@
                 <li>
                     <i data-toogle="tooltip" data-placement="left" title="<%= i18n.__("Help Section") %>" class="material-icons magnet-link">help_outline</i>
                 </li>
-                <li>
-                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Show advanced settings") %>" class="material-icons favourites-toggle">filter_list</i><input id="show-advanced-settings" class="settings-checkbox" name="showAdvancedSettings" type="checkbox" <%=(Settings.showAdvancedSettings? "checked":"")%>>
-                </li>
+                <div class="toolbar-settings"></div>
             </ul>
         </div>
     </div>
@@ -32,7 +30,7 @@
      <div class="navbar-s">
          <ul id="myTabs" class="nav nav-tabs" role="tablist">
              <% App.Model.Settings.Collection.map(function (e, i) { %>
-             <li  class="source" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
+             <li  class="source <%= i===0?'active':'' %>" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
              <% }) %>
           </ul>
       </div>
