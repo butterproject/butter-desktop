@@ -1,4 +1,4 @@
-<div class="settings-container <%= Settings.showAdvancedsettings?'show-advanced':''">
+<div class="settings-container <%= Settings.showAdvancedsettings?'show-advanced':'' %>">
     <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<i class="material-icons">check</i></div>
     <div id="action-bar">
         <div class="actions-bar">
