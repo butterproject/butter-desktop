@@ -25,12 +25,14 @@
                 right: 30px
                 color: #FFF
                 font-size: 48px
+
     .success_alert
         background: #33AA65
         padding: 10px 30px
         border-radius: 30px
         i
             font-size 14px
+
     .settings-container
         z-index 1
         width 100%
@@ -40,10 +42,17 @@
         -webkit-user-select none
         padding-bottom 20px
         top: 0
+
+        &.show-advanced
+            .settings-row
+                .advanced
+                    display: none
+
         .navbar-s
             width: 100%
             margin: 0 auto
             text-align: center
+
         .nav-tabs
             width auto
             background: transparent
@@ -99,7 +108,7 @@
                         &:last-child
                             margin-bottom: 50px
                         &:hover
-                            background: $BackColor_light
+                            background: rgba(225,225,225, 0.15)
                         .text, i, .action-item
                             display: inline-block
                             vertical-align: middle
@@ -167,7 +176,7 @@
                                     right: 0
                                     bottom: 0
                                     border-radius: 34px
-                                    background-color: rgba(250,250,250, 0.35)
+                                    background-color: rgba(250,250,250, 0.25)
                                     -webkit-transition: .3s
 
                                 .slider:before
@@ -198,13 +207,6 @@
                                 i
                                     margin: 0 5px 0 0
                                     font-size: 18px
-
-.settings-container
-    section
-        &.advanced
-            display: none
-    .advanced
-        display: none
 
     .success_alert
         position fixed
