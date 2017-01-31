@@ -45,8 +45,8 @@
 
         &.show-advanced
             .settings-row
-                .advanced
-                    display: none
+                &.advanced
+                    display: block !important
 
         .navbar-s
             width: 100%
@@ -105,6 +105,8 @@
                         margin: 0 20px
                         border-bottom 1px solid rgba(225,225,225,0.15)
                         padding 35px 20px
+                        &.advanced
+                            display: none
                         &:last-child
                             margin-bottom: 50px
                         &:hover
