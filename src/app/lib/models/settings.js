@@ -547,6 +547,10 @@
         id: 'showAdvancedsettings',
         title: i18n.__('Show Advanced Settings'),
         icon: 'filter_list',
-        type: ACTION_TYPES.SWITCH
+        type: ACTION_TYPES.SWITCH,
+        apply: (value) => {
+            const el = $('.settings-container');
+            value?el.addClass('show-advanced'):el.removeClass('show-advanced');
+        }
     }]);
 })(window.App);
