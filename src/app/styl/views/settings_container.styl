@@ -1,8 +1,8 @@
 .settings-container-contain
     z-index 1
-    background-color $BgColor1
+    background-color $BackColor_dark
     height 100%
-    width calc(100% - 5px)
+    width 100%
     position fixed
     padding-top: $TitleHeight + 10px
     #qrcode-modal
@@ -25,27 +25,37 @@
                 right: 30px
                 color: #FFF
                 font-size: 48px
+
     .success_alert
         background: #33AA65
         padding: 10px 30px
         border-radius: 30px
         i
             font-size 14px
+
     .settings-container
         z-index 1
         width 100%
         height 100%
         position absolute
-        background-color $BgColor1
+        background-color $BackColor_dark
         -webkit-user-select none
         padding-bottom 20px
         top: 0
+
+        &.show-advanced
+            .settings-row
+                .advanced
+                    display: none
+
         .navbar-s
             width: 100%
             margin: 0 auto
             text-align: center
+
         .nav-tabs
             width auto
+            background: transparent
             margin 0 auto
             font-size: 0.9em
             border-bottom: none 0
@@ -53,6 +63,7 @@
             width 100%
             position absolute
             padding-top 10px
+            box-shadow: none
             li
                 float: none
                 display: inline-block
@@ -76,6 +87,7 @@
             bottom: 0px
             .tab-pane
                 .title
+                    font-family: $TitleFont
                     color: #FFF
                     font-weight: 900
                     padding: 20px
@@ -84,30 +96,34 @@
                 section
                     display block
                     .content
-                        max-width: 650px
+                        max-width: 780px
                         margin: 0 auto
                     .settings-row
                         color: #FFF
                         margin: 0
                         display: block
                         margin: 0 20px
-                        border-bottom 1px solid rgba(255,255,255,0.15)
-                        padding 20px 20px 20px 0
+                        border-bottom 1px solid rgba(225,225,225,0.15)
+                        padding 35px 20px
                         &:last-child
                             margin-bottom: 50px
                         &:hover
-                            background rgba(255,255,255,0.03)
+                            background: rgba(225,225,225, 0.15)
                         .text, i, .action-item
                             display: inline-block
                             vertical-align: middle
                         .text
+                            font-family: $TitleFont
                             font-size: 18px
                             font-weight: bold
                             line-height: 1em
                             max-width: 52%
                             .helper
+                                margin-top: 2px
+                                font-family: $MainFont
+                                font-weight: normal
                                 opacity: 0.4
-                                font-size 16px
+                                font-size 13px
                         i
                             font-size: 24px
                             margin: 0 20px
@@ -127,7 +143,6 @@
                             input[type=password]
                                 padding: 5px 10px
                                 border-radius 5px
-                                background #0A0C13
                                 color #FFF
                                 outline 0
                                 border 0
@@ -135,6 +150,8 @@
                                 font-weight normal
                                 line-height 0.70em
                                 width 140px
+                                background $InputBg
+                                -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0,0,0,0.85)
                                 transition background .2s ease
 
 
@@ -145,8 +162,8 @@
                            .switch
                                 position: relative
                                 display: inline-block
-                                width: 40px
-                                height: 22px
+                                width: 36px
+                                height: 20px
 
                                 input
                                     display:none
@@ -159,14 +176,14 @@
                                     right: 0
                                     bottom: 0
                                     border-radius: 34px
-                                    background-color: rgba(250,250,250, 0.35)
+                                    background-color: rgba(250,250,250, 0.25)
                                     -webkit-transition: .3s
 
                                 .slider:before
                                     position: absolute
                                     content: ""
-                                    height: 18px
-                                    width: 18px
+                                    height: 16px
+                                    width: 16px
                                     left: 2px
                                     bottom: 2px
                                     background-color: white
@@ -174,27 +191,22 @@
                                     -webkit-transition: .3s
 
                                 input:checked + .slider
-                                    background-color: #FF1744
+                                    background-color: $MainColor
 
                                 input:focus + .slider
-                                    box-shadow: 0 0 1px #2196F3
+                                    box-shadow: 0 0 1px rgba(0,0,0,0.5)
 
                                 input:checked + .slider:before
-                                    -webkit-transform: translateX(18px)
+                                    -webkit-transform: translateX(16px)
 
                             .btn
+                                font-family: $TitleFont
                                 background: $MainColor
                                 color: $Pure_White
+                                text-transform: uppercase
                                 i
                                     margin: 0 5px 0 0
                                     font-size: 18px
-
-.settings-container
-    section
-        &.advanced
-            display: none
-    .advanced
-        display: none
 
     .success_alert
         position fixed

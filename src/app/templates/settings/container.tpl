@@ -37,11 +37,12 @@
 
       <!-- Tab panes -->
       <div class="tab-content-wrapper"></div>
-
+     <!-- hide buttons
       <div class="btns">
           <div class="btn flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
           <div class="btn flush-subtitles advanced"><%= i18n.__("Flush subtitles cache") %></div>
           <div class="btn flush-databases"><%= i18n.__("Flush all databases") %></div>
           <div class="btn default-settings"><%= i18n.__("Reset to Default Settings") %></div>
       </div>
+  -->
 </div>

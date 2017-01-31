@@ -1,16 +1,23 @@
+
 // OFFICIAL POPCORN-THEME: DARK (original)
 
+//Colors
+    $MainColor =  #2d72d9
+    $NavColor =  rgba(33,34,37,0.95) //#212225
+    $BackColor_dark = #17181b
+    $BackColor_light = #17181b
+    $Pure_White = #FFFFFF
+
 //Fonts
-    $Font = 'Open Sans'
-    $MainFont = 'Open Sans Semibold'
-    $MainFontBold = 'Open Sans Bold'
+    $Font = 'Noto Sans'
+    $MainFont = 'Noto Sans'
+    $MainFontBold = 'Noto Sans Bold'
     $AlternateFont = sans-serif
-    $ButtonFont = 'Open Sans Semibold'
+    $TitleFont = 'Dosis Bold'
 
 //Main app
-    $BgColor1 = #17181b
-    $BgColor2 = #212225
-
+    $BgColor1 = $BackColor_dark
+    $BgColor2 = $BackColor_dark
     $Text1 = #fff
     $Text2 = #c3c5c7
     $Text3 = #a3a5a7
@@ -20,40 +27,49 @@
     $CloseButton = #cccccc
     $CloseButtonHover = #fff
 
-    $SpinnerColor1 = #2187e7
-    $SpinnerColor2 = rgba(0,183,229,0.9)
+    $SpinnerColor1 = $MainColor
+    $SpinnerColor2 = $MainColor
 
-    $ScrollBarBg = #30333c
+    $SearchBg = rgba(0,0,0,0.35)
     $ScrollBarThumb = #83888c
-    $ScrollBarThumbHover = #93989c
+    $ScrollBarThumbHover = $MainColor
 
 //Top Bar
-    $TitleBarBg = #17181b
+    $TitleBarBg = $NavColor
     $TitleBarText = #fff
-    $FullScreenButton = #000
-    $FullScreenButtonHover = #b2b2b2
+    $TopBarShadow = 0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35);
+    $FullScreenButton = rgba(255,255,255, 0.65)
+    $FullScreenButtonHover = $Pure_White
 
-    $FilterBarBg = #17181b
-    $FilterBarText = #c3c5c7
-    $FilterBarTextHover = #fff
-    $FilterBarActive = #2d72d9
+    $FilterBarBg = $NavColor
+    $FilterBarText = #FFF
+    $FilterBarTextHover = #FFF
+    $FilterBarActive = $MainColor
 
-    $SearchBoxBg = #0d0d0e
+    //FilterDropdown
+    $FilterDropdownBg = $BackColor_light
+    $FilterDropdownText =   $Text1
+    $FilterDropdownHover = rgba(0,0,0,0.25)
+
+    //FilterDropdownHover
+    $FilterDropdownHoverBg = $Pure_White
+    $FilterDropdownHoverText = $BackColor_dark
+
+    $InputBg = #121315
 
     $DropDownBg = #17181b
     $DropDownBgHover = #0b131f
     $DropDownTextHover = #fff
     $DropDownText = #c3c5c7
-    $DropDownOpacity = 1.00
+    $DropDownOpacity = 1.0
 
-    $FilterBarIcon = #909498
-    $FilterBarIconHover = #2468cc
+    $FilterBarIcon = rgba(255,255,255, 0.65)
+    $FilterBarIconHover = $Pure_White
     $FilterBarIcon-PosterWidth = #6a6e72
 
-    $TopBarShadow = 0px 6px 8px -4px rgba(0, 0, 0, .9);
 
-//$ButtonBg
-    $ButtonBg = #1f375f
+//ButtonBg
+    $ButtonBg = $MainColor
     $ButtonBgHover = #225694
     $ButtonBgActive = #2468cc
 
@@ -69,17 +85,17 @@
 
 //Checkbox
     $CheckboxBg = #545454
-    $CheckboxCheck = #4bfff4
+    $CheckboxCheck = $Pure_White
 
 //Posters
     $PosterRadius = 4px
-    $PosterHoverBorder = #2d75df
-    $PosterHoverOverlay = rgba(23, 24, 27, 0.6)
-    $PosterShadow = 0px 0px 10px
+    $PosterHoverBorder = $MainColor
+    $PosterHoverOverlay = rgba(24,28,37,0.75);
+    $PosterShadow = 0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35);
 
 //TV Series
-    $ShowBgColor1 = #17181b
-    $ShowBgColor2 = #1f2025
+    $ShowBgColor1 = $BackColor_dark
+    $ShowBgColor2 = $BackColor_dark
 
     $EpisodeDetailsBg = #1f2025
 
@@ -106,7 +122,7 @@
     $FileSelectorShadow = rgba(0, 0, 0, 0.67)
 
 //Settings
-    $SettingsCategoriesText = #2d75df
+    $SettingsCategoriesText = $Pure_White
     $SettingsSeparator = #3a3b3e
 
     $InputBoxBg = #393b3d
@@ -140,8 +156,7 @@
     $FavoriteColor = #df2d37
 
 //Player
-    $PlayerColor = #2d75df
-
+    $PlayerColor = $MainColor
 
 // OFFICIAL POPCORN-THEME: DARK - END
 
