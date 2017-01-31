@@ -42,11 +42,14 @@
         -webkit-user-select none
         padding-bottom 20px
         top: 0
-
         &.show-advanced
             .settings-row
                 &.advanced
-                    display: block !important
+                    padding 35px 20px !important
+                    height: auto !important
+                    opacity: 1 !important
+                    overflow: none !important
+                    transform: scale(1) !important
 
         .navbar-s
             width: 100%
@@ -103,14 +106,20 @@
                         margin: 0
                         display: block
                         margin: 0 20px
+                        overflow: hidden
                         border-bottom 1px solid rgba(225,225,225,0.15)
                         padding 35px 20px
+                        transition: all 0.3s ease
+                        transition-property: transform, opacity;
                         &.advanced
-                            display: none
+                            padding: 0
+                            opacity: 0
+                            height: 0
+                            transform: scale(0.75)
                         &:last-child
                             margin-bottom: 50px
                         &:hover
-                            background: rgba(225,225,225, 0.15)
+                            background: rgba(200,200,200, 0.15)
                         .text, i, .action-item
                             display: inline-block
                             vertical-align: middle
@@ -211,6 +220,7 @@
                                     font-size: 18px
 
     .success_alert
+        z-index: 999
         position fixed
         bottom 25px
         right 50px
