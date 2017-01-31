@@ -89,9 +89,16 @@
         color: $FilterBarIcon
         vertical-align: middle
         font-size: 1.32em
+        transition: all 0.5s;
         &:hover
             color: $FilterBarIconHover
             cursor: pointer
+            transform: scale(1.1)
+
+        &#filterbar-settings
+          transition: all 1s;
+          &:hover
+            transform: rotateZ(90deg)
 
         &.active
             &#filterbar-favorites
