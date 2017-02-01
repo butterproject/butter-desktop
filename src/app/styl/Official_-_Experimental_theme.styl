@@ -1,10 +1,10 @@
-// OFFICIAL POPCORN-THEME: DARK (original)
+// OFFICIAL BUTTER-THEME: EXPERIMENTAL (original)
 
 //Colors
-    $MainColor = #FF1744
-    $NavColor = #181C25
-    $BackColor_dark =  #181C25
-    $BackColor_light = #2f323a
+    $MainColor =  #FF1744
+    $NavColor = rgba(24,28,37, 0.95)  //#181c25
+    $BackColor_dark = #181c25 //#101319
+    $BackColor_light = #181c25
     $Pure_White = #FFFFFF
 
 //Fonts
@@ -36,6 +36,7 @@
 //Top Bar
     $TitleBarBg = $NavColor
     $TitleBarText = #fff
+    $TopBarShadow = 0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35);
     $FullScreenButton = rgba(255,255,255, 0.65)
     $FullScreenButtonHover = $Pure_White
 
@@ -53,7 +54,8 @@
     $FilterDropdownHoverBg = $Pure_White
     $FilterDropdownHoverText = $BackColor_dark
 
-    $SearchBoxBg = #0d0d0e
+    $SearchBg = rgba(0,0,0,0.35)
+    $InputBg = #101319
 
     $DropDownBg = #17181b
     $DropDownBgHover = #0b131f
@@ -88,7 +90,8 @@
 //Posters
     $PosterRadius = 4px
     $PosterHoverBorder = $MainColor
-    $PosterHoverOverlay = linear-gradient(-139deg, rgba(255,23,218,0.39) 0%, rgba(255,23,67,0.59) 100%);
+    $PosterHoverOverlay = rgba(24,28,37,0.75);
+    $PosterShadow = 0 1px 4px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.35);
 
 //TV Series
     $ShowBgColor1 = $BackColor_dark
@@ -155,6 +158,6 @@
 //Player
     $PlayerColor = $MainColor
 
-// OFFICIAL POPCORN-THEME: DARK - END
+// OFFICIAL BUTTER-THEME: EXPERIMENTAL - END
 
 @import 'views/app'

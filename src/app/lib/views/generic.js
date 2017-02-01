@@ -22,7 +22,7 @@
 
         View.bindShortCut = function (shortcut, fn) {
             fn || console.error('no function defined');
-            Mousetrap.bind(shortcut, fn);
+            Mousetrap.bind(shortcut, fn.bind(this));
             this.keyboardShortCuts[shortcut] = fn;
         };
 
@@ -32,11 +32,11 @@
             this.modelEvents = {};
             this.keyboardShortCuts = {};
 
-            _initialize && _initialize.call(this, arguments);
+            _initialize && _initialize.apply(this, arguments);
         };
 
         View.onDestroy = function () {
-            _onDestroy && _onDestroy.call(this, arguments);
+            _onDestroy && _onDestroy.apply(this, arguments);
 
             Object.values(this.views).map(v => v.destroy());
             Object.keys(this.appEvents).map(App.vent.off);

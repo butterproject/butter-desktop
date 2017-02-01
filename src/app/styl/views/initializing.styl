@@ -4,7 +4,7 @@
     width 90%
     height 74.5%
     position absolute
-    -webkit-user-select none   
+    -webkit-user-select none
     opacity 1
     overflow hidden
     margin auto
@@ -24,7 +24,7 @@
 
   & > div
     width 0%
-    background-color $ButtonBgActive
+    background-color $MainColor
     height 5px
     border-radius 13px
     left 0px
@@ -136,8 +136,8 @@
         width 100%
         height 100%
         position absolute
-        opacity 0.8
-        background-color #000
+        opacity 0.95
+        background-color $BackColor_dark
 
     .disclaimer-state
         z-index 1000
@@ -173,7 +173,7 @@
                 scrollable()
                 text-transform uppercase
                 text-align justify
-                
+
                 h2
                     padding-bottom 8px
                     font-size 16px
@@ -208,7 +208,7 @@
                 &:hover
                     background-color #47A447
                     border-color #398439
-                    
+
                 &:active
                     box-shadow: inset 0 1px 2px rgba(0,0,0,0.6)
 
@@ -238,7 +238,7 @@
                     color #FFF
                     background-color #D2322D
                     border-color #AC2925
-                    
+
                 &:active
                     box-shadow: inset 0 1px 2px rgba(0,0,0,0.6)
 
@@ -261,7 +261,7 @@
   position: relative;
   -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
-          transform: scale(1.1); 
+          transform: scale(1.1);
 }
 .sk-folding-cube .sk-cube:before {
   content: '';
@@ -295,7 +295,7 @@
 }
 .sk-folding-cube .sk-cube3:before {
   -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s; 
+          animation-delay: 0.6s;
 }
 .sk-folding-cube .sk-cube4:before {
   -webkit-animation-delay: 0.9s;
@@ -305,30 +305,30 @@
   0%, 10% {
     -webkit-transform: perspective(140px) rotateX(-180deg);
             transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
+    opacity: 0;
   } 25%, 75% {
     -webkit-transform: perspective(140px) rotateX(0deg);
             transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
+    opacity: 1;
   } 90%, 100% {
     -webkit-transform: perspective(140px) rotateY(180deg);
             transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
-  } 
+    opacity: 0;
+  }
 }
 
 @keyframes sk-foldCubeAngle {
   0%, 10% {
     -webkit-transform: perspective(140px) rotateX(-180deg);
             transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
+    opacity: 0;
   } 25%, 75% {
     -webkit-transform: perspective(140px) rotateX(0deg);
             transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
+    opacity: 1;
   } 90%, 100% {
     -webkit-transform: perspective(140px) rotateY(180deg);
             transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
+    opacity: 0;
   }
 }

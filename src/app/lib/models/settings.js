@@ -15,26 +15,37 @@
     App.Model.Settings = {};
     App.Model.Settings.ActionTypes = ACTION_TYPES;
     App.Model.Settings.Item = Backbone.Model.extend ({
-        initialize: function() {
+        _sync: function() {
+            let value = Settings[this.id];
             switch (this.get('type')) {
                 case ACTION_TYPES.SWITCH:
-                    this.set('checked', Settings[this.id]);
+                    this.set('checked', value);
                     break;
                 case ACTION_TYPES.DROPDOWN:
                 case ACTION_TYPES.COLOR:
-                    this.set('selected', Settings[this.id] || this.get('options')[0]);
+                    value = value || this.get('options')[0];
+                    this.set('selected', value);
                     break;
                 case ACTION_TYPES.BUTTON:
                     break;
                 case ACTION_TYPES.TEXT:
                 case ACTION_TYPES.NUMBER:
                 case ACTION_TYPES.LABEL:
+                    value = value || this.get('value') || '';
+                    this.set('value', value);
                     break;
                 case ACTION_TYPES.PASSWORD:
                     break;
                 default:
                     break;
             }
+            return value;
+
+        },
+        initialize: function () {
+            this.apply = (this.get('apply') || function () {}).bind(this);
+            this.sync = this._sync.bind(this);
+            this.sync();
         }
     });
 
@@ -43,11 +54,23 @@
     });
 
     App.Model.Settings.TabItem = Backbone.Model.extend ({
-        idAttribute: 'id'
+        idAttribute: 'id',
+        defaults: { active: false }
     });
 
     App.Model.Settings.TabCollection = Backbone.Collection.extend ({
-        model: App.Model.Settings.TabItem
+        model: App.Model.Settings.TabItem,
+        initialize: function () {
+            this.on('add', () => (this.models[0].set('active', true)));
+        }
+    });
+
+    App.Model.Settings.SectionItem = Backbone.Model.extend ({
+        idAttribute: 'id'
+    });
+
+    App.Model.Settings.SectionCollection = Backbone.Collection.extend ({
+        model: App.Model.Settings.SectionItem
     });
 
     function arrayToi18nHash(a) {
@@ -57,7 +80,7 @@
         }, {});
     }
 
-    App.Model.Settings.Collection = new App.Model.Settings.TabCollection([{
+    var GeneralSettings = {
         id: 'general',
         title: i18n.__('General'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -216,7 +239,9 @@
             type: ACTION_TYPES.SWITCH,
             advanced: true
         }])
-    }, {
+    };
+
+    var InterfaceSettings = {
         id: 'interface',
         title: i18n.__('Interface'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -237,7 +262,11 @@
             helper: i18n.__('Select a different Look&Feel for the App'),
             icon: 'format_paint',
             type: ACTION_TYPES.DROPDOWN,
-            options: App.Themes
+            options: App.Themes,
+            apply: (value) => {
+                $('link#theme').attr('href', 'themes/' + value);
+                App.vent.trigger('updatePostersSizeStylesheet');
+            }
         }, {
             id: 'watchedCovers',
             title: i18n.__('Watched Items'),
@@ -287,7 +316,9 @@
             advanced: true
         }
         ])
-    }, {
+    };
+
+    var SubtitlesSettings = {
         id: 'subtitles',
         title: i18n.__('Subtitles'),
         collection: new App.Model.Settings.ItemCollection([{
@@ -351,10 +382,12 @@
             advanced: true
         }
         ])
-    }, {
+    };
+
+    var ExtensionsSettings = {
         id: 'extensions',
         title: i18n.__('Extensions'),
-        sections: [{
+        sections: new App.Model.Settings.SectionCollection([{
             id: 'remote-control',
             title: i18n.__('Remote Control'),
             advanced: true,
@@ -500,11 +533,24 @@
                 type: ACTION_TYPES.BUTTON,
                 action_title: 'Connect'
             }])
-        }]
-    }, {
-        id: 'providers',
-        title: 'Providers',
-    }
+        }])
+    };
 
+    App.Model.Settings.Collection = new App.Model.Settings.TabCollection([
+        GeneralSettings,
+        InterfaceSettings,
+        SubtitlesSettings,
+        ExtensionsSettings
     ]);
+
+    App.Model.Settings.HeaderCollection = new App.Model.Settings.ItemCollection([{
+        id: 'showAdvancedsettings',
+        title: i18n.__('Show Advanced Settings'),
+        icon: 'filter_list',
+        type: ACTION_TYPES.SWITCH,
+        apply: (value) => {
+            const el = $('.settings-container');
+            value?el.addClass('show-advanced'):el.removeClass('show-advanced');
+        }
+    }]);
 })(window.App);

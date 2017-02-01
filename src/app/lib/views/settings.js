@@ -4,6 +4,20 @@
     App.View.Settings = {};
 
     var ActionView = function(Parent, View) {
+        const _onShow = View.onShow;
+
+        View.onShow = function () {
+            this.model.sync();
+
+            if (_onShow) {
+                _onShow.apply(this, arguments);
+            }
+
+            if (Parent.prototype.onShow) {
+                Parent.prototype.onShow.apply(this, arguments);
+            }
+        };
+
         View.setValue = function(value){
             var key = this.model.id;
             Settings[key] = value;
@@ -12,7 +26,9 @@
             App.db.writeSetting({
                 key: key,
                 value: value
-            }).then(() => (App.vent.trigger('settings:save')));
+            }).then(this.model.sync)
+                .then(this.model.apply)
+                .then(() => (App.vent.trigger('settings:save')));
         };
 
         return Parent.extend(View);
@@ -78,15 +94,52 @@
         onShow: function () {
             var model = this.model;
             var type  = this.model.get('type');
+            if (this.model.get('advanced')) { // XXX: should be done in template ?
+                this.el.classList.add('advanced');
+            }
+
             this.showView(this.Action, new App.View.Settings.Action[type]({
                 model: model
             }));
         }
     });
 
+    App.View.Settings.HeaderItem = App.View.Settings.Item.extend({
+        tagName: 'li',
+        template: '#settings-header-item-tpl'
+    });
+
     App.View.Settings.TabContent = Backbone.Marionette.CollectionView.extend({
         childView: App.View.Settings.Item,
         className: 'settings-item',
+    });
+
+    App.View.Settings.HeaderCollection = App.View.Settings.TabContent.extend({
+        childView: App.View.Settings.HeaderItem,
+    });
+
+    App.View.Settings.SectionContent = App.View.Generic(Backbone.Marionette.LayoutView, {
+        template: '#settings-section-tpl',
+        className: 'settings-section-content',
+        regions: {
+            Content: '.content'
+        },
+        onShow: function () {
+            var collection = this.model.get('collection');
+            this.showView(this.Content, new App.View.Settings.TabContent({
+                collection: collection
+            }));
+
+            var showIf = this.model.get('showIf');
+            if (showIf && ! showIf()) {
+                this.el.hidden = true;
+            }
+        },
+    });
+
+    App.View.Settings.SectionCollection = Backbone.Marionette.CollectionView.extend({
+        childView: App.View.Settings.SectionContent,
+        className: 'settings-section',
     });
 
     App.View.Settings.Tab = App.View.Generic(Backbone.Marionette.LayoutView, {
@@ -95,10 +148,17 @@
             Content: '.content'
         },
         onShow: function () {
-            var collection = this.collection;
-            this.showView(this.Content, new App.View.Settings.TabContent({
-                collection: collection
-            }));
+            if (this.collection) {
+                var collection = this.collection;
+                this.showView(this.Content, new App.View.Settings.TabContent({
+                    collection: collection
+                }));
+            } else {
+                var sections = this.model.get('sections');
+                this.showView(this.Content, new App.View.Settings.SectionCollection({
+                    collection: sections
+                }));
+            }
         },
         onRender: function () {
             // Get rid of that pesky wrapping-div.
@@ -116,7 +176,8 @@
         className: 'tab-content',
         childViewOptions: function (model, index) {
             return {
-                collection: model.get('collection')
+                collection: model.get('collection'),
+                sections: model.get('sections')
             };
         },
     });
@@ -133,7 +194,8 @@
             'click .keyboard': 'showKeyboard',
         },
         regions: {
-            Collection: '.tab-content-wrapper'
+            Collection: '.tab-content-wrapper',
+            Toolbar: '.toolbar-settings'
         },
         onShow: function () {
             $('.filter-bar').hide();
@@ -157,6 +219,10 @@
             var collection = this.collection;
             this.showView(this.Collection, new App.View.Settings.Collection({
                 collection: collection
+            }));
+
+            this.showView(this.Toolbar, new App.View.Settings.HeaderCollection({
+                collection: App.Model.Settings.HeaderCollection
             }));
         },
         onDestroy: function () {

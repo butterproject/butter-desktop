@@ -104,12 +104,13 @@
         .dropdown-toggle
             padding: 5px 10px
             border-radius 5px
-            background #0A0C13
             color #FFF
             font-weight normal
             line-height 0.70em
             display: inline-block
             width: auto
+            background $InputBg
+            -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0,0,0,0.85)
 
             .selected
                 text-align: left
@@ -124,6 +125,7 @@
             .dropdown-toggle
                 color: #252525
                 background: transparent
+                -webkit-box-shadow: none
                 i
                     &:after
                         content: "arrow_drop_up"

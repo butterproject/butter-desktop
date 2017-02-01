@@ -1,4 +1,4 @@
-<div class="settings-container">
+<div class="settings-container <%= Settings.showAdvancedsettings?'show-advanced':'' %>">
     <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<i class="material-icons">check</i></div>
     <div id="action-bar">
         <div class="actions-bar">
@@ -10,9 +10,7 @@
                 <li>
                     <i data-toogle="tooltip" data-placement="left" title="<%= i18n.__("Help Section") %>" class="material-icons magnet-link">help_outline</i>
                 </li>
-                <li>
-                    <i data-toggle="tooltip" data-placement="left" title="<%= i18n.__("Show advanced settings") %>" class="material-icons favourites-toggle">filter_list</i><input id="show-advanced-settings" class="settings-checkbox" name="showAdvancedSettings" type="checkbox" <%=(Settings.showAdvancedSettings? "checked":"")%>>
-                </li>
+                <div class="toolbar-settings"></div>
             </ul>
         </div>
     </div>
@@ -32,18 +30,19 @@
      <div class="navbar-s">
          <ul id="myTabs" class="nav nav-tabs" role="tablist">
              <% App.Model.Settings.Collection.map(function (e, i) { %>
-             <li  class="source" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
+             <li  class="source <%= i===0?'active':'' %>" href="#<%= e.id %>" aria-controls="<%= e.id %>" role="tab" data-toggle="tab"><%= i18n.__(e.get('title')) %></li>
              <% }) %>
           </ul>
       </div>
 
       <!-- Tab panes -->
       <div class="tab-content-wrapper"></div>
-
+     <!-- hide buttons
       <div class="btns">
           <div class="btn flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
           <div class="btn flush-subtitles advanced"><%= i18n.__("Flush subtitles cache") %></div>
           <div class="btn flush-databases"><%= i18n.__("Flush all databases") %></div>
           <div class="btn default-settings"><%= i18n.__("Reset to Default Settings") %></div>
       </div>
+  -->
 </div>

@@ -7,7 +7,6 @@
     display: flex
     align-items: center
     justify-content: space-between
-    height: 70px
     box-shadow: $TopBarShadow
     -webkit-user-select: none
     padding-top: 38px
@@ -18,14 +17,14 @@
         text-align: center
         cursor: pointer
         vertical-align: middle
-        margin: 0 10px
         padding: 15px 0
         font-family: $TitleFont
-        font-size: 1.4em
+        font-weight: normal
+        font-size: 1.35em
         text-transform: uppercase
         border-bottom: 3px solid transparent
         opacity: 0.4
-
+        margin: 0 10px
         &:hover
             opacity: 0.9
             border-bottom: 3px solid rgba(255,255,255,0.2)
@@ -58,9 +57,6 @@
     .nav-hor.right
         margin-right: 20px
         & > li
-            margin-left: 25px
-            @media screen and (max-width: 1024px)
-                margin-left 10px
             &:first-child
                 margin-left 0
 
@@ -89,10 +85,10 @@
 
     i.material-icons
         transition: color 0.5s
-        margin: 0
+        margin: 0 0 0 20px
         color: $FilterBarIcon
         vertical-align: middle
-        font-size: 1.5em
+        font-size: 1.32em
         &:hover
             color: $FilterBarIconHover
             cursor: pointer

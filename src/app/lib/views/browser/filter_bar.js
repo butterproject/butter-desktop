@@ -3,7 +3,7 @@
 
     var ButterProvider = require('butter-provider');
 
-    App.View.FilterBar = Backbone.Marionette.LayoutView.extend({
+    App.View.FilterBar = App.View.Generic(Backbone.Marionette.LayoutView, {
         template: '#filter-bar-tpl',
         className: 'filter-bar',
 
@@ -25,32 +25,23 @@
         initialize: function () {
             this.views = {};
 
-            App.vent.on('filter:types', type => (this.model.set({
+            this.bindAppEvent('filter:types', type => (this.model.set({
                 keyword: '',
                 type: type
             })));
 
-            App.vent.on('filter:genres', genre => (this.model.set({
+            this.bindAppEvent('filter:genres', genre => (this.model.set({
                 keyword: '',
                 genre: genre
             })));
 
-            App.vent.on('filter:sorters', sorter => (this.model.set({
+            this.bindAppEvent('filter:sorters', sorter => (this.model.set({
                 keyword: '',
                 sorter: sorter
             })));
 
-            App.vent.on('selected:tab', this.setActive.bind(this));
+            this.bindAppEvent('selected:tab', this.setActive.bind(this));
             this.initKeyboardShortcuts();
-        },
-
-        onDestroy: function () {
-            App.vent.off('filter:types');
-            App.vent.off('filter:genres');
-            App.vent.off('filter:sorters');
-
-            // XXX(xaiki): not sure about this
-            App.vent.off('selected:tab');
         },
 
         setActive: function (set) {
@@ -193,12 +184,12 @@
         },
 
         initKeyboardShortcuts: function () {
-            Mousetrap.bind(['tab', 'shift+tab'], this.switchTab.bind(this));
-            Mousetrap.bind(['`', 'b'], this.openFavorites.bind(this));
-            Mousetrap.bind('i', this.about.bind(this));
+            this.bindShortCut(['tab', 'shift+tab'], this.switchTab);
+            this.bindShortCut(['`', 'b'], this.openFavorites);
+            this.bindShortCut('i', this.about);
 
             // register as many ctrl+number shortcuts as there are tabs
-            Mousetrap.bind((() => {
+            this.bindShortCut((() => {
                 var shortcuts = [];
                 for (let i = 1; i <= App.Config.getTabTypes().length; i++) {
                     shortcuts.push('ctrl+' + i);
