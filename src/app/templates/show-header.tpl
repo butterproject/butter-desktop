@@ -1,11 +1,4 @@
 <ul class="panel-group nav-hor left" id="accordion" role="tablist" aria-multiselectable="true">
-    <li class="panel">
-        <a class="source" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <%= i18n.__('Show Info') %>
-        </a>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-        </div>
-    </li>
     <%_.each(torrents, function(episodes, season) { %>
     <li class="panel">
         <a class="source" role="button" data-toggle="collapse" data-parent="#accordion"
