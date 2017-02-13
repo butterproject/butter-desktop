@@ -38,7 +38,7 @@
     "chromium-args": "--enable-node-worker",
     "debugPort": 3290,
     "dependencies": {
-        "butter-provider": "git+https://github.com/butterproviders/butter-provider",
+        "butter-provider": "0.6.0",
         "butter-provider-ccc": "git+https://github.com/butterproviders/butter-provider-ccc",
         "butter-provider-youtube": "git+https://github.com/butterproviders/butter-provider-youtube",
         "butter-provider-vodo": "git+https://github.com/butterproviders/butter-provider-vodo",
@@ -75,7 +75,7 @@
         "tar": "2.2.1",
         "temp": "0.x.x",
         "webtorrent-health": "1.x.x",
-        "trakt.tv": "2.x.x",
+        "trakt.tv": "3.2.0",
         "trakt.tv-ondeck": "0.x.x",
         "trakt.tv-matcher": "1.x.x",
         "trakt.tv-images": "1.x.x",

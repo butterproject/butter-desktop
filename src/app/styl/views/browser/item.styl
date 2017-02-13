@@ -24,6 +24,9 @@
         border-radius: $PosterRadius
         box-shadow: $PosterShadow
         cursor: pointer
+        
+        &.empty
+            background-image none
 
 
         &.empty
@@ -34,7 +37,6 @@
             height 100%
             background-size cover
             background-position center
-            border-radius: $PosterRadius
             position absolute
             transition opacity 500ms ease-in
             opacity 0
@@ -176,6 +178,7 @@
     height 196px
     border-radius 4px
     box-shadow $PosterShadow
+    cursor pointer
     display none
     margin 10px
     float left
