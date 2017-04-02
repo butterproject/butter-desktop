@@ -4,10 +4,10 @@ var setLanguage = function (preferredLanguage) {
     if (!preferredLanguage) {
         // we are still on default
         var lang = App.Localization.detectLocale();
-        i18n.setLocale(lang);
+        i18n.changeLanguage(lang);
         AdvSettings.set('language', lang);
     } else {
-        i18n.setLocale(preferredLanguage);
+        i18n.changeLanguage(preferredLanguage);
     }
 
     // This is a hack to translate non-templated UI elements.
@@ -947,10 +947,4 @@ App.Localization.langcodes = {
     }
 };
 
-// Handles language detection and internationalization
-i18n.configure({
-    defaultLocale: App.Localization.detectLocale(),
-    locales: App.Localization.allTranslations,
-    directory: './src/app/language',
-    updateFiles: false
-});
+i18n.__ = i18n.t;

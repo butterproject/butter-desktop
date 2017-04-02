@@ -733,7 +733,7 @@ process.on('uncaughtException', function (err) {
         if (err.message.indexOf('[sprintf]') !== -1) {
             var currentLocale = App.Localization.langcodes[i18n.getLocale()].nativeName;
             AdvSettings.set('language', 'en');
-            i18n.setLocale('en');
+            i18n.changeLanguage('en');
             App.vent.trigger('movies:list');
             $('.notification_alert').show().html('An error occured with the localization in ' + currentLocale).delay(4000).fadeOut(400);
         }

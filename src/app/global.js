@@ -29,7 +29,7 @@ var
     // GUI
     win = nw.Window.get(),
     data_path = nw.App.dataPath,
-    i18n = require('i18n'),
+    i18n = require('./i18n'),
 
     // Connectivity
     url = require('url'),
