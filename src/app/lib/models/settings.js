@@ -1,16 +1,7 @@
 (function (App) {
     'use strict';
 
-    var ACTION_TYPES = {
-        SWITCH:   'SETTINGS_ACTION_TYPES_SWITCH',
-        DROPDOWN: 'SETTINGS_ACTION_TYPES_DROPDOWN',
-        COLOR:    'SETTINGS_ACTION_TYPES_COLOR',
-        BUTTON:   'SETTINGS_ACTION_TYPES_BUTTON',
-        TEXT:     'SETTINGS_ACTION_TYPES_TEXT',
-        NUMBER:   'SETTINGS_ACTION_TYPES_NUMBER',
-        LABEL:    'SETTINGS_ACTION_TYPES_LABEL',
-        PASSWORD: 'SETTINGS_ACTION_TYPES_PASSWORD',
-    };
+    var ACTION_TYPES = require('butter-component-action-types');
 
     App.Model.Settings = {};
     App.Model.Settings.ActionTypes = ACTION_TYPES;
