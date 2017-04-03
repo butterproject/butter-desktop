@@ -132,24 +132,20 @@
             var ProviderSettings = {
                 id: 'providers',
                 title: 'Providers',
-                sections: new App.Model.Settings.SectionCollection(
-                    providers.map(p => ({
-                        id: p.uri,
-                        title: p.config.tabName + '-' + p.uri,
-                        collection: new App.Model.Settings.ItemCollection(
-                            Object.keys(p.args).map(k => (
-                                Object.assign ({
-                                    id: p.uri + k,
-                                    title: p.config.tabName + ' ' + k,
-                                    helper: '',
-                                    icon: 'settings_applications',
-                                }, getConfigForArg(p.config.args[k], p.args[k]))
-                            ))
-                        )
-                    }))
-                )
+                sections: providers.map(p => ({
+                    id: p.uri,
+                    title: p.config.tabName + '-' + p.uri,
+                    items: Object.keys(p.args).map(k => (
+                            Object.assign ({
+                                id: p.uri + k,
+                                title: p.config.tabName + ' ' + k,
+                                helper: '',
+                                icon: 'settings_applications',
+                            }, getConfigForArg(p.config.args[k], p.args[k]))
+                        ))
+                }))
             };
 
-            App.Model.Settings.Collection.add(ProviderSettings);
+            App.Model.Settings.Tabs.push(ProviderSettings);
         });
 })(window.App);

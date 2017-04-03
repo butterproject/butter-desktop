@@ -366,7 +366,7 @@
 
         showSettings: function (settingsModel) {
             this.Settings.show(new App.View.Settings.Container({
-                collection: App.Model.Settings.Collection
+                collection: App.Model.Settings.Tabs
             }));
         },
 
