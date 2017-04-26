@@ -13,12 +13,19 @@
         className: 'settings-container-contain',
         render: function() {
 
-            var props = Object.assign({tabs: this.collection},
-                                      {settings: AdvSettings});
+            var container = this.el; // document.createElement('div');
+
+            var props = {
+                tabs: this.collection,
+                settings: AdvSettings
+            };
             var element = React.createElement(
                 i18nProvider, {i18n: i18n},
                 React.createElement(Settings, props, null));
-            ReactDOM.render(element, this.el);
+
+            ReactDOM.unmountComponentAtNode(container);
+            ReactDOM.render(element, container);
+            $('.filter-bar').hide();
         }
     });
 
