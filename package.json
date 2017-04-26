@@ -43,7 +43,7 @@
     "async": "2.x.x",
     "bonjour": "^3.5.0",
     "butter-component-action-types": "git+https://github.com/buttercomponents/butter-component-action-types.git",
-    "butter-component-settings": "git+https://github.com/buttercomponents/butter-component-settings.git",
+    "butter-component-settings": "^0.2.0",
     "butter-provider": "0.6.0",
     "butter-provider-archive": "git+https://github.com/butterproviders/butter-provider-archive",
     "butter-provider-ccc": "git+https://github.com/butterproviders/butter-provider-ccc",
