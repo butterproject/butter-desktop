@@ -10,7 +10,7 @@
 
     App.View.Settings.Container = Backbone.View.extend({
         tagName: 'div',
-        className: 'settings-container-contain',
+        className: 'settings-container',
         render: function() {
 
             var container = this.el; // document.createElement('div');
