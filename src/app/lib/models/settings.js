@@ -103,9 +103,11 @@
             title: i18n.__('Content Quality'),
             helper: i18n.__('Only show content in this quality'),
             icon: 'sort',
-            type: ACTION_TYPES.DROPDOWN,
-            options: arrayToi18nHash(['All', '1080p', '720p']),
-            advanced: true
+            advanced: true,
+            action: {
+                type: ACTION_TYPES.DROPDOWN,
+                options: arrayToi18nHash(['All', '1080p', '720p'])
+            }
         }, {
             id: 'moviesShowQuality',
             title: i18n.__('Show Quality'),
@@ -138,23 +140,30 @@
             title: i18n.__('Connection Limit'),
             helper: i18n.__('Limit the amount of Outbound Connection %s will open', Settings.projectName),
             icon: 'settings_applications',
-            type: ACTION_TYPES.NUMBER,
+            action: {
+                type: ACTION_TYPES.NUMBER,
+            },
             advanced: true
         }, {
             id: 'streamPort',
             title: i18n.__('Stream Port'),
             helper: i18n.__('Port to stream on, randomlly choosen if 0'),
             icon: 'settings_applications',
-            type: ACTION_TYPES.NUMBER,
+            action: {
+                type: ACTION_TYPES.NUMBER,
+            },
             advanced: true
         }, {
             id: 'overallRatio',
             title: i18n.__('Overall Ratio'),
             helper: i18n.__('Downloaded so far: %s', Common.fileSize(Settings.totalDownloaded)),
             icon: 'settings_applications',
-            type: ACTION_TYPES.LABEL,
-            action_title: (Settings.totalUploaded / Settings.totalDownloaded).toFixed(2),
-            advanced: true
+            advanced: true,
+            action: {
+                title: (Settings.totalUploaded / Settings.totalDownloaded).toFixed(2),
+                type: ACTION_TYPES.LABEL,
+            }
+
         }, {
             id: 'cache-directory',
             title: i18n.__('%s Directory', 'Cache'),

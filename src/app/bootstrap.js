@@ -111,19 +111,25 @@
                     case Provider.ArgType.NUMBER:
                     case Provider.ArgType.STRING:
                         return {
-                            type: App.Model.Settings.ActionTypes.TEXT,
+                            action: {
+                                type: App.Model.Settings.ActionTypes.TEXT,
+                            },
                             value: value
                         };
                     case Provider.ArgType.BOOLEAN:
                         return {
-                            type: App.Model.Settings.ActionTypes.SWITCH,
+                            action: {
+                                type: App.Model.Settings.ActionTypes.SWITCH,
+                            },
                             value: value
                         };
                     default:
                     case Provider.ArgType.ARRAY:
                     case Provider.ArgType.OBJECT:
                         return {
-                            type: App.Model.Settings.ActionTypes.TEXT,
+                            action: {
+                                type: App.Model.Settings.ActionTypes.TEXT,
+                            },
                             value: JSON.stringify(value)
                         };
                 }
@@ -140,7 +146,7 @@
                                 id: p.uri + k,
                                 title: p.config.tabName + ' ' + k,
                                 helper: '',
-                                icon: 'settings_applications',
+                                icon: 'settings_applications'
                             }, getConfigForArg(p.config.args[k], p.args[k]))
                         ))
                 }))
