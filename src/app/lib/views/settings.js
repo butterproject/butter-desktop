@@ -16,6 +16,12 @@
             var container = this.el; // document.createElement('div');
 
             var props = {
+                action: {
+                    goBack: () => {
+                        App.vent.trigger('settings:close');
+                        $('.filter-bar').show();
+                    }
+                },
                 tabs: this.collection,
                 settings: AdvSettings
             };
