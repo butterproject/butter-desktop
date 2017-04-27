@@ -60,7 +60,7 @@
                     App.ViewStack.pop();
                     App.vent.trigger('viewstack:pop', viewName);
                     if (typeof element.currentView !== 'undefined') {
-                        element.currentView.destroy();
+                        element.currentView.remove();
                     }
                     if (!App.ViewStack[0]) {
                         App.ViewStack = ['main-browser'];
