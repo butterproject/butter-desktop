@@ -113,15 +113,15 @@
                         return {
                             action: {
                                 type: App.Model.Settings.ActionTypes.TEXT,
+                                default: value
                             },
-                            value: value
                         };
                     case Provider.ArgType.BOOLEAN:
                         return {
                             action: {
                                 type: App.Model.Settings.ActionTypes.SWITCH,
+                                default: value
                             },
-                            value: value
                         };
                     default:
                     case Provider.ArgType.ARRAY:
@@ -129,8 +129,8 @@
                         return {
                             action: {
                                 type: App.Model.Settings.ActionTypes.TEXT,
+                                default: JSON.stringify(value)
                             },
-                            value: JSON.stringify(value)
                         };
                 }
             };
