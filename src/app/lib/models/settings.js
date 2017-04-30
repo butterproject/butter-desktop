@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var ACTION_TYPES = require('butter-component-action-types');
+    var ACTION_TYPES = require('butter-action-types');
 
     App.Model.Settings = {};
     App.Model.Settings.ActionTypes = ACTION_TYPES;
