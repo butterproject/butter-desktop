@@ -92,7 +92,7 @@
   },
   "devDependencies": {
     "bower": "^1.7.9",
-    "butter-component-builder": "0.0.6",
+    "butter-component-builder": "buttercomponents/butter-component-builder",
     "del": "^2.2.0",
     "git-rev": "^0.2.1",
     "gulp": "^3.9.0",
