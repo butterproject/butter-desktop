@@ -49,6 +49,7 @@
     "butter-provider-ccc": "git+https://github.com/butterproviders/butter-provider-ccc",
     "butter-provider-vodo": "git+https://github.com/butterproviders/butter-provider-vodo",
     "butter-provider-youtube": "git+https://github.com/butterproviders/butter-provider-youtube",
+    "butter-theme-dark": "github:butterthemes/butter-theme-dark",
     "chromecasts": "1.9.0",
     "defer-request": "0.0.3",
     "dlnacasts": "0.1.0",
