@@ -145,6 +145,7 @@
                 loadmore.children('.loading-container').css('display', 'none');
             }
 
+            this.selectFirstItem();
         },
 
         onError: function () {
@@ -254,8 +255,13 @@
             $('.item.selected .cover').click();
         },
 
+        selectFirstItem: function () {
+            var firstItem = $('.items').find('.item:visible:first');
+            this.selectItem(null, $(firstItem));
+        },
+
         selectItem: function (prev, next) {
-            prev.removeClass('selected');
+            prev && prev.removeClass('selected');
             next.addClass('selected');
 
             if (!Common.isElementInViewport(next)) {
