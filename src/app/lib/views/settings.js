@@ -17,7 +17,7 @@
 
             var props = {
                 navbar: {
-                    title: 'Settings',
+                    title: i18n.__('Settings'),
                     goBack: () => {
                         App.vent.trigger('settings:close');
                         $('.filter-bar').show();
@@ -26,13 +26,13 @@
                         search: false,
                         buttons: [
                             {
-                                title:'Shortcuts',
-                                icon:'keyboard',
+                                title: i18n.__('Shortcuts'),
+                                icon: 'keyboard',
                                 action: () => false
                             },
                             {
-                                title:'About',
-                                icon:'help_outline',
+                                title: i18n.__('About'),
+                                icon: 'help_outline',
                                 action: () => false
                             }
                         ]
