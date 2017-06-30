@@ -301,7 +301,7 @@
                 type: ACTION_TYPES.DROPDOWN,
                 options: App.Themes,
                 apply: (value) => {
-                    $('link#theme').attr('href', 'themes/' + value);
+                    document.documentElement.className = App.Themes[value];
                     App.vent.trigger('updatePostersSizeStylesheet');
                 }
             }

@@ -2,6 +2,16 @@
     'use strict';
 
     var fs = require('fs');
+    var path = require('path');
+
+    function get_new_themes() {
+        var packageJson = require(path.join(process.cwd(), 'package.json'));
+
+        var themes = Object.keys(packageJson.dependencies)
+            .filter((p) => (/(butter-theme-.*)/.test(p)));
+                    
+        return Object.assign({}, themes);
+    }
 
     function get_themes() {
         var theme_files = fs.readdirSync('./src/app/themes/');
@@ -24,5 +34,5 @@
         return Object.assign({}, themes, tp_themes);
     }
 
-    App.Themes = get_themes();
+    App.Themes = get_new_themes();
 })(window.App);
