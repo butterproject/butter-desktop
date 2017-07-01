@@ -127,7 +127,7 @@ Settings.chosenPlayer = 'local';
 
 // Advanced UI
 Settings.alwaysOnTop = false;
-Settings.theme = 'Official_-_Dark_theme';
+Settings.theme = 'butter-theme-dark';
 Settings.ratingStars = true; //trigger on click in details
 Settings.hideSeasons = true;
 Settings.startScreen = Object.keys(Settings.tabs)[0];

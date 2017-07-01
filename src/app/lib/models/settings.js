@@ -299,10 +299,12 @@
             icon: 'format_paint',
             action: {
                 type: ACTION_TYPES.DROPDOWN,
+                selected: App.Themes.indexOf(Settings.theme),
                 options: App.Themes,
                 apply: (value) => {
                     document.documentElement.className = App.Themes[value];
                     App.vent.trigger('updatePostersSizeStylesheet');
+                    Settings.theme =  App.Themes[value];
                 }
             }
         }, {

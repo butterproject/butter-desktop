@@ -20,7 +20,7 @@
             .filter((p) => (/(butter-theme-.*)/.test(p)));
 
         load_themes(themes);
-        return Object.assign({}, themes);
+        return themes;
     }
 
     function get_themes() {
