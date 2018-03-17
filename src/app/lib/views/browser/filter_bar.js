@@ -3,7 +3,7 @@
 
     var ButterProvider = require('butter-provider');
 
-    App.View.FilterBar = App.View.Generic(Backbone.Marionette.LayoutView, {
+    App.View.FilterBar = App.View.Generic(Marionette.View, {
         template: '#filter-bar-tpl',
         className: 'filter-bar',
 
@@ -96,7 +96,7 @@
             this._loadDropdown('search', App.View.SearchDropdown, this.model);
         },
 
-        onShow: function () {
+        onAttach: function () {
             this.loadComponents();
 
             var activetab;

@@ -4,7 +4,7 @@
     var dblclick_delay = 300,
         notif_displaytime = 3000;
 
-    var Player = Backbone.Marionette.ItemView.extend({
+    var Player = Marionette.View.extend({
         template: '#player-tpl',
         className: 'player',
         player: null,
@@ -377,7 +377,7 @@
             }
         },
 
-        onShow: function () {
+        onAttach: function () {
             $('#header').removeClass('header-shadow').hide();
             $('.filter-bar').show();
             $('#player_drag').show();
@@ -977,7 +977,7 @@
             }
         },
 
-        onDestroy: function () {
+        onBeforeDestroy: function () {
             if (this.model.get('type') === 'video/youtube') {
                 $('.trailer_mouse_catch').remove(); // Trailer UI Show FIX/HACK
             }

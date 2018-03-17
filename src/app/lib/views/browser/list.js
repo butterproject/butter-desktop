@@ -4,7 +4,7 @@
     var SCROLL_MORE = 0.7; // 70% of window height
     var ITEM_MARGINS = 20; // css declaration
 
-    var ErrorView = Backbone.Marionette.ItemView.extend({
+    var ErrorView = Marionette.View.extend({
         template: '#movie-error-tpl',
         ui: {
             retryButton: '.retry-button',
@@ -21,7 +21,7 @@
         }
     });
 
-    var List = Backbone.Marionette.CompositeView.extend({
+    var List = Marionette.View.extend({
         template: '#list-tpl',
 
         tagName: 'ul',
@@ -48,7 +48,7 @@
             return this.collection.state === 'error';
         },
 
-        getEmptyView: function () {
+        emptyView: function () {
             var view = {};
 
             if (this.hasError()) {
@@ -109,7 +109,7 @@
             });
         },
 
-        onShow: function () {
+        onAttach: function () {
             if (this.collection.state === 'loading') {
                 this.onLoading();
             }

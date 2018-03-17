@@ -22,7 +22,7 @@
         };
     };
 
-    App.View.ActionBar = Backbone.Marionette.ItemView.extend({
+    App.View.ActionBar = Marionette.View.extend({
         template: '#action-bar-tpl',
         className: 'actions-bar',
         ui: {
@@ -40,7 +40,7 @@
 
     });
 
-    App.View.GenericDetail = App.View.Generic(Backbone.Marionette.LayoutView, {
+    App.View.GenericDetail = App.View.Generic(Marionette.View, {
         template: '#generic-detail-tpl',
         className: 'generic-detail',
         ui: {
@@ -64,7 +64,7 @@
             });
         },
 
-        onShow: function () {
+        onAttach: function () {
             console.log('Show movie detail (' + this.model.get('imdb_id') + ')');
 
             App.MovieDetailView = this;
@@ -91,7 +91,7 @@
     });
 
 
-    App.View.DetailCard = App.View.Generic(Backbone.Marionette.LayoutView, {
+    App.View.DetailCard = App.View.Generic(Marionette.View, {
         template: '#movie-detail-tpl',
         className: 'movie-detail',
 
@@ -114,7 +114,7 @@
             this.bindAppEvent('movie:watched', this.onMoviesWatched);
         },
 
-        onShow: function () {
+        onAttach: function () {
             console.log('Show movie detail (' + this.model.get('imdb_id') + ')');
 
             App.MovieDetailView = this;

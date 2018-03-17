@@ -1,7 +1,7 @@
 ((App) => {
     App.View.Generic = function (Parent, View) {
         const _initialize = View.initialize;
-        const _onDestroy = View.onDestroy;
+        const _onBeforeDestroy = View.onDestroy;
 
         View.showView = function (region, view) {
             region.show(view);
@@ -35,8 +35,8 @@
             _initialize && _initialize.apply(this, arguments);
         };
 
-        View.onDestroy = function () {
-            _onDestroy && _onDestroy.apply(this, arguments);
+        View.onBeforeDestroy = function () {
+            _onBeforeDestroy && _onDestroy.apply(this, arguments);
 
             Object.values(this.views).map(v => v.destroy());
             Object.keys(this.appEvents).map(App.vent.off);

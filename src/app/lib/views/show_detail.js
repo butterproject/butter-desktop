@@ -1,7 +1,7 @@
 (function(App) {
     'use strict';
 
-    App.View.ShowHeader = Backbone.Marionette.ItemView.extend({
+    App.View.ShowHeader = Marionette.View.extend({
         template: '#show-header-tpl',
         className: 'show-header'
     });

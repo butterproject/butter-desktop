@@ -23,7 +23,7 @@
             'click  @ui.search': 'focusSearch'
         },
 
-        onShow: function () {
+        onAttach: function () {
             this.initKeyboardShortcuts();
         },
 

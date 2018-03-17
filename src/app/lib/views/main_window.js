@@ -3,7 +3,7 @@
 
     var _this;
 
-    var MainWindow = Backbone.Marionette.LayoutView.extend({
+    var MainWindow = Marionette.View.extend({
         template: '#main-window-tpl',
 
         id: 'main-window',
@@ -39,7 +39,7 @@
         initialize: function () {
             _this = this;
 
-            _.each(_this.regionManager._regions, function (element, index) {
+            _.each(_this.getRegions(), function (element, index) {
 
                 element.on('show', function (view) {
                     if (view.className && App.ViewStack[0] !== view.className) {
@@ -48,20 +48,10 @@
                     App.vent.trigger('viewstack:push', view.className);
                 });
 
-                /**
-                 * Marionette 2.x changed close to destroy, and doesn't pass along a view anymore.
-                 * TODO: Find better solution
-                 */
-                element.on('destroy', function (view) {
-                    if (typeof view === 'undefined' && element.currentView !== null) {
-                        view = element.currentView;
-                    }
+                element.on('empty', function (view) {
                     var viewName = (typeof view !== 'undefined' ? view.className : 'unknown');
                     App.ViewStack.pop();
                     App.vent.trigger('viewstack:pop', viewName);
-                    if (typeof element.currentView !== 'undefined') {
-                        element.currentView.remove();
-                    }
                     if (!App.ViewStack[0]) {
                         App.ViewStack = ['main-browser'];
                     }
@@ -77,25 +67,25 @@
 
             // Add event to show disclaimer
             App.vent.on('disclaimer:show', _.bind(this.showDisclaimer, this));
-            App.vent.on('disclaimer:close', _.bind(this.Disclaimer.destroy, this.Disclaimer));
+            App.vent.on('disclaimer:close', _.bind(this.getRegion('Disclaimer').empty, this.getRegion('this')));
 
             // Add event to show about
             App.vent.on('about:show', _.bind(this.showAbout, this));
-            App.vent.on('about:close', _.bind(this.About.destroy, this.About));
+            App.vent.on('about:close', _.bind(this.getRegion('About').empty, this.getRegion('this')));
 
             // Keyboard
             App.vent.on('keyboard:show', _.bind(this.showKeyboard, this));
-            App.vent.on('keyboard:close', _.bind(this.Keyboard.destroy, this.Keyboard));
+            App.vent.on('keyboard:close', _.bind(this.getRegion('Keyboard').empty, this.getRegion('this')));
             App.vent.on('keyboard:toggle', _.bind(this.toggleKeyboard, this));
 
             // Help
             App.vent.on('help:show', _.bind(this.showHelp, this));
-            App.vent.on('help:close', _.bind(this.Help.destroy, this.Help));
+            App.vent.on('help:close', _.bind(this.getRegion('Help').empty, this.getRegion('this')));
             App.vent.on('help:toggle', _.bind(this.toggleHelp, this));
 
             // Issue
             App.vent.on('issue:new', _.bind(this.showIssue, this));
-            App.vent.on('issue:close', _.bind(this.Issue.destroy, this.Issue));
+            App.vent.on('issue:close', _.bind(this.getRegion('Issue').empty, this.getRegion('this')));
 
             // Movies
             App.vent.on('movie:showDetail', _.bind(this.showMovieDetail, this));
@@ -107,13 +97,13 @@
 
             // Settings events
             App.vent.on('settings:show', _.bind(this.showSettings, this));
-            App.vent.on('settings:close', _.bind(this.Settings.destroy, this.Settings));
+            App.vent.on('settings:close', _.bind(this.getRegion('Settings').empty, this.getRegion('this')));
 
             App.vent.on('notification:show', _.bind(this.showNotification, this));
             App.vent.on('notification:close', _.bind(this.closeNotification, this));
 
             App.vent.on('system:openFileSelector', _.bind(this.showFileSelector, this));
-            App.vent.on('system:closeFileSelector', _.bind(this.FileSelector.destroy, this.FileSelector));
+            App.vent.on('system:closeFileSelector', _.bind(this.getRegion('FileSelector').empty, this.getRegion('this')));
 
             App.vent.on('system:tvstAuthenticated', _.bind(this.tvstAuthenticated, this));
 
@@ -122,15 +112,15 @@
             App.vent.on('stream:ready', _.bind(this.streamReady, this));
             App.vent.on('stream:local', _.bind(this.showPlayer, this));
             App.vent.on('player:close', _.bind(this.showViews, this));
-            App.vent.on('player:close', _.bind(this.Player.destroy, this.Player));
+            App.vent.on('player:close', _.bind(this.getRegion('Player').empty, this.getRegion('this')));
 
             App.vent.on('restartButter', _.bind(this.restartButter, this));
 
             App.vent.on('updatePostersSizeStylesheet', _.bind(this.updatePostersSizeStylesheet, this));
         },
 
-        onShow: function () {
-            this.Header.show(new App.View.TitleBar());
+        onAttach: function () {
+            this.showChildView('Header', new App.View.TitleBar());
             // Set the app title (for Windows mostly)
             win.title = App.Config.title;
 
@@ -140,7 +130,7 @@
             });
             // Show loading modal on startup
             var that = this;
-            this.Content.show(new App.View.InitModal({
+            this.showChildView('Content', new App.View.InitModal({
                 model: status
             }));
 
@@ -195,7 +185,7 @@
                         done: 1
                     });
 
-                    that.InitModal.destroy();
+                    that.getRegion('InitModal').empty();
 
                     var lastOpen = (Settings.startScreen === 'Last Open');
                     if (Settings.startScreen) {
@@ -234,16 +224,16 @@
         },
 
         showTab: function (newTab) {
-            this.Settings.destroy();
-            this.DetailsContainer.destroy();
-            this.lastView && this.lastView.destroy();
+            this.getRegion('Settings').empty();
+            this.getRegion('DetailsContainer').empty();
+            this.lastView && this.getRegion('lastView').empty();
 
             App.currentview = newTab;
 
             var model = App.Model.getCollectionModelForTab(newTab);
             var view = App.View.getViewForTab(newTab);
             this.lastView = new view({collectionModel: model});
-            this.Content.show(this.lastView);
+            this.showChildView('Content', this.lastView);
 
             App.vent.trigger('selected:tab', newTab);
         },
@@ -251,9 +241,9 @@
         updateShows: function (e) {
             var that = this;
             App.vent.trigger('tvshow:closeDetail');
-            this.Content.show(new App.View.InitModal());
+            this.showChildView('Content', new App.View.InitModal());
             App.db.syncDB(function () {
-                that.InitModal.destroy();
+                that.getRegion('InitModal').empty();
                 that.tvshowTabShow();
                 // Focus the window when the app opens
                 win.focus();
@@ -265,9 +255,9 @@
         initShows: function (e) {
             var that = this;
             App.vent.trigger('settings:close');
-            this.Content.show(new App.View.InitModal());
+            this.showChildView('Content', new App.View.InitModal());
             App.db.initDB(function (err, data) {
-                that.InitModal.destroy();
+                that.getRegion('InitModal').empty();
 
                 if (!err) {
                     // we write our new update time
@@ -282,15 +272,15 @@
         },
 
         showDisclaimer: function (e) {
-            this.Disclaimer.show(new App.View.DisclaimerModal());
+            this.showChildView('Disclaimer', new App.View.DisclaimerModal());
         },
 
         showAbout: function (e) {
-            this.About.show(new App.View.About());
+            this.showChildView('About', new App.View.About());
         },
 
         showKeyboard: function (e) {
-            this.Keyboard.show(new App.View.Keyboard());
+            this.showChildView('Keyboard', new App.View.Keyboard());
         },
 
         toggleKeyboard: function (e) {
@@ -302,7 +292,7 @@
         },
 
         showHelp: function (e) {
-            this.Help.show(new App.View.Help());
+            this.showChildView('Help', new App.View.Help());
         },
 
         toggleHelp: function (e) {
@@ -314,7 +304,7 @@
         },
 
         showIssue: function (e) {
-            this.Issue.show(new App.View.Issue());
+            this.showChildView('Issue', new App.View.Issue());
         },
 
         preventDefault: function (e) {
@@ -322,36 +312,36 @@
         },
 
         showMovieDetail: function (movieModel) {
-            this.DetailsContainer.show(new App.View.MovieDetail({
+            this.showChildView('DetailsContainer', new App.View.MovieDetail({
                 model: movieModel
             }));
         },
 
         closeMovieDetail: function (movieModel) {
             $('.spinner').hide();
-            _this.DetailsContainer.destroy();
+            _this.getRegion('DetailsContainer').empty();
             App.vent.trigger('shortcuts:list');
         },
 
         showNotification: function (notificationModel) {
-            this.Notification.show(new App.View.Notification({
+            this.showChildView('Notification', new App.View.Notification({
                 model: notificationModel
             }));
         },
 
         closeNotification: function () {
-            this.Notification.destroy();
+            this.getRegion('Notification').empty();
         },
 
         showShowDetail: function (showModel) {
-            this.DetailsContainer.show(new App.View.ShowDetail({
+            this.showChildView('DetailsContainer', new App.View.ShowDetail({
                 model: showModel
             }));
         },
 
         closeShowDetail: function (showModel) {
             $('.spinner').hide();
-            _this.DetailsContainer.destroy();
+            _this.getRegion('DetailsContainer').empty();
             App.vent.trigger('shortcuts:list');
         },
 
@@ -359,13 +349,13 @@
             App.vent.trigger('about:close');
             App.vent.trigger('stream:stop');
             App.vent.trigger('player:close');
-            this.FileSelector.show(new App.View.FileSelector({
+            this.showChildView('FileSelector', new App.View.FileSelector({
                 model: fileModel
             }));
         },
 
         showSettings: function (settingsModel) {
-            this.Settings.show(new App.View.Settings.Container({
+            this.showChildView('Settings', new App.View.Settings.Container({
                 collection: App.Model.Settings.Tabs
             }));
         },
@@ -380,11 +370,11 @@
             // modal (tvshow/movie) detail open when
             // the streaming start.
             //
-            // this.Detailscontainer.destroy();
+            // this.getRegion('Detailscontainer').empty();
             //
             // uncomment previous line to close it
 
-            this.Player.show(new App.View.Loading({
+            this.showChildView('Player', new App.View.Loading({
                 model: stateModel
             }));
         },
@@ -394,7 +384,7 @@
         },
 
         showPlayer: function (streamModel) {
-            this.Player.show(new App.View.Player({
+            this.showChildView('Player', new App.View.Player({
                 model: streamModel
             }));
             this.Content.$el.hide();

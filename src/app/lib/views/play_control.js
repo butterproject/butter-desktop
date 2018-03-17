@@ -3,7 +3,7 @@
 
     var Provider = require('butter-provider');
 
-    App.View.PlayControl = Backbone.Marionette.LayoutView.extend({
+    App.View.PlayControl = Marionette.View.extend({
         template: '#play-control-tpl',
         ui: {
             bookmarkIcon: '.favourites-toggle',
@@ -44,7 +44,7 @@
             }.bind(this));
         },
 
-        onShow: function () {
+        onAttach: function () {
             this.hideUnused();
             this.setQuality();
             this.loadComponents();
@@ -59,7 +59,7 @@
             App.vent.on('device:add',        this.loadPlayerDropdown.bind(this));
         },
 
-        onDestroy: function () {
+        onBeforeDestroy: function () {
             App.vent.off('sub:lang');
             App.vent.off('audio:lang');
             App.vent.off('update:subtitles');

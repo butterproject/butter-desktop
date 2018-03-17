@@ -4,7 +4,7 @@
     var prevX = 0;
     var prevY = 0;
 
-    var Item = Backbone.Marionette.ItemView.extend({
+    var Item = Marionette.View.extend({
         template: '#item-tpl',
 
         tagName: 'li',
@@ -34,7 +34,7 @@
             this.isAprilFools();
         },
 
-        onShow: function () {
+        onAttach: function () {
             this.loadImage();
             this.setCoverStates();
             this.setTooltips();
@@ -42,7 +42,7 @@
             this.model.on('change:poster', this.loadImage.bind(this));
         },
 
-        onDestroy: function () {
+        onBeforeDestroy: function () {
             this.model.off('change:poster');
         },
 

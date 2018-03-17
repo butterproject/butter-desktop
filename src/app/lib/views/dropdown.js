@@ -1,7 +1,7 @@
 (function (App){
     'use strict';
 
-    App.View.Dropdown = Backbone.Marionette.ItemView.extend({
+    App.View.Dropdown = Marionette.View.extend({
         template: '#dropdown-tpl',
         ui: {
             selected: '.selected'
@@ -29,7 +29,7 @@
             }
         },
 
-        onShow: function () {
+        onAttach: function () {
             if (this.selected && this.selected !== 'none') {
                 this.set(this.selected);
             }

@@ -16,7 +16,7 @@
         initialize: function () {
             App.View.Dropdown.prototype.initialize.apply(this, arguments);
         },
-        onShow: function () {
+        onAttach: function () {
             this.model.get('selected') && this._setValue.apply(this, [true]);
             this.bindModelEvent('change:selected', this._setValue);
         },

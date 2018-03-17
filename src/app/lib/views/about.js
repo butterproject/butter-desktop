@@ -1,7 +1,7 @@
 (function (App) {
     'use strict';
 
-    var About = Backbone.Marionette.ItemView.extend({
+    var About = Marionette.View.extend({
         template: '#about-tpl',
         className: 'about',
 
@@ -14,7 +14,7 @@
             'click #changelog': 'showChangelog'
         },
 
-        onShow: function () {
+        onAttach: function () {
             $('.filter-bar').hide();
             $('#header').addClass('header-shadow');
 
@@ -26,7 +26,7 @@
             $('#movie-detail').hide();
         },
 
-        onDestroy: function () {
+        onBeforeDestroy: function () {
             Mousetrap.unbind(['esc', 'backspace']);
             $('.filter-bar').show();
             $('#header').removeClass('header-shadow');

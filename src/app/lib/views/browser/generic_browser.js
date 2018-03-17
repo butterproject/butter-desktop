@@ -11,7 +11,7 @@
      *  * Show movie detail
      *  * Start playing a movie
      */
-    var ButterBrowser = Backbone.Marionette.LayoutView.extend({
+    var ButterBrowser = Marionette.View.extend({
         template: '#browser-tpl',
         className: 'main-browser',
         view: App.View.List,
@@ -39,7 +39,7 @@
             this.listenTo(this.filter, 'change', this.onFilterChange);
         },
 
-        onShow: function () {
+        onAttach: function () {
             if (Settings.rememberFilters) {
                 this.filter.set(this.getSavedFilter());
             }
@@ -48,9 +48,9 @@
                 model: this.filter
             });
 
-            this.FilterBar.show(this.bar);
+            this.showChildView('FilterBar', this.bar);
 
-            this.ItemList.show(new this.view({
+            this.showChildView('ItemList', new this.view({
                 collection: this.collection
             }));
 
@@ -73,7 +73,7 @@
             App.vent.trigger('tvshow:closeDetail');
             this.collection.fetch();
 
-            this.ItemList.show(new this.view({
+            this.showChildView('ItemList', new this.view({
                 collection: this.collection
             }));
         },

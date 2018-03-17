@@ -5,7 +5,7 @@
         collection = path.join(data_path + '/TorrentCollection/'),
         files;
 
-    var TorrentCollection = Backbone.Marionette.ItemView.extend({
+    var TorrentCollection = Marionette.View.extend({
         template: '#torrent-collection-tpl',
         className: 'torrent-collection',
 
@@ -35,7 +35,7 @@
             this.searchEngine = Settings.onlineSearchEngine;
         },
 
-        onShow: function () {
+        onAttach: function () {
             Mousetrap.bind(['esc', 'backspace'], function (e) {
                 $('#filterbar-torrent-collection').click();
             });
@@ -354,7 +354,7 @@
             input.click();
         },
 
-        onDestroy: function () {
+        onBeforeDestroy: function () {
             Mousetrap.unbind(['esc', 'backspace']);
             $('#movie-detail').show();
             $('#nav-filters').show();
