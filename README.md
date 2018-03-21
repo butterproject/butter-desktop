@@ -16,7 +16,11 @@ Visit the project's website at <http://butterproject.org>.
 
 ## Getting Involved
 
-Want to report a bug, request a feature, contribute to or translate Butter? Check out our in-depth guide to [Contributing to Butter](CONTRIBUTING.md#contributing-to-butter). We need all the help we can get! You can also join our [community](README.md#community) to keep up-to-date and meet other Butterrs.
+Want to report a bug, request a feature, contribute to or translate Butter? 
+
+Check out our in-depth guide to [Contributing to Butter](CONTRIBUTING.md#contributing-to-butter). 
+
+We need all the help we can get! You can also join our [community](README.md#community) to keep up-to-date and meet other Butterrs.
 
 ## Getting Started
 
@@ -41,7 +45,6 @@ Full instructions & troubleshooting tips can be found in the [Contributing Guide
 Keep track of Butter development and community activity.
 
 * Follow Butter on [Twitter](https://twitter.com/butterproject), [Facebook](https://www.facebook.com/ButterProjectOrg/) and [Google+](https://plus.google.com/communities/111003619134556931561).
-* Read and subscribe to [The Official Butter Blog](http://blog.butterproject.org).
 * Join in discussions on the [Butter Forum](https://www.reddit.com/r/ButterProject)
 * Connect with us on IRC at `#butterproject` on freenode ([web access](http://webchat.freenode.net/?channels=butterproject))
 
@@ -85,7 +88,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/ .
+You should have received a copy of the GNU General Public License along with this program.
+
+If not, see http://www.gnu.org/licenses/
 
 ***
 
