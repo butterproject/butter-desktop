@@ -1,8 +1,12 @@
+
+
 # [Butter](https://github.com/butterproject/butter-desktop)
 
 [![Build Status](https://travis-ci.org/butterproject/butter-desktop.svg?branch=master)](https://travis-ci.org/butterproject/butter-desktop)
 [![Dependency Status](https://david-dm.org/butterproject/butter-desktop.svg)](https://david-dm.org/butterproject/butter-desktop)
 [![devDependency Status](https://david-dm.org/butterproject/butter-desktop/dev-status.svg)](https://david-dm.org/butterproject/butter-desktop#info=devDependencies)
+
+<img width=225 src="https://github.com/butterproject/artworks/blob/master/Butter/Official/butter-mascot/butter-mascot.png?raw=true">
 
 Allow any user to easily watch movies through torrent streaming, without any prerequisites.
 
