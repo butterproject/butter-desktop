@@ -14,14 +14,15 @@
     }
 
     function installProvider(PO) {
-        var name = PO.prototype.config ? PO.prototype.config.name : null;
+        var PI = new PO ();
+        var name = PI.config ? PI.config.name : null;
 
         if (!name) {
-            return console.error(PO, PO.prototype.config, 'doesnt have a name');
+            return console.error(PO, PI.config, 'doesnt have a name');
         }
 
         if (registry[name]) {
-            return console.error('double definition of', name, PO, PO.prototype.config, 'is the same as', registry[name]);
+            return console.error('double definition of', name, PO, PI.config, 'is the same as', registry[name]);
         }
 
         console.log('Added %s to provider registry', name);
