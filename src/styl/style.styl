@@ -1,0 +1,211 @@
+/*
+ * Movie Item
+ */
+.backdrop {
+    background-attachment: fixed;
+    background-size: cover;
+    overlay(absolute);
+}
+
+.card {
+    background-color: #191c28;
+    height: 265px;
+    width: 350px;
+    margin: 0 5px 20px 5px;
+    float: left;
+    cursor: pointer;
+    font-size: 0;
+
+    img {
+        width: 350px;
+        height: 226px;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        position: relative;
+    }
+
+    &:hover img {
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    &:hover .itemTitle {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &:hover .overlay::after,
+    &:hover .playIcon,
+    &:hover .stars,
+    &:hover .favIcon {
+        opacity: 1;
+    }
+
+}
+
+.itemTitle {
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-top: 4px;
+}
+
+.itemYear {
+    font-size: 12px;
+    line-height: 15px;
+    color: #687687;
+    margin-top: 3px;
+    opacity: 1;
+    transition: opacity .3s ease-in-out;
+}
+
+
+/*
+ * Card Hover
+ */
+
+.overlay {
+    position: relative;
+    text-align: center;
+}
+
+.overlay::after {
+    position: absolute;
+    content: " ";
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(-139deg, rgba(255, 23, 218, 0.60) 0%, rgba(255, 23, 67, 0.60) 100%);
+    opacity: 0;
+    transition: all .3s ease-in-out;
+    border-radius: 8px;
+}
+
+.playIcon {
+    color: #FFF;
+    font-size: 70px;
+    z-index: 3;
+    position: absolute;
+    top: calc( 50% - 35px);
+    left: calc( 50% - 35px);
+    opacity: 0;
+    transition: all .3s ease-in-out;
+    text-shadow: 0 0px 8px rgba(0, 0, 0, 0.4);
+}
+
+.favIcon {
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 3;
+    position: absolute;
+    bottom: 15px;
+    right: -10px;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+    border-radius: 50%;
+    padding: 8px;
+    box-sizing: border-box;
+    width: 35px;
+    height: 35px;
+    background-color: #607D8B;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.stars {
+    opacity: 0;
+    height: 0;
+    transition: opacity .3s ease-in-out;
+}
+
+.starFull {
+    font-size: 18px;
+    color: #f9c120;
+}
+
+.starEmpty {
+    font-size: 18px;
+    color: #0e0f0f;
+}
+
+.favIcon:hover {
+    background: #b50000;
+}
+
+.card:hover .itemYear {
+    opacity: 0;
+}
+
+
+/*
+ * Card Loading
+ */
+
+.card__inner {
+    -webkit-animation: shimmer 1s linear infinite forwards;
+    animation: shimmer 1s linear infinite forwards;
+    background: #3d484e;
+    background-image: -webkit-linear-gradient(to right, #3d484e 0%, rgba(25, 28, 40, 0.4) 20%, #3d484e 40%, #3d484e 100%);
+    background-image: linear-gradient(to right, #3d484e 0%, rgba(25, 28, 40, 0.4) 20%, #3d484e 40%, #3d484e 100%);
+    background-repeat: no-repeat;
+    background-size: 400px 258px;
+    height: 100%;
+    position: relative;
+}
+
+.card__inner div {
+    background: #191c28;
+    height: 6px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.card__inner div:nth-child(1) {
+    height: 15px;
+    width: 60%;
+    bottom: 0;
+    left: auto;
+    right: 0px;
+}
+
+.card__inner div:nth-child(2) {
+    height: 4px;
+    width: 100%;
+    bottom: 15px;
+    left: 0;
+}
+
+.card__inner div:nth-child(3) {
+    width: 25%;
+    height: 20px;
+    bottom: 19px;
+    right: 0;
+    left: auto;
+}
+
+.card__inner div:nth-child(4) {
+    height: 6px;
+    width: 100%;
+    bottom: 33px;
+    left: 0;
+}
+
+@-webkit-keyframes shimmer {
+    0% {
+        background-position: -368px 0;
+    }
+    100% {
+        background-position: 368px 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -368px 0;
+    }
+    100% {
+        background-position: 368px 0;
+    }
+}
