@@ -5,6 +5,8 @@ import {Window} from 'butter-base-components';
 import {ShowDetails} from 'butter-component-show-detail';
 import List from 'butter-component-list';
 
+import logo from './img/logo.png';
+
 let imgs = [
     'https://farm1.staticflickr.com/751/22609797817_f2e2ff56eb_o_d.jpg',
     'https://farm6.staticflickr.com/5800/31223777911_7b960ddaae_k_d.jpg',
@@ -81,11 +83,11 @@ RotatingImages.defaultProps = {
 let ButterNinja = ({items}) => (
     <div>
         <RotatingImages imgs={imgs}/>
-        <Window>
+        <Window title={<img src={logo} style={{
+            height: '50px',
+            marginTop: '40px'
+        }}/>}>
             <List items={items} />
-        </Window>
-        <Window>
-            <ShowDetail />
         </Window>
     </div>
 )
