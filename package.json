@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "butter-base-components": "buttercomponents/butter-base-components",
-    "butter-component-show-detail": "buttercomponents/butter-component-show-detail"
+    "butter-component-list": "buttercomponents/butter-component-list"
   }
 }
