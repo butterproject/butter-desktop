@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import style from './styl/style.styl';
-import {Window} from 'butter-base-components';
+import {Window, Navbar, Menu} from 'butter-base-components';
 import {ShowDetails} from 'butter-component-show-detail';
 import List from 'butter-component-list';
 
@@ -72,21 +72,31 @@ class RotatingImages extends Component {
 
 RotatingImages.propTypes = {
     imgs: PropTypes.array.isRequired,
-    switchTime: PropTypes.number.isRequired    
+    switchTime: PropTypes.number.isRequired
 }
 
 RotatingImages.defaultProps = {
     switchTime: 100
 }
 
-
 let ButterNinja = ({items}) => (
     <div>
         <RotatingImages imgs={imgs}/>
-        <Window title={<img src={logo} style={{
-            height: '50px',
-            marginTop: '40px'
-        }}/>}>
+        <Window
+            bars={[
+                <Navbar>
+                    <Menu items={[
+                        {title: 'columnistas'},
+                        {title: 'series'},
+                        {title: 'documentales'},
+                        {title: 'ao vivo'}
+                    ]}/>
+                </Navbar>,
+            ]}
+            title={<img src={logo} style={{
+                height: '50px',
+                marginTop: '40px'
+            }}/>}>
             <List items={items} />
         </Window>
     </div>
