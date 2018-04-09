@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import style from './styl/style.styl';
 import {Window, Navbar, Menu} from 'butter-base-components';
-import {ShowDetails} from 'butter-component-show-detail';
 import List from 'butter-component-list';
 
 import logo from './img/logo.png';
