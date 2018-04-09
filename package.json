@@ -2,10 +2,10 @@
   "name": "butter-component-list",
   "version": "0.6.0",
   "description": "A base React Component for Butter Project",
-  "main": "src/index.jsx",
+  "main": "dist/bundle.js",
   "scripts": {
     "prepublish": "npm run build",
-    "install": "bcb-run install",
+    "install": "PATH=$PATH:../.bin bcb-run install",
     "build": "bcb-run build",
     "start": "bcb-run start",
     "lint": "bcb-run lint"
