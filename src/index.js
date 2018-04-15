@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import { HashRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
+
 import style from './styl/style.styl';
-import {Window, Navbar, Menu} from 'butter-base-components';
+import {Window, Navbar, Menu, Toolbar} from 'butter-base-components';
 import List from 'butter-component-list';
+import {RouterMenu} from 'butter-component-menu';
 
 import logo from './img/logo.png';
 
@@ -78,27 +82,44 @@ RotatingImages.defaultProps = {
     switchTime: 100
 }
 
-let ButterNinja = ({items}) => (
+let NinjaWindow = ({items, menu, ...props}) => (
+    <Window
+        bars={[
+            <Navbar key='main_nav'
+                         left={
+                             <RouterMenu items={menu}/>
+                         }
+                         right = {
+                             <Toolbar search={true}/>
+                         }
+            />
+        ]}
+        title={<img src={logo} style={{
+            height: '50px',
+            marginTop: '40px'
+        }}/>}>
+        <Switch>
+            {menu.map((e) => (
+                <Route path={e.path} render={() => (<List items={items[e.path]} />)} />
+            ))}
+        </Switch>
+    </Window>
+)
+
+let ButterNinja = (props) => (
     <div>
         <RotatingImages imgs={imgs}/>
-        <Window
-            bars={[
-                <Navbar>
-                    <Menu items={[
-                        {title: 'columnistas'},
-                        {title: 'series'},
-                        {title: 'documentales'},
-                        {title: 'ao vivo'}
-                    ]}/>
-                </Navbar>,
-            ]}
-            title={<img src={logo} style={{
-                height: '50px',
-                marginTop: '40px'
-            }}/>}>
-            <List items={items} />
-        </Window>
+        <NinjaWindow {...props} />
     </div>
 )
 
-export default ButterNinja;
+let RoutedNinja = (props) => (
+    <HashRouter>
+        <Switch>
+            <Route exact path='/' render={() => (<Redirect to={props.menu[0].path}/>)} />
+            <Route path='/list' render={() => (<ButterNinja {...props}/>)} />
+        </Switch>
+    </HashRouter>
+)
+
+export default RoutedNinja;

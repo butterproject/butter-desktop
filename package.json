@@ -3,13 +3,6 @@
   "version": "0.6.0",
   "description": "A base React Component for Butter Project",
   "main": "dist/bundle.js",
-  "scripts": {
-    "prepublish": "npm run build",
-    "install": "PATH=$PATH:../.bin bcb-run install",
-    "build": "bcb-run build",
-    "start": "bcb-run start",
-    "lint": "bcb-run lint"
-  },
   "build": {
     "command": "webpack --config webpack.config.js --progress --profile --colors",
     "env": {
@@ -37,6 +30,16 @@
   },
   "dependencies": {
     "butter-base-components": "buttercomponents/butter-base-components",
-    "butter-component-list": "buttercomponents/butter-component-list"
+    "butter-component-list": "buttercomponents/butter-component-list",
+    "butter-component-menu": "buttercomponents/butter-component-menu",
+    "butter-component-movie-details": "buttercomponents/butter-component-movie-details",
+    "react-router-dom": "^4.2.2"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "install": "PATH=$PATH:../.bin bcb-run install",
+    "build": "bcb-run build",
+    "start": "bcb-run start",
+    "lint": "bcb-run lint"
   }
 }
