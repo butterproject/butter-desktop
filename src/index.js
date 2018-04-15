@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { HashRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+require('./style.css')
 
 import style from './styl/style.styl';
 import {Window, Navbar, Menu, Toolbar} from 'butter-base-components';
@@ -82,7 +85,7 @@ RotatingImages.defaultProps = {
     switchTime: 100
 }
 
-let NinjaWindow = ({items, menu, ...props}) => (
+let NinjaWindow = ({items, menu, location, ...props}) => (
     <Window
         bars={[
             <Navbar key='main_nav'
@@ -98,11 +101,15 @@ let NinjaWindow = ({items, menu, ...props}) => (
             height: '50px',
             marginTop: '40px'
         }}/>}>
-        <Switch>
-            {menu.map((e) => (
-                <Route path={e.path} render={() => (<List items={items[e.path]} />)} />
-            ))}
-        </Switch>
+        <TransitionGroup>
+            <CSSTransition key={location.key} classNames="fade" timeout={300}>
+                <Switch location={location}>
+                    {menu.map((e) => (
+                        <Route path={e.path} render={() => (<List key={e.path} items={items[e.path]} />)} />
+                    ))}
+                </Switch>
+            </CSSTransition>
+        </TransitionGroup>
     </Window>
 )
 
@@ -117,7 +124,7 @@ let RoutedNinja = (props) => (
     <HashRouter>
         <Switch>
             <Route exact path='/' render={() => (<Redirect to={props.menu[0].path}/>)} />
-            <Route path='/list' render={() => (<ButterNinja {...props}/>)} />
+            <Route path='/list' render={({location}) => (<ButterNinja location={location} {...props} />)} />
         </Switch>
     </HashRouter>
 )
