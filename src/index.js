@@ -133,8 +133,8 @@ let ListView = ({items, menu, path, history, location}) => ([
 let NinjaWindow = ({settings, ...props}) => (
     <Window
         title={<img src={logo} style={{
-            height: '50px',
-            marginTop: '40px'
+            height: '20px',
+            marginTop: '3px'
         }}/>}>
         <Switch>
             <Route path='/settings' render={() => (
