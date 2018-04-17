@@ -120,13 +120,17 @@ let ListView = ({items, menu, path, history, location}) => ([
             }
             right = {defaultToolbar(history)}
     />,
-    <div location={location}>
-        <Switch>
-            {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
-                <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
-            )} />))}
-            <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
-        </Switch>
+    <div key={'/list'} location={location}>
+        <TransitionGroup>
+            <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+                <Switch location={location}>
+                    {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
+                        <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
+                    )} />))}
+                    <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
+                </Switch>
+            </CSSTransition>
+        </TransitionGroup>
     </div>
 ])
 
