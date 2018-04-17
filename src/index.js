@@ -8,6 +8,8 @@ require('./style.css')
 
 import style from './styl/style.styl';
 import {Window, Navbar, Menu, Toolbar} from 'butter-base-components';
+
+import ButterSettings from 'butter-component-settings';
 import List from 'butter-component-list';
 import {RouterMenu} from 'butter-component-menu';
 
@@ -85,33 +87,45 @@ RotatingImages.defaultProps = {
     switchTime: 100
 }
 
-let NinjaWindow = ({items, menu, location, ...props}) => (
+let relativePath = (location, path) => {
+    let basepath = location.pathname.split('/').slice(0, -1).join('/')
+    return `${basepath}/${path}`
+}
+
+let ListAndMenu = ({items, menu, path, history, location}) => ([
+    <Navbar key='main_nav'
+            left={
+                <RouterMenu items={menu.map((c) => ({
+                        path: relativePath(location, c),
+                        title: c
+                }))} location={location}/>
+            }
+            right = {
+                <Toolbar search={true} buttons={[
+                    {title: "settings", icon:"settings", action: () => (history.push('/settings'))}
+                ]}/>
+            }
+    />,
+    <div location={location}>
+        {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
+            <List key={path} items={items[path]} />
+        )} />))}
+        <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
+    </div>
+])
+
+let NinjaWindow = ({settings, ...props}) => (
     <Window
-        bars={[
-            <Navbar key='main_nav'
-                         left={
-                             <RouterMenu items={menu}/>
-                         }
-                         right = {
-                             <Toolbar search={true}/>
-                         }
-            />
-        ]}
         title={<img src={logo} style={{
             height: '50px',
             marginTop: '40px'
         }}/>}>
-        <TransitionGroup>
-            <CSSTransition key={location.key} classNames="fade" timeout={300}>
-                <Switch location={location}>
-                    {menu.map((e) => (
-                        <Route path={e.path} render={() => (<List key={e.path} items={items[e.path]} />)} />
-                    ))}
-                </Switch>
-            </CSSTransition>
-        </TransitionGroup>
-    </Window>
-)
+        <Switch>
+            <Route path='/settings' render={() => (<ButterSettings {...settings} location={props.location} navbar={{goBack: () => (props.history.push('/'))}}/>)} />
+            <Route path='/list' render={() => (<ListAndMenu menu={Object.keys(props.items)} {...props}/>)} />
+            <Route render={() => (<Redirect to='/list' />)} />
+        </Switch>
+    </Window>)
 
 let ButterNinja = (props) => (
     <div>
@@ -122,10 +136,9 @@ let ButterNinja = (props) => (
 
 let RoutedNinja = (props) => (
     <HashRouter>
-        <Switch>
-            <Route exact path='/' render={() => (<Redirect to={props.menu[0].path}/>)} />
-            <Route path='/list' render={({location}) => (<ButterNinja location={location} {...props} />)} />
-        </Switch>
+        <Route render={(routeProps) => (
+            <ButterNinja {...props} {...routeProps}/>
+        )} />
     </HashRouter>
 )
 
