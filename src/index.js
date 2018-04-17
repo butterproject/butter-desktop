@@ -121,10 +121,12 @@ let ListView = ({items, menu, path, history, location}) => ([
             right = {defaultToolbar(history)}
     />,
     <div location={location}>
-        {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
-            <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
-        )} />))}
-        <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
+        <Switch>
+            {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
+                <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
+            )} />))}
+            <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
+        </Switch>
     </div>
 ])
 
