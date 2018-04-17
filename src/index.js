@@ -12,6 +12,7 @@ import {Window, Navbar, Menu, Toolbar} from 'butter-base-components';
 import ButterSettings from 'butter-component-settings';
 import List from 'butter-component-list';
 import {RouterMenu} from 'butter-component-menu';
+import MovieDetail from 'butter-component-movie-details';
 
 import logo from './img/logo.png';
 
@@ -92,7 +93,24 @@ let relativePath = (location, path) => {
     return `${basepath}/${path}`
 }
 
-let ListAndMenu = ({items, menu, path, history, location}) => ([
+let defaultToolbar = (history) => (
+    <Toolbar search={true} buttons={[
+        {title: "settings", icon:"settings", action: () => (history.push('/settings'))}
+    ]}/>
+)
+
+let MovieView = ({history, location, item}) => ([
+    <Navbar key='main_nav'
+            title="Go Back"
+            goBack={() => (history.goBack())}
+            right = {defaultToolbar(history)}
+    />,
+    <MovieDetail {...item} />
+])
+
+let debug = (e)=> {debugger}
+
+let ListView = ({items, menu, path, history, location}) => ([
     <Navbar key='main_nav'
             left={
                 <RouterMenu items={menu.map((c) => ({
@@ -100,15 +118,11 @@ let ListAndMenu = ({items, menu, path, history, location}) => ([
                         title: c
                 }))} location={location}/>
             }
-            right = {
-                <Toolbar search={true} buttons={[
-                    {title: "settings", icon:"settings", action: () => (history.push('/settings'))}
-                ]}/>
-            }
+            right = {defaultToolbar(history)}
     />,
     <div location={location}>
         {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
-            <List key={path} items={items[path]} />
+            <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
         )} />))}
         <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
     </div>
@@ -121,8 +135,20 @@ let NinjaWindow = ({settings, ...props}) => (
             marginTop: '40px'
         }}/>}>
         <Switch>
-            <Route path='/settings' render={() => (<ButterSettings {...settings} location={props.location} navbar={{goBack: () => (props.history.push('/'))}}/>)} />
-            <Route path='/list' render={() => (<ListAndMenu menu={Object.keys(props.items)} {...props}/>)} />
+            <Route path='/settings' render={() => (
+                <ButterSettings {...settings} location={props.location} navbar={
+                    {goBack: () => (props.history.goBack())}
+                }/>
+            )} />
+            <Route path={'/movies/:col/:id'} render={({match, ...routerProps}) => (
+                <MovieView {...routerProps} item={
+                    props.items[match.params.col]
+                         .filter((i) => (i.title === match.params.id))[0]
+                }/>
+            )} />
+            <Route path='/list' render={() => (
+                <ListView menu={Object.keys(props.items)} {...props}/>
+            )} />
             <Route render={() => (<Redirect to='/list' />)} />
         </Switch>
     </Window>)
