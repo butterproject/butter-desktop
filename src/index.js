@@ -25,7 +25,7 @@ let imgs = [
 
 let debug = (e)=> {debugger}
 
-let NinjaWindow = ({settings, ...props}) => (
+let NinjaWindow = () => (
     <Window title={<Logo />}>
         <Switch>
             <Route path='/settings' component={ButterSettingsContainer} />
@@ -35,14 +35,14 @@ let NinjaWindow = ({settings, ...props}) => (
         </Switch>
     </Window>)
 
-let ButterNinja = (props) => (
+let ButterNinja = () => (
     <div>
         <RotatingImages imgs={imgs}/>
-        <NinjaWindow {...props} />
+        <NinjaWindow />
     </div>
 )
 
-let RoutedNinja = (props) => (
+let RoutedNinja = () => (
     <Router>
         <ButterNinja />
     </Router>
