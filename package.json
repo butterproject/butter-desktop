@@ -34,8 +34,11 @@
     "butter-component-menu": "buttercomponents/butter-component-menu",
     "butter-component-movie-details": "buttercomponents/butter-component-movie-details",
     "butter-component-settings": "buttercomponents/butter-component-settings",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-transition-group": "^2.3.1"
+    "react-router-redux": "^4.0.8",
+    "react-transition-group": "^2.3.1",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "prepublish": "npm run build",

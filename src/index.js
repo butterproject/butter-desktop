@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { HashRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import { connect } from 'react-redux'
 
 require('./style.css')
 
 import style from './styl/style.styl';
+
+import Router from './router';
 import {Window, Navbar, Menu, Toolbar} from 'butter-base-components';
 
 import ButterSettings from 'butter-component-settings';
@@ -110,6 +114,19 @@ let MovieView = ({history, location, item}) => ([
 
 let debug = (e)=> {debugger}
 
+const locationToKey = (location) => (
+    location.pathname.split('/').pop()
+)
+
+const ListContainer = connect(
+    ({items}, {location}) => ({
+        items: items[locationToKey(location)]
+    }),
+    (dispatch, {location, history}) => ({
+        action: (item) => history.push(`/movies/${locationToKey(location)}/${item.title}`)
+    })
+)(List)
+
 let ListView = ({items, menu, path, history, location}) => ([
     <Navbar key='main_nav'
             left={
@@ -124,15 +141,33 @@ let ListView = ({items, menu, path, history, location}) => ([
         <TransitionGroup>
             <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
                 <Switch location={location}>
-                    {menu.map((path) => (<Route path={relativePath(location, path)} key={path} render={() => (
-                        <List key={path} items={items[path]} action={(item) => history.push(`/movies/${path}/${item.title}`)}/>
-                    )} />))}
-                    <Route render={() => (<Redirect to={`/list/${menu[0]}`} />)} />
+                    {menu.map((path) => (
+                        <Route path={relativePath(location, path)} key={path}
+                               component={ListContainer} />
+                    ))}
+                    <Redirect to={`/list/${menu[0]}`} />
                 </Switch>
             </CSSTransition>
         </TransitionGroup>
     </div>
 ])
+
+const ButterSettingsContainer = connect (({settings}, props) => ({
+    location: props.location,
+    navbar: {goBack: () => (props.history.goBack())},
+    ...settings
+}))(ButterSettings)
+
+const MovieViewContainer = connect (({items}, {match, ...props}) => ({
+    item: items[match.params.col].filter(
+        (i) => (i.title === match.params.id)
+    ).pop()
+}))(MovieView)
+
+const ListViewContainer = connect((state, props) => ({
+    menu: Object.keys(state.items),
+    items: state.items
+}))(ListView)
 
 let NinjaWindow = ({settings, ...props}) => (
     <Window
@@ -141,21 +176,10 @@ let NinjaWindow = ({settings, ...props}) => (
             marginTop: '3px'
         }}/>}>
         <Switch>
-            <Route path='/settings' render={() => (
-                <ButterSettings {...settings} location={props.location} navbar={
-                    {goBack: () => (props.history.goBack())}
-                }/>
-            )} />
-            <Route path={'/movies/:col/:id'} render={({match, ...routerProps}) => (
-                <MovieView {...routerProps} item={
-                    props.items[match.params.col]
-                         .filter((i) => (i.title === match.params.id))[0]
-                }/>
-            )} />
-            <Route path='/list' render={() => (
-                <ListView menu={Object.keys(props.items)} {...props}/>
-            )} />
-            <Route render={() => (<Redirect to='/list' />)} />
+            <Route path='/settings' component={ButterSettingsContainer} />
+            <Route path={'/movies/:col/:id'} component={MovieViewContainer} />
+            <Route path='/list' component={ListViewContainer}/>
+            <Redirect to='/list' />
         </Switch>
     </Window>)
 
@@ -167,11 +191,9 @@ let ButterNinja = (props) => (
 )
 
 let RoutedNinja = (props) => (
-    <HashRouter>
-        <Route render={(routeProps) => (
-            <ButterNinja {...props} {...routeProps}/>
-        )} />
-    </HashRouter>
+    <Router>
+        <ButterNinja />
+    </Router>
 )
 
 export default RoutedNinja;
