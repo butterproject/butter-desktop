@@ -1,12 +1,19 @@
+'use strict;'
+/* General Imports */
+import {combineReducers} from 'redux';
 import React, { Component } from 'react';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+/* Providers */
+import ButterReduxProvider from 'butter-redux-provider';
+import ButterProviderGDocs from 'butter-provider-gdocs';
+
+/* Components */
+import {Window,  Menu} from 'butter-base-components';
 
 require('./style.css')
-
 import Router from './router';
-import {Window,  Menu} from 'butter-base-components';
 
 import {
     ButterSettingsContainer,
@@ -48,4 +55,16 @@ let RoutedNinja = () => (
     </Router>
 )
 
-export default RoutedNinja;
+const gdocsProvider = new ButterProviderGDocs()
+const GDocsReduxProvider = new ButterReduxProvider(gdocsProvider)
+const reducers = {
+    collections: combineReducers({
+        gdocs: GDocsReduxProvider.reducer,
+    })
+}
+
+const actions = {
+    gdocs: GDocsReduxProvider.actions,
+}
+
+export {RoutedNinja as default, reducers, actions};

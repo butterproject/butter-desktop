@@ -34,6 +34,8 @@
     "butter-component-menu": "buttercomponents/butter-component-menu",
     "butter-component-movie-details": "buttercomponents/butter-component-movie-details",
     "butter-component-settings": "buttercomponents/butter-component-settings",
+    "butter-provider-gdocs": "butterproviders/butter-provider-gdocs",
+    "butter-redux-provider": "butterproviders/butter-redux-provider",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
