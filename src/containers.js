@@ -11,9 +11,15 @@ const locationToKey = (location) => (
 )
 
 const ListContainer = connect(
-    ({items}, {location}) => ({
-        items: items[locationToKey(location)]
-    }),
+    ({collections}, {location}) => {
+        const {items, cache, isFetching, failed} = collections[locationToKey(location)]
+
+        return {
+            items: items.map(i => cache[i]),
+            isFetching,
+            failed,
+        }
+    },
     (dispatch, {location, history}) => ({
         action: (item) => history.push(`/movies/${locationToKey(location)}/${item.title}`)
     })
@@ -25,15 +31,22 @@ const ButterSettingsContainer = connect (({settings}, props) => ({
     ...settings
 }))(ButterSettings)
 
-const MovieViewContainer = connect (({items}, {match, ...props}) => ({
-    item: items[match.params.col].filter(
-        (i) => (i.title === match.params.id)
-    ).pop()
-}))(MovieView)
+const MovieViewContainer = connect (({collections}, {match, ...props}) => {
+    const {items, cache} = collections[match.params.col]
 
-const ListViewContainer = connect((state, props) => ({
-    menu: Object.keys(state.items),
-    items: state.items
-}))(ListView)
+    return {
+        item: items
+            .map(i => cache[i])
+            .filter(
+                (i) => (i.title === match.params.id)
+            ).pop()
+    }
+})(MovieView)
+
+const ListViewContainer = connect(({collections}, {match, ...props}) => {
+    return {
+        menu: Object.keys(collections)
+    }
+})(ListView)
 
 export {ListContainer, ButterSettingsContainer, MovieViewContainer, ListViewContainer}
