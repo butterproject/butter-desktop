@@ -26,7 +26,9 @@
   },
   "homepage": "https://github.com/buttercomponents/butter-component-list#readme",
   "devDependencies": {
-    "butter-component-builder": "buttercomponents/butter-component-builder"
+    "butter-component-builder": "buttercomponents/butter-component-builder",
+    "butter-provider-ccc": "butterproviders/butter-provider-ccc",
+    "butter-provider-vodo": "butterproviders/butter-provider-vodo"
   },
   "dependencies": {
     "butter-base-components": "buttercomponents/butter-base-components",

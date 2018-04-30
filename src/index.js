@@ -9,6 +9,11 @@ import PropTypes from 'prop-types';
 import ButterReduxProvider from 'butter-redux-provider';
 import ButterProviderGDocs from 'butter-provider-gdocs';
 
+const providers = [
+    require('butter-provider-vodo'),
+    require('butter-provider-ccc')
+]
+
 /* Components */
 import {Window,  Menu} from 'butter-base-components';
 
@@ -57,14 +62,29 @@ let RoutedNinja = () => (
 
 const gdocsProvider = new ButterProviderGDocs()
 const GDocsReduxProvider = new ButterReduxProvider(gdocsProvider)
+
+const hashifyProviders = (source, resource) => (
+    source.reduce((a, c) => (
+        Object.assign(a, {
+            [c.config.name]: c[resource]
+        })
+    ), {})
+)
+
+const providerReduxers = providers.map((p) => (new ButterReduxProvider(p)))
+const providerReducers = hashifyProviders(providerReduxers, 'reducer')
+const providerActions = hashifyProviders(providerReduxers, 'actions')
+
 const reducers = {
     collections: combineReducers({
         gdocs: GDocsReduxProvider.reducer,
+        ...providerReducers
     })
 }
 
 const actions = {
     gdocs: GDocsReduxProvider.actions,
+    ...providerActions
 }
 
 export {RoutedNinja as default, reducers, actions};
