@@ -10,16 +10,24 @@ const locationToKey = (location) => (
     location.pathname.split('/').pop()
 )
 
-const ListContainer = connect(
-    ({collections}, {location}) => {
-        const {items, cache, isFetching, failed} = collections[locationToKey(location)]
+const collectionConnect = ((mapStateToProps, mapDispatchToProps) => (
+    connect(({collections, ...state}, {location, ...props}) => (
+        mapStateToProps({
+            ...collections[locationToKey(location)],
+            ...state
+        }, {
+            ...props,
+            location
+        })
+    ), mapDispatchToProps)
+))
 
-        return {
-            items: items.map(i => cache[i]),
-            isFetching,
-            failed,
-        }
-    },
+const ListContainer = collectionConnect(
+    ({items, cache, isFetching, failed}) => ({
+        items: items.map(i => cache[i]),
+        isFetching,
+        failed,
+    }),
     (dispatch, {location, history}) => ({
         action: (item) => history.push(`/movies/${locationToKey(location)}/${item.title}`)
     })
