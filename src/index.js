@@ -6,7 +6,7 @@ import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /* Providers */
-import ButterReduxProvider from 'butter-redux-provider';
+import reduxProviderAdapter from 'butter-redux-provider';
 import ButterProviderGDocs from 'butter-provider-gdocs';
 
 const providers = [
@@ -61,7 +61,7 @@ let RoutedNinja = () => (
 )
 
 const gdocsProvider = new ButterProviderGDocs()
-const GDocsReduxProvider = new ButterReduxProvider(gdocsProvider)
+const GDocsReduxProvider = reduxProviderAdapter(gdocsProvider)
 
 const hashifyProviders = (source, resource) => (
     source.reduce((a, c) => (
@@ -71,7 +71,7 @@ const hashifyProviders = (source, resource) => (
     ), {})
 )
 
-const providerReduxers = providers.map((p) => (new ButterReduxProvider(p)))
+const providerReduxers = providers.map((p) => (reduxProviderAdapter(p)))
 const providerReducers = hashifyProviders(providerReduxers, 'reducer')
 const providerActions = hashifyProviders(providerReduxers, 'actions')
 
