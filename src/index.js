@@ -66,7 +66,7 @@ const GDocsReduxProvider = reduxProviderAdapter(gdocsProvider)
 const hashifyProviders = (source, resource) => (
     source.reduce((a, c) => (
         Object.assign(a, {
-            [c.config.name]: c[resource]
+            [c.provider.config.name]: c[resource]
         })
     ), {})
 )
