@@ -1,3 +1,4 @@
+import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
 import { HashRouter } from 'react-router-dom'
