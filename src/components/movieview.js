@@ -1,17 +1,16 @@
 import React from 'react';
 
-import MovieDetail from 'butter-component-movie-details';
+import ContentDetail from 'butter-component-content-details';
 import {Navbar} from 'butter-base-components';
 
 import {defaultToolbar} from '../utils';
 
-const MovieView = ({history, location, item}) => ([
-    <Navbar key='main_nav'
-    title="Go Back"
-    goBack={() => (history.goBack())}
-            right = {defaultToolbar(history)}
-    />,
-    <MovieDetail key='movie_detail' {...item} />
-])
+const MovieView = ({history, location, item}) => (
+    <ContentDetail key='movie_detail'
+                   goBack={{
+                       action: history.goBack,
+                       title: 'Movies'
+                   }}
+                   toolbar={defaultToolbar(history)} {...item} />)
 
 export {MovieView as default}

@@ -12,29 +12,36 @@ import  {
     defaultToolbar
 } from '../utils';
 
-const ListView = ({items, menu, path, history, location}) => ([
-    <Navbar key='main_nav'
-            left={
-                <RouterMenu items={menu.map((c) => ({
-                        path: relativePath(location, c),
-                        title: c
-                }))} location={location}/>
-            }
-            right = {defaultToolbar(history)}
-    />,
-    <div key={'/list'} location={location}>
-        <TransitionGroup>
-            <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
-                <Switch location={location}>
-                    {menu.map((path) => (
-                        <Route path={relativePath(location, path)} key={path}
-                               component={ListContainer} />
-                    ))}
-                    <Redirect to={`/list/${menu[0]}`} />
-                </Switch>
-            </CSSTransition>
-        </TransitionGroup>
-    </div>
-])
+const providersToMenuItems = (providers) => Object.values(providers).map(({config}) => ({
+    title: config.tabName,
+    path: `/list/${config.name}`
+}))
+
+const ListView = ({items, providers, path, history, location}) => {
+    const menu = providersToMenuItems(providers);
+    const defaultPath = menu[0].path
+
+    return [
+        <Navbar key='main_nav'
+                left={
+                    <RouterMenu items={menu} location={location}/>
+                }
+                right = {defaultToolbar(history)}
+        />,
+        <div key={'/list'} location={location}>
+            <TransitionGroup>
+                <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+                    <Switch location={location}>
+                        {menu.map(({path}) => (
+                            <Route path={path} key={path}
+                                   component={ListContainer} />
+                        ))}
+                        <Redirect to={defaultPath} />
+                    </Switch>
+                </CSSTransition>
+            </TransitionGroup>
+        </div>
+    ]
+}
 
 export {ListView as default}

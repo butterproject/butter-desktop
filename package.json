@@ -32,9 +32,9 @@
   },
   "dependencies": {
     "butter-base-components": "buttercomponents/butter-base-components",
+    "butter-component-content-details": "buttercomponents/butter-component-content-details",
     "butter-component-list": "buttercomponents/butter-component-list",
     "butter-component-menu": "buttercomponents/butter-component-menu",
-    "butter-component-movie-details": "buttercomponents/butter-component-movie-details",
     "butter-component-settings": "buttercomponents/butter-component-settings",
     "butter-provider-gdocs": "butterproviders/butter-provider-gdocs",
     "butter-redux-provider": "butterproviders/butter-redux-provider",

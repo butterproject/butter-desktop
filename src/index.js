@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 
 /* Providers */
 import reduxProviderAdapter from 'butter-redux-provider';
-import ButterProviderGDocs from 'butter-provider-gdocs';
 
 const providers = [
+    require('butter-provider-gdocs'),
     require('butter-provider-vodo'),
     require('butter-provider-ccc')
 ]
@@ -60,30 +60,36 @@ let RoutedNinja = () => (
     </Router>
 )
 
-const gdocsProvider = new ButterProviderGDocs()
-const GDocsReduxProvider = reduxProviderAdapter(gdocsProvider)
-
-const hashifyProviders = (source, resource) => (
+const Identity = a => a
+const hashify = (source, transformKey=Identity, transformValue=Identity) => (
     source.reduce((a, c) => (
         Object.assign(a, {
-            [c.provider.config.name]: c[resource]
+            [transformKey(c)]: transformValue(c)
         })
     ), {})
 )
 
+const hashifyReduxers = (source, resource) => (
+    hashify(source,
+            reduxer => reduxer.provider.config.name,
+            reduxer => reduxer[resource])
+)
+
 const providerReduxers = providers.map((p) => (reduxProviderAdapter(p)))
-const providerReducers = hashifyProviders(providerReduxers, 'reducer')
-const providerActions = hashifyProviders(providerReduxers, 'actions')
+const providerReducers = hashifyReduxers(providerReduxers, 'reducer')
+const providerActions = hashifyReduxers(providerReduxers, 'actions')
 
 const reducers = {
     collections: combineReducers({
-        gdocs: GDocsReduxProvider.reducer,
         ...providerReducers
+    }),
+    providers: (state, action) => ({
+        ...state,
+        ...hashifyReduxers(providerReduxers, 'provider')
     })
 }
 
 const actions = {
-    gdocs: GDocsReduxProvider.actions,
     ...providerActions
 }
 

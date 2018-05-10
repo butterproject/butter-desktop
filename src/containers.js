@@ -51,9 +51,9 @@ const MovieViewContainer = connect (({collections}, {match, ...props}) => {
     }
 })(MovieView)
 
-const ListViewContainer = connect(({collections}, {match, ...props}) => {
+const ListViewContainer = connect(({providers}, {match, ...props}) => {
     return {
-        menu: Object.keys(collections)
+        providers,
     }
 })(ListView)
 
