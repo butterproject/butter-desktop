@@ -10,7 +10,7 @@ import reduxProviderAdapter from 'butter-redux-provider';
 
 const providers = [
     require('butter-provider-gdocs'),
-    require('butter-provider-vodo'),
+//    require('butter-provider-vodo'),
     require('butter-provider-ccc')
 ]
 
