@@ -1,16 +1,21 @@
 'use strict;'
-/* General Imports */
-import {combineReducers} from 'redux';
+/* react */
 import React, { Component } from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+/* redux */
+import {compose, createStore, applyMiddleware, combineReducers} from 'redux';
+import { routerReducer } from 'react-router-redux';
+import thunk from 'redux-thunk'
+import persistState from 'redux-localstorage'
 
 /* Providers */
 import reduxProviderAdapter from 'butter-redux-provider';
 
 const providers = [
     require('butter-provider-gdocs'),
-//    require('butter-provider-vodo'),
+    //    require('butter-provider-vodo'),
     require('butter-provider-ccc')
 ]
 
@@ -19,6 +24,7 @@ import {Window,  Menu} from 'butter-base-components';
 
 require('./style.css')
 import Router from './router';
+import {reducer as persistReducer} from './actions'
 
 import {
     ButterSettingsContainer,
@@ -91,6 +97,20 @@ const reducers = {
 
 const actions = {
     ...providerActions
+
 }
 
-export {RoutedNinja as default, reducers, actions};
+const middlewares = [thunk]
+const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState('persist'))
+
+
+const store = createStore(combineReducers({
+    ...reducers,
+    persist: persistReducer,
+    router: routerReducer
+}), enhancer)
+
+Object.values(actions).map(a => store.dispatch(a.FETCH()))
+
+export {RoutedNinja as default, store};
