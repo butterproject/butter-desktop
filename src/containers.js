@@ -44,7 +44,7 @@ const ListContainer = collectionConnect(
     }),
     (dispatch, {location, history}) => ({
         actions: {
-            show: (item) => history.push(`/movies/${locationToKey(location)}/${item.title}`),
+            show: (item) => history.push(`/movies/${locationToKey(location)}/${item.id}`),
             ...persistActions(dispatch)
         }
     })
@@ -64,7 +64,7 @@ const MovieViewContainer = connect (
             item: items
                 .map(i => cache[i])
                 .filter(
-                    (i) => (i.title === match.params.id)
+                    (i) => (i.id === match.params.id)
                 ).pop()
         }
     },
