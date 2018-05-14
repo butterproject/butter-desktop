@@ -5,6 +5,7 @@ import ButterSettings from 'butter-component-settings';
 import ContentDetail from 'butter-component-content-details';
 
 import ListView from './components/listview'
+import PlayerView from './components/player'
 
 import {actions} from './actions'
 
@@ -85,10 +86,28 @@ const MovieViewContainer = connect (
     })
 )(ContentDetail)
 
+const PlayerViewContainer = connect (
+    ({collections}, {match, history}) => {
+        const item = itemFromCache(collections[match.params.col], match.params.id)
+
+        if (! item) {
+            return {}
+        }
+
+        return {
+            ...item,
+            goBack: {
+                action: history.goBack,
+                title: item.title
+            }
+        }
+    }
+)(PlayerView)
+
 const ListViewContainer = connect(({providers}, {match, ...props}) => {
     return {
         providers,
     }
 })(ListView)
 
-export {ListContainer, ButterSettingsContainer, MovieViewContainer, ListViewContainer}
+export {ListContainer, ButterSettingsContainer, MovieViewContainer, PlayerViewContainer, ListViewContainer}

@@ -29,7 +29,8 @@ import {reducer as persistReducer} from './actions'
 import {
     ButterSettingsContainer,
     MovieViewContainer,
-    ListViewContainer
+    PlayerViewContainer,
+    ListViewContainer,
 } from './containers';
 
 import RotatingImages from './components/images';
@@ -47,6 +48,7 @@ let NinjaWindow = () => (
     <Window title={<Logo />}>
         <Switch>
             <Route path='/settings' component={ButterSettingsContainer} />
+            <Route path={'/movies/:col/:id/play'} component={PlayerViewContainer} />
             <Route path={'/movies/:col/:id'} component={MovieViewContainer} />
             <Route path='/list' component={ListViewContainer}/>
             <Redirect to='/list' />
