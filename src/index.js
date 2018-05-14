@@ -64,7 +64,7 @@ let ButterNinja = () => (
 
 let RoutedNinja = () => (
     <Router>
-        <ButterNinja />
+        <NinjaWindow/>
     </Router>
 )
 
@@ -87,6 +87,7 @@ const providerReduxers = providers.map((p) => (reduxProviderAdapter(p)))
 const providerReducers = hashifyReduxers(providerReduxers, 'reducer')
 const providerActions = hashifyReduxers(providerReduxers, 'actions')
 
+
 const reducers = {
     collections: combineReducers({
         ...providerReducers
@@ -99,13 +100,11 @@ const reducers = {
 
 const actions = {
     ...providerActions
-
 }
 
 const middlewares = [thunk]
 const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState('persist'))
-
 
 const store = createStore(combineReducers({
     ...reducers,

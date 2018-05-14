@@ -2,7 +2,7 @@
   "name": "butter-component-list",
   "version": "0.6.0",
   "description": "A base React Component for Butter Project",
-  "main": "dist/",
+  "main": "main_process.js",
   "build": {
     "command": "webpack --config webpack.config.js --progress --profile --colors",
     "env": {
@@ -28,7 +28,11 @@
   "devDependencies": {
     "butter-component-builder": "buttercomponents/butter-component-builder",
     "butter-provider-ccc": "butterproviders/butter-provider-ccc",
-    "butter-provider-vodo": "butterproviders/butter-provider-vodo"
+    "butter-provider-vodo": "butterproviders/butter-provider-vodo",
+    "electron": "^2.0.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-reload": "^1.2.2",
+    "npm-run-all": "^4.1.3"
   },
   "dependencies": {
     "butter-base-components": "buttercomponents/butter-base-components",
@@ -44,11 +48,9 @@
     "react-transition-group": "^2.3.1",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.2",
-    "redux-localstorage": "^0.4.1"
+    "redux-localstorage": "xaiki/redux-localstorage"
   },
   "scripts": {
-    "prepublish": "npm run build",
-    "install": "PATH=$PATH:../.bin bcb-run install",
     "build": "bcb-run build",
     "start": "bcb-run start",
     "lint": "bcb-run lint"
