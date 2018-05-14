@@ -7,7 +7,7 @@ let mainWindow
 
 app.on('ready', () => {
     if (process.env.NODE_ENV === 'development') {
-        require('electron-reload')(__dirname)
+        require('electron-reload')(`${__dirname}/build`)
 
         const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS, REACT_PERF } = require('electron-devtools-installer');
 
