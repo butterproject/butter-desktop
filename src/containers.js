@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 
 import List from 'butter-component-list';
 import ButterSettings from 'butter-component-settings';
+import ContentDetail from 'butter-component-content-details';
 
-import MovieView from './components/movieview'
 import ListView from './components/listview'
 
 import {actions} from './actions'
@@ -56,24 +56,34 @@ const ButterSettingsContainer = connect (({settings}, props) => ({
     ...settings
 }))(ButterSettings)
 
+const itemFromCache = (collection, id) => {
+    const {items, cache} = collection
+
+    return items
+        .map(i => cache[i])
+        .filter((i) => (i.id === id))
+        .pop()
+}
+
 const MovieViewContainer = connect (
-    ({collections}, {match, ...props}) => {
-        const {items, cache} = collections[match.params.col]
+    ({collections}, {match, history}) => {
+        const item = itemFromCache(collections[match.params.col], match.params.id)
 
         return {
-            item: items
-                .map(i => cache[i])
-                .filter(
-                    (i) => (i.id === match.params.id)
-                ).pop()
+            ...item,
+            goBack: {
+                action: history.goBack,
+                title: 'Movies'
+            }
         }
     },
-    (dispatch) => ({
+    (dispatch, {location, history}) => ({
         actions: {
-            ...persistActions(dispatch)
+            ...persistActions(dispatch),
+            play: () => history.push(`${location.pathname}/play`)
         }
     })
-)(MovieView)
+)(ContentDetail)
 
 const ListViewContainer = connect(({providers}, {match, ...props}) => {
     return {
