@@ -1,8 +1,8 @@
 {
-  "name": "butter-component-list",
-  "version": "0.6.0",
-  "description": "A base React Component for Butter Project",
-  "main": "main_process.js",
+  "name": "TVNinja",
+  "version": "0.0.1",
+  "description": "A pretty awesome media player",
+  "main": "electron/main.js",
   "build": {
     "command": "webpack --config webpack.config.js --progress --profile --colors",
     "env": {
@@ -31,6 +31,7 @@
     "butter-provider-vodo": "butterproviders/butter-provider-vodo",
     "electron": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-packager": "^12.0.2",
     "electron-reload": "^1.2.2",
     "npm-run-all": "^4.1.3"
   },
