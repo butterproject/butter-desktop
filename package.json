@@ -51,8 +51,8 @@
     "redux-localstorage": "xaiki/redux-localstorage"
   },
   "scripts": {
-    "build": "bcb-run build",
-    "start": "bcb-run start",
+    "build": "webpack --progress --config webpack.config.js",
+    "start": "NODE_ENV=development webpack --progress --config webpack.config.js --watch & electron .",
     "lint": "bcb-run lint"
   }
 }
