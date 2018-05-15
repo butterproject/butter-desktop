@@ -10,6 +10,8 @@ import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk'
 import persistState from 'redux-localstorage'
 
+import {remote} from 'electron'
+
 /* Providers */
 import reduxProviderAdapter from 'butter-redux-provider';
 
@@ -36,9 +38,27 @@ import {
 import Logo from './components/logo';
 
 let debug = (e)=> {debugger}
+const doOnWindow = (fn) => (
+    () => {
+        const window = remote.getCurrentWindow()
+
+        if (window) {
+            return fn(window)
+        }
+
+        return null
+    }
+)
+
+const windowActions = {
+    close: doOnWindow(window => window.close()),
+    min: doOnWindow(window => window.minimize()),
+    max: doOnWindow(window => window.isMaximized() ? window.unmaximize() : window.maximize()),
+//    fullscreen: doOnWindow(window => window.fullscreen())
+}
 
 let NinjaWindow = () => (
-    <Window title={<Logo />}>
+    <Window title={<Logo />} actions={windowActions}>
         <Switch>
             <Route path='/settings' component={ButterSettingsContainer} />
             <Route path={'/movies/:col/:id/play'} component={PlayerViewContainer} />
@@ -46,7 +66,8 @@ let NinjaWindow = () => (
             <Route path='/list' component={ListViewContainer}/>
             <Redirect to='/list' />
         </Switch>
-    </Window>)
+    </Window>
+)
 
 let RoutedNinja = () => (
     <Router>
