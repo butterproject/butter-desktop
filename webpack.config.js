@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'development') {
 
 module.exports = Object.assign(config, {
     target: 'electron-main',
-    entry: Object.assign(config.entry, {index: `${__dirname}/index.js`}),
+    entry: Object.assign(config.entry, {index: `${__dirname}/electron/index.js`}),
     externals: {},
     output: {
         path: __dirname + '/build',

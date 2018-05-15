@@ -4,7 +4,7 @@ import { I18nextProvider} from 'react-i18next';
 import { combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 
-import Component, {store} from './src';
+import Component, {store} from '../src';
 import i18n from './i18n';
 
 const root = document.getElementById('root')

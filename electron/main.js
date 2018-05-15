@@ -26,6 +26,6 @@ app.on('ready', () => {
         defaultEncoding: 'utf8'
     })
 
-    mainWindow.loadURL(`file://${__dirname}/../index.html`)
+    mainWindow.loadURL(`file://${__dirname}/index.html`)
 
 })
