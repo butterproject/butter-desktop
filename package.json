@@ -7,7 +7,13 @@
     "appId": "org.butterproject.desktop",
     "productName": "Butter Desktop — Ninja Edition",
     "copyright": "Copyright © 2013-2018 Butter Project",
-    "files": ["**/*", "build/index.js", "build/index.css", "build/themes.js", "build/themes.css"],
+    "files": [
+      "**/*",
+      "build/index.js",
+      "build/index.css",
+      "build/themes.js",
+      "build/themes.css"
+    ],
     "linux": {
       "target": "deb"
     },
@@ -41,8 +47,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "butter-component-builder": "buttercomponents/butter-component-builder",
-    "butter-provider-ccc": "butterproviders/butter-provider-ccc",
-    "butter-provider-vodo": "butterproviders/butter-provider-vodo",
     "electron": "^2.0.0",
     "electron-builder": "^20.13.4",
     "electron-devtools-installer": "^2.2.4",
@@ -56,6 +60,8 @@
     "butter-component-menu": "buttercomponents/butter-component-menu",
     "butter-component-settings": "buttercomponents/butter-component-settings",
     "butter-provider-gdocs": "butterproviders/butter-provider-gdocs",
+    "butter-provider-vodo": "butterproviders/butter-provider-vodo",
+    "butter-provider-youtube": "butterproviders/butter-provider-youtube",
     "butter-redux-provider": "butterproviders/butter-redux-provider",
     "electron-squirrel-startup": "^1.0.0",
     "react-redux": "^5.0.7",
