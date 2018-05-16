@@ -13,9 +13,9 @@ import  {
 } from '../utils';
 
 const ListView = ({tabs, path, history, location}) => {
-    const menu = Object.keys(tabs).map(name => ({
-        title: name,
-        path: `/list/${name}`
+    const menu = Object.entries(tabs).map(([key, value]) => ({
+        title: value.name,
+        path: `/list/${key}`
     }))
     const defaultPath = menu[0].path
 
