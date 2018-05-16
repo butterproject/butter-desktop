@@ -69,6 +69,6 @@
     "build": "webpack --progress --config webpack.config.js",
     "start": "electron .",
     "lint": "bcb-run lint",
-    "release": "electron-builder --x64 --ia32"
+    "release": "npm run build && electron-builder --x64 --ia32"
   }
 }
