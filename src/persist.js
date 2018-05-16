@@ -7,7 +7,7 @@ const CRUDActions = {
 
 const actions = createActions({
     FAVOURITES: CRUDActions,
-    SEEN: CRUDActions
+    SEEN: CRUDActions,
 })
 
 const CRUDHandlers = (item) => ({
@@ -23,7 +23,22 @@ const CRUDHandlers = (item) => ({
 
 const reducer = handleActions({
     FAVOURITES: CRUDHandlers('favourites'),
-    SEEN: CRUDHandlers('seen')
+    SEEN: CRUDHandlers('seen'),
 }, {favourites: {}, seen: {}})
 
-export {actions, reducer}
+const actionDispatcher = (dispatch) => ({
+    favourites: {
+        add: (id) => dispatch(actions.favourites.add(id)),
+        remove: (id) => dispatch(actions.favourites.remove(id)),
+    },  seen: {
+        add: (id) => dispatch(actions.seen.add(id)),
+        remove: (id) => dispatch(actions.seen.remove(id)),
+    }
+})
+
+const persist = {
+    reducer,
+    actions
+}
+
+export {persist as default, actionDispatcher}

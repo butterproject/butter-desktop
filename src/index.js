@@ -2,13 +2,16 @@
 
 import RoutedNinja from './components/app';
 import createStore from './store';
+import Settings from 'butter-settings-default';
 
-const providers = [
-    require('butter-provider-gdocs'),
-    require('butter-provider-vodo'),
-    require('butter-provider-ccc')
-]
+Settings.tabs = {
+    movie: {
+        order: 1,
+        name: 'Movies',
+        providers: ['gdocs', 'vodo']
+    }
+}
 
-const store = createStore(providers)
+const store = createStore(Settings)
 
 export {RoutedNinja as default, store};

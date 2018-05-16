@@ -63,6 +63,7 @@
     "butter-provider-vodo": "butterproviders/butter-provider-vodo",
     "butter-provider-youtube": "butterproviders/butter-provider-youtube",
     "butter-redux-provider": "butterproviders/butter-redux-provider",
+    "butter-settings-default": "butterproject/butter-settings-default",
     "electron-squirrel-startup": "^1.0.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",

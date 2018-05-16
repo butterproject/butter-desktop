@@ -7,68 +7,59 @@ import ContentDetail from 'butter-component-content-details';
 import ListView from './components/listview'
 import PlayerView from './components/player'
 
-import {actions} from './actions'
-
-const persistActions = (dispatch) => ({
-    favourites: {
-        add: (id) => dispatch(actions.favourites.add(id)),
-        remove: (id) => dispatch(actions.favourites.remove(id)),
-    },  seen: {
-        add: (id) => dispatch(actions.seen.add(id)),
-        remove: (id) => dispatch(actions.seen.remove(id)),
-    }
-})
+import {actionDispatcher} from './persist'
 
 const locationToKey = (location) => (
     location.pathname.split('/').pop()
 )
 
-const collectionConnect = ((mapStateToProps, mapDispatchToProps) => (
-    connect(({collections, ...state}, {location, ...props}) => (
-        mapStateToProps({
-            ...collections[locationToKey(location)],
-            ...state
+const tabConnect = ((mapStateToProps, mapDispatchToProps) => (
+    connect(({tabs, collections, cache,  ...state}, {location, ...props}) => {
+        const tab = tabs[locationToKey(location)]
+        const cols = tab.providers.map(provider => collections[provider])
+
+        const tabState = cols.reduce((acc, col) => ({
+            items: acc.items.concat(
+                col.items.map(i => cache[i])
+            ),
+            isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
+            failed: acc.failed ? acc.failed : col.failed
+        }), {items: []})
+
+        return mapStateToProps({
+            ...state,
+            tabState
+
         }, {
             ...props,
             location
         })
-    ), mapDispatchToProps)
+    }, mapDispatchToProps)
 ))
 
-
-const ListContainer = collectionConnect(
-    ({items, cache, persist, isFetching, failed}) => ({
-        items: items.map(i => cache[i]),
-        isFetching,
-        failed,
+const ListContainer = tabConnect(
+    ({tabState, persist}) => ({
+        ...tabState,
         persist
     }),
     (dispatch, {location, history}) => ({
         actions: {
             show: (item) => history.push(`/movies/${locationToKey(location)}/${item.id}`),
-            ...persistActions(dispatch)
+            ...actionDispatcher(dispatch)
         }
     })
 )(List)
 
-const ButterSettingsContainer = connect (({settings}, props) => ({
+const ButterSettingsContainer = connect (({settings, tabs}, props) => ({
     location: props.location,
     navbar: {goBack: () => (props.history.goBack())},
-    ...settings
+    settings,
+    tabs
 }))(ButterSettings)
 
-const itemFromCache = (collection, id) => {
-    const {items, cache} = collection
-
-    return items
-        .map(i => cache[i])
-        .filter((i) => (i.id === id))
-        .pop()
-}
-
 const MovieViewContainer = connect (
-    ({collections}, {match, history}) => {
-        const item = itemFromCache(collections[match.params.col], match.params.id)
+    ({cache}, {match, history}) => {
+        const item = cache[match.params.id]
 
         return {
             ...item,
@@ -80,15 +71,15 @@ const MovieViewContainer = connect (
     },
     (dispatch, {location, history}) => ({
         actions: {
-            ...persistActions(dispatch),
+            ...actionDispatcher(dispatch),
             play: () => history.push(`${location.pathname}/play`)
         }
     })
 )(ContentDetail)
 
 const PlayerViewContainer = connect (
-    ({collections}, {match, history}) => {
-        const item = itemFromCache(collections[match.params.col], match.params.id)
+    ({cache}, {match, history}) => {
+        const item = cache[match.params.id]
 
         if (! item) {
             return {}
@@ -104,10 +95,8 @@ const PlayerViewContainer = connect (
     }
 )(PlayerView)
 
-const ListViewContainer = connect(({providers}, {match, ...props}) => {
-    return {
-        providers,
-    }
-})(ListView)
+const ListViewContainer = connect(({tabs}) => ({
+    tabs,
+}))(ListView)
 
 export {ListContainer, ButterSettingsContainer, MovieViewContainer, PlayerViewContainer, ListViewContainer}

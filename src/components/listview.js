@@ -12,13 +12,11 @@ import  {
     defaultToolbar
 } from '../utils';
 
-const providersToMenuItems = (providers) => Object.values(providers).map(({config}) => ({
-    title: config.tabName,
-    path: `/list/${config.name}`
-}))
-
-const ListView = ({items, providers, path, history, location}) => {
-    const menu = providersToMenuItems(providers);
+const ListView = ({tabs, path, history, location}) => {
+    const menu = Object.keys(tabs).map(name => ({
+        title: name,
+        path: `/list/${name}`
+    }))
     const defaultPath = menu[0].path
 
     return [
