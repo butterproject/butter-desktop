@@ -59,4 +59,4 @@ const butterCreateStore = (providers) => {
     return store
 }
 
-export {butterCreateStore as default, actions}
+export {butterCreateStore as default}
