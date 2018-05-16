@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/buttercomponents/butter-component-list.git"
+    "url": "git+https://github.com/foradoeixo/tvninja.git"
   },
   "keywords": [
     "react",
@@ -32,9 +32,9 @@
   "author": "Niv Sardi <x@btn.sh>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/buttercomponents/butter-component-list/issues"
+    "url": "https://github.com/foradoeixo/tvninja/issues"
   },
-  "homepage": "https://github.com/buttercomponents/butter-component-list#readme",
+  "homepage": "https://github.com/foradoeixo/tvninja#readme",
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
