@@ -7,6 +7,7 @@
     "appId": "org.butterproject.desktop",
     "productName": "Butter Desktop — Ninja Edition",
     "copyright": "Copyright © 2013-2018 Butter Project",
+    "files": ["**/*", "build/index.js", "build/index.css", "build/themes.js", "build/themes.css"],
     "linux": {
       "target": "deb"
     },
