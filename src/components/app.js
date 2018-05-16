@@ -22,11 +22,11 @@ import {
 require('./style.css')
 
 const doOnWindow = (fn) => (
-    () => {
+    (arg) => {
         const window = remote.getCurrentWindow()
 
         if (window) {
-            return fn(window)
+            return fn(window, arg)
         }
 
         return null
@@ -37,7 +37,7 @@ const windowActions = {
     close: doOnWindow(window => window.close()),
     min: doOnWindow(window => window.minimize()),
     max: doOnWindow(window => window.isMaximized() ? window.unmaximize() : window.maximize()),
-    //    fullscreen: doOnWindow(window => window.fullscreen())
+    fullscreen: doOnWindow((window, active) => window.setFullScreen(active))
 }
 
 const NinjaWindow = () => (
