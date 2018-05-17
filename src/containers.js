@@ -9,13 +9,13 @@ import PlayerView from './components/player'
 
 import {actionDispatcher} from './redux/persist'
 
-const locationToKey = (location) => (
+const locationToTabId = (location) => (
     location.pathname.split('/').pop()
 )
 
 const tabConnect = ((mapStateToProps, mapDispatchToProps) => (
     connect(({tabs, collections, cache,  ...state}, {location, ...props}) => {
-        const tab = tabs[locationToKey(location)]
+        const tab = tabs[locationToTabId(location)]
         const cols = tab.providers.map(provider => collections[provider])
 
         const tabState = cols.reduce((acc, col) => ({
@@ -44,7 +44,7 @@ const ListContainer = tabConnect(
     }),
     (dispatch, {location, history}) => ({
         actions: {
-            show: (item) => history.push(`/movies/${locationToKey(location)}/${item.id}`),
+            show: (item) => history.push(`/movies/${locationToTabId(location)}/${item.id}`),
             ...actionDispatcher(dispatch)
         }
     })
