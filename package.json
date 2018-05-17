@@ -65,6 +65,7 @@
     "butter-redux-provider": "butterproviders/butter-redux-provider",
     "butter-settings-default": "butterproject/butter-settings-default",
     "electron-squirrel-startup": "^1.0.0",
+    "i18next-node-fs-backend": "^1.0.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",

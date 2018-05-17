@@ -1,15 +1,28 @@
 var i18n = require('i18next');
+const Backend = require('i18next-node-fs-backend');
 
-i18n.init({
-    fallbackLng: 'en',
+i18n
+    .use(Backend)
+    .init({
+        backend: {
+            // path where resources get loaded from
+            loadPath: `./locales/{{lng}}/{{ns}}.json`,
 
-    // have a common namespace used around the full app
-    ns: ['common'],
-    defaultNS: 'common',
+            // path to post missing resources
+            addPath: `./locales/{{lng}}/{{ns}}.missing.json`,
 
-    debug: true,
+            // jsonIndent to use when storing json files
+            jsonIndent: 2
+        },
+        fallbackLng: 'en',
 
-    interpolation: {
+        // have a common namespace used around the full app
+        ns: ['common'],
+        defaultNS: 'common',
+
+        debug: true,
+
+        interpolation: {
         escapeValue: false // not needed for react!!
     }
 });
