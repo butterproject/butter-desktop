@@ -37,8 +37,9 @@ const butterCreateStore = ({tabs, ...settings}) => {
                 const Provider = remote.require(`butter-provider-${name}`)
                 instance = new Provider(uri)
             } catch (e) {
+                console.error('couldnt load provider', name, Provider)
                 return null
-n            }
+            }
 
             return instance
         }).filter(e => e)
