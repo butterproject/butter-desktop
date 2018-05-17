@@ -46,7 +46,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "butter-component-builder": "buttercomponents/butter-component-builder",
-    "electron": "^2.0.0",
+    "electron": "^2.0.1",
     "electron-builder": "^20.13.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-reload": "^1.2.2",
