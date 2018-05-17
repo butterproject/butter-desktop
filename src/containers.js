@@ -46,6 +46,7 @@ const ListContainer = tabConnect(
     (dispatch, {location, history}) => ({
         actions: {
             show: (item) => history.push(`/movies/${locationToTabId(location)}/${item.id}`),
+            play: (item) => history.push(`/movies/${locationToTabId(location)}/${item.id}/play`),
             ...actionDispatcher(dispatch)
         }
     })
