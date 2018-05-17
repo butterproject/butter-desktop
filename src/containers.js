@@ -7,7 +7,7 @@ import ContentDetail from 'butter-component-content-details';
 import ListView from './components/listview'
 import PlayerView from './components/player'
 
-import {actionDispatcher} from './persist'
+import {actionDispatcher} from './redux/persist'
 
 const locationToKey = (location) => (
     location.pathname.split('/').pop()

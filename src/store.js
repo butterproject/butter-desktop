@@ -7,8 +7,8 @@ import thunk from 'redux-thunk'
 import persistState from 'redux-localstorage'
 import reduxProviderAdapter from 'butter-redux-provider';
 
-import persist from './persist'
-import cache from './cache'
+import persist from './redux/persist'
+import cache from './redux/cache'
 
 import {remote} from 'electron'
 
