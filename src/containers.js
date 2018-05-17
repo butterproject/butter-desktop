@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
 
 import List from 'butter-component-list';
-import ButterSettings from 'butter-component-settings';
 import ContentDetail from 'butter-component-content-details';
+import ButterSettings from 'butter-component-settings';
+
+import settingsTabs from './settings-tabs'
 
 import ListView from './components/listview'
 import PlayerView from './components/player'
-
 import {actionDispatcher} from './redux/persist'
 
 const locationToTabId = (location) => (
@@ -50,11 +51,13 @@ const ListContainer = tabConnect(
     })
 )(List)
 
-const ButterSettingsContainer = connect (({settings, tabs}, props) => ({
+const ButterSettingsContainer = connect (({settings}, props) => ({
     location: props.location,
-    navbar: {goBack: () => (props.history.goBack())},
-    settings,
-    tabs
+    navbar: {goBack: {
+        action: () => (props.history.goBack()),
+    }},
+    tabs: settingsTabs,
+    settings
 }))(ButterSettings)
 
 const MovieViewContainer = connect (
