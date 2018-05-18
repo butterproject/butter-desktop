@@ -44,8 +44,8 @@ const NinjaWindow = () => (
     <Window title={<Logo />} actions={windowActions}>
         <Switch>
             <Route path='/settings' component={ButterSettingsContainer} />
-            <Route path={'/movies/:col/:id/play'} component={PlayerViewContainer} />
-            <Route path={'/movies/:col/:id'} component={MovieViewContainer} />
+            <Route path={'/movies/:provider/:id/play'} component={PlayerViewContainer} />
+            <Route path={'/movies/:provider/:id'} component={MovieViewContainer} />
             <Route path='/list' component={ListViewContainer}/>
             <Redirect to='/list' />
         </Switch>
