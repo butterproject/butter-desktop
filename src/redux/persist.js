@@ -26,7 +26,7 @@ const reducer = handleActions({
     SEEN: CRUDHandlers('seen'),
 }, {favourites: {}, seen: {}})
 
-const actionDispatcher = (dispatch) => ({
+const persistActionsDispatcher = (dispatch) => ({
     favourites: {
         add: (id) => dispatch(actions.favourites.add(id)),
         remove: (id) => dispatch(actions.favourites.remove(id)),
@@ -41,4 +41,4 @@ const persist = {
     actions
 }
 
-export {persist as default, actionDispatcher}
+export {persist as default, persistActionsDispatcher}

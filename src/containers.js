@@ -8,7 +8,7 @@ import settingsTabs from './settings-tabs'
 
 import ListView from './components/listview'
 import PlayerView from './components/player'
-import {actionDispatcher} from './redux/persist'
+import {persistActionsDispatcher} from './redux/persist'
 
 const locationToTabId = (location) => (
     location.pathname.split('/').pop()
@@ -47,7 +47,7 @@ const ListContainer = tabConnect(
         actions: {
             show: (item) => history.push(`/movies/${locationToTabId(location)}/${item.id}`),
             play: (item) => history.push(`/movies/${locationToTabId(location)}/${item.id}/play`),
-            ...actionDispatcher(dispatch)
+            ...persistActionsDispatcher(dispatch)
         }
     })
 )(List)
@@ -75,7 +75,7 @@ const MovieViewContainer = connect (
     },
     (dispatch, {location, history}) => ({
         actions: {
-            ...actionDispatcher(dispatch),
+            ...persistActionsDispatcher(dispatch),
             play: () => history.push(`${location.pathname}/play`)
         }
     })
