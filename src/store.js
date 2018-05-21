@@ -8,7 +8,6 @@ import persistState from 'redux-localstorage'
 import reduxProviderAdapter from 'butter-redux-provider';
 
 import persist from './redux/persist'
-import cache from './redux/cache'
 
 import {remote} from 'electron'
 
@@ -37,7 +36,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
                 const Provider = remote.require(`butter-provider-${name}`)
                 instance = new Provider(uri)
             } catch (e) {
-                console.error('couldnt load provider', name, Provider)
+                console.error('couldnt load provider', name)
                 return null
             }
 
@@ -45,7 +44,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
         }).filter(e => e)
 
         providers.forEach(provider => {
-            const reduxer =  reduxProviderAdapter(provider, cache.actions)
+            const reduxer =  reduxProviderAdapter(provider)
             providerReducers[provider.id] = reduxer.reducer
             providerActions[provider.id]  = reduxer.actions
         })
@@ -69,27 +68,22 @@ const butterCreateStore = ({tabs, ...settings}) => {
         })
     }
 
-    const actions = {
-        ...providerActions
-    }
-
     const middlewares = [thunk]
     const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const enhancer = composeEnhancers(
         applyMiddleware(...middlewares),
-        persistState(['persist', 'cache', 'settings'])
+        persistState(['persist', 'collections', 'settings'])
     )
 
     const store = createStore(combineReducers({
         ...reducers,
-        cache: cache.reducer,
         persist: persist.reducer,
         router: routerReducer
     }), enhancer)
 
-    Object.values(actions).map(a => store.dispatch(a.FETCH()))
+    Object.values(providerActions).map(a => store.dispatch(a.FETCH()))
 
-    return store
+    return {store, providerActions}
 }
 
 export {butterCreateStore as default}
