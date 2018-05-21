@@ -17,7 +17,7 @@ const ContentDetailContainer = connect (
         try {
             const col = collections[match.params.provider]
             const item = col.cache[match.params.id]
-            const {isFetching} = collections[match.params.provider]
+            const {isFetching} = col
 
             return {
                 ...item,
