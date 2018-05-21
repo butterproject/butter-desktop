@@ -7,19 +7,29 @@ import {bindPersistActions} from '../redux/persist'
 import {providerActions} from '../'
 
 const ContentDetailContainer = connect (
-    ({cache, tabs, collections}, {match, history}) => {
-        const item = cache[match.params.id]
+    ({tabs, collections}, {match, history}) => {
         const tab = tabs[match.params.tab]
-        const {isFetching} = collections[match.params.provider]
+        const goBack = {
+            action: history.goBack,
+            title: tab.name
+        }
 
-        return {
-            ...item,
-            isFetching,
-            goBack: {
-                action: history.goBack,
-                title: tab.name
+        try {
+            const col = collections[match.params.provider]
+            const item = col.cache[match.params.id]
+            const {isFetching} = collections[match.params.provider]
+
+            return {
+                ...item,
+                isFetching,
+                goBack
+            }
+        } catch (e) {
+            return {
+                goBack
             }
         }
+
     },
     (dispatch, {location, history, match}) => ({
         dispatch,
