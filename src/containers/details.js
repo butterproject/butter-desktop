@@ -7,7 +7,7 @@ import {bindPersistActions} from '../redux/persist'
 import {providerActions} from '../'
 
 const ContentDetailContainer = connect (
-    ({tabs, collections}, {match, history}) => {
+    ({tabs, collections, persist}, {match, history}) => {
         const tab = tabs[match.params.tab]
         const goBack = {
             action: history.goBack,
@@ -21,6 +21,7 @@ const ContentDetailContainer = connect (
 
             return {
                 ...item,
+                persist,
                 isFetching,
                 goBack
             }

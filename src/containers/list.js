@@ -5,39 +5,40 @@ import List from 'butter-component-list'
 
 import {bindPersistActions} from '../redux/persist'
 
-const mergeItems = (col, makeActions) => {
+const mergeItems = (col, mangleItem) => {
     try {
-        return col.items.map(id => Object.assign({}, col.cache[id], {
-            actions: makeActions(id)
-        }))
+        return col.items.map(id => Object.assign({}, col.cache[id], mangleItem(id)))
     } catch (e) {
+        console.error(e)
         return []
     }
 }
 
 const ListContainer = connect(
-    ({collections}, {tab, history}) => {
+    ({collections, persist}, {tab, history}) => {
         console.error('list view', tab)
-        let url = `/list/${tab.id}/`
+        let url = `/list/${tab.id}`
 
         const tabState = tab.providers.reduce((acc, provider) => {
-            const makeActions = (id) => ({
+            const mangleItem = (id) => ({
                 actions: {
                     show: () => history.push(`${url}/${provider}/${id}`),
-                    play: () => history.push(`${url}/${provider}${id}/play`),
-                }
+                    play: () => history.push(`${url}/${provider}/${id}/play`),
+                },
             })
+
             const col = collections[provider]
 
             return {
-                items: acc.items.concat(mergeItems(col, makeActions)),
+                items: acc.items.concat(mergeItems(col, mangleItem)),
                 isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
-                failed: acc.failed ? acc.failed : col.failed
+                failed: acc.failed.concat(col.failed ? [col.failed] : [])
             }
-        }, {items: []})
+        }, {items: [], failed: []})
 
         return {
             ...tabState,
+            persist
         }
     },
     (dispatch) => ({
