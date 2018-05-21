@@ -20,7 +20,7 @@ const ListContainer = connect(
 
             return {
                 items: acc.items.concat(
-                    col.items.map(id => Object.assign({}, cache[id], {
+                    col.items.map(id => Object.assign({}, col.cache[id], {
                         actions: {
                             show: () => history.push(`${url}/${id}`),
                             play: () => history.push(`${url}/${id}/play`),
@@ -33,7 +33,6 @@ const ListContainer = connect(
         }, {items: []})
 
         return {
-            ...state,
             ...tabState,
         }
     },
