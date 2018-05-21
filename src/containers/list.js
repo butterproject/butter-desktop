@@ -5,28 +5,32 @@ import List from 'butter-component-list'
 
 import {bindPersistActions} from '../redux/persist'
 
+const mergeItems = (col, makeActions) => {
+    try {
+        return col.items.map(id => Object.assign({}, col.cache[id], {
+            actions: makeActions(id)
+        }))
+    } catch (e) {
+        return []
+    }
+}
+
 const ListContainer = connect(
     ({collections}, {tab, history}) => {
         console.error('list view', tab)
+        let url = `/list/${tab.id}/`
 
-        const cols = tab.providers.map(provider =>
-            Object.assign(collections[provider], {id: provider})
-        )
-
-        const tabState = cols.reduce((acc, col) => {
-            let url = `/list/${tab.id}/${col.id}`
-
-            console.error('url', url)
+        const tabState = tab.providers.reduce((acc, provider) => {
+            const makeActions = (id) => ({
+                actions: {
+                    show: () => history.push(`${url}/${provider}/${id}`),
+                    play: () => history.push(`${url}/${provider}${id}/play`),
+                }
+            })
+            const col = collections[provider]
 
             return {
-                items: acc.items.concat(
-                    col.items.map(id => Object.assign({}, col.cache[id], {
-                        actions: {
-                            show: () => history.push(`${url}/${id}`),
-                            play: () => history.push(`${url}/${id}/play`),
-                        }
-                    }))
-                ),
+                items: acc.items.concat(mergeItems(col, makeActions)),
                 isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
                 failed: acc.failed ? acc.failed : col.failed
             }
