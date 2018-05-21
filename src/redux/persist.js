@@ -26,15 +26,16 @@ const reducer = handleActions({
     SEEN: CRUDHandlers('seen'),
 }, {favourites: {}, seen: {}})
 
-const bindPersistActions = (dispatch) => ({
-    favourites: {
-        add: (id) => dispatch(actions.favourites.add(id)),
-        remove: (id) => dispatch(actions.favourites.remove(id)),
-    },  seen: {
-        add: (id) => dispatch(actions.seen.add(id)),
-        remove: (id) => dispatch(actions.seen.remove(id)),
-    }
-})
+const bindPersistActions = (dispatch) =>
+    Object.keys(actions)
+          .reduce((acc, action) =>
+              Object.assign(acc, {
+                  [action]: {
+                      add: (id) => dispatch(actions[action].add(id)),
+                      remove: (id) => dispatch(actions[action].remove(id)),
+                  }
+              })
+          )
 
 const persist = {
     reducer,
