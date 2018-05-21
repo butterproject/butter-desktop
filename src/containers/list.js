@@ -6,8 +6,8 @@ import List from 'butter-component-list'
 import {bindPersistActions} from '../redux/persist'
 
 const ListContainer = connect(
-    ({tabs, collections, cache, ...state}, {tab, history}) => {
-        console.error('here', tab)
+    ({collections}, {tab, history}) => {
+        console.error('list view', tab)
 
         const cols = tab.providers.map(provider =>
             Object.assign(collections[provider], {id: provider})
