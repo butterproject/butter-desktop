@@ -62,7 +62,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(['persist', 'collections', 'settings'])
+    persistState(['persist', 'settings'])
   )
 
   const store = createStore(combineReducers({
