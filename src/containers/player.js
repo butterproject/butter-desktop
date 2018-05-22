@@ -20,7 +20,7 @@ const PlayerShowContainer = connect(
         throw new Error('Episode undefined')
       }
     } catch (e) {
-      return {}
+        return history.push('/')
     }
 
     return {

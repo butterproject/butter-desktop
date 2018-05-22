@@ -6,6 +6,8 @@ import ContentDetail from 'butter-component-content-details'
 import {bindPersistActions} from '../redux/persist'
 import {providerActions} from '../'
 
+let airing = {}
+
 const ContentDetailContainer = connect(
   ({tabs, collections, persist}, {match, history}) => {
     const tab = tabs[match.params.tab]
@@ -17,28 +19,43 @@ const ContentDetailContainer = connect(
     try {
       const col = collections[match.params.provider]
       const item = col.cache[match.params.id]
-      const {isFetching} = col
 
       return {
-        ...item,
+        item,
+        col,
         persist,
-        isFetching,
         goBack
       }
     } catch (e) {
-      return {
-        goBack
-      }
+      return history.push('/')
     }
   },
-  (dispatch, {location, history, match}) => ({
-    dispatch,
-    actions: {
+  undefined,
+  ({item, col, ...stateProps}, {dispatch}, {location, history, match}) => {
+    const {isFetching, detail} = col
+    const actions = {
       ...bindPersistActions(dispatch),
       ...providerActions[match.params.provider],
-      play: () => history.push(`${location.pathname}/play`)
+      play: (item) => history.push(`${location.pathname}/play`),
+      show: (item) => history.push(`${location.pathname}/e/${item.episode}`)
     }
-  })
+
+    if (detail !== item.id && ! isFetching) {
+      if (! airing[item.id]) {
+        console.error('dispatching DETAILS')
+        airing[item.id] = dispatch(actions.DETAIL(item.id))
+      }
+    } else {
+      delete(airing[item.id])
+    }
+
+    return {
+      ...stateProps,
+      ...item,
+      isFetching,
+      dispatch,
+    }
+  }
 )(ContentDetail)
 
 export {ContentDetailContainer as default}
