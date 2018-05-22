@@ -10,7 +10,7 @@ const ContentDetailContainer = connect(
   ({tabs, collections, persist}, {match, history}) => {
     const tab = tabs[match.params.tab]
     const goBack = {
-      action: history.goBack,
+      action: history.push(match.url),
       title: tab.name
     }
 
