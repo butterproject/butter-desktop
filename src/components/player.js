@@ -9,7 +9,7 @@ const Player = ({id, isFetching, goBack = {action: Identity, title: 'Go Back'}})
 
   return (
       <div>
-          <Navbar type='player-nav' goBack={goBack} />
+          <Navbar type='content-nav' goBack={goBack} />
           {isFetching ? <p>Loading...</p>
            :  <iframe width='100%' height='100%' src={url} frameBorder='0' allow='autoplay; encrypted-media' allowFullScreen />
           }
