@@ -18,9 +18,13 @@ const createWindow = () => {
 
     require('electron-reload')(`${__dirname}/../build`)
 
-    const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS, REACT_PERF } = require('electron-devtools-installer')
+      const {
+          default: installExtension,
+          REACT_DEVELOPER_TOOLS,
+          REDUX_DEVTOOLS
+      } = require('electron-devtools-installer')
 
-        ;[REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS, REACT_PERF].map(e => (
+        ;[REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].map(e => (
       installExtension(e)
         .then((name) => console.log(`Added Extension:  ${name}`))
         .catch((err) => console.log('An error occurred: ', err))
