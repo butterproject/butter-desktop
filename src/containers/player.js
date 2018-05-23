@@ -1,66 +1,36 @@
 'use strict;'
 
-import { connect } from 'react-redux'
-
 import ButterProvider from 'butter-provider'
 import PlayerView from '../components/player'
 
-const PlayerShowContainer = connect(
-  ({collections}, {match, history}) => {
-    let episode
-    /* XXX: grab first not-seen episode */
-    const [sid, eid] = [match.params.sid || 1, match.params.eid || 1]
+import {connectItem} from '../utils'
 
-    try {
-      const col = collections[match.params.provider]
-      const show = col.cache[match.params.id]
-      const season = show.seasons[sid - 1]
-      episode = season.episodes[eid - 1]
-      if (!episode) {
-        throw new Error('Episode undefined')
-      }
-    } catch (e) {
-        return history.push('/')
+const getShowItem = (item, state, {match}) => {
+    /* XXX: should we implement this for TVSHOW too ? */
+    if (item.type === ButterProvider.ItemType.TVSHOW2) {
+        try {
+            /* XXX: grab first not-seen episode */
+            const [sid, eid] = [match.params.sid || 1, match.params.eid || 1]
+            item = item.seasons[sid - 1].episodes[eid - 1]
+        } catch (e) {
+            /* maybe we didn't get details yet ? */
+        }
     }
 
-    return {
-      ...episode,
-      goBack: {
-        action: history.goBack,
-        title: episode.title
-      }
-    }
-  }
-)(PlayerView)
+    return item
+}
 
-const PlayerMovieContainer = connect(
-  ({collections}, {match, history}) => {
-    let item
-
-    try {
-      const col = collections[match.params.provider]
-      item = col.cache[match.params.id]
-
-      /* XXX: should we implement this for TVSHOW too ? */
-      if (item.type === ButterProvider.ItemType.TVSHOW2) {
-        item = item.seasons[0].episodes[0] /* XXX: grab first not-seen episode */
-      }
-
-      if (!item) {
-        throw new Error('Content undefined')
-      }
-    } catch (e) {
-      return {}
-    }
-
-    return {
-      ...item,
-      goBack: {
+const wireGoBack = (item, state, {history}) => ({
+    goBack: {
         action: history.goBack,
         title: item.title
-      }
     }
-  }
+})
+
+const PlayerMovieContainer = connectItem(wireGoBack)(PlayerView)
+
+const PlayerShowContainer = connectItem(
+    wireGoBack, getShowItem
 )(PlayerView)
 
 export {PlayerMovieContainer, PlayerShowContainer}
