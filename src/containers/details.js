@@ -11,9 +11,10 @@ const wireGoBack = (item, {tabs}, {match, history}) => ({
   }
 })
 
-const ContentDetailContainer = connectItem(wireGoBack, undefined, {
-  play: (item) => history.push(`${location.pathname}/play`),
-  show: (item) => history.push(`${location.pathname}/e/${item.episode}`)
-})(ContentDetail)
+const ContentDetailContainer = connectItem(
+  wireGoBack, undefined, ({location, history}) => ({
+    play: (item) => history.push(`${location.pathname}/play`),
+    show: (item) => history.push(`${location.pathname}/e/${item.episode}`)
+  }))(ContentDetail)
 
 export {ContentDetailContainer as default}

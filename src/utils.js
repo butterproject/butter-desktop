@@ -80,7 +80,7 @@ const extractItemFromState = (processExtraProps = () => {}, processItem = Identi
     }
 )
 
-const mergePropsWithActions = (extraActions = {}) => (
+const mergePropsWithActions = (extraActions = () => {}) => (
     ({item, retItem, collection, ...stateProps},
      {dispatch, ...dispatchProps},
      {match, ...ownProps}) => {
@@ -93,7 +93,6 @@ const mergePropsWithActions = (extraActions = {}) => (
         const actions = {
             ...bindPersistActions(dispatch),
             ...providerActions[match.params.provider],
-            ...extraActions
         }
 
         if (detail === item.id) {
@@ -108,17 +107,25 @@ const mergePropsWithActions = (extraActions = {}) => (
             }
         }
 
-        return {
-            ...stateProps,
-            ...dispatchProps,
-            ...ownProps,
-            ...retItem,
-            isFetching,
-            match,
-            dispatch,
-            actions,
-        }
-    }
+         const props = {
+             ...stateProps,
+             ...dispatchProps,
+             ...ownProps,
+             ...retItem,
+             isFetching,
+             match,
+             dispatch,
+             actions,
+         }
+
+         return {
+             ...props
+             actions: {
+                 ...actions,
+                 ...extraActions(props)
+             }
+         }
+     }
 )
 
 const connectItem = (processExtraProps, processItem, extraActions) => (
