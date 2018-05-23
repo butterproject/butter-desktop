@@ -119,7 +119,7 @@ const mergePropsWithActions = (extraActions = () => {}) => (
          }
 
          return {
-             ...props
+             ...props,
              actions: {
                  ...actions,
                  ...extraActions(props)
