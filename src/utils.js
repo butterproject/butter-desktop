@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {Toolbar} from 'butter-base-components'
 import {connect} from 'react-redux'
 
 import {bindMarkersActions} from './redux/markers'
@@ -37,12 +36,6 @@ const relativePath = (location, path) => {
   console.error('path', `${basepath}/${path}`)
   return `${basepath}/${path}`
 }
-
-const defaultToolbar = (history) => (
-  <Toolbar search buttons={[
-    {title: 'settings', icon: 'settings', action: () => (history.push('/settings'))}
-  ]} />
-)
 
 let airing = {}
 
@@ -136,7 +129,6 @@ const connectItem = (processExtraProps, processItem, extraActions) => (
 
 export {
   relativePath,
-  defaultToolbar,
   windowActions,
   extractItemFromState,
   mergePropsWithActions,
