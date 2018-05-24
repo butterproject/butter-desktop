@@ -4,7 +4,6 @@
 import {compose, createStore, applyMiddleware, combineReducers} from 'redux'
 import { routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk'
-import persistState from 'redux-localstorage'
 import reduxProviderAdapter from 'butter-redux-provider'
 
 import persist from './redux/persist'
@@ -63,10 +62,7 @@ const reducersFromTabs = (tabs) => {
 const butterCreateStore = ({tabs, ...settings}) => {
   const middlewares = [thunk]
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
-  const enhancer = composeEnhancers(
-    applyMiddleware(...middlewares),
-    persistState(['persist', 'collections', 'settings'])
-  )
+  const enhancer = applyMiddleware(...middlewares)
 
   const {providerActions, providerReducers} = reducersFromTabs(tabs)
   const rootReducer = combineReducers({
