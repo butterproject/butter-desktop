@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import List from 'butter-component-list'
 import ButterProvider from 'butter-provider'
 
-import {bindPersistActions} from '../redux/persist'
+import {bindMarkersActions} from '../redux/markers'
 
 const itemURL = (item) => {
     switch(item.type) {
@@ -16,7 +16,7 @@ const itemURL = (item) => {
 }
 
 const ListContainer = connect(
-    ({collections, persist}, {tab}) => {
+    ({collections, markers}, {tab}) => {
         console.error('list view', tab)
         let url = `/list/${tab.id}`
 
@@ -33,12 +33,12 @@ const ListContainer = connect(
 
         return {
             ...tabState,
-            persist
+            ...markers
         }
     },
     (dispatch, {match, history}) => ({
         actions: {
-            ...bindPersistActions(dispatch),
+            ...bindMarkersActions(dispatch),
             show: (item) => history.push(`${match.url}/${itemURL(item)}`),
             play: (item) => history.push(`${match.url}/${itemURL(item)}/play`)
     }

@@ -1,16 +1,16 @@
 import {createActions, handleActions} from 'redux-actions'
 
-const CRUDActions = {
+const MARKERSActions = {
   ADD: undefined,
   REMOVE: undefined
 }
 
 const actions = createActions({
-  FAVOURITES: CRUDActions,
-  SEEN: CRUDActions
+  FAVOURITES: MARKERSActions,
+  SEEN: MARKERSActions
 })
 
-const CRUDHandlers = (item) => ({
+const MARKERSHandlers = (item) => ({
   ADD: (state, {payload}) => {
     state[item][payload] = true
     return state
@@ -22,11 +22,11 @@ const CRUDHandlers = (item) => ({
 })
 
 const reducer = handleActions({
-  FAVOURITES: CRUDHandlers('favourites'),
-  SEEN: CRUDHandlers('seen')
+  FAVOURITES: MARKERSHandlers('favourites'),
+  SEEN: MARKERSHandlers('seen')
 }, {favourites: {}, seen: {}})
 
-const bindPersistActions = (dispatch) =>
+const bindMarkersActions = (dispatch) =>
   Object.keys(actions)
     .reduce((acc, action) =>
       Object.assign(acc, {
@@ -36,9 +36,9 @@ const bindPersistActions = (dispatch) =>
         }
       }), {})
 
-const persist = {
+const markers = {
   reducer,
   actions
 }
 
-export {persist as default, bindPersistActions}
+export {markers as default, bindMarkersActions}

@@ -3,7 +3,7 @@ import React from 'react'
 import {Toolbar} from 'butter-base-components'
 import {connect} from 'react-redux'
 
-import {bindPersistActions} from './redux/persist'
+import {bindMarkersActions} from './redux/markers'
 import {providerActions} from './'
 
 /* electron */
@@ -90,7 +90,7 @@ const mergePropsWithActions = (extraActions = () => {}) =>
     let {isFetching} = collection
     const {detail} = collection
     const actions = {
-      ...bindPersistActions(dispatch),
+      ...bindMarkersActions(dispatch),
       ...providerActions[match.params.provider]
     }
 
