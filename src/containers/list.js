@@ -16,16 +16,23 @@ const itemURL = (item) => {
 }
 
 const ListContainer = connect(
-    ({collections, markers}, {tab}) => {
-        console.error('list view', tab)
+    ({collections, markers, filters}, {tab}) => {
+        console.error('list view', tab, filters)
+        const search = filters.search ? new RegExp(filters.search, 'i'): null
         let url = `/list/${tab.id}`
 
         const tabState = tab.providers.reduce((acc, provider) => {
             const col = collections[provider]
 
             return {
-                items: acc.items.concat(col.items.map(
-                    id => Object.assign({provider}, col.cache[id])) || []),
+                items: acc.items.concat(col.items.map(id => {
+                    const item = col.cache[id]
+                    if (search && ! item.title.match(search)) {
+                        return null
+                    }
+
+                    return Object.assign({provider}, col.cache[id])
+                }).filter(i => i)),
                 isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
                 failed: acc.failed.concat(col.failed ? [col.failed] : [])
             }

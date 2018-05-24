@@ -7,6 +7,7 @@ import thunk from 'redux-thunk'
 import reduxProviderAdapter from 'butter-redux-provider'
 
 import markers from './redux/markers'
+import filters from './redux/filters'
 
 import {remote} from 'electron'
 
@@ -68,6 +69,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
   const rootReducer = combineReducers({
     ...providerReducers,
     markers: markers.reducer,
+    filters: filters.reducer,
     router: routerReducer,
     settings: (state, action) => ({
       ...settings
