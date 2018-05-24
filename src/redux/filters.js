@@ -1,4 +1,5 @@
 import {createActions, handleActions} from 'redux-actions'
+import debounce from 'debounce'
 
 const actions = createActions({
   SEARCH: undefined
@@ -12,7 +13,7 @@ const reducer = handleActions({
 }, {search: null})
 
 const bindFiltersActions = (dispatch) => ({
-  search: (term) => dispatch(actions.search(term))
+  search: debounce((term) => dispatch(actions.search(term)), 250)
 })
 
 const filters = {

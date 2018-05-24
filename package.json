@@ -65,6 +65,7 @@
     "butter-provider-youtube": "butterproviders/butter-provider-youtube",
     "butter-redux-provider": "butterproviders/butter-redux-provider",
     "butter-settings-default": "butterproject/butter-settings-default",
+    "debounce": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "i18next-node-fs-backend": "^1.0.0",
     "react-redux": "^5.0.7",
