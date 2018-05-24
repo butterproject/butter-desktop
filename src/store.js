@@ -11,28 +11,31 @@ import persist from './redux/persist'
 
 import {remote} from 'electron'
 
-const butterCreateStore = ({tabs, ...settings}) => {
+const providersFromTab = (tab) => (
+  tab.providers.map(uri => {
+    const name = uri.split('?')[0]
+    let instance = null
+
+    try {
+      const Provider = remote.require(`butter-provider-${name}`)
+      instance = new Provider(uri)
+    } catch (e) {
+      console.error('couldnt load provider', name)
+      return null
+    }
+
+    return instance
+  }).filter(e => e)
+)
+
+const reducersFromTabs = (tabs) => {
   let providerReducers = {}
   let providerActions = {}
 
-  const reducedTabs = Object.keys(tabs).reduce((acc, k) => {
+  const tabsReducers = Object.keys(tabs).reduce((acc, k) => {
     const tab = tabs[k]
 
-    const providers = tab.providers.map(uri => {
-      const name = uri.split('?')[0]
-      let instance = null
-
-      try {
-        const Provider = remote.require(`butter-provider-${name}`)
-        instance = new Provider(uri)
-      } catch (e) {
-        console.error('couldnt load provider', name)
-        return null
-      }
-
-      return instance
-    }).filter(e => e)
-
+    const providers = providersFromTab(tab)
     providers.forEach(provider => {
       const reduxer = reduxProviderAdapter(provider)
       providerReducers[provider.id] = reduxer.reducer
@@ -46,30 +49,36 @@ const butterCreateStore = ({tabs, ...settings}) => {
     })
   }, {})
 
-  const reducers = {
-    collections: combineReducers({
-      ...providerReducers
-    }),
-    settings: (state, action) => ({
-      ...settings
-    }),
-    tabs: (state, action) => ({
-      ...reducedTabs
-    })
+  return {
+    providerReducers: {
+      collections: combineReducers(providerReducers),
+      tabs: (state, action) => ({
+        ...tabsReducers
+      })
+    },
+    providerActions
   }
+}
 
+const butterCreateStore = ({tabs, ...settings}) => {
   const middlewares = [thunk]
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(['persist', 'settings'])
+    persistState(['persist', 'collections', 'settings'])
   )
 
-  const store = createStore(combineReducers({
-    ...reducers,
+  const {providerActions, providerReducers} = reducersFromTabs(tabs)
+  const rootReducer = combineReducers({
+    ...providerReducers,
     persist: persist.reducer,
-    router: routerReducer
-  }), enhancer)
+    router: routerReducer,
+    settings: (state, action) => ({
+      ...settings
+    })
+  })
+
+  const store = createStore(rootReducer, enhancer)
 
   Object.values(providerActions).map(a => store.dispatch(a.FETCH()))
 
