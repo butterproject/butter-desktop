@@ -5,6 +5,10 @@ import {compose, createStore, applyMiddleware, combineReducers} from 'redux'
 import { routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import reduxProviderAdapter from 'butter-redux-provider'
+import * as storage from 'redux-storage'
+import createEngine from 'redux-storage-engine-localforage'
+import debounce from 'redux-storage-decorator-debounce'
+import filter from 'redux-storage-decorator-filter'
 
 import LRU from 'lru-cache'
 
@@ -75,11 +79,17 @@ const reducersFromTabs = (tabs, cache) => {
 }
 
 const butterCreateStore = ({tabs, ...settings}) => {
-  const cache = createCache()
-  const middlewares = [thunk]
+  const persistEngine = debounce(
+    filter(
+      createEngine('butterstorage'),
+      ['markers', 'collections', 'settings']),
+    1500)
+  const middlewares = [thunk, storage.createMiddleware(persistEngine)]
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
   const enhancer = composeEnhancers(applyMiddleware(...middlewares))
 
+  const cache = createCache()
   const {providerActions, providerReducers} = reducersFromTabs(tabs, cache)
   const rootReducer = combineReducers({
     ...providerReducers,
@@ -92,9 +102,13 @@ const butterCreateStore = ({tabs, ...settings}) => {
     })
   })
 
-  const store = createStore(rootReducer, enhancer)
+  const persistReducer = storage.reducer(rootReducer)
 
-  Object.values(providerActions).map(a => store.dispatch(a.FETCH()))
+  const store = createStore(persistReducer, enhancer)
+
+  storage.createLoader(persistEngine)(store)
+         .catch(() => console.log('Failed to load previous state'))
+         .then(() => Object.values(providerActions).map(a => store.dispatch(a.FETCH())))
 
   return {store, providerActions}
 }
