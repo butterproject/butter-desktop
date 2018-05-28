@@ -41,17 +41,17 @@ let airing = {}
 
 const extractItemFromState = (processExtraProps = () => {}, processItem = Identity) =>
   (state, props) => {
-    const {collections} = state
+    const {collections, cache} = state
     const {match, history} = props
     let item, retItem, collection
     let extraProps = {}
 
     try {
-      collection = collections[match.params.provider]
-      item = collection.cache[match.params.id]
-      retItem = processItem(item, state, {...props, collection}) || item
+        collection = collections[match.params.provider]
+        item = cache.get(match.params.id)
+        retItem = processItem(item, state, {...props, collection}) || item
 
-      if (!retItem) {
+        if (!retItem) {
         throw new Error('Content undefined')
       }
 

@@ -16,7 +16,7 @@ const itemURL = (item) => {
 }
 
 const ListContainer = connect(
-    ({collections, markers, filters}, {tab}) => {
+    ({collections, markers, filters, cache}, {tab}) => {
         console.error('list view', tab, filters)
         const search = filters.search ? new RegExp(filters.search, 'i'): null
         let url = `/list/${tab.id}`
@@ -26,12 +26,12 @@ const ListContainer = connect(
 
             return {
                 items: acc.items.concat(col.items.map(id => {
-                    const item = col.cache[id]
+                    const item = cache.get(id)
                     if (search && ! item.title.match(search)) {
                         return null
                     }
 
-                    return Object.assign({provider}, col.cache[id])
+                    return Object.assign({provider}, cache.get(id))
                 }).filter(i => i)),
                 isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
                 failed: acc.failed.concat(col.failed ? [col.failed] : [])

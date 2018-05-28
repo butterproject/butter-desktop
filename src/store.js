@@ -6,10 +6,24 @@ import { routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import reduxProviderAdapter from 'butter-redux-provider'
 
+import LRU from 'lru-cache'
+
 import markers from './redux/markers'
 import filters from './redux/filters'
 
 import {remote} from 'electron'
+
+const createCache = (dehydrate) => {
+  const cache = LRU({
+    max: 1000
+  })
+
+  if (dehydrate) {
+    LRU.load(dehydrate)
+  }
+
+  return cache
+}
 
 const providersFromTab = (tab) => (
   tab.providers.map(uri => {
@@ -28,7 +42,7 @@ const providersFromTab = (tab) => (
   }).filter(e => e)
 )
 
-const reducersFromTabs = (tabs) => {
+const reducersFromTabs = (tabs, cache) => {
   let providerReducers = {}
   let providerActions = {}
 
@@ -37,7 +51,7 @@ const reducersFromTabs = (tabs) => {
 
     const providers = providersFromTab(tab)
     providers.forEach(provider => {
-      const reduxer = reduxProviderAdapter(provider)
+      const reduxer = reduxProviderAdapter(provider, cache)
       providerReducers[provider.id] = reduxer.reducer
       providerActions[provider.id] = reduxer.actions
     })
@@ -61,16 +75,18 @@ const reducersFromTabs = (tabs) => {
 }
 
 const butterCreateStore = ({tabs, ...settings}) => {
+  const cache = createCache()
   const middlewares = [thunk]
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
   const enhancer = composeEnhancers(applyMiddleware(...middlewares))
 
-  const {providerActions, providerReducers} = reducersFromTabs(tabs)
+  const {providerActions, providerReducers} = reducersFromTabs(tabs, cache)
   const rootReducer = combineReducers({
     ...providerReducers,
     markers: markers.reducer,
     filters: filters.reducer,
     router: routerReducer,
+    cache: () => cache,
     settings: (state, action) => ({
       ...settings
     })
