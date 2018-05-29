@@ -3,7 +3,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {bindMarkersActions} from './redux/markers'
-import {providerActions} from './'
 
 /* electron */
 import {remote} from 'electron'
@@ -41,7 +40,7 @@ let airing = {}
 
 const extractItemFromState = (processExtraProps = () => {}, processItem = Identity) =>
   (state, props) => {
-    const {collections, cache} = state
+    const {collections, cache, providerActions} = state
     const {match, history} = props
     let item, retItem, collection
     let extraProps = {}
@@ -67,13 +66,14 @@ const extractItemFromState = (processExtraProps = () => {}, processItem = Identi
     return {
       item,
       collection,
-      retItem,
+        retItem,
+        providerActions,
       ...extraProps
     }
   }
 
 const mergePropsWithActions = (extraActions = () => {}) =>
-  ({item, retItem, collection, ...stateProps},
+  ({item, retItem, collection, providerActions, ...stateProps},
     {dispatch, ...dispatchProps},
     {match, ...ownProps}) => {
     if (!retItem) {

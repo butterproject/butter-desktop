@@ -121,6 +121,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
         filters: filters.reducer,
         router: routerReducer,
         cache: () => cache,
+        providerActions: () => providerActions,
         settings: (state, action) => ({
           ...settings
         })
