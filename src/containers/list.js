@@ -6,6 +6,8 @@ import ButterProvider from 'butter-provider'
 
 import {bindMarkersActions} from '../redux/markers'
 
+import memoize from 'memoizee'
+
 const itemURL = (item) => {
     switch(item.type) {
         case 'tvshow2':
@@ -15,28 +17,36 @@ const itemURL = (item) => {
     }
 }
 
+const processTabState = (providers, collections, filters, cache) => {
+    const search = filters.search ? new RegExp(filters.search, 'i'): null
+
+    return providers.reduce((acc, provider) => {
+        const col = collections[provider]
+
+        return {
+            items: acc.items.concat(col.items.map(id => {
+                const item = cache.get(id)
+                if (search && ! item.title.match(search)) {
+                    return null
+                }
+
+                return Object.assign({provider}, cache.get(id))
+            }).filter(i => i)),
+            isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
+            failed: acc.failed.concat(col.failed ? [col.failed] : [])
+        }
+    }, {items: [], failed: []})
+
+}
+
+const memoizedProcessTabState = memoize (processTabState)
+
 const ListContainer = connect(
     ({collections, markers, filters, cache}, {tab}) => {
-        console.error('list view', tab, filters)
-        const search = filters.search ? new RegExp(filters.search, 'i'): null
+        console.error('list', tab, filters)
         let url = `/list/${tab.id}`
 
-        const tabState = tab.providers.reduce((acc, provider) => {
-            const col = collections[provider]
-
-            return {
-                items: acc.items.concat(col.items.map(id => {
-                    const item = cache.get(id)
-                    if (search && ! item.title.match(search)) {
-                        return null
-                    }
-
-                    return Object.assign({provider}, cache.get(id))
-                }).filter(i => i)),
-                isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
-                failed: acc.failed.concat(col.failed ? [col.failed] : [])
-            }
-        }, {items: [], failed: []})
+        const tabState = memoizedProcessTabState(tab.providers, collections, filters, cache)
 
         return {
             ...tabState,
