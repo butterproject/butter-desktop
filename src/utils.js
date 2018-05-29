@@ -56,10 +56,10 @@ const extractItemFromState = (processExtraProps = () => {}, processItem = Identi
 
       extraProps = processExtraProps(retItem, state, {...props, collection})
     } catch (e) {
-      /*
-               we're in a weird state where we couldn't even get the first item ref,
-               go back home
-             */
+      /**
+       *  we're in a weird state where we couldn't even get the first item ref,
+       *  go back home
+       **/
       history.push('/')
     }
 
