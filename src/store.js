@@ -43,7 +43,7 @@ const createCache = (store, dehydrate = []) => {
 
   cache.tick = setTimeout(() => {
     console.error('saving cache')
-    cache.dump().map(hit => store.setItem(hit.k, hit))
+    cache.dump().map(hit => setTimeout(() => store.setItem(hit.k, hit), 0))
   }, 15000)
 
   return cache
