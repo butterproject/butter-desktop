@@ -14,7 +14,7 @@ const mapStateToProps = (item, {tabs, markers}, {match, history}) => ({
 
 const mergeActionProps = ({match, history}) => {
   const episodePath = (item) => item.episode ? `/e/${item.episode}` : ''
-  const seasonPath = (item) => item.season ? `/e/${item.season}` : ''
+  const seasonPath = (item) => item.season ? `/s/${item.season}` : ''
 
   return {
     play: (item) => history.push(`${match.url}${seasonPath(item)}${episodePath(item)}/play`),
