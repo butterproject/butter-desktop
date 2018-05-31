@@ -17,7 +17,7 @@ const itemURL = (item) => {
     }
 }
 
-const processTabState = (providers, collections, filters, cache) => {
+const processTabState = (providers, collections, filters, cache, providerActions) => {
     const search = filters.search ? new RegExp(filters.search, 'i'): null
 
     return providers.reduce((acc, provider) => {
@@ -33,20 +33,31 @@ const processTabState = (providers, collections, filters, cache) => {
                 return Object.assign({provider}, cache.get(id))
             }).filter(i => i)),
             isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
-            failed: acc.failed.concat(col.failed ? [col.failed] : [])
+            failed: acc.failed.concat(col.failed ? [col.failed] : []),
+            providers: acc.providers.concat([{
+                name: provider,
+                actions: providerActions[provider],
+                isFetching: col.isFetching
+            }])
         }
-    }, {items: [], failed: []})
+    }, {items: [], failed: [], providers: []})
 
 }
 
 const memoizedProcessTabState = memoize (processTabState)
 
 const ListContainer = connect(
-    ({collections, markers, filters, cache}, {tab}) => {
+    ({markers, collections, filters, cache, providerActions}, {tab}) => {
         console.error('list', tab, filters)
         let url = `/list/${tab.id}`
 
-        const tabState = memoizedProcessTabState(tab.providers, collections, filters, cache)
+        /**
+         * XXX: we pass the long argument list for memoization to work
+         * I know it's tempting to just pass state, but don't
+         */
+        const tabState = memoizedProcessTabState(
+            tab.providers, collections, filters, cache, providerActions
+        )
 
         return {
             ...tabState,
@@ -54,12 +65,23 @@ const ListContainer = connect(
         }
     },
     (dispatch, {match, history}) => ({
+        dispatch,
         actions: {
             ...bindMarkersActions(dispatch),
             show: (item) => history.push(`${match.url}/${itemURL(item)}`),
             play: (item) => history.push(`${match.url}/${itemURL(item)}/play`)
-    }
-  })
+        }
+    }),
+    ({providers, ...stateProps}, {dispatch, ...dispatchProps}, ownProps) => ({
+        ...stateProps,
+        ...dispatchProps,
+        ...ownProps,
+        onStarve: (e, page) => providers.map(
+            provider => provider.isFetching || dispatch(
+                provider.actions.FETCH({page,})
+            )
+        )
+    })
 )(List)
 
 export {ListContainer as default}
