@@ -20,17 +20,17 @@ const getShowItem = (item, state, {match}) => {
     return item
 }
 
-const wireGoBack = (item, state, {history}) => ({
+const mapStateToProps = (item, state, {history}) => ({
     goBack: {
         action: history.goBack,
         title: item.title
     }
 })
 
-const PlayerMovieContainer = connectItem(wireGoBack)(PlayerView)
+const PlayerMovieContainer = connectItem(mapStateToProps)(PlayerView)
 
 const PlayerShowContainer = connectItem(
-    wireGoBack, getShowItem
+    mapStateToProps, getShowItem
 )(PlayerView)
 
 export {PlayerMovieContainer, PlayerShowContainer}
