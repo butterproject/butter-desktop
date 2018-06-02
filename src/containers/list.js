@@ -17,11 +17,11 @@ const itemURL = (item) => {
     }
 }
 
-const getItems = (ids, cache, search) => {
+const getItems = (ids, provider, cache, search) => {
     const sortedIds = Object.keys(ids)
                             .sort()
                             .reduce((acc, k) => acc.concat(ids[k]), [])
-    const items = sortedIds.map(id => cache.get(id))
+    const items = sortedIds.map(id => Object.assign({provider}, cache.get(id)))
     if (! search || ! items.length) {
         return items
     }
@@ -36,7 +36,7 @@ const processTabState = (providers, collections, filters, cache, providerActions
         const col = collections[provider]
 
         return {
-            items: acc.items.concat(getItems(col.ids, cache, search)),
+            items: acc.items.concat(getItems(col.ids, provider, cache, search)),
             isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
             failed: acc.failed.concat(col.failed ? [col.failed] : []),
             providers: acc.providers.concat([{
