@@ -17,6 +17,18 @@ const itemURL = (item) => {
     }
 }
 
+const getItems = (ids, cache, search) => {
+    const sortedIds = Object.keys(ids)
+                            .sort()
+                            .reduce((acc, k) => acc.concat(ids[k]), [])
+    const items = sortedIds.map(id => cache.get(id))
+    if (! search || ! items.length) {
+        return items
+    }
+
+    return items.filter(item => item.title.match(search))
+}
+
 const processTabState = (providers, collections, filters, cache, providerActions) => {
     const search = filters.search ? new RegExp(filters.search, 'i'): null
 
@@ -24,14 +36,7 @@ const processTabState = (providers, collections, filters, cache, providerActions
         const col = collections[provider]
 
         return {
-            items: acc.items.concat(col.items.map(id => {
-                const item = cache.get(id)
-                if (search && ! item.title.match(search)) {
-                    return null
-                }
-
-                return Object.assign({provider}, cache.get(id))
-            }).filter(i => i)),
+            items: acc.items.concat(getItems(col.ids, cache, search)),
             isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
             failed: acc.failed.concat(col.failed ? [col.failed] : []),
             providers: acc.providers.concat([{
