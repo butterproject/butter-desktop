@@ -99,6 +99,21 @@ const reducersFromTabs = (tabs, cache) => {
   }
 }
 
+const buildRootReducer = (tabs, settings, cache) => {
+  const {providerActions, providerReducers} = reducersFromTabs(tabs, cache)
+  return combineReducers({
+    ...providerReducers,
+    markers: markers.reducer,
+    filters: filters.reducer,
+    router: routerReducer,
+    cache: () => cache,
+    providerActions: () => providerActions,
+    settings: (state, action) => ({
+      ...settings
+    })
+  })
+}
+
 const butterCreateStore = ({tabs, ...settings}) => {
   const persistEngine = debounce(
     filter(
@@ -115,24 +130,11 @@ const butterCreateStore = ({tabs, ...settings}) => {
 
   return loadCache()
     .then(cache => {
-      const {providerActions, providerReducers} = reducersFromTabs(tabs, cache)
-      const rootReducer = combineReducers({
-        ...providerReducers,
-        markers: markers.reducer,
-        filters: filters.reducer,
-        router: routerReducer,
-        cache: () => cache,
-        providerActions: () => providerActions,
-        settings: (state, action) => ({
-          ...settings
-        })
-      })
-
+      const rootReducer = buildRootReducer(tabs, settings, cache)
       const persistReducer = storage.reducer(rootReducer)
-
       const store = createStore(persistReducer, enhancer)
 
-      return {store, providerActions}
+      return {store}
     })
 }
 
