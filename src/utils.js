@@ -76,7 +76,7 @@ const mergePropsWithActions = (extraActions = () => {}) =>
   ({item, retItem, collection, providerActions, ...stateProps},
     {dispatch, ...dispatchProps},
     {match, ...ownProps}) => {
-    if (!retItem) {
+    if (!retItem || !collection) {
       return {...stateProps, ...dispatchProps, ...ownProps, dispatch, match}
     }
 
