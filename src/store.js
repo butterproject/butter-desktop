@@ -121,7 +121,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
                    Object.assign({
                      storeName   : 'redux_storage',
                    }, forageConfig)
-      ), ['markers', 'collections', 'settings']),
+      ), ['markers', 'settings']),
     1500)
   const middlewares = [thunk, storage.createMiddleware(persistEngine)]
   const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
