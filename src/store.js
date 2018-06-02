@@ -14,6 +14,7 @@ import filter from 'redux-storage-decorator-filter'
 import localforage from 'localforage'
 import LRU from 'lru-cache'
 
+/* reducers/actions */
 import markers from './redux/markers'
 import filters from './redux/filters'
 
