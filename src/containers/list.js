@@ -66,7 +66,8 @@ const ListContainer = connect(
 
         return {
             ...tabState,
-            ...markers
+            ...markers,
+            collections
         }
     },
     (dispatch, {match, history}) => ({
@@ -77,14 +78,18 @@ const ListContainer = connect(
             play: (item) => history.push(`${match.url}/${itemURL(item)}/play`)
         }
     }),
-    ({providers, ...stateProps}, {dispatch, ...dispatchProps}, ownProps) => ({
+    ({providers, collections, ...stateProps}, {dispatch, ...dispatchProps}, ownProps) => ({
         ...stateProps,
         ...dispatchProps,
         ...ownProps,
-        onStarve: (e, page) => providers.map(
-            provider => provider.isFetching || dispatch(
-                provider.actions.FETCH({page,})
-            )
+        onStarve: (e) => providers.map(
+            provider => provider.isFetching || do {
+                const {ids} = collections[provider.name]
+                const page = Object.keys(ids).sort().pop() || 0
+                dispatch(
+                    provider.actions.FETCH({page: Number(page) + 1})
+                )
+            }
         )
     })
 )(List)
