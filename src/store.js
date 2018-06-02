@@ -136,8 +136,13 @@ const butterCreateStore = ({tabs, ...settings}) => {
 
       storage.createLoader(persistEngine)(store)
              .catch(() => console.log('Failed to load previous state'))
-             .then(() => Object.values(providerActions)
-                               .map(a => store.dispatch(a.FETCH({page:0}))))
+             .then(() => {
+               const {providerActions} = store.getState()
+
+               Object.values(providerActions)
+                                              .map(a => store.dispatch(a.FETCH({page:0})))
+             })
+
 
       return {store}
     })
