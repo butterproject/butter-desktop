@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {connect} from 'react-redux'
 
 import {bindMarkersActions} from './redux/markers'
@@ -46,11 +44,11 @@ const extractItemFromState = (processExtraProps = () => {}, processItem = Identi
     let extraProps = {}
 
     try {
-        collection = collections[match.params.provider]
-        item = cache.get(match.params.id)
-        retItem = processItem(item, state, {...props, collection}) || item
+      collection = collections[match.params.provider]
+      item = cache.get(match.params.id)
+      retItem = processItem(item, state, {...props, collection}) || item
 
-        if (!retItem) {
+      if (!retItem) {
         throw new Error('Content undefined')
       }
 
@@ -66,71 +64,78 @@ const extractItemFromState = (processExtraProps = () => {}, processItem = Identi
     return {
       item,
       collection,
-        retItem,
-        providerActions,
+      retItem,
+      providerActions,
       ...extraProps
     }
   }
 
-const mergePropsWithActions = (extraActions = () => {}) =>
-  ({item, retItem, collection, providerActions, ...stateProps},
+const fetchDetail = ({item, collection, ...props}) => {
+  const {dispatch, actions} = props
+  let {isFetching} = collection
+  const {detail} = collection
+
+  if (detail === item.id) {
+    delete (airing[item.id])
+  } else {
+    if (isFetching || airing[item.id]) {
+      console.log('already fetching')
+    } else {
+      console.error('dispatching DETAILS', item)
+      airing[item.id] = dispatch(actions.DETAIL(item.id))
+      isFetching = true
+    }
+  }
+
+  return {
+    ...props,
+    isFetching
+  }
+}
+
+const filterProps = ({item, retItem, collection, ...props}) => ({
+  ...props,
+  ...retItem
+})
+
+const mergeProps = (enrichProps = Identity) =>
+  ({retItem, collection, providerActions, ...stateProps},
     {dispatch, ...dispatchProps},
     {match, ...ownProps}) => {
     if (!retItem || !collection) {
       return {...stateProps, ...dispatchProps, ...ownProps, dispatch, match}
     }
 
-    let {isFetching} = collection
-    const {detail} = collection
     const actions = {
       ...bindMarkersActions(dispatch),
       ...providerActions[match.params.provider]
     }
 
-    if (detail === item.id) {
-      delete (airing[item.id])
-    } else {
-      if (isFetching || airing[item.id]) {
-        console.log('already fetching')
-      } else {
-        console.error('dispatching DETAILS', item)
-        airing[item.id] = dispatch(actions.DETAIL(item.id))
-        isFetching = true
-      }
-    }
-
-    const props = {
+    return filterProps(enrichProps({
       ...stateProps,
       ...dispatchProps,
       ...ownProps,
-      ...retItem,
-      isFetching,
+      retItem,
+      collection,
       match,
       dispatch,
       actions
-    }
-
-    return {
-      ...props,
-      actions: {
-        ...actions,
-        ...extraActions(props)
-      }
-    }
+    }))
   }
 
-const connectItem = (processExtraProps, processItem, extraActions) => (
+const connectItem = (processExtraProps, processItem, enrichProps) => (
   connect(
     extractItemFromState(processExtraProps, processItem),
     undefined,
-    mergePropsWithActions(extraActions)
+    mergeProps(enrichProps)
   )
 )
 
 export {
   relativePath,
   windowActions,
+  fetchDetail,
   extractItemFromState,
-  mergePropsWithActions,
+  mergeProps,
   connectItem
 }
