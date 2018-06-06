@@ -15,21 +15,21 @@ import localforage from 'localforage'
 import LRU from 'lru-cache'
 
 /* reducers/actions */
-import markers  from './redux/markers'
-import filters  from './redux/filters'
+import markers from './redux/markers'
+import filters from './redux/filters'
 import streamer from './redux/streamer'
 
 import {remote} from 'electron'
 
 const forageConfig = {
-  name        : 'Butter',
-  version     : 1.0,
-  size        : 4980736,
+  name: 'Butter',
+  version: 1.0,
+  size: 4980736
 }
 
 const loadCache = () => {
   const store = localforage.createInstance(Object.assign({storeName: 'butter_cache'},
-                                                         forageConfig))
+    forageConfig))
   return store.keys().then((keys) => (
     Promise.all(keys.map(k => store.getItem(k)))
   )).then(dehydrate => createCache(store, dehydrate))
@@ -120,9 +120,9 @@ const butterCreateStore = ({tabs, ...settings}) => {
   const persistEngine = debounce(
     filter(
       createEngine('butterstorage',
-                   Object.assign({
-                     storeName   : 'redux_storage',
-                   }, forageConfig)
+        Object.assign({
+          storeName: 'redux_storage'
+        }, forageConfig)
       ), ['markers', 'settings']),
     1500)
   const middlewares = [thunk, storage.createMiddleware(persistEngine)]
@@ -137,14 +137,13 @@ const butterCreateStore = ({tabs, ...settings}) => {
       const store = createStore(persistReducer, enhancer)
 
       storage.createLoader(persistEngine)(store)
-             .catch(() => console.log('Failed to load previous state'))
-             .then(() => {
-               const {providerActions} = store.getState()
+        .catch(() => console.log('Failed to load previous state'))
+        .then(() => {
+          const {providerActions} = store.getState()
 
-               Object.values(providerActions)
-                                              .map(a => store.dispatch(a.FETCH({page:0})))
-             })
-
+          Object.values(providerActions)
+            .map(a => store.dispatch(a.FETCH({page: 0})))
+        })
 
       return {store}
     })

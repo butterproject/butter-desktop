@@ -20,19 +20,19 @@ require('./style.css')
 
 const firstTab = Object.keys(Settings.tabs)[0]
 const RoutedNinja = () => (
-    <Router>
-        <Window title={<Logo />} actions={windowActions}>
-            <Switch>
-                <Route path='/settings' component={ButterSettingsContainer} />
-                <Route path='/list/:tab/:provider/:id/s/:sid/e/:eid/play' component={PlayerShowContainer} />
-                <Route path='/list/:tab/:provider/:id/s/:sid/play' component={PlayerShowContainer} />
-                <Route path='/list/:tab/:provider/:id/play' component={PlayerMovieContainer} />
-                <Route path='/list/:tab/:provider/:id' component={ContentDetailContainer} />
-                <Route path='/list/:tab' component={ListViewContainer} />
-                <Redirect to={`/list/${firstTab}`} />
-            </Switch>
-        </Window>
-    </Router>
+  <Router>
+    <Window title={<Logo />} actions={windowActions}>
+      <Switch>
+        <Route path='/settings' component={ButterSettingsContainer} />
+        <Route path='/list/:tab/:provider/:id/s/:sid/e/:eid/play' component={PlayerShowContainer} />
+        <Route path='/list/:tab/:provider/:id/s/:sid/play' component={PlayerShowContainer} />
+        <Route path='/list/:tab/:provider/:id/play' component={PlayerMovieContainer} />
+        <Route path='/list/:tab/:provider/:id' component={ContentDetailContainer} />
+        <Route path='/list/:tab' component={ListViewContainer} />
+        <Redirect to={`/list/${firstTab}`} />
+      </Switch>
+    </Window>
+  </Router>
 )
 
 const storePromise = createStore(Settings)

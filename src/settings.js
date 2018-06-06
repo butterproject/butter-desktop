@@ -12,9 +12,9 @@ Settings.tabs = {
     providers: ['youtube?channel=midianinjafly&mode=shows']
   },
   telesur: {
-      order: 3,
-      name: 'TeleSur',
-      providers: ['youtube?channel=telesurtv&mode=shows']
+    order: 3,
+    name: 'TeleSur',
+    providers: ['youtube?channel=telesurtv&mode=shows']
   }
 }
 
