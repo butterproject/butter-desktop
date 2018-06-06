@@ -15,8 +15,9 @@ import localforage from 'localforage'
 import LRU from 'lru-cache'
 
 /* reducers/actions */
-import markers from './redux/markers'
-import filters from './redux/filters'
+import markers  from './redux/markers'
+import filters  from './redux/filters'
+import streamer from './redux/streamer'
 
 import {remote} from 'electron'
 
@@ -105,6 +106,7 @@ const buildRootReducer = (tabs, settings, cache) => {
     ...providerReducers,
     markers: markers.reducer,
     filters: filters.reducer,
+    streamer: streamer.reducer,
     router: routerReducer,
     cache: () => cache,
     providerActions: () => providerActions,
