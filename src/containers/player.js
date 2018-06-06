@@ -34,7 +34,8 @@ const startStreamer = (props) => {
         loading = false
     }
 
-    const url = retItem.sources[0].url
+    const quality = Object.keys(retItem.sources).pop()
+    const url = retItem.sources[quality].url
     if (streamer.loaded === url || streamer.loading || loading) {
         console.error('already loading/loaded this content')
     } else {
