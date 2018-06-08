@@ -60,6 +60,7 @@
     "butter-component-list": "buttercomponents/butter-component-list",
     "butter-component-menu": "buttercomponents/butter-component-menu",
     "butter-component-settings": "buttercomponents/butter-component-settings",
+    "butter-component-video": "buttercomponents/butter-component-video",
     "butter-provider-gdocs": "butterproviders/butter-provider-gdocs",
     "butter-provider-vodo": "butterproviders/butter-provider-vodo",
     "butter-provider-youtube": "butterproviders/butter-provider-youtube",
