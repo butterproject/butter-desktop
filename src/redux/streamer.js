@@ -24,7 +24,6 @@ const actions = {
                 buffer: 100,
                 port: 9999,
                 writeDir: '',
-                index: 'ssss.mp4'
             }).on('ready', ({streamUrl}) => {
                 console.error('ready--->resolving', streamUrl)
                 resolve(`${streamUrl}/0/?${url}`)
