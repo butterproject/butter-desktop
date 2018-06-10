@@ -9,7 +9,7 @@ const mapStateToProps = (item, {tabs, markers}, {match, history}) => ({
     action: history.goBack,
     title: tabs[match.params.tab].name
   },
-  ...markers
+  markers
 })
 
 const mergeProps = ({actions, ...props}) => {

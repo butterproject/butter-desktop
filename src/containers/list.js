@@ -66,7 +66,7 @@ const ListContainer = connect(
 
         return {
             ...tabState,
-            ...markers,
+            markers,
             collections
         }
     },

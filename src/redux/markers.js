@@ -2,7 +2,8 @@ import {createActions, handleActions} from 'redux-actions'
 
 const MARKERSActions = {
   ADD: undefined,
-  REMOVE: undefined
+  REMOVE: undefined,
+  TOGGLE: undefined
 }
 
 const actions = createActions({
@@ -18,6 +19,14 @@ const MARKERSHandlers = (item) => ({
   REMOVE: (state, {payload}) => {
     delete state[item][payload]
     return state
+  },
+  TOGGLE: (state, {payload}) => {
+    if (state[item][payload]) {
+      delete state[item][payload]
+    } else {
+      state[item][payload] = true
+    }
+    return state
   }
 })
 
@@ -32,7 +41,8 @@ const bindMarkersActions = (dispatch) =>
       Object.assign(acc, {
         [action]: {
           add: (id) => dispatch(actions[action].add(id)),
-          remove: (id) => dispatch(actions[action].remove(id))
+          remove: (id) => dispatch(actions[action].remove(id)),
+          toggle: (id) => dispatch(actions[action].toggle(id))
         }
       }), {})
 
