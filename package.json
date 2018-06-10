@@ -1,6 +1,6 @@
 {
   "name": "TVNinja",
-  "version": "0.0.1-alpha4",
+  "version": "0.0.1-alpha5",
   "description": "A pretty awesome media player",
   "main": "electron/main.js",
   "build": {
