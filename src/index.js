@@ -26,7 +26,7 @@ const RoutedNinja = () => (
         <Route path='/settings' component={ButterSettingsContainer} />
         <Route path='/list/:tab/:provider/:id/s/:sid/e/:eid/play' component={PlayerShowContainer} />
         <Route path='/list/:tab/:provider/:id/s/:sid/play' component={PlayerShowContainer} />
-        <Route path='/list/:tab/:provider/:id/play' component={PlayerMovieContainer} />
+        <Route path='/list/:tab/:provider/:id/play' component={PlayerShowContainer} />
         <Route path='/list/:tab/:provider/:id' component={ContentDetailContainer} />
         <Route path='/list/:tab' component={ListViewContainer} />
         <Redirect to={`/list/${firstTab}`} />

@@ -6,28 +6,43 @@ import PlayerView from '../components/player'
 import {connectItem, fetchDetail} from '../utils'
 import StreamerReduxer from '../redux/streamer'
 
-const getShowItem = (item, state, {match}) => {
-    /* XXX: should we implement this for TVSHOW too ? */
+const getOrder = (array, order) => (
+    array.filter(element => Number(element.order) === Number(order))[0]
+)
+
+const getShowItem = (item, state, {match, ...props}) => {
+    let retItem = item
+
     if (item.type === ButterProvider.ItemType.TVSHOW2) {
-        try {
+        try {/* XXX: should we implement this for TVSHOW too ? */
             /* XXX: grab first not-seen episode */
             const [sid, eid] = [match.params.sid || 1, match.params.eid || 1]
-            item = item.seasons[sid - 1].episodes[eid - 1]
-        } catch (e) {
+            const season = getOrder(item.seasons, sid)
+
+            retItem = getOrder(season.episodes, eid)
+        }  catch (e) {
             /* maybe we didn't get details yet ? */
+            console.error("fetch details")
+            return {
+                ...props,
+                shouldFetch: true
+            }
         }
     }
 
-    return item
+    return retItem
 }
 
 let loading = false
 const startStreamer = (props) => {
-    const newProps = fetchDetail(props)
-    const {isFetching, retItem, dispatch, streamer, history} = newProps
+    const {isFetching, retItem, dispatch, streamer, history} = props
+
+    if (retItem.shouldFetch) {
+        return fetchDetail(props)
+    }
 
     if (isFetching) {
-        return newProps
+        return props
     }
 
     if (streamer.loading) {
@@ -45,13 +60,14 @@ const startStreamer = (props) => {
     }
 
     return {
-        ...newProps,
+        ...props,
         goBack: {
             action: () => {
                 history.goBack()
+                console.error('dispatching CLOSE')
                 setTimeout(() => (
                     dispatch(StreamerReduxer.actions.CLOSE())
-                ), 1000)
+                ), 0)
 
             },
             title: retItem.title

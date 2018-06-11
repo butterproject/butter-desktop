@@ -62,7 +62,8 @@ const reducer = (state, action) => {
             return serveReducer(state, action)
         case CLOSE:
             server.close()
-            return {...state, loading: false, loaded: null}
+            server = null
+            return {...state, loading: false, loaded: null, url: null}
         default:
             return state
     }
