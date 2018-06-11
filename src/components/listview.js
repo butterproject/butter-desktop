@@ -18,13 +18,13 @@ const ListView = ({tab, menu, match, history, location, actions}) => ([
                 ]} actions={{search: actions.search}} />
             }
     />,
-    <div key={'/list'}>
-        <TransitionGroup>
-            <CSSTransition key={location.pathname} classNames='fade' timeout={300}>
+    <TransitionGroup key={'/list'}>
+        <CSSTransition key={location.pathname} classNames='fade' timeout={300}>
+            <div style={{overflow: 'scroll', height: '100%'}}>
                 <ListContainer tab={tab} history={history} match={match}/>
-            </CSSTransition>
-        </TransitionGroup>
-    </div>
+            </div>
+        </CSSTransition>
+    </TransitionGroup>
 ])
 
 export {ListView as default}
