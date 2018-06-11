@@ -82,7 +82,7 @@ const fetchDetail = ({item, collection, ...props}) => {
       console.log('already fetching')
     } else {
       console.error('dispatching DETAILS', item)
-      airing[item.id] = dispatch(actions.DETAIL(item.id))
+      airing[item.id] = dispatch(actions.DETAIL(item))
       isFetching = true
     }
   }
