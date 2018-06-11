@@ -60,14 +60,23 @@ const ListContainer = connect(
          * XXX: we pass the long argument list for memoization to work
          * I know it's tempting to just pass state, but don't
          */
-        const tabState = memoizedProcessTabState(
-            tab.providers, collections, filters, cache, providerActions
-        )
+        try {
+            const tabState = memoizedProcessTabState(
+                tab.providers, collections, filters, cache, providerActions
+            )
 
-        return {
-            ...tabState,
-            markers,
-            collections
+            return {
+                ...tabState,
+                markers,
+                collections
+            }
+        } catch (e) {
+            console.error('error in list', e)
+            return {
+                markers,
+                collections,
+                items: []
+            }
         }
     },
     (dispatch, {match, history}) => ({
