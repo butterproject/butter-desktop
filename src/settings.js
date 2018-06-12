@@ -9,6 +9,7 @@ Settings.tabs = {
   tvshow: {
     order: 2,
     name: 'Series',
+    options: {itemShowPlay: false},
     providers: ['youtube?channel=midianinjafly&mode=shows']
   },
   telesur: {

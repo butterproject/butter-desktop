@@ -10,8 +10,8 @@ const mapStateToProps = ({tabs}, {match}) => {
     let tab = tabs[tabId]
     tab.id = tabId
 
-    const menu = Object.entries(tabs).map(([key, value]) => ({
-        title: value.name,
+    const menu = Object.entries(tabs).map(([key, {name}]) => ({
+        title: name,
         path: `/list/${key}`
     }))
 

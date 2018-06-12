@@ -46,61 +46,62 @@ const processTabState = (providers, collections, filters, cache, providerActions
             }])
         }
     }, {items: [], failed: [], providers: []})
-
 }
 
 const memoizedProcessTabState = memoize (processTabState)
 
-const ListContainer = connect(
-    ({markers, collections, filters, cache, providerActions}, {tab}) => {
-        console.error('list', tab, filters)
-        let url = `/list/${tab.id}`
+const mapStateToProps =  ({markers, collections, filters, cache, providerActions}, {tab}) => {
+    console.error('list', tab, filters)
+    let url = `/list/${tab.id}`
 
-        /**
-         * XXX: we pass the long argument list for memoization to work
-         * I know it's tempting to just pass state, but don't
-         */
-        try {
-            const tabState = memoizedProcessTabState(
-                tab.providers, collections, filters, cache, providerActions
-            )
-
-            return {
-                ...tabState,
-                markers,
-                collections
-            }
-        } catch (e) {
-            console.error('error in list', e)
-            return {
-                markers,
-                collections,
-                items: []
-            }
-        }
-    },
-    (dispatch, {match, history}) => ({
-        dispatch,
-        actions: {
-            ...bindMarkersActions(dispatch),
-            show: (item) => history.push(`${match.url}/${itemURL(item)}`),
-            play: (item) => history.push(`${match.url}/${itemURL(item)}/play`)
-        }
-    }),
-    ({providers, collections, ...stateProps}, {dispatch, ...dispatchProps}, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onStarve: (e) => providers.map(
-            provider => provider.isFetching || do {
-                const {ids} = collections[provider.name]
-                const page = Object.keys(ids).sort().pop() || 0
-                dispatch(
-                    provider.actions.FETCH({page: Number(page) + 1})
-                )
-            }
+    /**
+     * XXX: we pass the long argument list for memoization to work
+     * I know it's tempting to just pass state, but don't
+     */
+    try {
+        const tabState = memoizedProcessTabState(
+            tab.providers, collections, filters, cache, providerActions
         )
-    })
-)(List)
+
+        return {
+            ...tabState,
+            markers,
+            collections
+        }
+    } catch (e) {
+        console.error('error in list', e)
+        return {
+            markers,
+            collections,
+            items: []
+        }
+    }
+}
+
+const mapDispatchToProps = (dispatch, {match, history}) => ({
+    dispatch,
+    actions: {
+        ...bindMarkersActions(dispatch),
+        show: (item) => history.push(`${match.url}/${itemURL(item)}`),
+        play: (item) => history.push(`${match.url}/${itemURL(item)}/play`)
+    }
+})
+
+const mergeProps = ({providers, collections, ...stateProps}, {dispatch, ...dispatchProps}, {tab}) => ({
+    ...stateProps,
+    ...dispatchProps,
+    ...tab.options,
+    onStarve: (e) => providers.map(
+        provider => provider.isFetching || do {
+            const {ids} = collections[provider.name]
+            const page = Object.keys(ids).sort().pop() || 0
+            dispatch(
+                provider.actions.FETCH({page: Number(page) + 1})
+            )
+        }
+    )
+})
+
+const ListContainer = connect(mapStateToProps, mapDispatchToProps, mergeProps)(List)
 
 export {ListContainer as default}
