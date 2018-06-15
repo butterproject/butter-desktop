@@ -72,6 +72,7 @@
     "butter-streamer-torrent": "butterstreamers/butter-streamer-torrent",
     "butter-streamer-youtube": "butterstreamers/butter-streamer-youtube",
     "debounce": "^1.1.0",
+    "deep-equal": "^1.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "i18next-node-fs-backend": "^1.0.0",
     "localforage": "^1.7.1",

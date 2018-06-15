@@ -84,7 +84,7 @@ const reducersFromTabs = (tabs, cache) => {
 
     return Object.assign(acc, {
       [k]: Object.assign(tab, {
-        providers: providers.map(provider => provider.id)
+        providers: providers.map(({config, id}) => ({config, id}))
       })
     })
   }, {})

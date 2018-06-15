@@ -11,7 +11,7 @@ import Settings from './settings'
 
 import ButterSettingsContainer from './containers/settings'
 import ContentDetailContainer from './containers/details'
-import {PlayerMovieContainer, PlayerShowContainer} from './containers/player'
+import {PlayerShowContainer} from './containers/player'
 import ListViewContainer from './containers/listview'
 
 import Logo from './components/logo'

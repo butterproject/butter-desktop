@@ -33,15 +33,15 @@ const processTabState = (providers, collections, filters, cache, providerActions
     const search = filters.search ? new RegExp(filters.search, 'i'): null
 
     return providers.reduce((acc, provider) => {
-        const col = collections[provider]
+        const col = collections[provider.id]
 
         return {
-            items: acc.items.concat(getItems(col.ids, provider, cache, search)),
+            items: acc.items.concat(getItems(col.ids, provider.id, cache, search)),
             isFetching: acc.isFetching ? acc.isFetching : col.isFetching,
             failed: acc.failed.concat(col.failed ? [col.failed] : []),
             providers: acc.providers.concat([{
-                name: provider,
-                actions: providerActions[provider],
+                name: provider.id,
+                actions: providerActions[provider.id],
                 isFetching: col.isFetching
             }])
         }
