@@ -9,6 +9,9 @@ const {Dropdown} = Dropdowns
 import deepEqual from 'deep-equal'
 
 import ListContainer from '../containers/list'
+import SortAsc from '../icons/sort-ascending.svg'
+import SortDesc from '../icons/sort-descending.svg'
+
 import style from './listview.styl'
 
 const order = {
@@ -22,6 +25,19 @@ const Selector = ({children, title, ...props}) => (
         <Dropdown {...props}/>
     </span>
 )
+
+const OrderSelector = ({order, apply}) => {
+    const style = {
+        fill: 'var(--Font-color)',
+        margin: 'auto'
+    }
+
+    if (order === 'asc') {
+        return <SortAsc onClick={() => apply('desc')} style={style}/>
+    }
+
+    return <SortDesc onClick={() => apply('asc')} style={style}/>
+}
 
 class ListView extends React.Component {
     shouldComponentUpdate (nextProps) {
@@ -60,10 +76,7 @@ class ListView extends React.Component {
                               selected={filters.sorter}
                               options={config.filters.sorters}
                               apply={(item) => actions.sorter(item)} />
-                    <Selector title="Order"
-                              selected={filters.order}
-                              options={order}
-                              apply={(item) => actions.order(item)} />
+                    <OrderSelector order={filters.order} apply={actions.order}/>
                 </div>
             </Navbar>
             ,
