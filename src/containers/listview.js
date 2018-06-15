@@ -30,7 +30,8 @@ const mapStateToProps = ({tabs, filters, providerActions}, {match}) => {
 }
 
 
-const mergeProps = ({tab, ...stateProps}, {dispatch}, {match, history, ...ownProps}) => {
+const mergeProps = ({tab, ...stateProps}, {dispatch}, ownProps) => {
+    const {match, history} = ownProps
     const {actions} = tab
     const providerActions = Object.keys(actions).reduce((acc, key) => Object.assign(acc, {
         [key]: (...args) => actions[key].map(action => dispatch(action(...args)))
