@@ -54,6 +54,7 @@
     "standard": "^11.0.1"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "butter-action-types": "buttercomponents/butter-action-types",
     "butter-base-components": "buttercomponents/butter-base-components",
     "butter-component-content-details": "buttercomponents/butter-component-content-details",
