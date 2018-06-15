@@ -4,14 +4,25 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import {Navbar, Toolbar, Dropdowns} from 'butter-base-components'
 import {RouterMenu} from 'butter-component-menu'
+const {Dropdown} = Dropdowns
 
 import deepEqual from 'deep-equal'
 
 import ListContainer from '../containers/list'
 
-const {Dropdown} = Dropdowns
+import style from './listview.styl'
 
-console.error (Dropdown)
+const order = {
+    asc: 'Ascending',
+    desc: 'Decending'
+}
+
+const Selector = ({children, title, ...props}) => (
+    <span className={style.selector}>
+        <label className={style.label}>{title}:</label>
+        <Dropdown {...props}/>
+    </span>
+)
 
 class ListView extends React.Component {
     shouldComponentUpdate (nextProps) {
@@ -36,16 +47,15 @@ class ListView extends React.Component {
                     left={
                         <div style={{display: 'flex'}}>
                             <RouterMenu items={menu} location={location} />
-                            <span>
-                                <label>Genre:</label>
-                                <Dropdown options={config.filters.genres}
-                                                  apply={(item) => actions.genre(item)} />
-                            </span>
-                            <span>
-                                <label>Sort By:</label>
-                                <Dropdown options={config.filters.sorters}
-                                                  apply={(item) => actions.sorter(item)} />
-                            </span>
+                            <Selector title="Genre"
+                                             options={config.filters.genres}
+                                             apply={(item) => actions.genre(item)} />
+                            <Selector title="Sort By"
+                                             options={config.filters.sorters}
+                                             apply={(item) => actions.sorter(item)} />
+                            <Selector title="Order"
+                                             options={order}
+                                             apply={(item) => actions.order(item)} />
                         </div>
                     }
                     right={
