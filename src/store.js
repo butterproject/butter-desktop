@@ -18,6 +18,7 @@ import LRU from 'lru-cache'
 import markers from './redux/markers'
 import filters from './redux/filters'
 import streamer from './redux/streamer'
+import settings from './redux/settings'
 
 import {remote} from 'electron'
 
@@ -100,23 +101,21 @@ const reducersFromTabs = (tabs, cache) => {
   }
 }
 
-const buildRootReducer = (tabs, settings, cache) => {
+const buildRootReducer = (tabs, cachedSettings, cache) => {
   const {providerActions, providerReducers} = reducersFromTabs(tabs, cache)
   return combineReducers({
     ...providerReducers,
     markers: markers.reducer,
     filters: filters.reducer,
     streamer: streamer.reducer,
+    settings: settings.reducerCreator(cachedSettings),
     router: routerReducer,
     cache: () => cache,
     providerActions: () => providerActions,
-    settings: (state, action) => ({
-      ...settings
-    })
   })
 }
 
-const butterCreateStore = ({tabs, ...settings}) => {
+const butterCreateStore = ({tabs, ...cachedSettings}) => {
   const persistEngine = debounce(
     filter(
       createEngine('butterstorage',
@@ -132,7 +131,7 @@ const butterCreateStore = ({tabs, ...settings}) => {
 
   return loadCache()
     .then(cache => {
-      const rootReducer = buildRootReducer(tabs, settings, cache)
+      const rootReducer = buildRootReducer(tabs, cachedSettings, cache)
       const persistReducer = storage.reducer(rootReducer)
       const store = createStore(persistReducer, enhancer)
 
