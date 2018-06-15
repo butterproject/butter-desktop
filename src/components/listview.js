@@ -44,28 +44,29 @@ class ListView extends React.Component {
         return ([
             <Navbar key='main_nav'
                     left={
-                        <div style={{display: 'flex'}}>
-                            <RouterMenu items={menu} location={location} />
-                            <Selector title="Genre"
-                                             selected={filters.genre}
-                                             options={config.filters.genres}
-                                             apply={(item) => actions.genre(item)} />
-                            <Selector title="Sort By"
-                                             selected={filters.sorter}
-                                             options={config.filters.sorters}
-                                             apply={(item) => actions.sorter(item)} />
-                            <Selector title="Order"
-                                             selected={filters.order}
-                                             options={order}
-                                             apply={(item) => actions.order(item)} />
-                        </div>
+                        <RouterMenu items={menu} location={location} />
                     }
                     right={
                         <Toolbar search buttons={[
                             {title: 'settings', icon: 'settings', action: actions.settings}
                         ]} actions={{search: actions.search}} />
-                    }
-            />,
+                    }>
+                <div style={{display: 'flex'}}>
+                    <Selector title="Genre"
+                              selected={filters.genre}
+                              options={config.filters.genres}
+                              apply={(item) => actions.genre(item)} />
+                    <Selector title="Sort By"
+                              selected={filters.sorter}
+                              options={config.filters.sorters}
+                              apply={(item) => actions.sorter(item)} />
+                    <Selector title="Order"
+                              selected={filters.order}
+                              options={order}
+                              apply={(item) => actions.order(item)} />
+                </div>
+            </Navbar>
+            ,
             <TransitionGroup key={'/list'}>
                 <CSSTransition key={location.pathname} classNames='fade' timeout={300}>
                     <div style={{overflow: 'scroll', height: '100%'}}>
