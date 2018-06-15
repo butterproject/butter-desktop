@@ -9,7 +9,6 @@ const {Dropdown} = Dropdowns
 import deepEqual from 'deep-equal'
 
 import ListContainer from '../containers/list'
-
 import style from './listview.styl'
 
 const order = {
