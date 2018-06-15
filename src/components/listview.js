@@ -47,12 +47,15 @@ class ListView extends React.Component {
                         <div style={{display: 'flex'}}>
                             <RouterMenu items={menu} location={location} />
                             <Selector title="Genre"
+                                             selected={filters.genre}
                                              options={config.filters.genres}
                                              apply={(item) => actions.genre(item)} />
                             <Selector title="Sort By"
+                                             selected={filters.sorter}
                                              options={config.filters.sorters}
                                              apply={(item) => actions.sorter(item)} />
                             <Selector title="Order"
+                                             selected={filters.order}
                                              options={order}
                                              apply={(item) => actions.order(item)} />
                         </div>
