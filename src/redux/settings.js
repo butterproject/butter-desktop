@@ -17,7 +17,7 @@ const reducerCreator = (cachedSettings) => handleActions({
             [key]: value
         }
     },
-    [SET_ALL]: (state, {payload}) => ({...state, ...playoad})
+    [SET_ALL]: (state, {payload}) => ({...state, ...payload})
 }, cachedSettings)
 
 const bindSettingsActions = (dispatch) => ({
