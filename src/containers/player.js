@@ -51,9 +51,7 @@ const startStreamer = (props) => {
 
     const quality = Object.keys(retItem.sources).pop()
     const url = retItem.sources[quality].url
-    if (streamer.loaded === url || streamer.loading || loading) {
-        console.error('already loading/loaded this content')
-    } else {
+    if (streamer.loaded !== url && ! streamer.loading && ! loading) {
         loading = true
         console.error('dispatching SERVE', url)
         dispatch(StreamerReduxer.actions.SERVE(url))
