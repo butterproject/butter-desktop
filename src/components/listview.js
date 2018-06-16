@@ -26,18 +26,10 @@ const Selector = ({children, title, ...props}) => (
     </span>
 )
 
-const OrderSelector = ({order, apply}) => {
-    const style = {
-        fill: 'var(--Font-color)',
-        margin: 'auto'
-    }
-
-    if (order === 'asc') {
-        return <SortAsc onClick={() => apply('desc')} style={style}/>
-    }
-
-    return <SortDesc onClick={() => apply('asc')} style={style}/>
-}
+const OrderSelector = ({order, apply}) => (
+    <SortDesc onClick={() => apply(order === 'asc' ? 'desc' : 'asc')}
+              className={style.orderSelector} aria-order={order}/>
+)
 
 class ListView extends React.Component {
     shouldComponentUpdate (nextProps) {

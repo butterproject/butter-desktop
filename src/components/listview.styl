@@ -7,3 +7,24 @@
 .label {
     padding: 0 1vw;
 }
+
+.orderSelector {
+    fill: var(--Font-color);
+    margin: auto;
+    opacity: 0.8;
+    transition: all 250ms ease-in-out;
+    transform: rotate(0);
+}
+
+.orderSelector:hover {
+    opacity: 1;
+    transform: rotate(-180deg) scale(1.5)
+}
+
+.orderSelector[aria-order=asc] {
+   transform: rotate(180deg)
+}
+
+.orderSelector[aria-order=asc]:hover {
+   transform: rotate(0) scale(1.5)
+}
