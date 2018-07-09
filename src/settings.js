@@ -16,7 +16,13 @@ Settings.tabs = {
     order: 3,
     name: 'TeleSur',
     providers: ['youtube?channel=telesurtv&mode=shows']
+  },
+  ascuri: {
+      order: 3,
+      name: 'ASCURI',
+      providers: ['youtube?id=UC_EvIOBMTbte94t3YtJWT_Q&list=UU_EvIOBMTbte94t3YtJWT_Q&mode=list']
   }
+
 }
 
 export {Settings as default}
