@@ -49,7 +49,9 @@ Keep track of Butter development and community activity.
 * Connect with us on IRC at `#butterproject` on freenode ([web access](http://webchat.freenode.net/?channels=butterproject))
 
 ## Screenshots
-![Butter](https://cloud.githubusercontent.com/assets/8317250/10714437/b1e1dc8c-7b32-11e5-9c25-d9fbd5b2f3bd.png)
+![Main Screen](https://user-images.githubusercontent.com/127133/44055361-90b69768-9f1b-11e8-9f8f-1e9ca3173961.png)
+![Details](https://user-images.githubusercontent.com/127133/44055375-98976ef8-9f1b-11e8-8808-dcf7964265be.png)
+![Playing](https://user-images.githubusercontent.com/127133/44055382-9c0b6620-9f1b-11e8-8e3b-c9500dac2013.png)
 ![Debugging Butter](https://cloud.githubusercontent.com/assets/8317250/10714430/add70234-7b32-11e5-9be7-1de539d865ba.png)
 
 ## Supported codecs
