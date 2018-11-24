@@ -1,6 +1,6 @@
 {
-  "name": "TVNinja",
-  "version": "0.0.1-alpha6",
+  "name": "butter-desktop",
+  "version": "0.0.1-alpha7",
   "description": "A pretty awesome media player",
   "main": "electron/main.js",
   "build": {
