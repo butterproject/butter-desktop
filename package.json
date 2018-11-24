@@ -45,15 +45,15 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "butter-component-builder": "buttercomponents/butter-component-builder",
-    "electron": "^2.0.1",
-    "electron-builder": "^20.13.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-reload": "^1.2.2",
     "npm-run-all": "^4.1.3",
     "standard": "^11.0.1"
   },
   "dependencies": {
+    "electron": "^2.0.1",
+    "electron-builder": "^20.13.4",
+    "butter-component-builder": "buttercomponents/butter-component-builder",
     "babel-preset-es2015": "^6.24.1",
     "butter-action-types": "buttercomponents/butter-action-types",
     "butter-base-components": "buttercomponents/butter-base-components",
