@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 
-import Butter from '../src'
 import i18n from './i18n'
+import Butter from 'btm_src'
 
 const {Component, store} = Butter
 
