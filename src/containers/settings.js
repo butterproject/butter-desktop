@@ -9,7 +9,7 @@ import { bindSettingsActions } from '../redux/settings'
 const mapStateToProps = ({settings}, props) => ({
   location: props.location,
   navbar: {goBack: {
-    action: () => (props.history.goBack())
+    action: () => (props.history.push('/'))
   }},
   tabs: settingsTabs,
   settings
