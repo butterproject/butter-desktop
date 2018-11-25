@@ -12,10 +12,11 @@ const root = document.getElementById('root')
 root.className = 'theme-dark'
 
 store.then(({store}) => render(
-    <I18nextProvider i18n={i18n}>
-        <Provider store={store}>
-            <Component />
-        </Provider>
-    </I18nextProvider>,
-    root))
+    React.createElement(
+        I18nextProvider, {i18n},
+        React.createElement(
+            Provider, {store},
+            React.createElement(Component)
+        )
+    ), root))
 
