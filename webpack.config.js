@@ -13,8 +13,8 @@ module.exports = Object.assign(config, {
     entry: Object.assign(config.entry, {index: `${__dirname}/electron/index.js`}),
     externals: {},
     output: {
-        path: __dirname + '/build',
+        path:path.join(process.cwd(), 'build'),
         publicPath: 'build/',
         filename: '[name].js'
-    },
+    }
 })
