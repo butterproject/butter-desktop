@@ -56,7 +56,7 @@ Keep track of Butter development and community activity.
 
 ## Supported codecs
 
-Butter currently support native decoding for the following codecs
+Butter currently supports native decoding for the following codecs
 
 Linux and Mac
 
