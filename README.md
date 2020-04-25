@@ -1,6 +1,17 @@
 
 <img width=225 src="https://github.com/butterproject/artworks/blob/master/Butter/Official/butter-mascot/butter-mascot.png?raw=true">
 
+# THIS PROJECT IS LOOKING FOR A NEW MAINTAINER
+It's been a long time we could not find the time to work on this, and
+really, the implementation of the old architecture work 'good enough' for
+most our daily needs.
+
+I believe there are a lot of good ideas and wonderfull design in butter that
+we wish would get to life, but we have to be honest to ourselves: we will
+probably not be the ones that will push it through anymore.
+
+Cheers, and thanks for all the fish.
+
 # [Butter](https://github.com/butterproject/butter-desktop)
 
 This in butter-next-gen ! based on react, redux and electron !
